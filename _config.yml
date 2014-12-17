@@ -20,7 +20,7 @@ author:
 paginate:         5
 
 # Custom vars
-version:          master
+version:          0.0.1
 
 github:
   repo:           https://github.com/open-cloud/open-cloud.github.io
