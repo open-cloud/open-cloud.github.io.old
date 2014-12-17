@@ -1,0 +1,26 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            Open Cloud Guide
+tagline:          'OpenCloud Guide'
+description:      'A Guide to using, developing and managing OpenCloud'
+url:              http://open-cloud.github.io
+baseurl:          /
+
+author:
+  name:           'open-cloud'
+  url:            https://github.com/open-cloud
+
+paginate:         5
+
+# Custom vars
+version:          0.0.1
+
+github:
+  repo:           https://github.com/open-cloud/open-cloud.github.io
