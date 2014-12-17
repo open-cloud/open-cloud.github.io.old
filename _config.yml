@@ -9,7 +9,7 @@ relative_permalinks: true
 # Setup
 title:            Open Cloud Guide
 tagline:          'OpenCloud Guide'
-description:      'A Guide to using, developing and managing OpenCloud'
+description:      'A guide to using, developing and operating OpenCloud'
 url:              http://open-cloud.github.io
 baseurl:          /
 
