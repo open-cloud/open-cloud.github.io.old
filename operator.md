@@ -7,3 +7,11 @@ title: Operator Guide
 This is where the Operator Guide content will be.
 </p>
 
+#Operator#
+
+##Installing OpenStack##
+
+##Installing XOS##
+
+##Operating OpenCloud##
+

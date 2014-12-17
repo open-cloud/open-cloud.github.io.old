@@ -7,3 +7,15 @@ title: Developer Guide
 This is where the Developer Guide content will be.
 </p>
 
+#Developers#
+
+##Private Developer Environment##
+
+##Testing and Validation##
+
+##Extending XOS##
+###Adding Views###
+###Adding Services###
+
+##Reporting Bugs##
+
