@@ -36,7 +36,7 @@ OpenCloud. They include XOS as the overarching Cloud OS, existing
 OpenStack and Linux components (Nova, Neutron, Keystone, OvS, and
 libvirt), and a new Network Hypervisor called OpenVirteX.
 
-<img src="./figures/Slide1.png" alt="alt text" title ="Figure 1" />
+<img src="./figures/Slide1.jpg" alt="alt text" title ="Figure 1" />
 
 Figure 1. Software components running on OpenCloud.
 
