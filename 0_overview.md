@@ -77,8 +77,7 @@ and it does so in a way that supports multiple administrative domains.
 More information about how operators interact with XOS is given in
 the **Operator Guide**.
 
-![Figure 2. Internal structure of XOS influenced by MVC pattern.]({{
- site.url }}/figures/Slide2.jpg)
+![Figure 2. Internal structure of XOS influenced by MVC pattern.]({{ site.url }}/figures/Slide2.jpg)
 
 Figure 2. Internal structure of XOS influenced by MVC pattern.
 
@@ -524,8 +523,7 @@ from the data center, across wide-area national and regional networks,
 to edge access networks -- with SDN-enabled networks providing
 end-to-end connectivity across the entire system.
 
-![Figure 3. OpenCloud Deployed Across Four Tiers of Resources.]({{
- site.url }}/figures/Slide3.jpg)
+![Figure 3. OpenCloud Deployed Across Four Tiers of Resources.]({{ site.url }}/figures/Slide3.jpg)
 
 Figure 3: OpenCloud Deployed Across Four Tiers of Resources.
 
