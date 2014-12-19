@@ -14,7 +14,7 @@ independent ideas:
 * *Everything-as-a-Service (XaaS)* is the organizing principle that
   underlyies OpenCloud's design. We assume the reader is familiar with
   this general concept. See the relevant
-  [whitepapers](http://opencloud.us/doc) for more information.
+  [whitepapers](http://opencloud.us/docs) for more information.
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that adheres to the
   XaaS principle. XOS runs on OpenCloud, but is also available as open
@@ -36,7 +36,7 @@ OpenCloud. They include XOS as the overarching Cloud OS, existing
 OpenStack and Linux components (Nova, Neutron, Keystone, OvS, and
 libvirt), and a new Network Hypervisor called OpenVirteX.
 
-<img src="figures/Slide1.png" alt="alt text" title ="Figure 1" />
+<img src="./figures/Slide1.png" alt="alt text" title ="Figure 1" />
 
 Figure 1. Software components running on OpenCloud.
 
