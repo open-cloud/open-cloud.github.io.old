@@ -251,12 +251,10 @@ a.sidebar-nav-item:focus {
 
 /* OpenCloud */
 .theme-base-opencloud .sidebar {
-/*  background-color: #448CCA; */
   background-color: #2d6ca2;
 }
 .theme-base-opencloud .content a,
 .theme-base-opencloud .related-posts li a:hover {
-/*  color: #448CCA; */
   color: #2d6ca2;
 }
 

@@ -14,17 +14,17 @@ independent ideas:
 * *Everything-as-a-Service (XaaS)* is the organizing principle that
   underlyies OpenCloud's design. We assume the reader is familiar with
   this general concept. See the relevant
-  [whitepapers](opencloud.us/doc) for more information.
+  [whitepapers](http://opencloud.us/doc) for more information.
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that adheres to the
   XaaS principle. XOS runs on OpenCloud, but is also available as open
   source software. Developers can access the XOS software on
-  [GitHub](open-cloud.github.io).
+  [GitHub](http://open-cloud.github.io).
 
 * *OpenCloud* is an operational cloud that runs XOS and spans on a set
   of servers distributed across multiple sites world-wide. Users can
   access OpenCloud resources via the portal at
-  [opencloud.us](opencloud.us).
+  [opencloud.us](http://opencloud.us).
 
 This guide primarily focuses on XOS, although specific examples from
 OpenCloud are used to illustrate operational and deployment aspects.
@@ -109,7 +109,7 @@ the Observer in more detail.
 XOS is designed to be extensible, as described in the **Developer
 Guide**: Section **Adding Views** describes how to extend XOS to
 include new views (it involves writing "applications" on top of the
-XOS data model), and Section **Adding Services* describes how to
+XOS data model), and Section **Adding Services** describes how to
 extend XOS to include new services (it involves adding controller
 plugins to the Observer).
 
@@ -309,7 +309,7 @@ Site establishing its own policies. In practice, however, we expect
 Deployments will often span multiple Sites, where those Sites either
 correspond to a single distributed organization (e.g., Internet2) or
 agree to manage their Nodes in collaboration with the containing
-Deployment (e.g., Enterprise(.
+Deployment (e.g., Enterprise).
 
 Sites and Deployments often play a role in defining Networks: Sites
 because they represent where Nodes are located in the network and
@@ -498,8 +498,8 @@ data model, and provide other users with a means to create an
 "instance" of the Service for their use (e.g., create a "Volume" for
 storage service). Extending XOS with these new Service-specific
 objects is not currently a first-class operation in XOS, but rather,
-involves directly augmenting the data model, as described in Section
-**Developer**, Subsection **Adding Services**.
+involves directly augmenting the data model, as described in the
+**Adding Services** section of the **Developer Guide**.
 
 ##Interfaces
 
