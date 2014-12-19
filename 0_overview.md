@@ -77,6 +77,9 @@ and it does so in a way that supports multiple administrative domains.
 More information about how operators interact with XOS is given in
 the **Operator Guide**.
 
+![Figure 2. Internal structure of XOS influenced by MVC pattern.]({{
+ site.url }}/figures/Slide2.jpg)
+
 Figure 2. Internal structure of XOS influenced by MVC pattern.
 
 Figure 2 depicts the internal structure of XOS, which is modeled on
@@ -511,17 +514,20 @@ library, called *xoslib*, that simplifies the task of building Views.
 
 ##Hardware Infrastructure
 
-This section sketches OpenCloud, first in general terms (i.e., what we
-envision the hardware infrastructure looking like when fully deployed),
-and then in specific terms (i.e., what infrastructrue is operational
-today).
+This section sketches the OpenCloud hardware infrastructure, both in
+general terms (i.e., what OpenCloud will look like when fully
+deployed), and in specific terms (i.e., what infrastructure is
+operational today).
 
-A key feature of OpenCloud is that it will span a wide spectrum of
-Cloud resources -- from the data center, across wide-area national and
-regional networks, to edge access networks -- with SDN-enabled
-networks across the entire system.
+OpenCloud is designed to span a wide spectrum of Cloud resources --
+from the data center, across wide-area national and regional networks,
+to edge access networks -- with SDN-enabled networks providing
+end-to-end connectivity across the entire system.
 
-Figure 3: OpenCloud Deployed Across Four Tiers of Resources
+![Figure 3. OpenCloud Deployed Across Four Tiers of Resources.]({{
+ site.url }}/figures/Slide3.jpg)
+
+Figure 3: OpenCloud Deployed Across Four Tiers of Resources.
 
 Figure 3 illustrates the scope of OpenCloud's proposed reach across
 four tiers of resource providers. At the far left are commodity clouds
