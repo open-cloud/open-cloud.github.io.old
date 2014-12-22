@@ -231,9 +231,9 @@ exactly one Site object.
 Also, the Admin privilege is always scoped at the level to which it
 has been assigned, and allows that user to grant privileges to any
 user/object combinations that they themselves are privileged for. For
-example, if user Jane.Smith has the (Site, Admin) Role for the
-Princeton and Stanford sites, then she may assign a Role to a user at
-Princeton for default access to Stanford.
+example, if user Jane.Smith has the Admin SitePrivilege for Princeton
+and Stanford, then she may assign a Role to a user at Princeton for
+default access to Stanford.
 
 ###Infrastructure
 
