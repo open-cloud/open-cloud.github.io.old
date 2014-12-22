@@ -148,8 +148,8 @@ services.
 
 ###Access Control
 
-XOS defines a role-based approach to access control, where a user with
-a particular role is granted privileges in the context (scope) of some
+XOS uses role-based approach access control, where a user with a
+particular role is granted privileges in the context (scope) of some
 set of objects.
 
 * **User:** A principle that invokes operations on objects and uses
@@ -163,10 +163,10 @@ set of objects.
   - **Default:** Read/write access to this User. Read-only access to
     Users, Sites, Deployments, and Nodes.
 
-* **SitePrivilege:** A binding of a User to a Role in the context of
-  a particular Site Object, which implies the Role applies to all
-  Objects of type Node, Slice, Invoice, and User that are children of
-  that particular Site. Site-level roles include:
+* **SitePrivilege:** A binding of a User to a Role in the context of a
+  particular Site, which implies the Role applies to all Nodes,
+  Slices, Invoices, and Users associated with the Site. Site-level
+  roles include:
 
   - **Admin:** Read/write access to all Site-specific objects.
 
@@ -179,9 +179,8 @@ set of objects.
   - **Default:** Read-only access to all of a Site's objects.
 
 * **SlicePrivilege:** The binding of a User to a Role in the context
-  of a particular Slice Object, which implies the Role applies to all
-  Objects of type Sliver, Usage and Network that are children of that
-  particular Slice. Slice-level roles include:
+  of a particular Slice, which implies the Role applies to all Slivers
+  and Networks associated with the Slice. Slice-level roles include:
 
   - **Admin:** Read/write access to all Slice-specific objects.
 
@@ -189,10 +188,9 @@ set of objects.
     slice.
 
 * **Deployment Privileges:** The binding of a User to a Role in the
-  context of a particular Deployment Object, which implies the Role
-  applies to all Objects of type Image, NetworkTemplate, and Flavors
-  that are children of that particular Deployment. Deployment-level
-  roles include:
+  context of a particular Deployment, which implies the Role applies
+  to all Objects of type Image, NetworkTemplate, and Flavors
+  assocaited with the Deployment. Deployment-level roles include:
 
   - **Admin:** Read/write access to all Deployment-specific objects.
 
@@ -226,7 +224,7 @@ Note that while the data model permits many different bindings between
 objects, all of the above scoping rules refer to a parent/child
 relationship. For example, a User can be granted a Role at multiple
 Sites, Slices, and Deployments, but it is homed at (managed by)
-exactly one Site object.
+exactly one Site.
 
 Also, the Admin privilege is always scoped at the level to which it
 has been assigned, and allows that user to grant privileges to any
