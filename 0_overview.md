@@ -155,37 +155,48 @@ set of objects.
 * **User:** A principle that invokes operations on objects and uses
   XOS resources.
 
-* **Role:** The set of Privileges granted to a User in the context of
-  some Object Type. It is the (Object Type, Privilege) pair that
-  defines the Role. Currently defined Roles include:
+* **RootPrivilege:** A binding of a User to a Role in the context of
+  all objects. Root-level roles include:
 
-  - **(Root, Admin):** Read/write access to all objects.
+  - **Admin:** Read/write access to all objects.
 
-  - **(Root, Default):** Read/write access to this User. Read-only
-    access to Users, Sites, Deployments, and Nodes.
+  - **Default:** Read/write access to this User. Read-only access to
+    Users, Sites, Deployments, and Nodes.
 
-  - **(Site, Admin):** Read/write access to all Site-specific objects.
+* **SitePrivilege:** A binding of a User to a Role in the context of
+  a particular Site Object, which implies the Role applies to all
+  Objects of type Node, Slice, Invoice, and User that are children of
+  that particular Site. Site-level roles include:
 
-  - **(Site, PI):** Read/write access to a Site's Slices and Users.
+  - **Admin:** Read/write access to all Site-specific objects.
 
-  - **(Site, Tech):** Read/write access to a Site's Nodes.
+  - **PI:** Read/write access to a Site's Slices and Users.
 
-  - **(Site, Billing):** Read/write access to a Site's Account and
-    Invoices.
+  - **Tech:** Read/write access to a Site's Nodes.
 
-  - **(Site, Default):** Read-only access to all of a Site's objects.
+  - **Billing:** Read/write access to a Site's Account and Invoices.
 
-  - **(Deployment, Admin):** Read/write access to all
-    Deployment-specific objects.
+  - **Default:** Read-only access to all of a Site's objects.
 
-  - **(Deployment, Default):** Read-only access to all
-    Deployment-specific objects.
+* **SlicePrivilege:** The binding of a User to a Role in the context
+  of a particular Slice Object, which implies the Role applies to all
+  Objects of type Sliver, Usage and Network that are children of that
+  particular Slice. Slice-level roles include:
 
-  - **(Slice, Admin):** Read/write access to all Slice-specific
-      objects.
+  - **Admin:** Read/write access to all Slice-specific objects.
 
-  - **(Slice, Default):** Allowed to access Slivers instantiated as
-    part of the slice.
+  - **Default:** Allowed to access Slivers instantiated as part of the
+    slice.
+
+* **Deployment Privileges:** The binding of a User to a Role in the
+  context of a particular Deployment Object, which implies the Role
+  applies to all Objects of type Image, NetworkTemplate, and Flavors
+  that are children of that particular Deployment. Deployment-level
+  roles include:
+
+  - **Admin:** Read/write access to all Deployment-specific objects.
+
+  - **Default:** Read-only access to all Deployment-specific objects.
 
 Operationally, Root-level Admins create Sites, Deployments, and Users,
 granting Admin privileges to select Users affiliated with Sites and
@@ -210,38 +221,6 @@ operating parameters, specifying what Sites may contribute Nodes to
 the Deployment, and specifying what Sites may acquire resources from
 the Deployment. By default, all Users affiliated with a Deployment
 have read-only access to to the Deployment's objects.
-
-####Scope of Roles
-
-The binding of a User to a Role is always in the context of a specific
-Object. Thus, we think of the three-tuple *(User, Role, Object)* as
-defining the operations a given user can perform. However, since Role
-= (Object Type, Privilege), and the data model supports many more
-Object Types than is accounted for in the set of defined roles, we
-must place every Object in the scope of one of the specified Objects. 
-For example, Sliver and Network objects are in the scope of some
-Slice, and so on.
-
-In practice, then, the XOS data model defines four specific scopes for
-binding Users to Objects:
-
-* **Root Privileges:** A binding of a User to a Role in the context of
-  all objects.
-
-* **Site Privileges:** A binding of a User to a Role in the context of
-  a particular Site Object, which implies the Role applies to all
-  Objects of type Node, Slice, Invoice, and User that are children of
-  that particular Site.
-
-* **Slice Privileges:** The binding of a User to a Role in the context
-  of a particular Slice Object, which implies the Role applies to all
-  Objects of type Sliver, Usage and Network that are children of that
-  particular Slice.
-
-* **Deployment Privileges:** The binding of a User to a Role in the
-  context of a particular Deployment Object, which implies the Role
-  applies to all Objects of type Image, NetworkTemplate, and
-  Flavors that are children of that particular Deployment.
 
 Note that while the data model permits many different bindings between
 objects, all of the above scoping rules refer to a parent/child
