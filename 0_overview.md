@@ -14,7 +14,7 @@ independent ideas:
 * *Everything-as-a-Service (XaaS)* is the organizing principle that
   underlyies OpenCloud's design. We assume the reader is familiar with
   this general concept. See the relevant
-  [whitepapers](http://opencloud.us/docs/) for more information.
+  [whitepapers](http://opencloud.us/whitepapers.html) for more information.
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that implements the
   XaaS architecture. XOS runs on OpenCloud, but is also available as
