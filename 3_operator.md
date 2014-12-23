@@ -21,17 +21,50 @@ One VM on the controller node (denoted "Juju/router") serves as a router for tra
 
 ###Configuring the physical servers and network
 
-The controller and compute nodes should meet the following *minimum* hardware requirements: 12 CPU cores, x86_64 architecture; 48GB RAM; 3TB disk; 2x 1Gbps NICs.  The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired to a public network; NIC1 should have a public IP address and NIC2 should be left unconfigured.  The compute nodes should not be behind a firewall.  If the controller node is behind a firewall, the following TCP ports should be opened for XOS: 22, 3128, 5000, 8080, 8777, 9292, 9696, 35357. 
+The controller and compute nodes should meet the following *minimum* hardware requirements: 
+
+* 12 CPU cores, x86_64 architecture
+* 48GB RAM
+* 3TB disk
+* 2x 1Gbps NICs
+
+The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired to a public network; NIC1 should have a public IP address and NIC2 should be left unconfigured.  The compute nodes should not be behind a firewall.  If the controller node is behind a firewall, the following TCP ports should be opened for XOS: 22, 3128, 5000, 8080, 8777, 9292, 9696, 35357. 
 
 ###Setting up virtual infrastructure using the EC2 Install Cloud
 
-The controller node architecture shown in Figure 1 runs each OpenStack service in its own VM, with all VMs connected by a private management (virtual) network. To easily bring up this virtual infrastructure we leverage an OpenStack cloud with its controller services running in Amazon EC2 - the "Install Cloud".  
+The controller node architecture shown in Figure 1 runs each OpenStack service in its own VM, with all VMs connected by a private management (virtual) network. To easily bring up this virtual infrastructure we leverage an OpenStack cloud with its controller services running in Amazon EC2 - the "Install Cloud".  The following instructions are for OpenCloud admins that have access to the Install Cloud.  At a high level the steps are:
 
-Steps:
-
-1. Put the server under control of the Install Cloud's Juju service
+0. Networking setup
 2. Add the server to the Install Cloud as a compute node
 3. Create the management virtual network and VMs
+
+#### Networking setup
+
+In order to allow the new node to communicate with the Keystone and Neutron services running in EC2, it’s necessary to add a couple of security group rules for the new node.  Log into the EC2 console at Amazon AWS and add the following rules for the new node's IP address.  Look at existing rules in each security group for examples. 
+
+* In security group *juju-amazon-6*: Add GRE tunnel rule
+* In security group, *juju-amazon-3*: Add TCP/35357 rule 
+
+On the node, add the following entries to */etc/hosts*:
+```
+54.165.170.148  ip-172-31-34-147.ec2.internal juju.amazon
+54.165.40.107   ip-172-31-35-79.ec2.internal  keystone.amazon
+54.165.71.183   ip-172-31-3-137.ec2.internal  rabbitmq.amazon
+54.209.16.51    ip-172-31-4-171.ec2.internal  nova_cc.amazon
+54.164.16.21    ip-172-31-26-103.ec2.internal mysql.amazon
+54.88.254.182   ip-172-31-16-210.ec2.internal glance.amazon
+54.209.88.253   ip-172-31-41-186.ec2.internal neutron.amazon
+```
+
+#### Add the server to the Install Cloud as a compute node 
+
+Log into the Juju VM (*ubuntu@54.88.138.52*).  Before proceeding, make sure that you can login to the server from this VM; then run the following commands:
+```
+$ juju add-machine ssh:ubuntu@<server IP address>
+$ juju add-unit nova-compute --to <juju id of server>
+```
+
+#### Create the management network and VMs
 
 ###Deploying the OpenStack controller services
 
