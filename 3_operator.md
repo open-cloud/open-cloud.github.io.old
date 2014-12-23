@@ -7,7 +7,7 @@ title: Operator Guide
 
 ##Installing OpenStack
 
-This section describes how to bring up OpenCloud's version of an OpenStack cloud on a local cluster.  These instructions assume that Ubuntu 14.04 LTS has already been installed on the local servers.  Each server should have at least 12 CPU cores and 48GB RAM.  
+This section describes how to bring up OpenCloud's version of an OpenStack cloud on a local cluster.  
 
 ###Cluster architecture
 
@@ -18,6 +18,16 @@ Figure 1. OpenCloud cluster architecture.
 The above figure shows the goal of the installation process.  At top is a controller node running 10 VMs attached to a private management network; each VM is hosting a service needed by OpenStack.  Below are compute nodes running the nova-compute and neutron-plugin-openvswitch agents.  The compute nodes connect to a publicly routable network.  
 
 One VM on the controller node (denoted "Juju/router") serves as a router for traffic flowing between the compute nodes and the OpenStack controller services.  The Juju/router VM has network interfaces on both the public and the private management network, and is on the same IP subnet as the compute nodes.  Forwarding rules in the VMs and on the nodes enable packets to be exchanged between networks.
+
+###Configuring the physical servers
+
+The controller and compute nodes should meet the following *minimum* hardware requirements:
+* 12 CPU cores, x86_64 architecture
+* 48GB RAM
+* 3TB disk
+* 2x 1Gbps NICs
+
+The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired to a public network; NIC1 should have a public IP address and NIC2 should be left unconfigured.  The node should not be behind a firewall.
 
 ###Setting up virtual infrastructure using EC2 Install Cloud
 
