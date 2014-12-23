@@ -26,19 +26,18 @@ independent ideas:
   access OpenCloud resources via the portal at
   [opencloud.us](http://opencloud.us).
 
-This guide primarily focuses on XOS, although specific examples from
-OpenCloud are used to illustrate operational and deployment aspects.
+This guide primarily focuses on XOS, although examples from OpenCloud
+are used to illustrate operational and deployment aspects.
 
-Software Architecture
----------------------
+##Software Architecture
+---
 
 Figure 1 schematically depicts the software components running on
 OpenCloud.  The bottom-most green boxes represent low-level
-virtualization mechanisms, including Open vSwitch (OvS) and libvirt,
-the latter of which provides an interface to virtualization
-technologies like KVM and LXC. It also includes OpenVirteX, a Network
+virtualization mechanisms, including Open vSwitch (OvS), libvirt
+provides an interface to KVM and LXC), and OpenVirteX (a Network
 Hypervisor that dynamically creates customizable virtual networks on
-top of OpenFlow switches. A detailed description of OpenVirteX can be
+top of OpenFlow switches). A detailed description of OpenVirteX can be
 found in a companion
 [whitepaper](http://opencloud.us/docs/OpenVirteX.pdf).
 
@@ -51,10 +50,10 @@ specifically, the controllers for those services. This includes a set
 of core services -- Compute-as-a-Service (CaaS), Network-as-a-Service
 (NaaS), and Id-Management-as-a-Service (IDaaS) -- required to "boot"
 the system, as well as library of contributed services. The core
-services are borrowed directly from OpenStack, and collectively
-implement Infrastructure-as-a-Service (IaaS). The set of contributed
-services are drawn from a combination of research prototypes, open
-source projects, and trial deployments of commercial services.
+services are borrowed from OpenStack, and collectively implement
+Infrastructure-as-a-Service (IaaS). The contributed services are drawn
+from a combination of research prototypes, open source projects, and
+trial deployments of commercial services.
 
 The top-most purple box represents XOS proper. By way of analogy, XOS
 corresponds to the Unix kernel, where the set of services built around
@@ -116,8 +115,8 @@ XOS data model), and Section **Adding Services** describes how to
 extend XOS to include new services (it involves adding controller
 plugins to the Observer).
 
-Data Model
-----------
+##Data Model
+---
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
@@ -462,15 +461,15 @@ objects is not currently a first-class operation in XOS, but rather,
 involves directly augmenting the data model, as described in the
 **Adding Services** section of the **Developer Guide**.
 
-Interfaces
-----------
+##Interfaces
+---
 
 XOS offers two layered interfaces. The primary interface is a RESTful
 API running directly on top of Django. The second is in the form of a
 library, called *xoslib*, that simplifies the task of building Views.
 
-Hardware Infrastructure
------------------------
+##Hardware Infrastructure
+---
 
 This section sketches the OpenCloud hardware infrastructure, both in
 general terms (i.e., what OpenCloud will look like when fully
