@@ -46,6 +46,7 @@ In order to allow the new node to communicate with the Keystone and Neutron serv
 * In security group, *juju-amazon-3*: Add TCP/35357 rule 
 
 On the node, add the following entries to */etc/hosts*:
+
 ```
 54.165.170.148  ip-172-31-34-147.ec2.internal juju.amazon
 54.165.40.107   ip-172-31-35-79.ec2.internal  keystone.amazon
@@ -59,6 +60,7 @@ On the node, add the following entries to */etc/hosts*:
 #### Add the server to the Install Cloud as a compute node 
 
 Log into the Juju VM (*ubuntu@54.88.138.52*).  Before proceeding, make sure that you can login to the server from this VM; then run the following commands:
+
 ```
 $ juju add-machine ssh:ubuntu@<server IP address>
 $ juju add-unit nova-compute --to <juju id of server>
