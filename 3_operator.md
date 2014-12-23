@@ -32,11 +32,7 @@ The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired 
 
 ###Setting up virtual infrastructure using the EC2 Install Cloud
 
-The controller node architecture shown in Figure 1 runs each OpenStack service in its own VM, with all VMs connected by a private management (virtual) network. To easily bring up this virtual infrastructure we leverage an OpenStack cloud with its controller services running in Amazon EC2 - the "Install Cloud".  The following instructions are for OpenCloud admins that have access to the Install Cloud.  At a high level the steps are:
-
-0. Networking setup
-2. Add the server to the Install Cloud as a compute node
-3. Create the management virtual network and VMs
+The controller node architecture shown in Figure 1 runs each OpenStack service in its own VM, with all VMs connected by a private management (virtual) network. To easily bring up this virtual infrastructure we leverage an OpenStack cloud with its controller services running in Amazon EC2 - the "Install Cloud".  The following instructions are for OpenCloud admins that have access to the Install Cloud.  
 
 #### Networking setup
 
