@@ -7,7 +7,7 @@ title: Operator Guide
 
 ##Installing OpenStack
 
-This section describes how to bring up OpenCloud's version of an OpenStack cloud on a local cluster.  These instructions assume that Ubuntu 14.04 LTS has already been installed on the local servers.  Each server should have at least 12 CPU cores and 48GB RAM.  
+This section describes how to bring up OpenCloud's version of an OpenStack cloud on a local cluster.  
 
 ###Cluster architecture
 
@@ -19,11 +19,21 @@ The above figure shows the goal of the installation process.  At top is a contro
 
 One VM on the controller node (denoted "Juju/router") serves as a router for traffic flowing between the compute nodes and the OpenStack controller services.  The Juju/router VM has network interfaces on both the public and the private management network, and is on the same IP subnet as the compute nodes.  Forwarding rules in the VMs and on the nodes enable packets to be exchanged between networks.
 
-Port forwarding on the Juju/router VM enables remote clients to connect to the OpenStack services on the cluster.  An OpenStack client connects to a URL containing this VM's public IP address and the request is forwarded to the private IP address of the appropriate VM.  A firewall in the Juju/router VM ensures that only authorized clients are able to connect.  
+###Configuring the physical servers and network
 
-###Setting up virtual infrastructure using EC2 Install Cloud
+The controller and compute nodes should meet the following *minimum* hardware requirements: 12 CPU cores, x86_64 architecture; 48GB RAM; 3TB disk; 2x 1Gbps NICs.  The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired to a public network; NIC1 should have a public IP address and NIC2 should be left unconfigured.  The compute nodes should not be behind a firewall.  If the controller node is behind a firewall, the following TCP ports should be opened for XOS: 22, 3128, 5000, 8080, 8777, 9292, 9696, 35357. 
 
-###Deploying OpenStack controller services
+###Setting up virtual infrastructure using the EC2 Install Cloud
+
+###Deploying the OpenStack controller services
+
+###Configuring remote OpenStack clients 
+
+Port forwarding on the Juju/router VM enables remote clients to connect to the OpenStack services on the cluster.  An OpenStack client connecting to the VM's public IP address has its request forwarded to the private IP address of the appropriate VM.  A firewall in the Juju/router VM ensures that only authorized clients are able to connect.  
+
+When connecting to an OpenStack service, many OpenStack client libraries fetch its endpoint information from Keystone.  The OpenStack controller services register their private IP addresses on the management network with Keystone.  If a client is not connected to the management network, then it may be necessary to translate this private IP address to the public IP address used for port forwarding.  One way to do this is with iptables.  For example, if the cluster's management network is on the 192.168.100.0/24 subnet, and the public IP address for port forwarding is 1.2.3.4, then one could add the following iptables rule on the client machine:
+
+`iptables -t nat -A OUTPUT -p tcp -d 192.168.100.0/24 -j DNAT --to-destination 1.2.3.4`
 
 ##Installing OpenVirteX
 
