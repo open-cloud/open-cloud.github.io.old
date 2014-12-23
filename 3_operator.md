@@ -76,7 +76,9 @@ Port forwarding on the Juju/router VM enables remote clients to connect to the O
 
 When connecting to an OpenStack service, many OpenStack client libraries fetch its endpoint information from Keystone.  The OpenStack controller services register their private IP addresses on the management network with Keystone.  If a client is not connected to the management network, then it may be necessary to translate this private IP address to the public IP address used for port forwarding.  One way to do this is with iptables.  For example, if the cluster's management network is on the 192.168.100.0/24 subnet, and the public IP address for port forwarding is 1.2.3.4, then one could add the following iptables rule on the client machine:
 
-`iptables -t nat -A OUTPUT -p tcp -d 192.168.100.0/24 -j DNAT --to-destination 1.2.3.4`
+```
+$ iptables -t nat -A OUTPUT -p tcp -d 192.168.100.0/24 -j DNAT --to-destination 1.2.3.4
+```
 
 ##Installing OpenVirteX
 
