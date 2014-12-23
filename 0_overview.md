@@ -29,8 +29,8 @@ independent ideas:
 This guide primarily focuses on XOS, although specific examples from
 OpenCloud are used to illustrate operational and deployment aspects.
 
-##Software Architecture
----
+Software Architecture
+---------------------
 
 Figure 1 schematically depicts the software components running on
 OpenCloud.  The bottom-most green boxes represent low-level
@@ -116,8 +116,8 @@ XOS data model), and Section **Adding Services** describes how to
 extend XOS to include new services (it involves adding controller
 plugins to the Observer).
 
-##Data Model
----
+Data Model
+----------
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
@@ -145,7 +145,7 @@ Types. The discussion is organized around six categories: access
 control, infrastructure, policy, virtualization, accounting, and
 services.
 
-####Access Control
+###Access Control
 
 XOS uses role-based access control, where a user with a particular
 role is granted privileges in the context (scope) of some set of
@@ -235,7 +235,7 @@ example, if user Jane.Smith has the Admin SitePrivilege for Princeton
 and Stanford, then she may assign a Role to a user at Princeton for
 default access to Stanford.
 
-####Infrastructure
+###Infrastructure
 
 XOS manages of a set of physical servers deployed throughout the
 network. (See Section **Deployment** for a description of the
@@ -300,7 +300,7 @@ parameters for the Deployment, decides what Sites are allowed to host
 Nodes in that Deployment, and decides what Sites are allowed to
 instantiate Slivers and Networks on the Deployment's resources.
 
-####Policies and Configurations
+###Policies and Configurations
 
 Each Deployment defines a set of parameters, configurations and
 policies that govern how a collection of resources are managed. XOS
@@ -333,7 +333,7 @@ parameterize an existing NetworkTemplate.) Note that Images and
 NetworkTemplates are analogous constructs in the sense that both are
 opaque objects from the perspective of the data model.
 
-####Virtualization
+###Virtualization
 
 A virtualized Slice of the physical infrastructure is allocated and
 managed as follows:
@@ -412,7 +412,7 @@ bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).
 
-####Billing and Accounting
+###Billing and Accounting
 
 XOS includes a billing model that can be used to charge Sites for
 resource usage. The model includes enough detail so the Site can pass
@@ -442,7 +442,7 @@ objects, each of which aggregates a set of Charges over some time
 interval. Each Charge includes a reference to a per-Slice Usage
 object.
 
-####Services
+###Services
 
 XOS goes beyond Slices to define a model for the service runningwithin a Slice:
 
@@ -462,15 +462,15 @@ objects is not currently a first-class operation in XOS, but rather,
 involves directly augmenting the data model, as described in the
 **Adding Services** section of the **Developer Guide**.
 
-##Interfaces
----
+Interfaces
+----------
 
 XOS offers two layered interfaces. The primary interface is a RESTful
 API running directly on top of Django. The second is in the form of a
 library, called *xoslib*, that simplifies the task of building Views.
 
-##Hardware Infrastructure
----
+Hardware Infrastructure
+-----------------------
 
 This section sketches the OpenCloud hardware infrastructure, both in
 general terms (i.e., what OpenCloud will look like when fully
