@@ -19,19 +19,13 @@ The above figure shows the goal of the installation process.  At top is a contro
 
 One VM on the controller node (denoted "Juju/router") serves as a router for traffic flowing between the compute nodes and the OpenStack controller services.  The Juju/router VM has network interfaces on both the public and the private management network, and is on the same IP subnet as the compute nodes.  Forwarding rules in the VMs and on the nodes enable packets to be exchanged between networks.
 
-###Configuring the physical servers
+###Configuring the physical servers and network
 
-The controller and compute nodes should meet the following *minimum* hardware requirements:
-* 12 CPU cores, x86_64 architecture
-* 48GB RAM
-* 3TB disk
-* 2x 1Gbps NICs
+The controller and compute nodes should meet the following *minimum* hardware requirements: 12 CPU cores, x86_64 architecture; 48GB RAM; 3TB disk; 2x 1Gbps NICs.  The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired to a public network; NIC1 should have a public IP address and NIC2 should be left unconfigured.  The compute nodes should not be behind a firewall.  If the controller node is behind a firewall, the following TCP ports should be opened for XOS: 22, 3128, 5000, 8080, 8777, 9292, 9696, 35357. 
 
-The nodes should be installed with Ubuntu 14.04 LTS.  Both NICs should be wired to a public network; NIC1 should have a public IP address and NIC2 should be left unconfigured.  The node should not be behind a firewall.
+###Setting up virtual infrastructure using the EC2 Install Cloud
 
-###Setting up virtual infrastructure using EC2 Install Cloud
-
-###Deploying OpenStack controller services
+###Deploying the OpenStack controller services
 
 ###Configuring remote OpenStack clients 
 
