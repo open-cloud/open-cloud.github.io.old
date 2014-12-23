@@ -30,23 +30,21 @@ This guide primarily focuses on XOS, although specific examples from
 OpenCloud are used to illustrate operational and deployment aspects.
 
 ##Software Architecture
+---
 
 Figure 1 schematically depicts the software components running on
-OpenCloud. They include XOS as the overarching Cloud Mangement System,
-existing OpenStack and Linux components (Nova, Neutron, Keystone, OvS,
-and libvirt), and a new Network Hypervisor called OpenVirteX.
+OpenCloud.  The bottom-most green boxes represent low-level
+virtualization mechanisms, including Open vSwitch (OvS) and libvirt,
+the latter of which provides an interface to virtualization
+technologies like KVM and LXC. It also includes OpenVirteX, a Network
+Hypervisor that dynamically creates customizable virtual networks on
+top of OpenFlow switches. A detailed description of OpenVirteX can be
+found in a companion
+[whitepaper](http://opencloud.us/docs/OpenVirteX.pdf).
 
 ![Figure 1. Software components running on OpenCloud.]({{ site.url }}/figures/Slide1.jpg)
 
 Figure 1. Software components running on OpenCloud.
-
-The bottom-most green boxes represent low-level virtualization
-mechanisms, including Open vSwitch (OvS) and libvirt, the latter of
-which provides an interface to virtualization technologies like KVM
-and LXC. It also includes OpenVirteX, a Network Hypervisor that
-dynamically creates customizable virtual networks on top of OpenFlow
-switches. A detailed description of OpenVirteX can be found in a
-companion [whitepaper](http://opencloud.us/docs/OpenVirteX.pdf).
 
 The middle orange boxes represent a collection of services, or more
 specifically, the controllers for those services. This includes a set
@@ -65,17 +63,16 @@ important aspect of this design is that to most users, the distinction
 between the kernel and the commands-and-libraries is not important.
 That is, XOS includes explicit support for folding new services built
 on top of OpenCloud back into OpenCloud, making them available to
-users. More information about how users interact with XOS is given in
-the **User Guide**, while more information about how to extend XOS
-with new services is given in the **Developer Guide.**
+users. 
 
-XOS also supports cloud operators that manage physical resources. This
-gives operators the ability to manage and control the hardware,
-establish resource allocation policies, select virtualization
-technologies (i.e., both machine and network hypervisors), and so on,
-and it does so in a way that supports multiple administrative domains.
-More information about how operators use XOS to manage a cloud is
-given in the **Operator Guide**.
+More information about how users interact with XOS is given in the
+**User Guide**, while more information about how to extend XOS with
+new services is given in the **Developer Guide.** XOS also supports
+cloud operators that manage physical resources (i.e., control the
+hardware, establish resource allocation policies, select
+virtualization technologies), and it does so in a way that supports
+multiple administrative domains. More information about how operators
+use XOS to manage a cloud is given in the **Operator Guide**.
 
 ![Figure 2. Internal structure of XOS influenced by MVC pattern.]({{ site.url }}/figures/Slide2.jpg)
 
@@ -87,25 +84,26 @@ introduced by Smalltalk, but now considered best practice because of
 its clean separation of data representation and presentation. The
 *Data Model* codifies the abstract objects, the relationship among
 those objects, and the operations on those objects. It is the heart of
-XOS, and so we briefly introduce the key object types below.
+XOS, and so we briefly introduce the key object types in the next
+section.
 
-On top of these abstractions is a set of *Views* (perspectives) that
-defines how various actors interact with XOS. These include
-traditional cloud tenants, service developers, and cloud operators. We
-expect the set of views to evolve over time, so for example, if
-OpenCloud one day supports a suite of content distribution services,
-it might be useful to create a "Content Provider" view. 
+On top of these abstractions is a set of *Views* that defines how
+various actors interact with XOS. These include traditional cloud
+tenants, service developers, and cloud operators. We expect the set of
+views to evolve over time, so for example, if OpenCloud one day
+supports a suite of content distribution services, it might be useful
+to create a "Content Provider" view.
 
 Below the Model sits a collection of controller plugins that react to
-changes in the Model by manipulating the interfaces to the constituent
-services. We call this set of plugins -- and the framework in which
-they execute -- the *Observer*. The Observer has the challenging job
-of ensuring configuration state remains consistent across all levels
-of the distributed system, from the authoritative state maintained in
-the XOS data base, to the per-service state maintained in each service
-controller, to the local state in the widely distributed instances
-that implement each service. This is a challenging technical problem,
-and our approach is informed by a decade of experience controlling
+changes in the Data Model by manipulating the interfaces to the
+constituent services. We call this set of plugins -- and the framework
+in which they execute -- the *Observer*. The Observer's job is to
+ensure configuration state remains consistent across all levels of the
+distributed system, from the authoritative state maintained in the XOS
+data base, to the per-service state maintained in each service
+controller, to the local state in the distributed instances that
+implement each service. This is a challenging technical problem, and
+our approach is informed by a decade of experience controlling
 PlanetLab nodes and slices distributed across hundreds of sites around
 the world. A companion
 [whitepaper](http://opencloud.us/docs/Observer.pdf) describes the
@@ -119,11 +117,12 @@ extend XOS to include new services (it involves adding controller
 plugins to the Observer).
 
 ##Data Model
+---
 
 This section gives a high-level overview of the XOS data model. This
-overview focuses mostly on the abstract objects and relationships
-among them, and should not be read as an formal specification. A
-detailed and up-to-date definition is included in the Appendix.
+overview focuses on the abstract objects and relationships among them,
+and should not be read as an formal specification. A detailed and
+up-to-date definition is included in the Appendix.
 
 The data model is implemented in Django, so we (mostly) adopt Django
 terminology to describe it. Briefly, what is often referred to as an
@@ -146,21 +145,24 @@ Types. The discussion is organized around six categories: access
 control, infrastructure, policy, virtualization, accounting, and
 services.
 
-###Access Control
+####Access Control
 
-XOS uses role-based approach access control, where a user with a
-particular role is granted privileges in the context (scope) of some
-set of objects.
+XOS uses role-based access control, where a user with a particular
+role is granted privileges in the context (scope) of some set of
+objects.
 
 * **User:** A principle that invokes operations on objects and uses
   XOS resources.
+
+* **Role:** A set of privileges granted to a User in the context of
+  some set of objects.
 
 * **RootPrivilege:** A binding of a User to a Role in the context of
   all objects. Root-level roles include:
 
   - **Admin:** Read/write access to all objects.
 
-  - **Default:** Read/write access to this User. Read-only access to
+  - **Default:** Read/write access to this User; read-only access to
     Users, Sites, Deployments, and Nodes.
 
 * **SitePrivilege:** A binding of a User to a Role in the context of a
@@ -233,7 +235,7 @@ example, if user Jane.Smith has the Admin SitePrivilege for Princeton
 and Stanford, then she may assign a Role to a user at Princeton for
 default access to Stanford.
 
-###Infrastructure
+####Infrastructure
 
 XOS manages of a set of physical servers deployed throughout the
 network. (See Section **Deployment** for a description of the
@@ -298,7 +300,7 @@ parameters for the Deployment, decides what Sites are allowed to host
 Nodes in that Deployment, and decides what Sites are allowed to
 instantiate Slivers and Networks on the Deployment's resources.
 
-###Policies and Configurations
+####Policies and Configurations
 
 Each Deployment defines a set of parameters, configurations and
 policies that govern how a collection of resources are managed. XOS
@@ -331,7 +333,7 @@ parameterize an existing NetworkTemplate.) Note that Images and
 NetworkTemplates are analogous constructs in the sense that both are
 opaque objects from the perspective of the data model.
 
-##Virtualization
+####Virtualization
 
 A virtualized Slice of the physical infrastructure is allocated and
 managed as follows:
@@ -410,7 +412,7 @@ bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).
 
-###Billing and Accounting
+####Billing and Accounting
 
 XOS includes a billing model that can be used to charge Sites for
 resource usage. The model includes enough detail so the Site can pass
@@ -440,7 +442,7 @@ objects, each of which aggregates a set of Charges over some time
 interval. Each Charge includes a reference to a per-Slice Usage
 object.
 
-##Services
+####Services
 
 XOS goes beyond Slices to define a model for the service runningwithin a Slice:
 
@@ -461,12 +463,14 @@ involves directly augmenting the data model, as described in the
 **Adding Services** section of the **Developer Guide**.
 
 ##Interfaces
+---
 
 XOS offers two layered interfaces. The primary interface is a RESTful
 API running directly on top of Django. The second is in the form of a
 library, called *xoslib*, that simplifies the task of building Views.
 
 ##Hardware Infrastructure
+---
 
 This section sketches the OpenCloud hardware infrastructure, both in
 general terms (i.e., what OpenCloud will look like when fully
@@ -505,21 +509,19 @@ used existing research testbeds. This includes the five mid-sized
 ViCCI clusters running at Princeton, Stanford, Washington, Georgia
 Tech, and the Max Planck Institute (each cluster has 70 servers) and
 the ViNI servers deployed across ten Internet2 routing centers (each
-ViNI site currently hosts 2-4 high-end servers). Finally, OpenCloud
-will eventually leverage InstaGENI servers being deployed at 32
-campuses in the U.S. Each GENI cluster includes 6 servers, 2-4 of
-which are currently bootable as OpenCloud nodes.
+ViNI site currently hosts 2-4 high-end servers). OpenCloud will
+eventually leverage InstaGENI servers being deployed at 32 campuses in
+the U.S. Each GENI cluster includes 6 servers, 2-4 of which are
+currently bootable as OpenCloud nodes.
     
 Second, OpenCloud integrates commodity clouds, most notably Amazon's
 EC2. This is possible because XOS treats everything-as-a-service,
 including the VM provisioning service offered by commodity cloud
-providers (specifically, EC2's programmatic interface). Doing so
-augments the modest resources available in research testbeds with an
-abundance of commodity resources. These resources do not allow the
-same low-level control over the underlying infrastructure as XOS
-enables, but for those cases where commodity VMs are sufficient,
-integrating access to those resources into OpenCloud simplifies the
-process of incorporating them into a given experiment.
+providers (specifically, EC2's programmatic interface). These public
+resources do not allow the same low-level control over the underlying
+infrastructure as XOS enables, but for those cases where commodity VMs
+are sufficient, integrating access to such resources into OpenCloud
+simplifies the process of incorporating them into a given slice.
     
 Third, OpenCloud will eventually run on CloudLab, which includes
 large clusters at three US sites: Clemson, Wisconsin, and Utah. Our
@@ -528,19 +530,19 @@ over time, the number of servers allocated to OpenCloud will vary
 based on demand.
 
 Fourth, OpenCloud will take advantage of SDN-enabled networks
-throughout this infrastructure. There are significant opportunities to
-connect clusters with an end-to-end OpenFlow network in support of
-SDN. The ViNI servers throughout Internet2 are co-located with
-OpenFlow switches deployed as part of the Network Development and
-Deployment Initiative (NDDI). Due to NSF's Campus Cyperinfrastructure
--- Network and Infrastructure and Engineering (CC-NIE) program,
-OpenFlow switches are also now beginning to be deployed throughout
-dozens of campus and regional networks.
+throughout this infrastructure. Each cluster includes OpenFlow-enabled
+top-of-rack switches. The ViNI servers throughout Internet2 are
+co-located with OpenFlow switches deployed as part of the Network
+Development and Deployment Initiative (NDDI). Due to NSF's Campus
+Cyperinfrastructure -- Network and Infrastructure and Engineering
+(CC-NIE) program, OpenFlow switches are also now beginning to be
+deployed throughout dozens of campus and regional networks.
     
 Today, OpenCloud includes servers at all four tiers, organized as four
 independently managed Deployments: an EC2 Deployment allows users to
 acquire VMs in EC2, a ViCCI Deployment includes six servers at each of
-the five ViCCI sites, an Internet2 Deployment includes two servers at
-each of ten Internet2 routing centers, and an Enterprise Deployment
-includes clusters at two University campuses.
+the five ViCCI sites (ViCCI servers will be as demand dictates), an
+Internet2 Deployment includes two servers at each of ten Internet2
+routing centers, and an Enterprise Deployment includes clusters at two
+University campuses.
 
