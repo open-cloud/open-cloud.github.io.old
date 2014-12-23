@@ -28,6 +28,7 @@ The controller and compute nodes should meet the following *minimum* hardware re
 The controller node architecture shown in Figure 1 runs each OpenStack service in its own VM, with all VMs connected by a private management (virtual) network. To easily bring up this virtual infrastructure we leverage an OpenStack cloud with its controller services running in Amazon EC2 - the "Install Cloud".  
 
 Steps:
+
 1. Put the server under control of the Install Cloud's Juju service
 2. Add the server to the Install Cloud as a compute node
 3. Create the management virtual network and VMs
