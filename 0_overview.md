@@ -3,7 +3,7 @@ layout: page
 title: Overview
 ---
 
-OpenCloud is an operational cloud running on a set servers distributed
+OpenCloud is an operational cloud running on servers distributed
 across multiple sites world-wide. This section describes both its
 software architecture and the hardware infrastructure on which it is
 currently deployed.
@@ -18,7 +18,7 @@ independent ideas:
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that implements the
   XaaS architecture. XOS runs on OpenCloud, but is also available as
-  open source software. Developers can access the XOS software on
+  open source software. Developers can access XOS source code on
   [GitHub](http://open-cloud.github.io).
 
 * *OpenCloud* is an operational cloud that runs XOS and spans a set of
