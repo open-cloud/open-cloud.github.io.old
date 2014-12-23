@@ -19,11 +19,17 @@ The above figure shows the goal of the installation process.  At top is a contro
 
 One VM on the controller node (denoted "Juju/router") serves as a router for traffic flowing between the compute nodes and the OpenStack controller services.  The Juju/router VM has network interfaces on both the public and the private management network, and is on the same IP subnet as the compute nodes.  Forwarding rules in the VMs and on the nodes enable packets to be exchanged between networks.
 
-Port forwarding on the Juju/router VM enables remote clients to connect to the OpenStack services on the cluster.  An OpenStack client connects to a URL containing this VM's public IP address and the request is forwarded to the private IP address of the appropriate VM.  A firewall in the Juju/router VM ensures that only authorized clients are able to connect.  
-
 ###Setting up virtual infrastructure using EC2 Install Cloud
 
 ###Deploying OpenStack controller services
+
+###Configuring remote OpenStack clients 
+
+Port forwarding on the Juju/router VM enables remote clients to connect to the OpenStack services on the cluster.  An OpenStack client connecting to the VM's public IP address has its request forwarded to the private IP address of the appropriate VM.  A firewall in the Juju/router VM ensures that only authorized clients are able to connect.  
+
+When connecting to an OpenStack service, many OpenStack client libraries fetch its endpoint information from Keystone.  The OpenStack controller services register their private IP addresses on the management network with Keystone.  If a client is not connected to the management network, then it may be necessary to translate this private IP address to the public IP address used for port forwarding.  One way to do this is with iptables.  For example, if the cluster's management network is on the 192.168.100.0/24 subnet, and the public IP address for port forwarding is 1.2.3.4, then one could add the following iptables rule on the client machine:
+
+`iptables -t nat -A OUTPUT -p tcp -d 192.168.100.0/24 -j DNAT --to-destination 1.2.3.4`
 
 ##Installing OpenVirteX
 
