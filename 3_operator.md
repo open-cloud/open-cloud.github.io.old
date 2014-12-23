@@ -70,6 +70,9 @@ $ juju add-unit nova-compute --to <juju id of server>
 
 ###Deploying the OpenStack controller services
 
+* Install and configure Juju 
+* Use Juju to install other services
+
 ###Configuring remote OpenStack clients 
 
 Port forwarding on the Juju/router VM enables remote clients to connect to the OpenStack services on the cluster.  An OpenStack client connecting to the VM's public IP address has its request forwarded to the private IP address of the appropriate VM.  A firewall in the Juju/router VM ensures that only authorized clients are able to connect.  
