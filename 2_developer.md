@@ -90,8 +90,7 @@ in Django.
 | FieldType          | When to Use it?    |
 |--------------------|--------------------|
 | ForeignKeyField    | Used to represent a 1 to Many relationship. For example: Sliver’s may have 1 and only 1 Node.  Node’s may have 0 or more Slivers. Can also be used to represent recursive relationships for the same object types by providing ‘self’ as the relationship (first position) parameter.|
-| ManyToManyField    | Used to represent an N to N relationship. For example:
-Deployment may have 0 or more Sites Sites may have 0 or more Deployments.|
+| ManyToManyField    | Used to represent an N to N relationship. For example: Deployment may have 0 or more Sites Sites may have 0 or more Deployments.|
 | OneToOneField      | Not currently in use, but would be useful for applications that wanted to augment a core class with their own additional settings.  Possibly Syndicate or RequestRouter later. This has the same affect as a ForeignKey with unique=True.  The difference is that the “reverse” side of the relationship will always be 1 object (not a list).|
 | GenericForeignKey[c] | Not currently in use, but can be used to specify a non specific relation to “another object”. Meaning object A relates to any other object.  This relationship requires a reverse attribute in the “other” object to see the relationship - but would primarily be accessed through the GenericForeignKey owner Model. Example: https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1. The nuances/complexities of each of these relationships is brought about by the additional optional attributes that can be ascribed to each Field.|
 
