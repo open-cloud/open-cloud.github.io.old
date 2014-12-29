@@ -40,4 +40,10 @@ declaration. The basic field types commonly in use with OpenCloud:
 
 | FieldType          | Why to Use It?                                   |
 |--------------------|--------------------------------------------------|
-| BooleanField       | Displays as a checkbox in GUI, limits input to valid possibilities.  If None is a valid option, please use NullBooleanField which uses default widget of choice None, Yes, No.|
+| BooleanField       | Displays as a checkbox in GUI, limits input to   |
+|                    | valid possibilities.  If None is a valid option, |
+|                    | please use NullBooleanField which uses default   |
+|                    | widget of choice None, Yes, No.                  |
+
+Testing 1 2 3.
+
