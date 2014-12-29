@@ -34,12 +34,11 @@ are used to illustrate operational and deployment aspects.
 
 Figure 1 schematically depicts the software components running on
 OpenCloud.  The bottom-most green boxes represent low-level
-virtualization mechanisms, including Open vSwitch (OvS), libvirt
-provides an interface to KVM and LXC), and OpenVirteX (a Network
-Hypervisor that dynamically creates customizable virtual networks on
-top of OpenFlow switches). A detailed description of OpenVirteX can be
-found in a companion
-[whitepaper](http://opencloud.us/docs/OpenVirteX.pdf).
+virtualization mechanisms, including Open vSwitch (OvS), libvirt (an
+interface to LXC and KVM), and OpenVirteX (a Network Hypervisor that
+dynamically creates customizable virtual networks on top of OpenFlow
+switches). A detailed description of OpenVirteX can be found in a
+companion [whitepaper](http://opencloud.us/docs/OpenVirteX.pdf).
 
 ![Figure 1. Software components running on OpenCloud.]({{ site.url }}/figures/Slide1.jpg)
 
