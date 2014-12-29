@@ -80,8 +80,7 @@ use:
 |--------------------|--------------------|
 | db_index=True      | Allow for quicker queries if you are going to order by, or filter by the specified field.|
 | error_messages={ } | Pass in a dictionary of error keys, and the message you want to display if the error occurs.  For example: null, blank, invalid, invalid_choice, and unique  Other error messages may be present per FieldType.|
-| validators=[]      | Allows a list of validators to be run before committing the value of this field to the model
-(https://docs.djangoproject.com/en/dev/ref/validators/).|
+| validators=[]      | Allows a list of validators to be run before committing the value of this field to the model (https://docs.djangoproject.com/en/dev/ref/validators/).|
 
 ####Expressing Relationships
 
@@ -105,8 +104,7 @@ Deployment may have 0 or more Sites Sites may have 0 or more Deployments.|
 | on_delete          | ForeignKeyField | Default behavior is to behave like “ON DELETE CASCADE”.  This may be turned of so long as the “null=True, blank=True” options are also set. Example: user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)|
 | symmetrical        | ManyToManyField | Only used when ManyToManyField definition is against “self”. class Person: friends = models.ManyToManyField(“self”). Would then result in if Person Alice is friended to Person Brian, the Brian is also Friends with Alice.|
 | through            | ManyToManyField | Django automatically creates a mapping table for ManyToMany relationships. By using this field, you can specify the exact mapping table you would like to use, therefore allowing you to augment/extend that table with additional data. See example[d]: https://docs.djangoproject.com/en/dev/topics/db/models/#intermediary-manytomany.|
-| parent_link        | OneToOneField | Used only for multiple inheritance (specifically from a concrete class) to avoid additional/extra OneToOneFields being created via subclassing. Django documentation for Related Fields can be found at:
-https://docs.djangoproject.com/en/dev/ref/models/fields/#module-django.db.models.fields.related.|
+| parent_link        | OneToOneField | Used only for multiple inheritance (specifically from a concrete class) to avoid additional/extra OneToOneFields being created via subclassing. Django documentation for Related Fields can be found at: https://docs.djangoproject.com/en/dev/ref/models/fields/#module-django.db.models.fields.related.|
 
 ####Avoid List
 
