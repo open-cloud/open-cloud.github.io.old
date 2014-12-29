@@ -38,6 +38,6 @@ system level tables, and “pk” for model tables.
 There are various built in Fields that may be specified at Class
 declaration. The basic field types commonly in use with OpenCloud:
 
-| FieldType          | Why to Use It?     |
-|--------------------|--------------------|
+| FieldType          | Why to Use It?                                   |
+|--------------------|--------------------------------------------------|
 | BooleanField       | Displays as a checkbox in GUI, limits input to valid possibilities.  If None is a valid option, please use NullBooleanField which uses default widget of choice None, Yes, No.|
