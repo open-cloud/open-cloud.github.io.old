@@ -15,10 +15,10 @@ Once the user has an account, the following steps are a quick guide
 to utilizing OpenCloud resources:
 
 1. **Upload a public key.** Click on the Users tab at left, click on
-your email address, and then paste your public key in the box. Click
-the Save button at right.
+   your email address, and then paste your public key in the box. Click
+   the Save button at right.
 
-2. **Ask your site's PI to create a slice.** Instructions For PIs:
+2. **Ask your Site PI to create a slice.** Instructions For PIs:
 
   * Click on the Slices tab at left, and then the Add Slice button on
     the right. In the Slice Details tab, choose a name for the slice
@@ -34,14 +34,15 @@ the Save button at right.
   * Click the Save button when done.
 
 3. **Create slivers.** Use either the Tenant or the Developer View
-(see next section) to instantiate slivers (VMs) for your slice.
+   (see next section) to instantiate slivers (VMs) for your slice.
 
 4. **Log into slivers.** Once a sliver comes up, the instance ID will
-appear on the Slivers page for your slice. You should then be able to
-login using this ID and the physical node it’s running on. Logging
-into the sliver relies on ssh agent forwarding. You need to run
-ssh-agent on your client, and that your public key is loaded. If
-ssh-agent is not already running, you can launch it like so:
+   appear on the Slivers page for your slice. You should then be able
+   to login using this ID and the physical node it’s running
+   on. Logging into the sliver relies on ssh agent forwarding. You
+   need to run ssh-agent on your client, and that your public key is
+   loaded. If ssh-agent is not already running, you can launch it like
+   so:
 
 ```
 # ssh-agent bash
