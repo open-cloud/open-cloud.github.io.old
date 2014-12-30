@@ -3,20 +3,73 @@ layout: page
 title: User Guide
 ---
 
+##Getting Started
+
 Users access OpenCloud by logging into the portal at
 [opencloud.us](http://opencloud.us). New users register through the
 same portal, with the request approved by the PI (Principle
 Investigator) at their home site. Sites join OpenCloud through an
 off-line process that starts by sending email to info@opencloud.us.
 
+Once the user has an account, the following steps are a quick guide
+to utilizing OpenCloud resources:
+
+1. **Upload a public key.** Click on the Users tab at left, click on
+your email address, and then paste your public key in the box. Click
+the Save button at right.
+
+2. **Ask your site's PI to create a slice.** Instructions For PIs:
+
+  * Click on the Slices tab at left, and then the Add Slice button on
+    the right. In the Slice Details tab, choose a name for the slice
+    and select your own site from the drop-down. Slice names must be
+    unique. Note: Click the Save and continue editing button on the
+    right before proceeding.
+
+  * In the Privileges tab, click the Add another slice privilege link.
+    Add the users that will administer the slice with the Admin privilege.
+    (These users will be able to give slice-related privileges to other
+    users.)
+
+  * Click the Save button when done.
+
+3. **Create slivers.** Use either the Tenant or the Developer View
+(see next section) to instantiate slivers (VMs) for your slice.
+
+4. **Log into slivers.** Once a sliver comes up, the instance ID will
+appear on the Slivers page for your slice. You should then be able to
+login using this ID and the physical node it’s running on. Logging
+into the sliver relies on ssh agent forwarding. You need to run
+ssh-agent on your client, and that your public key is loaded. If
+ssh-agent is not already running, you can launch it like so:
+
+```
+# ssh-agent bash
+# ssh-add ~/.ssh/id_rsa
+```
+
+Once ssh-agent is running, you should be able to login to a sliver via
+agent forwarding. For example:
+
+```
+# ssh -A instance-0000006c@node6.cs.arizona.edu
+```
+
+Note: The -A option above is required.
+
+Note: A current limitation is that only one user key is injected into
+the slice. That user can login and manually add the keys of other
+users. We are working on a fix.
+
 ##Views
 
 Users interact with OpenCloud through a configurable set of *Views*,
 each tailored for a different usage scenario or workflow. By default,
-a user's home dashboard includes *Tenant* and *Developer* views; a
-third tab, *Customize* allows the user to add and remove views from
-their home dashboard. User views are in the context of a given
-(selectable) slice. 
+a user's home dashboard includes *Tenant*, *Developer*, and *xsh*
+views; a fourth tab, *Customize* allows the user to add and remove
+views from their home dashboard. The Tenant and Developer views are in
+the context of a given (selectable) slice; the xsh view runs in the
+context of the user.
 
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of items (Deployments,
@@ -31,7 +84,7 @@ There are also views designed to support operators, including both
 thost that operate infrastructure and those that operate
 services. Support for operators is given in the *Operator's Guide*.
 
-###Tenant
+###Tenant View
 
 The Tenant view provides a simple graphical interface for users to
 acquire VMs, with minimal control over the low-level details of where
@@ -59,7 +112,7 @@ Section *Accessing a Slice* explains how to use this configuration
 information to access (e.g., ssh into) the Slivers instantiated for a
 Slice.
 
-###Developer
+###Developer View
 
 The Developer view gives users full control over how their slices are
 instantiated, including where *Slivers* are placed, what *Networks*
@@ -82,7 +135,12 @@ the authority to modify slice parameters. Granting a user *Default*
 privilege means the corresponding user is granted access to (is able
 to ssh into) the slice's slivers.
 
-###xsh
+###xsh View
+
+The xsh view provides an interactive shell through which users can
+access XOS objects. It is a Javascript-based environment that includes
+xoslib, a library projection of the XOS data model. A builtin tutorial
+illustrates how to use xsh.
 
 ##Services
 
@@ -91,8 +149,6 @@ to ssh into) the slice's slivers.
 ###HyperCache
 
 ###RequestRouter
-
-##Accessing a Slice
 
 
 
