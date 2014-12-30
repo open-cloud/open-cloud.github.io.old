@@ -20,18 +20,18 @@ to utilizing OpenCloud resources:
 
 2. **Ask your Site PI to create a slice.** Instructions For PIs:
 
-  * Click on the Slices tab at left, and then the Add Slice button on
+  - Click on the Slices tab at left, and then the Add Slice button on
     the right. In the Slice Details tab, choose a name for the slice
     and select your own site from the drop-down. Slice names must be
     unique. Click the Save and continue editing button on the right
     before proceeding.
 
-  * In the Privileges tab, click the Add another slice privilege link.
+  - In the Privileges tab, click the Add another slice privilege link.
     Add the users that will administer the slice with the Admin
     privilege. (These users will be able to extend slice privileges
     to other users.)
 
-  * Click the Save button when done.
+  - Click the Save button when done.
 
 3. **Create slivers.** Use either the Tenant or the Developer View
    (see next section) to instantiate slivers (VMs) for your slice.
