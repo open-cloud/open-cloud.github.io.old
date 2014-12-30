@@ -23,8 +23,8 @@ that can be combined in different ways to provide customized Views
 targeted at different user communities and usage scenarios. These
 views are similar to scripts -- small programs that leverage the
 underlying set of commands to create a new function for a particular
-purpose, where in OpenCloud’s case, the "underlying set of commands"
-corresponds to operations on XOS’s data model. The data model includes
+purpose, where in OpenCloud's case, the "underlying set of commands"
+corresponds to operations on XOS's data model. The data model includes
 both core objects (e.g., Users, Slices, Slivers, Roles, Sites,
 Deployments, Services) and objects that represent various services
 (e.g., Syndicate Volumes, HPC OriginServers, RequestRouter
@@ -33,7 +33,7 @@ objects.
 
 We refer to these scripts as Views because they represent a particular
 perspective of OpenCloud, but they also happen to be implemented as a
-tailored view in Django, extending Django’s standard template view. 
+tailored view in Django, extending Django's standard template view. 
 When we need to disambiguate between the OpenCloud abstraction and the
 Django implementation, we refer to the former as a User View and the
 latter as a Django View.
@@ -71,8 +71,8 @@ two. In the git repository, templates for views are stored in
 xoslib/dashboards/. In an OpenCloud installation, you'll find these
 views in /opt/planetstack/xoslib/dashboards/.
 
-There is no need to worry about building a full HTML page with <head>
-and <body> and all the usual boilerplate. XOS automatically handles
+There is no need to worry about building a full HTML page with \<head\>
+and \<body\> and all the usual boilerplate. XOS automatically handles
 those parts, as well as including the navigation panel, title bar, and
 so on. The view need only include HTML that contains what needs to be
 shown to the user. For example, file helloworld.html contains:
@@ -95,7 +95,7 @@ shown to the user. For example, file helloworld.html contains:
 
 It illustrates four things:
 
-* A comment, "<!-- … -->"
+* A comment, "<!-- ... -->"
 
 * Static text, such as "this is the hello world view"
 
@@ -505,10 +505,10 @@ in Django.
 
 | FieldType          | When to Use it     |
 |--------------------|--------------------|
-| ForeignKeyField    | Used to represent a 1-to-Many relationship. For example: Sliver’s may have 1 and only 1 Node; Node’s may have 0 or more Slivers. Can also be used to represent recursive relationships for the same object types by providing ‘self’ as the relationship (first position) parameter.|
+| ForeignKeyField    | Used to represent a 1-to-Many relationship. For example: Sliver's may have 1 and only 1 Node; Node's may have 0 or more Slivers. Can also be used to represent recursive relationships for the same object types by providing "self" as the relationship (first position) parameter.|
 | ManyToManyField    | Used to represent an N-to-N relationship. For example: Deployments may have 0 or more Sites; Sites may have 0 or more Deployments.|
 | OneToOneField      | Not currently in use, but would be useful for applications that wanted to augment a core class with their own additional settings. This has the same affect as a ForeignKey with unique=True.  The difference is that the reverse side of the relationship will always be 1 object (not a list).|
-| GenericForeignKey | Not currently in use, but can be used to specify a non specific relation to "another object." Meaning object A relates to any other object.  This relationship requires a reverse attribute in the “other” object to see the relationship -- but would primarily be accessed through the GenericForeignKey owner Model. For example, https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1. The nuances of these relationships is brought about by the additional optional attributes that can be ascribed to each Field.|
+| GenericForeignKey | Not currently in use, but can be used to specify a non specific relation to "another object." Meaning object A relates to any other object. This relationship requires a reverse attribute in the "other" object to see the relationship -- but would primarily be accessed through the GenericForeignKey owner Model. For example, https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1. The nuances of these relationships is brought about by the additional optional attributes that can be ascribed to each Field.|
 
 Note that we should likely convert our Tags to use GenericForeignKey
 so that all objects can be extensible during development, but then
@@ -540,7 +540,7 @@ effects on data integrity and REST relationships:
 | Model Setting      | When to use it     |
 |--------------------|--------------------|
 | abstract           | Used to specify that the defined model is not intended/able to be instantiated directly. For example, PlCoreBase, which is used to ensure that created, updated, and enacted fields will be provided for all OpenCloud participating objects.|
-| app_label          | Necessary if models are defined in modules other than models.py  In our core application we split out the model definitions into their own modules for clarity -- each of the models not derived from the PlCoreBase needs to explicitly state the “core” as the application this object is associated to. For example, PlCoreBase and User.|
+| app_label          | Necessary if models are defined in modules other than models.py  In our core application we split out the model definitions into their own modules for clarity -- each of the models not derived from the PlCoreBase needs to explicitly state the "core" as the application this object is associated to. For example, PlCoreBase and User.|
 | order_with_respect_to | |
 | ordering | Defines the default column to order lists of the object type by. For example, Users => email.|
 
