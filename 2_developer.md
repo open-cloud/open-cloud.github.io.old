@@ -13,6 +13,71 @@ title: Developer Guide
 
 ##Adding Services
 
+##Django Migration Notes
+
+This section discusses Django database migration. For a general
+overview of migrtion considerations, see
+https://docs.djangoproject.com/en/1.7/topics/migrations/
+
+When adding a new field to the data model, execute the following two
+steps:
+
+1. python manage.py makemigrations
+2. python manage.py migrate
+
+The first step creates the migration scripts automatically. These will
+be placed in core/migrations/, hpc/migrations/,
+syndicate_service/migrations/, and so on. The second step
+automatically runs all migration scripts as necessary to bring the
+data model from any previous state up to the current state.
+
+Migration scripts are numbered, and they have dependency information
+encoded into them. For example, migration script 0003 usually depends
+on script 0002, which depends on 0001, and so on. For this reason it
+is important that you check your migration scripts into git, and that
+you pull others' migration scripts before running makemigrations
+(otherwise multiple developers will end up creating conflciting or
+redundant scripts). Note that these migration scripts work much like
+the SQL migrations used for MyPLC.
+
+Notable changes in Django 1.7:
+
+1. "syncdb" is now a synonym for "migrate"
+
+2. "syncdb" (and migrate) no longer automatically install
+initial_data.json. To compensate, scripts/opencloud has been modified
+to perform a "loaddata" whenever the database is created for the very
+first time.
+
+3. django.setup needs to be called by external scripts before using
+models. planetstack-backend.py has been modified to do this
+automatically.
+
+Upgrading from Django 1.5 to Django 1.7 was messy, so it could be
+messy inside of peoples' private planetstacks as well. It may be
+necessary to fully uninstall Django and it's related packages
+
+```
+pip uninstall django djangorestframework django-filter django-timezones django-crispy-forms django-geoposition django-extensions django-suit django-evolution django-bitfield django-ipware django-encrypted-fields
+```
+
+and then reinstall them
+
+```
+pip install django==1.7 djangorestframework django-filter django-timezones django-crispy-forms django-geoposition django-extensions django-suit django-evolution django-bitfield django-ipware django-encrypted-fields
+```
+
+Django's migration will get upset if you attempt to have an unmigrated
+app that depends on a migrated app, for example, in Foreign Key
+relationships or model inheritance. Most of our apps have such a
+dependency between the 'Service' object in the app and
+core.Service. When creating new apps, run 
+
+```
+python manage.py makemigrations <appname>
+```
+to create the initial migration for the app.
+
 ##Data Model Conventions
 
 ###Modeling Basics
@@ -59,8 +124,8 @@ List of Field level optional attributes currently in use:
 | verbose_name="..." | Provides a label to be used in the GUI display for this field. Differs from the field name itself, which is used to create the column in the database table.|
 | verbose_name_plural="..." | Way to override the verbose name for this field.|
 | help_text="..." | Provides some context-based help for the field; will show up in the GUI display.|
-| default="..." | Allows a predefined default value to be specified.|
-| choices=CHOICES_LIST | Allows the field to be filled in from an enumerated choice. For example, *ROLE_CHOICES = (('admin', 'Admin'), ('pi', 'Principle Investigator'), ('user','User'))*|
+| default=... | Allows a predefined default value to be specified.|
+| choices=CHOICE_LIST | An interable (list or tuple). Allows the field to be filled in from an enumerated choice. For example, *ROLE_CHOICES = (('admin', 'Admin'), ('pi', 'Principle Investigator'), ('user','User'))*|
 | unique=True |	Requires that the field be unique across all entries.|
 | blank=True | Allows the field to be present but empty.|
 | null=True | Allows the field to have a value of null if the field is blank.|

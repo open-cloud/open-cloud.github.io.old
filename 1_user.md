@@ -3,8 +3,6 @@ layout: page
 title: User Guide
 ---
 
-##Accessing an Account
-
 Users access OpenCloud by logging into the portal at
 [opencloud.us](http://opencloud.us). New users register through the
 same portal, with the request approved by the PI (Principle
@@ -26,20 +24,24 @@ Sites, Slices, and Users) correspond to the core XOS objects, as
 described in Data Model Section of the Overview. The bottom set of
 items (RequestRouter, HyperCache, and Syndicate) correspond to
 services that extend XOS. Most users will have no need to directly
-access the data model through the navigation bar, insteading opting to
-take advantage of the tailoered workflows supported by the various
-views.
+access the data model through the navigation bar, instead taking
+advantage of the tailoered workflows supported by the various views.
 
-There are also views designed to support operators, including users
-that operate infrastructure and users that operate services. Support
-for such users is given in the *Operator's Guide*.
+There are also views designed to support operators, including both
+thost that operate infrastructure and those that operate
+services. Support for operators is given in the *Operator's Guide*.
 
 ###Tenant
 
 The Tenant view provides a simple graphical interface for users to
 acquire VMs, with minimal control over the low-level details of where
 those VMs are placed and how they are interconnected. It is loosely
-patterned after the Amazon EC2 interface.
+patterned after the Amazon EC2 interface. 
+
+The Tenant view is limited to the ViCCI Deployment, which includes
+modest-sized clusters at five sites throughout the US and Europe.
+Users that want to acquiring VMs on any other deployment must use
+the Developer view.
 
 The Tenant view supports two modes: Simple (the default) and Advanced
 (accessed by selecting the *Go To Advanced View* button). Simple mode
@@ -65,8 +67,9 @@ connect them, and the *Privileges* granted to other users.
 
 With respect to Slivers (configured by selecting the corresponding
 tab), users first select a target *Deployment*, and then pick an
-individual *Node* at that deployment. Users are also able to select
-an *Image* and a *Flavor* on a per-Sliver basis.
+individual *Node* at that deployment. Users are also able to select an
+*Image* and a *Flavor* on a per-Sliver basis. All Deployments that the
+user is permitted to access are visible when instantiating Slivers.
 
 With respect to Networks (configured by selecting the corresponding
 tab), each slice is automatically configured with a public and a
