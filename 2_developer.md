@@ -142,23 +142,23 @@ variables that are usable by the views:
 
 ```
 def getDashboardContext(user, context={}, tableFormat = False):
-           context = {}
+   context = {}
 
-           userSliceData = getSliceInfo(user)
-           if (tableFormat):
-                       context['userSliceInfo'] = userSliceTableFormatter(userSliceData)
-           else:
-               context['userSliceInfo'] = userSliceData
+   userSliceData = getSliceInfo(user)
+   if (tableFormat):
+       context['userSliceInfo'] = userSliceTableFormatter(userSliceData)
+   else:
+       context['userSliceInfo'] = userSliceData
 
-        context['cdnData'] = getCDNOperatorData(wait=False)
-context['cdnContentProviders'] = getCDNContentProviderData()
+   context['cdnData'] = getCDNOperatorData(wait=False)
+   context['cdnContentProviders'] = getCDNContentProviderData()
 
-           (dashboards, unusedDashboards)= getDashboards(user)
-           unusedDashboards=[x for x in unusedDashboards if x!="Customize"]
-           context['dashboards'] = dashboards
-           context['unusedDashboards'] = unusedDashboards
+   (dashboards, unusedDashboards)= getDashboards(user)
+   unusedDashboards=[x for x in unusedDashboards if x!="Customize"]
+   context['dashboards'] = dashboards
+   context['unusedDashboards'] = unusedDashboards
 
-           return context
+   return context
 ```
 
 To add a new context variable, just insert a new statement near the
@@ -202,21 +202,21 @@ display a list of slice names inside of #tableOfItnerestingThings:
 ```
 // helloworld.js
 function updateHelloWorldData() {
-        var html = "<table table table-bordered table-striped>";
-        for (var slicekey in xos.slices.models) {
-                slice = xos.slices.models[slicekey]
-                html = html + "<tr><td>" + slice.get("name") + "</td><td>" + slice.get("description") + "</td></tr>";
-        }
-        html = html + "</table>";
-        $('#dynamicTableOfInterestingThings').html(html);
+    var html = "<table table table-bordered table-striped>";
+    for (var slicekey in xos.slices.models) {
+        slice = xos.slices.models[slicekey]
+        html = html + "<tr><td>" + slice.get("name") + "</td><td>" + slice.get("description") + "</td></tr>";
+    }
+    html = html + "</table>";
+    $('#dynamicTableOfInterestingThings').html(html);
 }
 
 $(document).ready(function(){
-        xos.slices.on("change", function() { updateHelloWorldData(); });
-        xos.slices.on("remove", function() { updateHelloWorldData(); });
-        xos.slices.on("sort", function() { updateHelloWorldData();  });
+    xos.slices.on("change", function() { updateHelloWorldData(); });
+    xos.slices.on("remove", function() { updateHelloWorldData(); });
+    xos.slices.on("sort", function() { updateHelloWorldData();  });
 
-        xos.slices.startPolling();
+    xos.slices.startPolling();
 });
 ```
 
@@ -258,11 +258,11 @@ slice in the list
 ```
 // helloworld.js
 $(document).ready(function() {
-        $('#submitNewDescription').bind('click', function() {
-                newDescription = $("#newDescription").val();
-                xos.slices.models[0].set("description", newDescription);
-                xos.slices.models[0].save();
-});
+    $('#submitNewDescription').bind('click', function() {
+        newDescription = $("#newDescription").val();
+        xos.slices.models[0].set("description", newDescription);
+        xos.slices.models[0].save();
+    });
 });
 ```
 
