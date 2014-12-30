@@ -38,11 +38,10 @@ to utilizing OpenCloud resources:
 
 4. **Log into slivers.** Once a sliver comes up, the instance ID will
    appear on the Slivers page for your slice. You should then be able
-   to login using this ID and the physical node it’s running
-   on. Logging into the sliver relies on ssh agent forwarding. You
-   need to run ssh-agent on your client, and that your public key is
-   loaded. If ssh-agent is not already running, you can launch it like
-   so:
+   to login using this ID and the physical node it is running on.
+   Logging into the sliver relies on ssh agent forwarding. You need
+   to run ssh-agent on your client, and that your public key is loaded.
+   If ssh-agent is not already running, you can launch it like so:
 
 ```
 # ssh-agent bash
@@ -59,7 +58,7 @@ agent forwarding. For example:
 Note: The -A option above is required.
 
 [*A current limitation is that only one user key is injected into the
-slice. That user can login and manually add the keys of other users. 
+slice. That user can login and manually add the keys of other users.
 We are working on a fix.*]
 
 ##Views
@@ -150,6 +149,4 @@ illustrates how to use xsh.
 ###HyperCache
 
 ###RequestRouter
-
-
 
