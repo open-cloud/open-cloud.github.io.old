@@ -20,19 +20,6 @@ the Save button at right.
 
 2. **Ask your site's PI to create a slice.** Instructions For PIs:
 
-  * Click on the Slices tab at left, and then the Add Slice button on
-    the right. In the Slice Details tab, choose a name for the slice
-    and select your own site from the drop-down. Slice names must be
-    unique. Note: Click the Save and continue editing button on the
-    right before proceeding.
-
-  * In the Privileges tab, click the Add another slice privilege link.
-    Add the users that will administer the slice with the Admin privilege.
-    (These users will be able to give slice-related privileges to other
-    users.)
-
-  * Click the Save button when done.
-
 3. **Create slivers.** Use either the Tenant or the Developer View
 (see next section) to instantiate slivers (VMs) for your slice.
 
@@ -57,9 +44,9 @@ agent forwarding. For example:
 
 Note: The -A option above is required.
 
-Note: A current limitation is that only one user key is injected into
-the slice. That user can login and manually add the keys of other
-users. We are working on a fix.
+[*A current limitation is that only one user key is injected into the
+slice. That user can login and manually add the keys of other users. 
+We are working on a fix.*]
 
 ##Views
 
