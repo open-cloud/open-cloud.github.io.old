@@ -47,8 +47,8 @@ displayed in the user's browser.
 
 3. Create a javascript file that contains the code that will execute
 the client side of the view
-   a. fetch dynamic data from xoslib
-   b. commit modified data back to xoslib
+   o fetch dynamic data from xoslib
+   o commit modified data back to xoslib
 
 4. (optional) extend the XOS api with new objects
 
@@ -107,10 +107,10 @@ It illustrates four things:
 * An input box where the user can type some stuff and a submit button
   to go with it
 
-* Some <script> tags that load javascript for xoslib and its
+* Some \<script\> tags that load javascript for xoslib and its
   dependencies
 
-* A <script> tag that loads javascript for the helloworld view
+* A \<script\> tag that loads javascript for the helloworld view
   (helloworld.js).
 
 At this point, we are able to display the user view in the browser. To
@@ -181,7 +181,7 @@ make our view more dynamic. The javascript should be placed in
 /opt/planetstack/core/xoslib/static/js/helloworld.js.
 
 [Note: we could have placed the javascript in the html template using
-<script></script> tags, but placing it in a separate .js file is
+\<script\>\</script\> tags, but placing it in a separate .js file is
 cleaner for large views, and eliminates the potential of django's
 template language modifying the javascript.]
 
