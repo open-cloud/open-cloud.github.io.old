@@ -7,7 +7,9 @@ title: Developer Guide
 
 ##Testing Framework
 
-##Reporting Bugs
+##RESTful API
+
+##xoslib
 
 ##Adding Views to XOS
 
@@ -57,7 +59,7 @@ homepage.
 
 The rest of this document walks through these steps, creating a "Hello
 World" view to illustrate. It uses
-http://node43.princeton.vicci.org:8000 as the example server running
+http://devel.opencloud.us:8000 as the example server running
 Django/XOS, and assumes the software at
 http://git.planet-lab.org/plstackapi.git has been installed on that
 node.
@@ -115,7 +117,7 @@ It illustrates four things:
 
 At this point, we are able to display the user view in the browser. To
 confirm that it's working, navigate to
-http://node43.princeton.vicci.org:8000/admin/dashboard/helloworld/
+http://devel.opencloud.us:8000/admin/dashboard/helloworld/
 
 This will cause your user view to be displayed by itself, without
 invoking the home page customization machinery. This is useful for
@@ -314,7 +316,7 @@ There are two different views you can register, template-based views
 ####Template-based Views
 
 1. Open your browser to
-http://node43.princeton.vicci.org:8000/admin/core/dashboardview/
+http://devel.opencloud.us:8000/admin/core/dashboardview/
 
 2. You should see a list of existing dashboard views (Slice
 Interactions, Tenant, Developer, ...)
@@ -342,7 +344,7 @@ opencloud dashboard. This is done by specifying a "http://" url
 instead of a "template:" url. For example,
 
 1. Open your browser to
-http://node43.princeton.vicci.org:8000/admin/core/dashboardview/
+http://devel.opencloud.us:8000/admin/core/dashboardview/
 
 2. You should see a list of existing dashboard views (Slice
 Interactions, Tenant, Developer, ...)
@@ -599,6 +601,8 @@ django-rest-framework site for further details:
 http://django-rest-framework.org/#quickstart
 
 ###Our conventions for the REST API
+
+##Reporting Bugs
 
 
 
