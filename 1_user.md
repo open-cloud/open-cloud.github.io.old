@@ -141,9 +141,35 @@ illustrates how to use xsh.
 
 ##Services
 
+OpenCloud includes a set of contributed services that are available to
+other OpenCloud users (or the Services running on their behalf). That
+is, in some cases end-users are the client/tenant of the Service and
+in other cases OpenCloud Services are the client/tenant of the Service.
+There are currently three contributed Services, each of which extends
+the XOS Data Model with its own abstract objects -- and hence, is
+accessible via OpenCloud's REST API -- as follows.
+
 ###Syndicate
 
 ###HyperCache
 
+The HyperCache (HPC) Service is used by *Content Providers* to
+accelerate the delivery of content to Internet users... [todo]
+
 ###RequestRouter
+
+The RequestRouter (RR) Service is used by a client service to redirect
+user requests to the best instance of that service. For example,
+HyperCache uses RR to redirect an HTTP GET request to the best cache
+to serve a particular piece of content to a particular end-user. RR
+determines "best" according to the policy specified in a *Service Map*
+filed by the client service.
+
+A client (tenant) of the RR Service configures a *ServiceMap* by
+specifying the following information: the *Service* requesting the
+Service Map; the *Slice* in which the Service runs (which indirectly
+identifies the candidate instances to which RR redirects requests);
+the URL *Prefix* that end-users will use to name the service; and a
+pair of RR-specific map files, called the *SiteMap* and *AccessMap*,
+respectively. The format of these two map files is defined elsewhere.
 
