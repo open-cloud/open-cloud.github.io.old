@@ -365,7 +365,7 @@ now have a tab that displays the ON.LAB home page.
 ##Django Migration Notes
 
 This section discusses Django database migration. For a general
-overview of migrtion considerations, see
+overview of migration considerations, see
 https://docs.djangoproject.com/en/1.7/topics/migrations/
 
 When adding a new field to the data model, execute the following two
@@ -450,6 +450,18 @@ convention, that index/key should be the Django AutoField id which is
 automatically created for any Model that has not identified a separate
 unique primary key. The Django default primary key is always "id" for
 system level tables, and "pk" for model tables.
+
+####Naming Conventions
+
+Model names should use CamelCase without underscore. Model names should always
+be singular, never plural. For example: Slice, Network, NetworkTemplate.
+
+Sometimes a model is used as a through relation to relate two other models, and
+should be named after the two models that it relates. For example, a model that
+relates the Controller and User models should be called ControllerUser.
+
+Field names use lower case with underscores separating names. Examples of
+valid field names are: name, disk_format, controller_format.
 
 ####Field Types
 
