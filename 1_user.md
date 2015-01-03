@@ -14,21 +14,21 @@ off-line process that starts by sending email to info@opencloud.us.
 Once the user has an account, the following steps are a quick guide
 to utilizing OpenCloud resources:
 
-1. **Upload a public key.** Click on the Users tab at left, click on
+1. **Upload a public key.** Click on the *Users* tab at left, click on
    your email address, and then paste your public key in the box. Click
-   the Save button at right.
+   the *Save* button at right.
 
-2. **Ask your Site PI to create a slice.** Instructions For PIs:
-   - Click on the Slices tab at left, and then the Add Slice button on
-     the right. In the Slice Details tab, choose a name for the slice
+2. **Ask your Site PI to create a slice.** Instructions for PIs:
+   - Click on the *Slices* tab at left, and then the *Add Slice* button on
+     the right. In the *Slice Details* tab, choose a name for the slice
      and select your own site from the drop-down. Slice names must be
-     unique. Click the Save and continue editing button on the right
+     unique. Click the *Save and continue editing* button on the right
      before proceeding.
-   - In the Privileges tab, click the Add another slice privilege link.
+   - In the *Privileges* tab, click the *Add another slice privilege* link.
      Add the users that will administer the slice with the Admin
      privilege. (These users will be able to extend slice privileges
      to other users.)
-   - Click the Save button when done.
+   - Click the *Save* button when done.
 
 3. **Create slivers.** Use either the Tenant or the Developer View
    (see next section) to instantiate slivers (VMs) for your slice.
@@ -52,7 +52,7 @@ agent forwarding. For example:
 # ssh -A instance-0000006c@node6.cs.arizona.edu
 ```
 
-Note: The -A option above is required.
+The -A option above is required.
 
 [*A current limitation is that only one user key is injected into the
 slice. That user can login and manually add the keys of other users.
@@ -71,15 +71,15 @@ context of the user.
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of items (Deployments,
 Sites, Slices, and Users) correspond to the core XOS objects, as
-described in Data Model Section of the Overview. The bottom set of
-items (RequestRouter, HyperCache, and Syndicate) correspond to
+described in **Data Model** Section of the **Overview**. The bottom
+set of items (RequestRouter, HyperCache, and Syndicate) correspond to
 services that extend XOS. Most users will have no need to directly
 access the data model through the navigation bar, instead taking
 advantage of the tailoered workflows supported by the various views.
 
 There are also views designed to support operators, including both
 thost that operate infrastructure and those that operate
-services. Support for operators is given in the *Operator's Guide*.
+services. Support for operators is given in the **Operator's Guide**.
 
 ###Tenant View
 
@@ -89,23 +89,22 @@ those VMs are placed and how they are interconnected. It is loosely
 patterned after the Amazon EC2 interface. 
 
 The Tenant view is limited to the ViCCI Deployment, which includes
-modest-sized clusters at five sites throughout the US and Europe.
-Users that want to acquiring VMs on any other deployment must use
-the Developer view.
+clusters at five sites throughout the US and Europe.  Users that want
+to acquiring VMs on any other deployment must use the Developer view.
 
 The Tenant view supports two modes: Simple (the default) and Advanced
 (accessed by selecting the *Go To Advanced View* button). Simple mode
 lets users specify how many VMs (Slivers) they want. The VMs are
 placed at the best available site and boot a default image. Advanced
-mode lets the user specify the site(s) on which VMs are to be
-instantiated, select a Image to boot in those VMs, select a Service
-Level, mount select Data Set(s) into those VMs, and specify the TCP
-ports the slice is going to use.
+mode lets the user specify the *Site(s)* on which VMs are to be
+instantiated, select an *Image* to boot in those VMs, select a
+*Flavor*, mount select *Data Set(s)* into those VMs, and specify the
+*TCP Ports* the slice is going to use.
 
 The *Download Slice Details* button available in both Simple and
 Advanced mode downloads a text file that gives details about the
 user's slice, including DNS names at which the VMs can be accessed.
-Section *Accessing a Slice* explains how to use this configuration
+Section **Getting Started** explains how to use this configuration
 information to access (e.g., ssh into) the Slivers instantiated for a
 Slice.
 
@@ -118,8 +117,9 @@ connect them, and the *Privileges* granted to other users.
 With respect to Slivers (configured by selecting the corresponding
 tab), users first select a target *Deployment*, and then pick an
 individual *Node* at that deployment. Users are also able to select an
-*Image* and a *Flavor* on a per-Sliver basis. All Deployments that the
-user is permitted to access are visible when instantiating Slivers.
+*Image* and a *Flavor* on either a per-Sliver or a per-Slice
+basis. All Deployments that the user is permitted to access are
+visible when instantiating Slivers.
 
 With respect to Networks (configured by selecting the corresponding
 tab), each slice is automatically configured with a public and a
@@ -141,9 +141,35 @@ illustrates how to use xsh.
 
 ##Services
 
+OpenCloud includes a set of contributed services that are available to
+other OpenCloud users (or the Services running on their behalf). That
+is, in some cases end-users are the client/tenant of the Service and
+in other cases OpenCloud Services are the client/tenant of the Service.
+There are currently three contributed Services, each of which extends
+the XOS Data Model with its own abstract objects -- and hence, is
+accessible via OpenCloud's REST API -- as follows.
+
 ###Syndicate
 
 ###HyperCache
 
+The HyperCache (HPC) Service is used by *Content Providers* to
+accelerate the delivery of content to Internet users... [todo]
+
 ###RequestRouter
+
+The RequestRouter (RR) Service is used by a client service to redirect
+user requests to the best instance of that service. For example,
+HyperCache uses RR to redirect an HTTP GET request to the best cache
+to serve a particular piece of content to a particular end-user. RR
+determines "best" according to the policy specified in a *Service Map*
+filed by the client service.
+
+A client (tenant) of the RR Service configures a *ServiceMap* by
+specifying the following information: the *Service* requesting the
+Service Map; the *Slice* in which the Service runs (which indirectly
+identifies the candidate instances to which RR redirects requests);
+the URL *Prefix* that end-users will use to name the service; and a
+pair of RR-specific map files, called the *SiteMap* and *AccessMap*,
+respectively. The format of these two map files is defined elsewhere.
 

@@ -4,9 +4,9 @@ title: Overview
 ---
 
 OpenCloud is an operational cloud running on servers distributed
-across multiple sites world-wide. This section describes both its
-software architecture and the hardware infrastructure on which it is
-currently deployed.
+across multiple sites world-wide. This overview describes its software
+architecture and the hardware infrastructure on which it is currently
+deployed.
 
 To help frame the discussion, this guide distinguishes among three
 independent ideas:
@@ -26,8 +26,8 @@ independent ideas:
   access OpenCloud resources via the portal at
   [opencloud.us](http://opencloud.us).
 
-This guide primarily focuses on XOS, although examples from OpenCloud
-are used to illustrate operational and deployment aspects.
+This guide refers to XOS and OpenCloud interchangably, except when
+it's important to distinguish between the software and the deployment.
 
 ##Software Architecture
 ---
@@ -49,19 +49,18 @@ specifically, the controllers for those services. This includes a set
 of core services -- Compute-as-a-Service (CaaS), Network-as-a-Service
 (NaaS), and Id-Management-as-a-Service (IDaaS) -- required to "boot"
 the system, as well as library of contributed services. The core
-services are borrowed from OpenStack, and collectively implement
-Infrastructure-as-a-Service (IaaS). The contributed services are drawn
-from a combination of research prototypes, open source projects, and
-trial deployments of commercial services.
+services are borrowed from OpenStack. The contributed services are
+drawn from a combination of research prototypes, open source projects,
+and trial deployments of commercial services.
 
-The top-most purple box represents XOS proper. By way of analogy, XOS
-corresponds to the Unix kernel, where the set of services built around
-XOS correspond to the commands-and-libraries bundled with Unix. An
-important aspect of this design is that to most users, the distinction
-between the kernel and the commands-and-libraries is not important.
-That is, XOS includes explicit support for folding new services built
-on top of OpenCloud back into OpenCloud, making them available to
-users. 
+The top-most purple box represents XOS proper, and extensible Cloud OS
+(or alternatively, "Service Orchestrator") that includes explicit
+support for folding new services built on top of OpenCloud back into
+OpenCloud. By way of analogy, XOS is similar to the Unix kernel, where
+the set of services built around XOS correspond to the
+commands-and-libraries bundled with Unix. An important aspect of this
+design is that to most users, the distinction between the kernel (XOS)
+and the commands-and-libraries (set of services) is not important.
 
 More information about how users interact with XOS is given in the
 **User Guide**, while more information about how to extend XOS with
@@ -76,43 +75,34 @@ use XOS to manage a cloud is given in the **Operator Guide**.
 
 Figure 2. Internal structure of XOS influenced by MVC pattern.
 
-Figure 2 depicts the internal structure of XOS, which is borrows
-heavily from the Model-View-Controller (MVC) design pattern originally
-introduced by Smalltalk, but now considered best practice because of
-its clean separation of data representation and presentation. The
-*Data Model* codifies the abstract objects, the relationship among
-those objects, and the operations on those objects. It is the heart of
-XOS, and so we briefly introduce the key object types in the next
-section.
+Figure 2 depicts the internal structure of XOS, which borrows from the
+Model-View-Controller (MVC) design pattern originally introduced by
+Smalltalk. The *Data Model* codifies the abstract objects, the
+relationship among those objects, and the operations on those
+objects. It is the heart of XOS, and so we briefly introduce the key
+object types in the next section.
 
 On top of these abstractions is a set of *Views* that defines how
-various actors interact with XOS. These include traditional cloud
-tenants, service developers, and cloud operators. We expect the set of
-views to evolve over time, so for example, if OpenCloud one day
-supports a suite of content distribution services, it might be useful
-to create a "Content Provider" view.
+various actors interact with XOS. These include cloud tenants, service
+developers, and cloud operators. We expect the set of views to evolve
+over time, and to this end, XOS provides a programming environment for
+writing new views (see Section **Adding Views** of the **Developer
+Guide**).
 
 Below the Model sits a collection of controller plugins that react to
 changes in the Data Model by manipulating the interfaces to the
-constituent services. We call this set of plugins -- and the framework
-in which they execute -- the *Observer*. The Observer's job is to
-ensure configuration state remains consistent across all levels of the
-distributed system, from the authoritative state maintained in the XOS
-data base, to the per-service state maintained in each service
-controller, to the local state in the distributed instances that
-implement each service. This is a challenging technical problem, and
-our approach is informed by a decade of experience controlling
-PlanetLab nodes and slices distributed across hundreds of sites around
-the world. A companion
-[whitepaper](http://opencloud.us/docs/Observer.pdf) describes the
-solution adopted by the Observer in more detail.
-
-XOS is designed to be extensible, as described in the **Developer
-Guide**: Section **Adding Views** describes how to extend XOS to
-include new views (it involves writing "applications" on top of the
-XOS data model), and Section **Adding Services** describes how to
-extend XOS to include new services (it involves adding controller
-plugins to the Observer).
+constituent services. We expect the set of services to evolve over
+time, and to this send, XOS provides a framework for executing
+controller plugins (see Section **Adding Services** of the **Developer
+Guide**). This framework, called the *Observer*, ensures configuration
+state remains consistent across all levels of the distributed system,
+from the authoritative state maintained in the XOS data base, to the
+per-service state maintained in each service controller, to the local
+state in the distributed instances that implement each service. Our
+approach is informed by a decade of experience controlling PlanetLab
+nodes and slices distributed across hundreds of sites around the
+world. A companion [whitepaper](http://opencloud.us/docs/Observer.pdf)
+describes the solution adopted by the Observer in more detail.
 
 ##Data Model
 ---
@@ -509,8 +499,7 @@ Tech, and the Max Planck Institute (each cluster has 70 servers) and
 the ViNI servers deployed across ten Internet2 routing centers (each
 ViNI site currently hosts 2-4 high-end servers). OpenCloud will
 eventually leverage InstaGENI servers being deployed at 32 campuses in
-the U.S. Each GENI cluster includes 6 servers, 2-4 of which are
-currently bootable as OpenCloud nodes.
+the U.S.
     
 Second, OpenCloud integrates commodity clouds, most notably Amazon's
 EC2. This is possible because XOS treats everything-as-a-service,
@@ -539,8 +528,8 @@ deployed throughout dozens of campus and regional networks.
 Today, OpenCloud includes servers at all four tiers, organized as four
 independently managed Deployments: an EC2 Deployment allows users to
 acquire VMs in EC2, a ViCCI Deployment includes six servers at each of
-the five ViCCI sites (ViCCI servers will be as demand dictates), an
-Internet2 Deployment includes two servers at each of ten Internet2
+the five ViCCI sites (ViCCI servers will be added as demand dictates),
+an Internet2 Deployment includes two servers at each of ten Internet2
 routing centers, and an Enterprise Deployment includes clusters at two
 University campuses.
 
