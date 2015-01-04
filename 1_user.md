@@ -151,6 +151,105 @@ accessible via OpenCloud's REST API -- as follows.
 
 ###Syndicate
 
+Syndicate is a scalable storage service for a slice and its users.
+When enabled, it provides a private shared volume that both slivers 
+and users can locally mount as a read/write filesystem.  In addition,
+the OpenCloud deployment of Syndicate offers public read-only volumes
+which contain popular scientific datasets for slivers to consume.
+
+####Getting Started
+
+When creating a Slice in the Tenant view, a user can opt to make 
+a shared private volume for the slice by checking the "Include 
+Private Vol." checkbox.  When the user logs into a sliver, the 
+volume will be mounted under `/syndicate/`.
+
+####Developer View
+
+Users can control specific volume parameters from the 
+Developer view, under the Syndicate -> Volumes menu.  Users can 
+add and remove additional volumes to their slices, bind their volumes 
+to other slices, and control volume capabilities for other
+OpenCloud users and slices.
+
+**Mounting to an Existing Volume in a Slice**
+
+A user can add another volume to a slice in the following manner
+(the user must start from the Volumes menu).
+
+1. Click the desired volume.
+2. Select the "Slices" tab.
+3. Click "Add another Volume Slice".
+4. Fill in the volume parameters, as follows:
+    - **Slice**:  Select the slice to receive the volume.
+    - **Cap read data**: check this box if a sliver should be
+      permitted to read volume data.  If unsure, check this box.
+    - **Cap write data**: check this box if a sliver should be
+      permitted to write volume data.  If unsure, do not check
+      this box.
+    - **Cap host data**: check this box if a sliver should be 
+      permitted to host data for the volume.  Only check this 
+      box if you can rely on the slivers to work with Syndicate
+      to keep the volume data consistent and available.  If 
+      unsure, do not check this box.
+    - **UG port**: This is a port number, between 1024 and 65534,
+      on which each sliver's Syndicate User Gateway will listen.
+      It does not matter what number the user chooses; it only 
+      matters that it is available on each sliver.
+    - **RG port**: This is a port number, between 1024 and 65534,
+      on which each sliver's Syndicate Replica Gateway will listen.
+      It does not matter which number the user chooses; it only 
+      matters that it is available on each sliver.
+5. Click "Save."
+
+Once these steps are carried out, OpenCloud will ensure that the 
+new volume will be automatically mounted under `/syndicate/`
+in each sliver.
+
+**NOTE**:  This can only be done with public volumes.  Volumes 
+created for a slice in the Tenant view are private by default.
+See "Volume Access Control" below.
+
+**Creating and Updating Volumes**
+
+A user can create or change the parameters of their volumes by
+selecting their volume from the volume list, and navigating to 
+the "Volume Details" tab.  Most of the "Volume Details" fields 
+are self-explanatory, but a few warrant additional comment:
+
+* **Blocksize**:  This is the number of bytes in a block. 
+In Syndicate, a block is the smallest unit of transfer, storage, 
+and data consistency.  Smaller values reduce the number of 
+bytes to invalidate on a write, but larger values improve 
+read performance by reducing the number of data transfers.
+A good value for read/write volumes is 102400 (100KB).  Read-only
+volumes should choose the medium file size as the block size,
+to maximize transfer efficiency.
+* **Archive**:  If set, this volume will need to be configured 
+such that a Syndicate Acquisition Gateway (AG) can populate it 
+with dataset metadata.  Do not check this box unless you know 
+what you are doing.
+* **Cap host data**:  If set, this means that by default, a sliver can 
+help Syndicate replicate data and coordinate writes to it.  This 
+implies a larger degree of trust in the sliver.  If your slivers 
+will do most of the I/O in your volume, you should check this box.
+If you or other machines outside of OpenCloud will do most of the I/O,
+you should *not* check this box.
+
+**Volume Access Control**
+
+Users can authorize other users to access their volumes.  This is not 
+limited to within OpenCloud--if Alice permits Bob to access her volume, 
+then Bob can do so from his OpenCloud slivers or his personal machines.
+Users can control the capabilities other users will have: read access
+(*Cap read data*), write access (*Cap write data*), and host access 
+(*Cap host data*).
+
+Read and write access is self-explanatory.  Host-access should only 
+be granted if the user is sufficiently trustworthy, since the "host data"
+capability will grant that user the ability to coordinate writes 
+to the volume's files.  If unsure, the user should not check "Cap host data."
+
 ###HyperCache
 
 The HyperCache (HPC) Service is used by *Content Providers* to
