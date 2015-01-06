@@ -30,7 +30,6 @@ This guide refers to XOS and OpenCloud interchangably, except when
 it's important to distinguish between the software and the deployment.
 
 ##Software Architecture
----
 
 Figure 1 schematically depicts the software components running on
 OpenCloud.  The bottom-most green boxes represent low-level
@@ -105,7 +104,6 @@ world. A companion [whitepaper](http://opencloud.us/docs/Observer.pdf)
 describes the solution adopted by the Observer in more detail.
 
 ##Data Model
----
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
@@ -451,14 +449,12 @@ involves directly augmenting the data model, as described in the
 **Adding Services** section of the **Developer Guide**.
 
 ##Interfaces
----
 
 XOS offers two layered interfaces. The primary interface is a RESTful
 API running directly on top of Django. The second is in the form of a
 library, called *xoslib*, that simplifies the task of building Views.
 
 ##Hardware Infrastructure
----
 
 This section sketches the OpenCloud hardware infrastructure, both in
 general terms (i.e., what OpenCloud will look like when fully
