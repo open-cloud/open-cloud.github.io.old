@@ -3,6 +3,10 @@ layout: page
 title: User Guide
 ---
 
+This guide describes how users log into OpenCloud, acquire VMs, and
+access OpenCloud services. It assumes the reader is familiar with
+the general concepts presented in the **Overview**.
+
 ##Getting Started
 
 Users access OpenCloud by logging into the portal at

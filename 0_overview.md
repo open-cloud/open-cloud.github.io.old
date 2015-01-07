@@ -26,8 +26,9 @@ independent ideas:
   access OpenCloud resources via the portal at
   [opencloud.us](http://opencloud.us).
 
-This guide refers to XOS and OpenCloud interchangably, except when
-it's important to distinguish between the software and the deployment.
+This guide refers to XOS and OpenCloud interchangably when the
+distinction between the software and the deployment is not critical to
+the discussion.
 
 ##Software Architecture
 
@@ -47,12 +48,12 @@ The middle orange boxes represent a collection of services, or more
 specifically, the controllers for those services. This includes a set
 of core services -- Compute-as-a-Service (CaaS), Network-as-a-Service
 (NaaS), and Id-Management-as-a-Service (IDaaS) -- required to "boot"
-the system, as well as library of contributed services. The core
-services are borrowed from OpenStack. The contributed services are
-drawn from a combination of research prototypes, open source projects,
-and trial deployments of commercial services.
+an operational system. These core services are based on OpenStack. It
+also includes a library of contributed services drawn from research
+prototypes, open source projects, and trial deployments of commercial
+services.
 
-The top-most purple box represents XOS proper, and extensible Cloud OS
+The top-most purple box represents XOS proper, an extensible Cloud OS
 (or alternatively, "Service Orchestrator") that includes explicit
 support for folding new services built on top of OpenCloud back into
 OpenCloud. By way of analogy, XOS is similar to the Unix kernel, where
@@ -91,9 +92,11 @@ Guide**).
 Below the Model sits a collection of controller plugins that react to
 changes in the Data Model by manipulating the interfaces to the
 constituent services. We expect the set of services to evolve over
-time, and to this send, XOS provides a framework for executing
+time, and to this end, XOS provides a framework for executing
 controller plugins (see Section **Adding Services** of the **Developer
-Guide**). This framework, called the *Observer*, ensures configuration
+Guide**). 
+
+This framework, called the *Observer*, ensures configuration
 state remains consistent across all levels of the distributed system,
 from the authoritative state maintained in the XOS data base, to the
 per-service state maintained in each service controller, to the local
@@ -457,14 +460,15 @@ library, called *xoslib*, that simplifies the task of building Views.
 ##Hardware Infrastructure
 
 This section sketches the OpenCloud hardware infrastructure, both in
-general terms (i.e., what OpenCloud will look like when fully
+general terms (i.e., what we expect OpenCloud to look like when fully
 deployed), and in specific terms (i.e., what infrastructure is
 operational today).
 
 OpenCloud is designed to span a wide spectrum of Cloud resources --
-from the data center, across wide-area national and regional networks,
-to edge access networks -- with SDN-enabled networks providing
-end-to-end connectivity across the entire system.
+existing commodity clouds, large private clusters, across wide-area
+national and regional networks, to edge access networks -- with
+SDN-enabled networks providing end-to-end connectivity across much of
+the system.
 
 ![Figure 3. OpenCloud Deployed Across Four Tiers of Resources.]({{ site.url }}/figures/Slide3.jpg)
 
@@ -523,9 +527,9 @@ deployed throughout dozens of campus and regional networks.
     
 Today, OpenCloud includes servers at all four tiers, organized as four
 independently managed Deployments: an EC2 Deployment allows users to
-acquire VMs in EC2, a ViCCI Deployment includes six servers at each of
-the five ViCCI sites (ViCCI servers will be added as demand dictates),
-an Internet2 Deployment includes two servers at each of ten Internet2
-routing centers, and an Enterprise Deployment includes clusters at two
-University campuses.
+acquire VMs in EC2, a ViCCI Deployment includes servers at each of the
+five ViCCI sites (ViCCI servers will be added to OpenCloud as demand
+dictates), an Internet2 Deployment includes two servers at each of ten
+Internet2 routing centers, and an Enterprise Deployment includes
+clusters at two University campuses.
 
