@@ -3,13 +3,18 @@ layout: page
 title: Release Notes
 ---
 
-
 ##To Fix Before Release
 
 1. Remove visible references to Reservations, Accounts, and
    Invoices.
 
 2. Need to either hide or document the ability to whitelist Networks.
+
+3. Hide or remove undocumented Views. Keep only Tenant, Developer,
+   and xsh.
+
+4. Complete Site Privilges (Admin, Tech, PI, Default) or document as
+   incomplete.
 
 ##Incomplete and Undocumented Features
 

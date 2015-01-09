@@ -22,7 +22,8 @@ to utilizing OpenCloud resources:
    your email address, and then paste your public key in the box. Click
    the *Save* button at right.
 
-2. **Ask your Site PI to create a slice.** Instructions for PIs:
+2. **Ask your Site PI to create a slice.** Instructions for PIs (see
+     **Information for Site Admins, PIs, and Techs** for more information):
    - Click on the *Slices* tab at left, and then the *Add Slice* button on
      the right. In the *Slice Details* tab, choose a name for the slice
      and select your own site from the drop-down. Slice names must be
@@ -141,6 +142,25 @@ The xsh view provides an interactive shell through which users can
 access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
+
+##Information for Site Admins, PIs, and Techs
+
+In addition to creating slices for their site's users (as described in
+the *Getting Started* section), there are a few site-related tasks that
+site Admins, PIs, and Techs are resposible for.
+
+* **Configuring Site:** ...includes public/private...
+
+* **Approving Users:**
+
+* **Creating Slices:**
+
+* **Adding Nodes:**
+
+* **Assigning Privileges:**
+
+* **Selecting Deployments:**
+
 
 ##Services
 
