@@ -88,47 +88,46 @@ services. Support for operators is given in the **Operator's Guide**.
 ###Tenant View
 
 The Tenant view provides a simple graphical interface for users to
-acquire VMs, with minimal control over the low-level details of where
-those VMs are placed and how they are interconnected. It is loosely
-patterned after the Amazon EC2 interface. 
+acquire Slivers, with minimal control over the low-level details of
+where those Slivers are placed and how they are interconnected. It is
+loosely patterned after the Amazon EC2 interface.
 
 The Tenant view is limited to the ViCCI Deployment, which includes
 clusters at five sites throughout the US and Europe.  Users that want
-to acquiring VMs on any other deployment must use the Developer view.
+to acquire Slivers on any other deployment must use the Developer
+view.
 
-The Tenant view supports two modes: Simple (the default) and Advanced
-(accessed by selecting the *Go To Advanced View* button). Simple mode
-lets users specify how many VMs (Slivers) they want. The VMs are
-placed at the best available site and boot a default image. Advanced
-mode lets the user specify the *Site(s)* on which VMs are to be
-instantiated, select an *Image* to boot in those VMs, select a
-*Flavor*, mount select *Data Set(s)* into those VMs, and specify the
-*TCP Ports* the slice is going to use.
+The Tenant view allows users to specify the *Site(s)* on which Slivers
+are to be instantiated, select an *Image* and *Flavor* for each
+Sliver, mount select *Data Set(s)* into each of the Slice's Slivers,
+specify the *TCP Ports* the Slice is going to use, and set the
+*ServiceClass* for the Slice (currently only *Best Effort* is
+supported).
 
-The *Download Slice Details* button available in both Simple and
-Advanced mode downloads a text file that gives details about the
-user's slice, including DNS names at which the VMs can be accessed.
-Section **Getting Started** explains how to use this configuration
-information to access (e.g., ssh into) the Slivers instantiated for a
-Slice.
+The *Download Slice Details* button downloads a text file that gives
+details about the user's Slice, including DNS names at which the
+Slivers can be accessed.  Section **Getting Started** explains how to
+use this configuration information to access (e.g., ssh into) the
+Slivers instantiated for a Slice.
 
 ###Developer View
 
-The Developer view gives users full control over how their slices are
+The Developer view gives users full control over how their Slices are
 instantiated, including where *Slivers* are placed, what *Networks*
 connect them, and the *Privileges* granted to other users.
 
 With respect to Slivers (configured by selecting the corresponding
 tab), users first select a target *Deployment*, and then pick an
 individual *Node* at that deployment. Users are also able to select an
-*Image* and a *Flavor* on either a per-Sliver or a per-Slice
-basis. All Deployments that the user is permitted to access are
-visible when instantiating Slivers.
+*Image* and a *Flavor* on either a per-Sliver or a per-Slice basis. 
+All Deployments that the user is permitted to access are visible when
+instantiating Slivers.
 
 With respect to Networks (configured by selecting the corresponding
-tab), each slice is automatically configured with a public and a
+tab), each Slice is automatically configured with a public and a
 private network, but the user has the option of connecting the slice's
-slivers to additional virtual networks.
+slivers to additional virtual networks. (Adding additional Networks
+to a Slice is currently an undocumented feature.)
 
 With respect to Privileges (configured by selecting the corresonding
 tab), the user can grant *Admin* privilege to other users, giving them
@@ -140,8 +139,8 @@ to ssh into) the slice's slivers.
 
 The xsh view provides an interactive shell through which users can
 access XOS objects. It is a Javascript-based environment that includes
-xoslib, a library projection of the XOS data model. A builtin tutorial
-illustrates how to use xsh.
+*xoslib*, a library projection of the XOS data model. A builtin
+tutorial illustrates how to use xsh.
 
 ##Services
 
