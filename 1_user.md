@@ -22,8 +22,8 @@ to utilizing OpenCloud resources:
    your email address, and then paste your public key in the box. Click
    the *Save* button at right.
 
-2. **Ask your Site PI to create a slice.** Instructions for PIs (see
-     **Information for Site Admins, PIs, and Techs** for more information):
+2. **Ask your Site PI to create a slice.** Instructions for PIs (also see
+     **Information for Site Admins**):
    - Click on the *Slices* tab at left, and then the *Add Slice* button on
      the right. In the *Slice Details* tab, choose a name for the slice
      and select your own site from the drop-down. Slice names must be
@@ -143,21 +143,31 @@ access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
-##Information for Site Admins, PIs, and Techs
+##Information for Site Admins
 
-In addition to creating slices for their site's users (as described in
-the *Getting Started* section), there are a few site-related tasks that
-site Admins, PIs, and Techs are resposible for.
+Site Admins are responsible for managing the Users, Slices, and Nodes
+at a Site. Access to information maintained by XOS for a site can be
+found by clicking on the *Sites* item in the left-hand navigation
+bar. From there, the Admin can set various site details, as well as
+manage various entities using the available tabs:
 
-* **Configuring Site:** ...includes public/private...
 
-* **Approving Users:**
+* **Managing Users:** The *User* tab is used to proactively add users
+    to a site, as well as change information for existing users.
+    Alternatively, a Site Admin is informed via email when a user
+    requests an account, and has the opportunity to either accept or
+    deny the request.
 
-* **Creating Slices:**
+* **Assigning Privileges:** The *Privileges* tab is used to grant
+  users at the site Admin, PI, or Tech privileges. All users homed at
+  a particular site have default privilege.
+
+* **Managing Slices:** The *Slices* tab is used to create and manage
+  slices homed at the site.
 
 * **Adding Nodes:**
 
-* **Assigning Privileges:**
+
 
 * **Selecting Deployments:**
 
