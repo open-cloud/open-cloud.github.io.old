@@ -112,7 +112,9 @@ This will likely cause the node to reboot.
 
 ####Create the Management Network and VMs
 
-Log into the Juju VM (*ubuntu@54.88.138.52*).
+Log into the Juju VM (*ubuntu@54.88.138.52*).  To configure VMs for
+hosting the new cluster's OpenStack controller services, run the
+following: 
 
 ```
 $ cd ~/opencloud-install/ansible
@@ -128,10 +130,121 @@ $ cd ~/opencloud-install/ansible
 $ ansible-playbook -i inventory/juju.hosts juju-preinstall.yml
 ```
 
+(This step requires a bit of cleanup to be actually as simple as
+described above.)
+
 ###Deploying OpenStack Controller Services
 
-* Install and configure Juju 
-* Use Juju to install other services
+At this point, the VMs and VNs required by the new site should be in
+place but they are not running any services.  Next we need to install
+the OpenStack controller services in the VMs.
+
+Log into the Juju VM on the new head node.  Create a basic
+*/etc/ansible/hosts* file containing a *[service]*  group.  Add the
+private IP addresses of all VMs to this group.  An example:
+
+```
+[service]
+192.168.6.2
+192.168.6.[4:11]
+```
+
+Next, create a "XXXX-preinstall.yml" playbook, where XXXX is replaced
+by the name of the cluster.  Copy one of the existing preinstall
+playbooks and change the variables as appropriate for the new cluster.
+To install and configure Juju in the VM, run that playbook:
+
+```
+$ ansible-playbook foobar-preinstall.yml
+$ juju generate-config
+```
+
+Now Juju can be used to deploy the controller
+services.  First, edit ~/.juju/environments.yaml using the following
+as a template:
+
+```
+default: mpisws
+
+environments:
+    mpisws:
+        type: manual
+        bootstrap-host: juju
+        bootstrap-user: ubuntu
+        default-series: trusty
+        apt-http-proxy: http://192.168.6.2:8000
+```
+
+Next, add the local VMs to the local Juju environment:
+
+```
+$ juju add-machine ssh:192.168.x.y
+```
+
+Once all VMs are added to Juju, edit
+*~/opencloud-install/juju/manual-install-controller-services.py* so
+that it contains the correct Juju IDs and then run it:
+
+```
+$ cd ~/opencloud-install/juju
+$ ./manual-install-controller-services.py
+```
+
+Wait for all services to be installed and started, then run:
+
+```
+$ ./manual-install-controller-relations.py
+```
+
+To perform the final configuration steps for the site, create
+*~/opencloud-install/ansible/<cluster>.yml* using an existing file as
+a template.  Run that playbook as follows:
+
+```
+$ cd ~/opencloud-install/ansible
+$ juju-ansible-playbook foobar.yml
+```
+
+Now the compute nodes can be added to the cluster.
+
+###Deploying OpenStack Compute Nodes
+
+This step assumes a pool of servers in the cluster with Ubuntu 14.04
+LTS installed, that are accessible via SSH from the Juju VM.  It is
+necessary to do some initial configuration before adding them to
+Juju.  Edit */etc/ansible/hosts* so that it contains a *[compute]*
+group containing the server names, for example:
+
+```
+[compute]
+node[62:68].mpisws.vicci.org
+```
+
+Next run the preinstall playbook again:
+
+```
+$ ansible-playbook foobar-preinstall.yml
+```
+
+Now the servers can be added to Juju using *juju add-machine*.  Once
+they are all added, edit
+*~/opencloud-install/juju/manual-install-nova-compute.py* so that it
+caontains the Juju ID of one of the servers and run it:
+
+```
+$ cd ~/opencloud-install/juju
+$ ./manual-install-nova-compute.py
+```
+
+Once the nova-compute service is running on that node, it can be added
+to the other nodes by their Juju IDs as follows:
+
+```
+$ juju add-unit nova-compute --to <Juju ID>
+```
+
+At this point you can start testing the new OpenStack cluster to make
+sure that it's working.
 
 ###Configuring Remote OpenStack Clients 
 
