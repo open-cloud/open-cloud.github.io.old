@@ -19,7 +19,7 @@ OpenStack cloud on a cluster.
 
 Figure 1 shows the goal of the installation process.  At the top is a
 controller node running 10 VMs attached to a private management
-network; each VM hosta a service needed by OpenStack.  Below are
+network; each VM hosts a service needed by OpenStack.  Below are
 compute nodes running the nova-compute and neutron-plugin-openvswitch
 agents.  The compute nodes connect to a publicly routable network.
 
@@ -160,7 +160,7 @@ $ juju generate-config
 ```
 
 Now Juju can be used to deploy the controller
-services.  First, edit ~/.juju/environments.yaml using the following
+services.  First, edit *~/.juju/environments.yaml* using the following
 as a template:
 
 ```
@@ -198,7 +198,7 @@ $ ./manual-install-controller-relations.py
 
 To perform the final configuration steps for the site, create
 *~/opencloud-install/ansible/<cluster>.yml* using an existing file as
-a template.  Run that playbook as follows:
+a template.  Run that playbook using *juju-ansible-playbook*:
 
 ```
 $ cd ~/opencloud-install/ansible
@@ -229,7 +229,7 @@ $ ansible-playbook foobar-preinstall.yml
 Now the servers can be added to Juju using *juju add-machine*.  Once
 they are all added, edit
 *~/opencloud-install/juju/manual-install-nova-compute.py* so that it
-caontains the Juju ID of one of the servers and run it:
+contains the Juju ID of one of the servers and run it:
 
 ```
 $ cd ~/opencloud-install/juju
@@ -241,6 +241,13 @@ to the other nodes by their Juju IDs as follows:
 
 ```
 $ juju add-unit nova-compute --to <Juju ID>
+```
+
+Finally, re-run the main cluster playbook created earlier using
+*juju-ansible-playbook*: 
+
+```
+$ juju-ansible-playbook foobar.yml
 ```
 
 At this point you can start testing the new OpenStack cluster to make
