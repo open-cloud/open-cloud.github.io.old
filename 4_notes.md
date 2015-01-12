@@ -16,6 +16,10 @@ title: Release Notes
 4. Complete Site Privilges (Admin, Tech, PI, Default) or document as
    incomplete.
 
+5. Nodes tab should be visible from the Sites page.
+
+6. Tags tab should not be visible from the Sites page (only from Slices).
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.

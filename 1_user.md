@@ -300,18 +300,41 @@ data*.
 HyperCache (HPC) is a Content Distribution Nework (CDN). It uses a set
 of distributed caches to to accelerate the delivery of content on
 behalf of a content provider. Selecting the *HyperCache* tab in the
-left-hand navigation bar and then clicking the *Content Provider* menu
-option allows users to specify content they want delivered via the
-CDN. From the resulting page, users can add/remove origin servers that
-source content, register URLs that name content, and specify where
-content is (and is not) to be served.
+left-hand navigation bar reveals a menu of options that govern how
+content is to be delivered via the CDN. From the resulting pages,
+users can add/remove origin servers that source content, register URLs
+that name content, and specify where content is (and is not) to be
+served.
+
+* **Service Provider:** A CDN administrator. Each service provider
+  manages (creates accounts for) a set of content providers.
+
+* **Content Provider:** The primary "tenant" of the CDN. All other
+  parameters are controlled by a given content provider. Each content
+  provider specifies a set of *Users* that are allowed to act on its
+  behalf, and registers one or more *CDN Prefixes* that will name its
+  content (see below).
+
+* **CDN Prefix:** The FQDN prefix of URLs that names content to be
+  delivered via the CDN. Each CDN Prefix has a default *Origin Server*
+  that HPC uses to acquire content (see below).
 
 * **Origin Server:** The URL of an origin server that sources content.
+  Each origin server is bound to one CDN Prefix, but one CDN Prefix
+  can name content sourced at multiple origin servers. Typically, a
+  particular origin server is directly or indirectly identified in the
+  URL, but there is an explicitly specified default origin server that
+  HPC uses when this is not the case. The content provider also
+  specifies the *Protocol* used to download content from an origin
+  server, and whether or not requests that cannot be handled by the
+  CDN should be redirected to the origin server (typically, this
+  setting is enabled).
 
-* **CDN Prefix:** A FQDN used to name the content being served.
+* **Site Map:** A file that specifies a policy for how requests are to
+    be redirected.
 
-* **Access Map:** An uploaded file that specifies a policy for where
-    content is and is not delivered.
+* **Access Map:** A file that specifies a policy for where content is
+    and is not delivered.
 
 The format of the map files is defined elsewhere.
 
@@ -320,29 +343,32 @@ The format of the map files is defined elsewhere.
 RequestRouter (RR) is a multi-tenant service that redirects user
 requests to the best instance of a given client service. For example,
 HyperCache uses RR to redirect HTTP GET requests to the best cache to
-serve a particular piece of content to a particular end-user. RR
-determines "best" according to a client-specified policy known as a
-service map.
+serve content to a particular end-user. RR determines "best" according
+to a client-specified policy known as a service map.
 
-Selecting the *RequestRouter* tab in the left-hand navigation bar --
-and then clicking the *Service Map* menu item -- allows users to
-specify the policy that guides request redirection. From the resulting
-page, users can register a client service, register URLs that name the
-service, and configure various maps.
+Selecting the *RequestRouter* tab in the left-hand navigation bar,
+clicking the *Service Map* menu item, and then selecting a particular
+map allows users to specify the policy that guides request redirection.
+From the resulting page, users can register a client service, register
+a URL that name the service, and configure various maps.
 
-* **Service:** Client service.
+* **Name:** Name of the service map.
+
+* **Owner:** Client service that owns the service map.
 
 * **Slice:** Slice in which the client service runs. Indirectly
   identifies the candidate service instances to which RR redirects
   requests.
 
-* **URL Prefix:** A FQDN used to name the service.
+* **Prefix:** The FQDN prefix of a URI that is to be managed by
+    RequestRouter. This prefix effectively names the service in a
+    server-independent way.
 
-* **Site Map:** An uploaded file that specifies a policy for how
-    requests are to be redirected.
+* **Site Map:** A file that specifies a policy for how requests are to
+    be redirected.
 
-* **Access Map:** An uploaded file that specifies a policy for where
-    the service is and is not available.
+* **Access Map:** A file that specifies a policy for where the service
+    is and is not available.
 
 The format of the two map files is defined elsewhere.
 
