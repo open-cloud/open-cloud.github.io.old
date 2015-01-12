@@ -3,6 +3,11 @@ layout: page
 title: Developer Guide
 ---
 
+This guide describes how to contribute to the XOS core, as well as to
+extend XOS with new services and views. It also documents modeling and
+naming conventions, and describes the development and testing
+environments we use.
+
 ##Development Environment
 
 ##Testing Framework

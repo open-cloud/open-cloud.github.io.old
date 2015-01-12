@@ -326,9 +326,9 @@ served.
   URL, but there is an explicitly specified default origin server that
   HPC uses when this is not the case. The content provider also
   specifies the *Protocol* used to download content from an origin
-  server, and whether or not requests that cannot be handled by the
-  CDN should be redirected to the origin server (typically, this
-  setting is enabled).
+  server (typically, this is set to HTTP), and whether or not requests
+  that cannot be handled by the CDN should be redirected to the origin
+  server (typically, this setting is enabled).
 
 * **Site Map:** A file that specifies a policy for how requests are to
     be redirected.
