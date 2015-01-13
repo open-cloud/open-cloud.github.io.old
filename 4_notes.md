@@ -18,7 +18,11 @@ title: Release Notes
 
 5. Nodes tab should be visible from the Sites page.
 
-6. Tags tab should not be visible from the Sites page (only from Slices).
+6. Tags tab should not be visible from the Sites page (only from
+   Slices).
+
+7. Say a little bit more about the Andy's scripts at the end of the
+   Operator Guide (or mention as an undocumented feature).
 
 ##Incomplete and Undocumented Features
 

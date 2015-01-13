@@ -289,3 +289,18 @@ nova-cloud-controller VM and append it to
 
 ##Operator View
 
+There is currently no comprehensive operator view. Instead, operators
+use the following combintation of mechanisms:
+
+* The *Developer* view gives administrators read/write access to the
+  entire data model.
+
+* A hidden xoslib-based alternative to the Developer view is available
+  at *opencloud.us/admin/dashboard/xosAdminDashboard*.
+
+* A *Nagios* view provides access to a Nagios service running on the
+  head node of each underlying OpenStack cluster.
+
+There are also a set of scripts available on beta.opencloud.us that
+can be used to monitor the health of the OpenStack services running
+on each cluster. 
