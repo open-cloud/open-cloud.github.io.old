@@ -42,23 +42,33 @@ to utilizing OpenCloud resources:
    appear on the Slivers page for your slice, or alternatively, will
    be available to download into a text file. You should then be able
    to login using this ID and the physical node it is running on.
-   Logging into the sliver relies on ssh agent forwarding. You need to
-   run ssh-agent on your client, and that your public key is loaded.
-   If ssh-agent is not already running, you can launch it like so:
+   By default, slivers connect to the network via NAT; logging into
+   the sliver relies on SSH proxying to forward incoming SSH
+   connections.  In your ~/.ssh/config file add lines similar to the
+   following:
 
 ```
-# ssh-agent bash
-# ssh-add ~/.ssh/id_rsa
+Host foobar
+  User ubuntu
+  IdentityFile ~/.ssh/id_rsa
+  ProxyCommand ssh -q instance-0000006c@node6.cs.arizona.edu
 ```
 
-Once ssh-agent is running, you should be able to login to a sliver via
-agent forwarding. For example:
+   Above, replace "foobar" with a label of your choice for this
+   sliver.  *User* is the default login user for the image.
+   *IdentitiyFile* should point to the key that you've uploaded to
+   OpenCloud.  *ProxyCommand* should point to the instance ID and
+   node for the sliver.
+
+   Once an entry is present for the sliver in ~/.ssh/config, you can
+   login using the label, e.g.:
 
 ```
-# ssh -A instance-0000006c@node6.cs.arizona.edu
+# ssh foobar
 ```
 
-The -A option above is required.
+   Other utilities like scp also work as expected when referncing
+   the sliver using the label.
 
 [*A current limitation is that only one user key is injected into the
 slice. That user can login and manually add the keys of other users.
