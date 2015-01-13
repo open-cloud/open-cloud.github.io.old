@@ -46,28 +46,24 @@ to utilizing OpenCloud resources:
    the sliver relies on SSH proxying to forward incoming SSH
    connections.  In your ~/.ssh/config file add lines similar to the
    following:
-
 ```
 Host foobar
   User ubuntu
   IdentityFile ~/.ssh/id_rsa
   ProxyCommand ssh -q instance-0000006c@node6.cs.arizona.edu
 ```
-
    Above, replace "foobar" with a label of your choice for this
    sliver.  *User* is the default login user for the image.
    *IdentitiyFile* should point to the key that you've uploaded to
    OpenCloud.  *ProxyCommand* should point to the instance ID and
    node for the sliver.
-
    Once an entry is present for the sliver in ~/.ssh/config, you can
-   login using the label, e.g.:
+   login using the label:
 
 ```
 # ssh foobar
 ```
-
-   Other utilities like scp also work as expected when referncing
+   Other utilities like scp also work as expected when referencing
    the sliver using the label.
 
 [*A current limitation is that only one user key is injected into the
