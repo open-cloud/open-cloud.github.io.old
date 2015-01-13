@@ -197,7 +197,8 @@ $ ./manual-install-controller-relations.py
 ```
 
 To perform the final configuration steps for the site, create
-*~/opencloud-install/ansible/<cluster>.yml* using an existing file as
+*~/opencloud-install/ansible/XXXX.yml*, replacing XXXX with the name
+of your cluster, using an existing file as
 a template.  Run that playbook using *juju-ansible-playbook*:
 
 ```
