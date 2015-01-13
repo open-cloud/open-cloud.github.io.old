@@ -288,6 +288,25 @@ nova-cloud-controller VM and append it to
 
 ##Monitoring
 
+###From the beta.opencloud.us VM
+
+On beta.opencloud.us, admin credentials for all the clusters can be
+found in */home/ubuntu/acb/*.  The *openstack-command.sh* script can be used
+to run an OpenStak command across all of the clusters and print the
+output.  For example, to view the status of the Nova services and
+Neutron agents on all clusters:
+
+```
+$ openstack-command.sh "nova service-list"
+$ openstack-command.sh "neutron agent-list"
+```
+
+To show all VMs created across all clusters:
+
+```
+$ openstack-command.sh "nova list --all-tenants"
+```
+
 ##Operator View
 
 There is currently no comprehensive operator view. Instead, operators
