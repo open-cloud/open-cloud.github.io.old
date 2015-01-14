@@ -310,12 +310,21 @@ print the output. For example, to view the status of the Nova services
 and Neutron agents on all clusters:
 
 ```
-$ openstack-command.sh "nova service-list"
-$ openstack-command.sh "neutron agent-list"
+$ ./openstack-command.sh "nova service-list"
+$ ./openstack-command.sh "neutron agent-list"
 ```
 
 To show all VMs created across all clusters:
 
 ```
-$ openstack-command.sh "nova list --all-tenants"
+$ ./openstack-command.sh "nova list --all-tenants"
 ```
+
+Note that glance commands require the --os-cacert argument:
+
+```
+$ ./openstack-command.sh "glance --os-cacert /etc/ssl/certs/ca-certificates.crt image-list"
+```
+
+Andy is the maintainer of these credential files and scripts; let him
+know if something is not working as expected.   
