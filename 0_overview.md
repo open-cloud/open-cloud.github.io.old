@@ -63,13 +63,14 @@ design is that to most users, the distinction between the kernel (XOS)
 and the commands-and-libraries (set of services) is not important.
 
 More information about how users interact with XOS is given in the
-**User Guide**, while more information about how to extend XOS with
-new services is given in the **Developer Guide.** XOS also supports
-cloud operators that manage physical resources (i.e., control the
-hardware, establish resource allocation policies, select
-virtualization technologies), and it does so in a way that supports
-multiple administrative domains. More information about how operators
-use XOS to manage a cloud is given in the **Operator Guide**.
+[User Guide](../1_user), while more information about how to extend
+XOS with new services is given in the [Developer
+Guide](../2_developer). XOS also supports cloud operators that manage
+physical resources (i.e., control the hardware, establish resource
+allocation policies, select virtualization technologies), and it does
+so in a way that supports multiple administrative domains. More
+information about how operators use XOS to manage a cloud is given in
+the [Operator Guide](../3_operator).
 
 ![Figure 2. Internal structure of XOS influenced by MVC pattern.]({{ site.url }}/figures/Slide2.jpg)
 
@@ -86,15 +87,15 @@ On top of these abstractions is a set of *Views* that defines how
 various actors interact with XOS. These include cloud tenants, service
 developers, and cloud operators. We expect the set of views to evolve
 over time, and to this end, XOS provides a programming environment for
-writing new views (see Section **Adding Views** of the **Developer
-Guide**).
+writing new views (see Section [Adding
+Views to XOS](../2_developer/#adding-views) of the Developer Guide.
 
 Below the Model sits a collection of controller plugins that react to
 changes in the Data Model by manipulating the interfaces to the
 constituent services. We expect the set of services to evolve over
 time, and to this end, XOS provides a framework for executing
-controller plugins (see Section **Adding Services** of the **Developer
-Guide**). 
+controller plugins (see Section [Adding
+Services to XOS](../2_developer/#adding-services) of the Developer Guide).
 
 This framework, called the *Observer*, ensures configuration
 state remains consistent across all levels of the distributed system,
@@ -106,7 +107,7 @@ nodes and slices distributed across hundreds of sites around the
 world. A companion [whitepaper](http://opencloud.us/docs/Observer.pdf)
 describes the solution adopted by the Observer in more detail.
 
-##Data Model
+##<a name="data-model">Data Model</a>
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
@@ -227,7 +228,8 @@ default access to Stanford.
 ###Infrastructure
 
 XOS manages of a set of physical servers deployed throughout the
-network. (See Section **Deployment** for a description of the
+network. (See Section [Hardware
+Infrastructure](#hardware-infrastructure) for a description of the
 infrastructure that makes up OpenCloud.) These servers are aggregated
 along two dimensions, one related to location and the other related to
 policy. This approach is motivated by the need to decouple the hosting
@@ -449,7 +451,8 @@ data model, and provide other users with a means to create an
 storage service). Extending XOS with these new Service-specific
 objects is not currently a first-class operation in XOS, but rather,
 involves directly augmenting the data model, as described in the
-**Adding Services** section of the **Developer Guide**.
+[Adding Services to XOS](../2_developer/#adding-services) section of the
+Developer Guide.
 
 ##Interfaces
 
@@ -457,7 +460,7 @@ XOS offers two layered interfaces. The primary interface is a RESTful
 API running directly on top of Django. The second is in the form of a
 library, called *xoslib*, that simplifies the task of building Views.
 
-##Hardware Infrastructure
+##<a name="hardware-infrastructure">Hardware Infrastructure</a>
 
 This section sketches the OpenCloud hardware infrastructure, both in
 general terms (i.e., what we expect OpenCloud to look like when fully

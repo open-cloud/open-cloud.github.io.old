@@ -16,7 +16,7 @@ environments we use.
 
 ##xoslib
 
-##Adding Views to XOS
+##<a name="adding-views">Adding Views to XOS</a>
 
 XOS is designed to be extensible -- to provide an explicit means to
 incorporate services deployed on OpenCloud back into OpenCloud so they
@@ -365,7 +365,7 @@ Interactions, Tenant, Developer, ...)
 Use the <customize> tab as before, add the "ON.LAB" view, and you'll
 now have a tab that displays the ON.LAB home page.
 
-##Adding Services
+##<a name="adding-services">Adding Services to XOS</a>
 
 ##Django Migration Notes
 

@@ -10,8 +10,7 @@ title: Release Notes
 
 2. Need to either hide or document the ability to whitelist Networks.
 
-3. Hide or remove undocumented Views. Keep only Tenant, Developer,
-   and xsh.
+3. Hide undocumented Views. Keep only Tenant, Developer, and xsh.
 
 4. Complete Site Privilges (Admin, Tech, PI, Default) or document as
    incomplete.
@@ -24,6 +23,13 @@ title: Release Notes
 7. Say a little bit more about the Andy's scripts at the end of the
    Operator Guide (or mention as an undocumented feature).
 
+8. Finish the example Acceess Control policy language example in the
+   #Administering a Deployment# section.
+
+9. Why does the Deployment page include both an Images selector and
+   an images tab. Seems like the later is unnecessary. If that's not
+   the case, document the tab.
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
@@ -35,3 +41,6 @@ title: Release Notes
 2. Two Networks are automatically created and assigned to every
    Slice. There is sufficient support to create new networks and bind
    them to a slice, but the workflow is brittle and not documented.
+
+3. A current limitation is that only one user key is injected into the
+   slice. That user can login and manually add the keys of other users.

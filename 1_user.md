@@ -7,7 +7,7 @@ This guide describes how users log into OpenCloud, acquire VMs, and
 access OpenCloud services. It assumes the reader is familiar with
 the general concepts presented in the **Overview**.
 
-##Getting Started
+##<a name="getting-started">Getting Started</a>
 
 Users access OpenCloud by logging into the portal at
 [opencloud.us](http://opencloud.us). New users register through the
@@ -23,7 +23,8 @@ to utilizing OpenCloud resources:
    public key in the box. Click the *Save* button at right.
 
 2. **Ask your Site PI to create a slice.** Instructions for PIs (see
-     **Administering a Site** for more information):
+   [Administering a Site](#admin-site) for more information):
+
    - Select the *Slices* tab in the left-hand navigation bar, and then
      the *Add Slice* button on the right. In the *Slice Details* form,
      choose a name for the slice and select your own site from the
@@ -74,36 +75,34 @@ Host foobar
 slice. That user can login and manually add the keys of other users.
 We are working on a fix.*]
 
-##Views
+##User Views
 
 Users interact with OpenCloud through a configurable set of *Views*,
 each tailored for a different usage scenario or workflow. By default,
 a user's home dashboard includes *Tenant*, *Developer*, and *xsh*
 views; a fourth tab, *Customize* allows the user to add and remove
 views from their home dashboard. The Tenant and Developer views are in
-the context of a given (selectable) slice; the xsh view runs in the
-context of the user.
+the context of a given (selectable) slice.
 
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of tabs (Deployments,
 Sites, Slices, and Users) correspond to the core XOS objects, as
-described in **Data Model** Section of the **Overview**. The bottom
-set of tabs (RequestRouter, HyperCache, and Syndicate) correspond to
-services that extend XOS. Most users will have no need to directly
-access the data model through the navigation bar, but will instead
-take advantage of the tailoered workflows supported by the various
-views.
+described in the [Data Model](../0_overview/#data-model) Section. The
+bottom set of tabs (RequestRouter, HyperCache, and Syndicate)
+correspond to services that extend XOS. Most users will have no need
+to directly access the data model through the navigation bar, but will
+instead take advantage of the tailored workflows supported by the
+various views.
 
-There are also views designed to support operators, including those
-that operate infrastructure and those that operate services. Support
-for operators is given in the **Operator's Guide**.
+There are also views designed to support operators, as described
+in the [Operator's Guide](../3_operator).
 
 ###Tenant View
 
-The Tenant view provides a simple graphical interface for users to
-acquire Slivers, with minimal control over the low-level details of
-where those Slivers are placed and what networks interconnect them. It
-is loosely patterned after the Amazon EC2 interface.
+The Tenant view provides a simple to acquire Slivers, with minimal
+control over the low-level details of where those Slivers are placed
+and what networks interconnect them. It is loosely patterned after the
+Amazon EC2 interface.
 
 The Tenant view is limited to the ViCCI Deployment, which includes
 clusters at five sites throughout the US and Europe. Users that want
@@ -119,9 +118,9 @@ currently the only supported class.
 
 Click the *Download Slice Details* button to download a text file that
 gives details about the slice, including the DNS names at which the
-slivers can be accessed. Section **Getting Started** explains how to
-use this configuration information to access (e.g., ssh into) the
-slivers instantiated for a slice.
+slivers can be accessed. Section [Getting Started](#getting-started)
+explains how to use this configuration information to access (e.g.,
+ssh into) the slivers instantiated for a slice.
 
 ###Developer View
 
@@ -157,13 +156,12 @@ access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
-##Administering a Site
+##<a name="admin-site">Administering a Site</a>
 
 Site Admins are responsible for managing the users, slices, nodes, and
-deployments affiliated with the site. Access to information maintained
-by XOS for a site can be found by clicking on the *Sites* tab in the
-left-hand navigation bar. From there, the Admin can set various site
-details, as well as manage various entities using the available tabs:
+deployments affiliated with the site. Select the *Sites* tab in the
+left-hand navigation bar to manage a site. The available sitedetails
+are as follows:
 
 * **Users:** Select the *User* tab to proactively add users to a site,
     as well as change information for existing users.  Alternatively,
@@ -182,13 +180,43 @@ details, as well as manage various entities using the available tabs:
   *Privileges* tab to define the set of users that are to have access
   to the slice. Alternatively, a site Admin can administer the site's
   slices by selecting the *Slices* tab in the left-hand navigation
-  bar, as described in the **Getting Started** section.
+  bar, as described in [Getting Started](#getting-started).
 
 * **Nodes:** Select the *Nodes* tab to create and manage the site's
   nodes. To create a new node, select *Add Node*, fill in...
 
 * **Deployments:** Select the *Deploymements* tab to affiliate the
   site's nodes with one or more deployments....
+
+##Administering a Deployment
+
+Deployment Admins are responsible for managing the privileges, sites,
+images, flavors, and visibility for the deployment. Select the
+*Deployments* tab in the left-hand navigation bar to manage a
+deployment. The available deployment details are as follows:
+
+* **Sites:** The *Sites* selector is used to specify which sites host
+  nodes as part of the deployment. Site adminstrators (see above) are
+  responsible for binding nodes at their site to the deployment.
+
+* **Flavors:** The *Flavors* selector is used to specify which flavors
+  are supported by the deployment. Root adminstrators specify the
+  global set of available flavors.
+
+* **Images:** The *Images* selector is used to specify which images
+  are supported by the deployment. Root adminstrators specify the
+  global set of available images.
+
+* **AccessControl:** The *AccessControl* form is used to specify a
+  policy for what users are and are not allowed to access the
+  deployment's resources. A given user sees only those deployments
+  that have granted access when they attempt to instantiate
+  slivers. The current policy language is simple: *access all*
+  indicates that all users may instantiate slivers on the deployment,
+  ...
+
+* **Privileges:** Select the *Privileges* tab to grant other users
+  Admin privileges for the deployment.
 
 ##Services
 
