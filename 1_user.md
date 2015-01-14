@@ -24,7 +24,6 @@ to utilizing OpenCloud resources:
 
 2. **Ask your Site PI to create a slice.** Instructions for PIs (see
    [Administering a Site](#admin-site) for more information):
-
    - Select the *Slices* tab in the left-hand navigation bar, and then
      the *Add Slice* button on the right. In the *Slice Details* form,
      choose a name for the slice and select your own site from the
@@ -82,7 +81,9 @@ each tailored for a different usage scenario or workflow. By default,
 a user's home dashboard includes *Tenant*, *Developer*, and *xsh*
 views; a fourth tab, *Customize* allows the user to add and remove
 views from their home dashboard. The Tenant and Developer views are in
-the context of a given (selectable) slice.
+the context of a given (selectable) slice. From any page, selecting
+the *Home* tab in the left-hand navigation bar brings the user back to
+his or her home dashboard.
 
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of tabs (Deployments,
@@ -156,12 +157,40 @@ access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
+##<a name="admin-site">Administering a User</a>
+
+All users are able to manage their own accounts and Site Admins are
+able to manage the accounts of users homed at that site. Select the
+*Users* tab in the left-hand navigation bar, and then click on the 
+desired user. The available user details are as follows:
+
+* **Login Details:** Select the *Login Details* tab to set parameters
+  of the user's account. These include the user's *Email Address*
+  (which uniquely identifies the user), home *Site*, *Password*, and
+  *Public Key* (which is used to ssh into any slivers created on the
+  user's behalf). Click the The *Is Active* button to enable the
+  account.  The *Is Admin* button can be set only by OpenCloud
+  administrators to grant a user global Admin privilege.
+
+* **Contact Information:** Select the *Contact Information* tab to set
+    the user's name and phone number.
+
+* **Site Privileges:**: Select the *Site Privileges* tab to set the
+  site-related privileges for the user.
+
+* **Slice Privileges:**: Select the *Slice Privileges* tab to set the
+  slice-related privileges for the user.
+
+* **Dashboard Views:**: Select the *Dashboard Views* tab to select the
+  views available on the user's dashboard. This can also be done using
+  the *Customize* tab on the user's home page.  
+
 ##<a name="admin-site">Administering a Site</a>
 
 Site Admins are responsible for managing the users, slices, nodes, and
 deployments affiliated with the site. Select the *Sites* tab in the
-left-hand navigation bar to manage a site. The available sitedetails
-are as follows:
+left-hand navigation bar and click on the desired site. The available
+site details are as follows:
 
 * **Users:** Select the *User* tab to proactively add users to a site,
     as well as change information for existing users.  Alternatively,
@@ -192,8 +221,8 @@ are as follows:
 
 Deployment Admins are responsible for managing the privileges, sites,
 images, flavors, and visibility for the deployment. Select the
-*Deployments* tab in the left-hand navigation bar to manage a
-deployment. The available deployment details are as follows:
+*Deployments* tab in the left-hand navigation bar and click on the
+desired deployment. The available deployment details are as follows:
 
 * **Sites:** The *Sites* selector is used to specify which sites host
   nodes as part of the deployment. Site adminstrators (see above) are

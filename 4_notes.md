@@ -27,6 +27,14 @@ title: Release Notes
    an images tab. Seems like the later is unnecessary. If that's not
    the case, document the tab.
 
+9. Make sure user's can't set/unset Admin and Read-Only buttons in
+   Login Details without the proper authorization. (And do we really
+   need Read-Only any more?)
+
+10. Users->Dashboard View != the set of views visible on the user's
+   home page (and does not reflect changes made through the Customize
+   tab).
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
