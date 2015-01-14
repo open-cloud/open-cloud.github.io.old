@@ -326,5 +326,5 @@ Note that glance commands require the --os-cacert argument:
 $ ./openstack-command.sh "glance --os-cacert /etc/ssl/certs/ca-certificates.crt image-list"
 ```
 
-Andy is the maintainer of thes credential files and scripts; let him
+Andy is the maintainer of these credential files and scripts; let him
 know if something is not working as expected.   
