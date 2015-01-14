@@ -286,15 +286,28 @@ nova-cloud-controller VM and append it to
 
 ##Installing OpenVirteX
 
-##Monitoring
+##Operator Tools
 
-###From the beta.opencloud.us VM
+There is currently no comprehensive operator view. Instead, operators
+use the following combintation of views and tools to a monitor and
+operate OpenCloud:
 
-On beta.opencloud.us, admin credentials for all the clusters can be
-found in */home/ubuntu/acb/*.  The *openstack-command.sh* script can be used
-to run an OpenStak command across all of the clusters and print the
-output.  For example, to view the status of the Nova services and
-Neutron agents on all clusters:
+* The *Developer* view gives administrators read/write access to the
+  entire data model.
+
+* A hidden xoslib-based alternative to the *Developer* view is
+  available at *opencloud.us/admin/dashboard/xosAdminDashboard*.
+
+* A *Nagios* view provides access to a Nagios service running on the
+  head node of each underlying OpenStack cluster.
+
+There are also a set of scripts that can be used to monitor the health
+of the OpenStack services running on each cluster. On
+*beta.opencloud.us*, admin credentials for all the clusters can be
+found in */home/ubuntu/acb/*. The *openstack-command.sh* script can
+be used to run an OpenStack command across all of the clusters and
+print the output. For example, to view the status of the Nova services
+and Neutron agents on all clusters:
 
 ```
 $ openstack-command.sh "nova service-list"
@@ -306,21 +319,3 @@ To show all VMs created across all clusters:
 ```
 $ openstack-command.sh "nova list --all-tenants"
 ```
-
-##Operator View
-
-There is currently no comprehensive operator view. Instead, operators
-use the following combintation of mechanisms:
-
-* The *Developer* view gives administrators read/write access to the
-  entire data model.
-
-* A hidden xoslib-based alternative to the Developer view is available
-  at *opencloud.us/admin/dashboard/xosAdminDashboard*.
-
-* A *Nagios* view provides access to a Nagios service running on the
-  head node of each underlying OpenStack cluster.
-
-There are also a set of scripts available on beta.opencloud.us that
-can be used to monitor the health of the OpenStack services running
-on each cluster. 

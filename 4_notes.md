@@ -20,13 +20,10 @@ title: Release Notes
 6. Tags tab should not be visible from the Sites page (only from
    Slices).
 
-7. Say a little bit more about the Andy's scripts at the end of the
-   Operator Guide (or mention as an undocumented feature).
-
-8. Finish the example Acceess Control policy language example in the
+7. Finish the example Acceess Control policy language example in the
    #Administering a Deployment# section.
 
-9. Why does the Deployment page include both an Images selector and
+8. Why does the Deployment page include both an Images selector and
    an images tab. Seems like the later is unnecessary. If that's not
    the case, document the tab.
 

@@ -5,7 +5,7 @@ title: User Guide
 
 This guide describes how users log into OpenCloud, acquire VMs, and
 access OpenCloud services. It assumes the reader is familiar with
-the general concepts presented in the **Overview**.
+the general concepts presented in the [Overview](../0_overview).
 
 ##<a name="getting-started">Getting Started</a>
 
