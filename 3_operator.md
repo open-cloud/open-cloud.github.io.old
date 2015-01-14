@@ -197,7 +197,8 @@ $ ./manual-install-controller-relations.py
 ```
 
 To perform the final configuration steps for the site, create
-*~/opencloud-install/ansible/<cluster>.yml* using an existing file as
+*~/opencloud-install/ansible/XXXX.yml*, replacing XXXX with the name
+of your cluster, using an existing file as
 a template.  Run that playbook using *juju-ansible-playbook*:
 
 ```
@@ -286,6 +287,25 @@ nova-cloud-controller VM and append it to
 ##Installing OpenVirteX
 
 ##Monitoring
+
+###From the beta.opencloud.us VM
+
+On beta.opencloud.us, admin credentials for all the clusters can be
+found in */home/ubuntu/acb/*.  The *openstack-command.sh* script can be used
+to run an OpenStak command across all of the clusters and print the
+output.  For example, to view the status of the Nova services and
+Neutron agents on all clusters:
+
+```
+$ openstack-command.sh "nova service-list"
+$ openstack-command.sh "neutron agent-list"
+```
+
+To show all VMs created across all clusters:
+
+```
+$ openstack-command.sh "nova list --all-tenants"
+```
 
 ##Operator View
 
