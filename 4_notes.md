@@ -39,6 +39,9 @@ title: Release Notes
 
 12. Decide what VM images we will offer (e.g., Ubuntu 12.04).  Distribute the proper images to all clusters. Remove unavailable images from the GUI.
 
+13. Node flavor not being honored (e.g., on Stanford cluster: requested m1.small, got m1.medium) 
+
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
