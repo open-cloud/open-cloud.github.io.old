@@ -35,6 +35,8 @@ title: Release Notes
    home page (and does not reflect changes made through the Customize
    tab).
 
+11. For private networks, need to create the subnet without a gateway.
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
