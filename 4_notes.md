@@ -37,6 +37,8 @@ title: Release Notes
 
 11. For private networks, need to create the subnet without a gateway.
 
+12. Decide what VM images we will offer (e.g., Ubuntu 12.04).  Distribute the proper images to all clusters. Remove unavailable images from the GUI.
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
