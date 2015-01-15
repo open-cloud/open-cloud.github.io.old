@@ -24,7 +24,7 @@ title: Release Notes
    Administering a Deployment section.
 
 8. Why does the Deployment page include both an Images selector and
-   an images tab. Seems like the later is unnecessary. If that's not
+   an Images tab. Seems like the latter is unnecessary. If that's not
    the case, document the tab.
 
 9. Make sure user's can't set/unset Admin and Read-Only buttons in

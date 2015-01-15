@@ -88,22 +88,24 @@ his or her home dashboard.
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of tabs (Deployments,
 Sites, Slices, and Users) correspond to the core XOS objects, as
-described in the [Data Model](../0_overview/#data-model) Section. The
-bottom set of tabs (RequestRouter, HyperCache, and Syndicate)
-correspond to services that extend XOS. Most users will have no need
-to directly access the data model through the navigation bar, but will
-instead take advantage of the tailored workflows supported by the
-various views.
+described in the [Data Model](../0_overview/#data-model) Section.
+Later sections describe how administrators use these tabs to manage
+deployments, sites, and users. (The views described in this section
+are typically use to manage slices.) The bottom set of tabs
+(RequestRouter, HyperCache, and Syndicate) correspond to services that
+extend XOS. Most users will have no need to directly access these
+services, but will instead indirectly access the services through the
+tailored workflows supported by the various views.
 
 There are also views designed to support operators, as described
 in the [Operator's Guide](../3_operator).
 
 ###Tenant View
 
-The Tenant view provides a simple to acquire Slivers, with minimal
-control over the low-level details of where those Slivers are placed
-and what networks interconnect them. It is loosely patterned after the
-Amazon EC2 interface.
+The Tenant view provides a simple means to acquire Slivers, with
+minimal control over the low-level details of where those Slivers are
+placed and what networks interconnect them. It is loosely patterned
+after the Amazon EC2 interface.
 
 The Tenant view is limited to the ViCCI Deployment, which includes
 clusters at five sites throughout the US and Europe. Users that want
@@ -122,6 +124,11 @@ gives details about the slice, including the DNS names at which the
 slivers can be accessed. Section [Getting Started](#getting-started)
 explains how to use this configuration information to access (e.g.,
 ssh into) the slivers instantiated for a slice.
+
+Note that slices intially created through the Tenant view may also be
+managed through the Developer view. The reverse is true as long as the
+slice is instantiated only on the ViCCI deployment.
+
 
 ###Developer View
 

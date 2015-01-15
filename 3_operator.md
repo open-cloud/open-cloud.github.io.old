@@ -293,7 +293,8 @@ use the following combintation of views and tools to a monitor and
 operate OpenCloud:
 
 * The *Developer* view gives administrators read/write access to the
-  entire data model.
+  entire data model. The *Admin-Only* tab on the *Sites*, *Slices* and
+  *Users* pages gives operators access to the underlying *Controller*.
 
 * A hidden xoslib-based alternative to the *Developer* view is
   available at *opencloud.us/admin/dashboard/xosAdminDashboard*.
