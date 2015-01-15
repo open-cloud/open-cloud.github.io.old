@@ -21,6 +21,7 @@ to utilizing OpenCloud resources:
 1. **Upload a public key.** Select the *Users* tab in the left-hand
    navigation bar, click on your email address, and then paste your
    public key in the box. Click the *Save* button at right.
+
 2. **Ask your Site PI to create a slice.** Instructions for PIs (see
    [Administering a Site](#admin-site) for more information):
    - Select the *Slices* tab in the left-hand navigation bar, and then
@@ -33,8 +34,10 @@ to utilizing OpenCloud resources:
      administer the slice with the Admin privilege. (These users will
      be able to extend slice privileges to other users.)  
    - Click the *Save* button when done.
+
 3. **Create slivers.** Use either the Tenant or the Developer View
    (see next section) to instantiate slivers (VMs) for your slice.
+
 4. **Log into slivers.** Once a sliver comes up, the instance ID will
    appear on the Slivers page for your slice, or alternatively, will
    be available to download into a text file. You should then be able
