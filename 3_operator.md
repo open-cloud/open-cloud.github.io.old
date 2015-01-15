@@ -332,24 +332,7 @@ know if something is not working as expected.
 
 ##Troubleshooting
 
-**Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nodes as down:
-
-```
-+----------------+-----------------------------+------------+---------+-------+----------------------------+-----------------+
-| Binary         | Host                        | Zone       | Status  | State | Updated_at                 | Disabled Reason |
-+----------------+-----------------------------+------------+---------+-------+----------------------------+-----------------+
-| nova-cert      | ip-172-31-4-171             | internal   | enabled | up    | 2015-01-15T18:19:48.000000 | -               |
-| nova-scheduler | ip-172-31-4-171             | internal   | enabled | up    | 2015-01-15T18:19:52.000000 | -               |
-| nova-conductor | ip-172-31-4-171             | internal   | enabled | up    | 2015-01-15T18:19:54.000000 | -               |
-| nova-compute   | node6                       | arizona    | enabled | down  | 2015-01-15T18:19:56.000000 | None            |
-| nova-compute   | vicci65                     | princeton  | enabled | down  | 2015-01-15T18:19:54.000000 | -               |
-| nova-compute   | node59.washington.vicci.org | washington | enabled | down  | 2015-01-15T18:19:52.000000 | -               |
-| nova-compute   | node60.gt.vicci.org         | gatech     | enabled | down  | 2015-01-15T18:19:54.000000 | -               |
-| nova-compute   | node57.stanford.vicci.org   | stanford   | enabled | down  | 2015-01-15T18:19:55.000000 | -               |
-| nova-compute   | node69.mpisws.vicci.org     | mpisws     | enabled | down  | 2015-01-15T18:19:55.000000 | -               |
-| nova-compute   | vini1a                      | nova       | enabled | down  | 2015-01-15T18:19:57.000000 | -               |
-+----------------+-----------------------------+------------+---------+-------+----------------------------+-----------------+
-```
+**Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nova-compute instances as *down*.
 
 **Fix:** It seems that RabbitMQ is usually the culprit.  Follow these steps:
 
