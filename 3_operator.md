@@ -286,6 +286,161 @@ nova-cloud-controller VM and append it to
 
 ##Installing OpenVirteX
 
+This section describes how to get OpenCloud's network hypervisor,
+called OpenVirteX (OVX), up and running. It also goes into detail on
+how to configure OpenStack Neutron.
+
+The following sections are a summary as found on the official OVX
+website:
+[OVX installation instructions](http://ovx.onlab.us/getting-started/installation/)
+and
+[OpenStack Neutron installation instructions](http://ovx.onlab.us/openstack/).
+
+TODO: include overview figure
+
+### Cleanup
+First thing you want to do, is clean up some of the configuration made
+by Juju. The following script will remove and disable unneeded
+OpenvSwitch components on the compute nodes.
+
+
+```
+#!/bin/sh
+
+# Cleanup after regular OpenCloud install
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/usr/bin/neutron-ovs-cleanup --ovs_all_ports"
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/usr/sbin/service neutron-plugin-openvswitch-agent stop"
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/usr/bin/ovs-vsctl del-br br-tun"
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/sbin/ip link delete phy-br-nat"
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/sbin/ip link delete int-br-nat"
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/sbin/ip link delete phy-br-ex"
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/sbin/ip link delete int-br-ex"
+# Remove default libvirt network (virbr0, 192.168.122.0/24)
+ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/usr/bin/virsh net-destroy default"
+```
+
+### Configure switches
+All internal switches need to be configured in OpenFlow mode and point
+to OpenVirteX. For the *br-int* switches on the compute nodes, you can
+do this by running the following Ansible command (replace HOST and
+PORT by the correct values):
+
+```
+ansible -i ansible/hosts onlab-oc-compute -m command -ubuntu -s -a "/usr/bin/ovs-vsctl set-controller br-int tcp:HOST:PORT"
+```
+
+Refer to the administrator manual on how to configure the physical
+switches.
+
+
+### OpenVirteX
+
+OVX is a fairly heavy piece of software in its current implementation
+and these system requirements should not be taken too lightly; the
+number of slices, size of the flowspace, and number of datapaths
+present in your network all contribute to the scaling factors. Only
+the most trivial of environments can tolerate the minimum system
+requirements. We recommended a system that has at least 4 cores and
+has 4 GB of memory available for the Java heap.
+
+Note that OVX can be deployed on any machine in the cloud where all
+switches (both hardware and software) can reach the machine.
+
+Start by installing some common software packages:
+
+```
+$ sudo apt-get install git maven mongodb
+```
+
+Proceed by installing Java Oracle 7. Please do not use OpenJDK because
+it will not work! Also, Java Oracly 8 is currently untested.
+
+```
+$ sudo apt-get install software-properties-common -y
+$ sudo add-apt-repository ppa:webupd8team/java -y
+$ sudo apt-get update
+$ sudo apt-get install oracle-java7-installer oracle-java7-set-default -y
+```
+
+You are now ready to download, compile and run OVX:
+
+```
+$ git clone https://github.com/OPENNETWORKINGLAB/OpenVirteX.git -b 0.0-MAINT
+$ sh OpenVirteX/scripts/ovx.sh
+```
+
+Please refer to the
+[official OVX installation page](http://ovx.onlab.us/getting-started/installation/)
+for the available command line options.
+
+### OpenStack Neutron
+On the machine that will run the OpenStack Neutron plugin, download
+the source.
+
+```
+$ git clone -b ovx https://github.com/OPENNETWORKINGLAB/neutron.git -b stable/icehouse
+```
+
+TODO: ensure source becomes default Neutron repo
+
+Next configure OpenStack Neutron to use the OpenCloud plugin by
+editing */etc/neutron/neutron.conf*:
+
+```
+core_plugin = neutron.plugins.opencloud.opencloud_neutron_plugin.OpenCloudPluginV2
+```
+
+You must also configure the plugin; at the very least, verify the
+settings for the *api_host*, *of_host*, and the Nova credentials
+*username* and *password*. You can do this in
+*/etc/neutron/plugins/opencloud/opencloud_neutron_plugin.ini*.
+
+```
+[ovx]
+username = admin                            # OVX admin user
+password =                                  # OVX admin password
+api_host = localhost                        # OVX RPC API server address
+api_port = 8080                             # OVX RPC API server port
+of_host = localhost                         # OVX OpenFlow server address
+of_port = 6633                              # OVX OpenFlow server port
+
+[ovs]
+data_bridge = br-int                        # Data network bridge
+ctrl_bridge = br-ctl                        # Control network bridge
+nat_bridge = br-nat                         # NAT network bridge
+ex_bridge = br-ex                           # External network bridge
+
+[nova]
+username = admin                            # Nova username
+password =                                  # Nova password
+project_id = admin                          # Nova project ID (name, not the tenant UUID)
+auth_url = http://localhost:5000/v2.0/      # Nova authentication URL
+image_name = ovx-floodlight                 # SDN controller image name
+image_port = 6633                           # OpenFlow port of SDN controller image
+flavor = m1.small                           # Machine flavor on which to run SDN controller
+key_name =                                  # Name of keypair to inject into controller instance
+timeout = 30                                # Number of seconds to try start the controller instance
+```
+
+Also note the *image_name* parameter in the above configuration file;
+this is the default SDN controller image that will be spawned for each virtual
+network that is created. We have included a script in
+*neutron/neutron/plugins/ovx/build-floodlight-vm.sh* to build an image
+that uses the FloodLight OpenFlow controller. Run the script to build
+the controller image, then import it in OpenStack Glance (note that
+the given name should correspond to your plugin configuration).
+
+```
+glance image-create --name ovx-floodlight --disk-format=qcow2
+--container-format=bare --file ubuntu-14.04-server-cloudimg-amd64-disk1.img
+```
+
+You are now ready to restart the Neutron plugin:
+
+```
+sudo service neutron-server restart
+```
+
 ##Operator Tools
 
 There is currently no comprehensive operator view. Instead, operators
