@@ -296,7 +296,34 @@ website:
 and
 [OpenStack Neutron installation instructions](http://ovx.onlab.us/openstack/).
 
-TODO: include overview figure
+![Figure 2. OpenCloud Neutron Architecture.](figures/neutron.jpg)
+
+Figure 2. OpenCloud Neutron Architecture.
+
+An overview of the networking stack in OpenCloud is shown in
+Figure 2. Each compute node has four software switches:
+
+1. br-int or the data bridge connects the private network of the
+compute instances VMs. This bridge typically has the fastest physical
+interface available on the compute node.
+2. br-ctl or the control bridge connects the SDN controllers to
+OVX. Tenants are not allowed to connect directly to this bridge.
+3. br-nat or the NAT bridge. Compute VMs connect to this for NAT
+access to the public Internet. The admin is responsible for correct
+configuration beyond this bridge.
+4. br-ex or the external bridge. VMs connect to this bridge to be
+reachable from outside. OpenCloud will allocate an IP address from
+the pool of available public IPs (see the section on OpenStack Neutron
+below on how to configure this pool). The admin is responsible for
+correct configuration beyond this bridge.
+
+Whenever a compute instance is spawned, it connects automatically to
+the data bridge, and, depending on the request, may also connect to
+either the NAT or the external bridge.
+
+Note that only the data bridges and the physical switch to which the
+data bridges are connected, are in OpenFlow mode. The remaining
+software switches are in L2 learning mode.
 
 ### Cleanup
 First thing you want to do, is clean up some of the configuration made
@@ -431,8 +458,20 @@ the controller image, then import it in OpenStack Glance (note that
 the given name should correspond to your plugin configuration).
 
 ```
-glance image-create --name ovx-floodlight --disk-format=qcow2
---container-format=bare --file ubuntu-14.04-server-cloudimg-amd64-disk1.img
+$ glance image-create --name ovx-floodlight --disk-format=qcow2 --container-format=bare --file ubuntu-14.04-server-cloudimg-amd64-disk1.img
+```
+
+TODO
+The final step is to configure your pool of public IP addresses. You
+can do so by opening
+*neutron/neutron/plugins/opencloud/common/constants.py* and editing
+the *EXT_SUBNET* section. Make sure you update the fields for *cidr*,
+*gateway_ip*, and *allocation_pools*. If needed, you can have multiple
+*start* and *end* entries if you have a fragmented IP address space. For
+example:
+
+```
+'allocation_pools': [{"start": "10.0.2.3", "end": "10.0.2.15"}, {"start": "10.0.2.17", "end": "10.0.2.17"}, {"start": "10.0.2.19", "end": "10.0.2.254"}],
 ```
 
 You are now ready to restart the Neutron plugin:
@@ -440,6 +479,7 @@ You are now ready to restart the Neutron plugin:
 ```
 sudo service neutron-server restart
 ```
+
 
 ##Operator Tools
 
