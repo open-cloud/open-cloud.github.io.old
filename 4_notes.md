@@ -37,9 +37,15 @@ title: Release Notes
 
 11. For private networks, need to create the subnet without a gateway.
 
-12. Decide what VM images we will offer (e.g., Ubuntu 12.04).  Distribute the proper images to all clusters. Remove unavailable images from the GUI.
+12. Decide what VM images we will offer (e.g., Ubuntu 12.04).
+Distribute the proper images to all clusters. Remove unavailable
+images from the GUI.
 
-13. Node flavor not being honored (e.g., on Stanford cluster: requested m1.small, got m1.medium) 
+13. Node flavor not being honored (e.g., on Stanford cluster:
+requested m1.small, got m1.medium).
+
+14. Reconcile OVX documentation about Neutron with the rest of the
+OpenStack install process.
 
 
 ##Incomplete and Undocumented Features

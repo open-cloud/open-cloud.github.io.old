@@ -376,8 +376,10 @@ https://docs.djangoproject.com/en/1.7/topics/migrations/
 When adding a new field to the data model, execute the following two
 steps:
 
-1. python manage.py makemigrations
-2. python manage.py migrate
+```
+python manage.py makemigrations
+python manage.py migrate
+```
 
 The first step creates the migration scripts automatically. These will
 be placed in core/migrations/, hpc/migrations/,
@@ -437,6 +439,9 @@ python manage.py makemigrations <appname>
 to create the initial migration for the app.
 
 ##Data Model Conventions
+
+This section outlines our modeling conventions and how they map onto
+Django.
 
 ###Modeling Basics
 

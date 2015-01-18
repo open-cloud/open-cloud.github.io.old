@@ -13,7 +13,10 @@ own infrastructure.
 ##Installing OpenStack
 
 This section describes how to bring up OpenCloud's version of an
-OpenStack cloud on a cluster.
+OpenStack cloud on a cluster. See Sections [Administering a
+Site](../1_user/#admin-site) and [Administering a
+Deployment](../1_user/#admin-deployment) of the User's Guide for
+instructions on importing an OpenStack cluster into OpenCloud.
 
 ###Cluster Architecture
 
@@ -286,50 +289,51 @@ nova-cloud-controller VM and append it to
 
 ##Installing OpenVirteX
 
-This section describes how to get OpenCloud's network hypervisor,
-called OpenVirteX (OVX), up and running. It also goes into detail on
-how to configure OpenStack Neutron.
-
-The following sections are a summary as found on the official OVX
-website:
-[OVX installation instructions](http://ovx.onlab.us/getting-started/installation/)
-and
-[OpenStack Neutron installation instructions](http://ovx.onlab.us/openstack/).
+This section describes how to install the OpenVirteX (OVX) network
+hypervisor and connect it to OpenStack's Neutron. For a more in-depth
+discussion, see the OVX website: [OVX Installation
+Instructions](http://ovx.onlab.us/getting-started/installation/) and
+[OpenStack Neutron Installation
+Instructions](http://ovx.onlab.us/openstack/).
 
 ![Figure 2. OpenCloud Neutron Architecture.](figures/neutron.jpg)
 
 Figure 2. OpenCloud Neutron Architecture.
 
-An overview of the networking stack in OpenCloud is shown in
-Figure 2. Each compute node has four software switches:
+An overview of the OpenCloud networking stack is shown in Figure 2. 
+Each compute node has four software switches:
 
-1. br-int or the data bridge connects the private network of the
+1. br-int (data bridge) connects the private network of the
 compute instances VMs. This bridge typically has the fastest physical
 interface available on the compute node.
-2. br-ctl or the control bridge connects the SDN controllers to
-OVX. Tenants are not allowed to connect directly to this bridge.
-3. br-nat or the NAT bridge. Compute VMs connect to this for NAT
-access to the public Internet. The admin is responsible for correct
-configuration beyond this bridge.
-4. br-ex or the external bridge. VMs connect to this bridge to be
-reachable from outside. OpenCloud will allocate an IP address from
-the pool of available public IPs (see the section on OpenStack Neutron
-below on how to configure this pool). The admin is responsible for
-correct configuration beyond this bridge.
 
-Whenever a compute instance is spawned, it connects automatically to
-the data bridge, and, depending on the request, may also connect to
+2. br-ctl (control bridge) connects the SDN controllers to
+OVX. Tenants are not allowed to connect directly to this bridge.
+
+3. br-nat (NAT bridge) gives VMs access to the public Internet. The
+admin is responsible for correct configuration beyond this bridge.
+
+4. br-ex (external bridge) allows VMs to be reachable from the public
+Internet. OpenCloud allocates an IP address from the pool of available
+public IPs to each VM that requests one. (See the description of
+OpenStack Neutron below for information about configuring this
+pool). The admin is responsible for correct configuration beyond this
+bridge.
+
+Whenever a compute instance is spawned, it automatically connects to
+the data bridge, and depending on the request, may also connect to
 either the NAT or the external bridge.
 
-Note that only the data bridges and the physical switch to which the
-data bridges are connected, are in OpenFlow mode. The remaining
-software switches are in L2 learning mode.
+Note that only the data bridges and the physical switch are in
+OpenFlow mode. The remaining software switches are in L2 learning
+mode.
 
-### Cleanup
-First thing you want to do, is clean up some of the configuration made
-by Juju. The following script will remove and disable unneeded
-OpenvSwitch components on the compute nodes.
+### Cleanup Configuration State
 
+Begin by cleaning up some of the configuration made by Juju. The
+following script removes and disables unneeded OpenvSwitch components
+on the compute nodes. *[Eventually, OVX will be configured through
+Juju.]*
 
 ```
 #!/bin/sh
@@ -346,11 +350,12 @@ ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu
 ansible -i opencloud-install/ansible/hosts onlab-oc-compute -m command -u ubuntu -s -a "/usr/bin/virsh net-destroy default"
 ```
 
-### Configure switches
+### Configure Switches
+
 All internal switches need to be configured in OpenFlow mode and point
-to OpenVirteX. For the *br-int* switches on the compute nodes, you can
-do this by running the following Ansible command (replace HOST and
-PORT by the correct values):
+to OpenVirteX. For the *br-int* switches on the compute nodes, do this
+by running the following Ansible command (replace HOST and PORT by the
+correct values):
 
 ```
 ansible -i ansible/hosts onlab-oc-compute -m command -ubuntu -s -a "/usr/bin/ovs-vsctl set-controller br-int tcp:HOST:PORT"
@@ -359,19 +364,18 @@ ansible -i ansible/hosts onlab-oc-compute -m command -ubuntu -s -a "/usr/bin/ovs
 Refer to the administrator manual on how to configure the physical
 switches.
 
-
-### OpenVirteX
+### Install OVX Software
 
 OVX is a fairly heavy piece of software in its current implementation
-and these system requirements should not be taken too lightly; the
-number of slices, size of the flowspace, and number of datapaths
-present in your network all contribute to the scaling factors. Only
-the most trivial of environments can tolerate the minimum system
-requirements. We recommended a system that has at least 4 cores and
-has 4 GB of memory available for the Java heap.
+and these system requirements should not be taken lightly; the number
+of slices, size of the flowspace, and number of datapaths present in
+your network all contribute to the scaling factors. Only the most
+trivial of environments can tolerate the minimum system requirements. 
+We recommended a system that has at least 4 cores and has 4 GB of
+memory available for the Java heap.
 
-Note that OVX can be deployed on any machine in the cloud where all
-switches (both hardware and software) can reach the machine.
+Note that OVX can be deployed on any machine where all switches (both
+hardware and software) can reach the machine.
 
 Start by installing some common software packages:
 
@@ -389,18 +393,19 @@ $ sudo apt-get update
 $ sudo apt-get install oracle-java7-installer oracle-java7-set-default -y
 ```
 
-You are now ready to download, compile and run OVX:
+Now download, compile, and run OVX:
 
 ```
 $ git clone https://github.com/OPENNETWORKINGLAB/OpenVirteX.git -b 0.0-MAINT
 $ sh OpenVirteX/scripts/ovx.sh
 ```
 
-Please refer to the
-[official OVX installation page](http://ovx.onlab.us/getting-started/installation/)
-for the available command line options.
+Refer to the [OVX installation
+page](http://ovx.onlab.us/getting-started/installation/) for the
+available command line options.
 
 ### OpenStack Neutron
+
 On the machine that will run the OpenStack Neutron plugin, download
 the source.
 
@@ -449,9 +454,9 @@ key_name =                                  # Name of keypair to inject into con
 timeout = 30                                # Number of seconds to try start the controller instance
 ```
 
-Also note the *image_name* parameter in the above configuration file;
-this is the default SDN controller image that will be spawned for each virtual
-network that is created. We have included a script in
+Note that the *image_name* parameter in the above configuration file
+refers to the default SDN controller image that will be spawned for
+each virtual network that OVX creates. We have included a script in
 *neutron/neutron/plugins/ovx/build-floodlight-vm.sh* to build an image
 that uses the FloodLight OpenFlow controller. Run the script to build
 the controller image, then import it in OpenStack Glance (note that
@@ -461,13 +466,12 @@ the given name should correspond to your plugin configuration).
 $ glance image-create --name ovx-floodlight --disk-format=qcow2 --container-format=bare --file ubuntu-14.04-server-cloudimg-amd64-disk1.img
 ```
 
-TODO
-The final step is to configure your pool of public IP addresses. You
-can do so by opening
+TODO: The final step is to configure a pool of public IP addresses.
+Do so by opening
 *neutron/neutron/plugins/opencloud/common/constants.py* and editing
-the *EXT_SUBNET* section. Make sure you update the fields for *cidr*,
-*gateway_ip*, and *allocation_pools*. If needed, you can have multiple
-*start* and *end* entries if you have a fragmented IP address space. For
+the *EXT_SUBNET* section. Make sure to update the fields for *cidr*,
+*gateway_ip*, and *allocation_pools*. If needed, have multiple *start*
+and *end* entries if you have a fragmented IP address space. For
 example:
 
 ```
@@ -479,7 +483,6 @@ You are now ready to restart the Neutron plugin:
 ```
 sudo service neutron-server restart
 ```
-
 
 ##Operator Tools
 

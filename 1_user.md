@@ -164,7 +164,7 @@ access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
-##<a name="admin-site">Administering a User</a>
+##<a name="admin-user">Administering a User</a>
 
 All users are able to manage their own accounts and Site Admins are
 able to manage the accounts of users homed at that site. Select the
@@ -224,7 +224,7 @@ site details are as follows:
 * **Deployments:** Select the *Deploymements* tab to affiliate the
   site's nodes with one or more deployments....
 
-##Administering a Deployment
+##<a name="admin-deployment">Administering a Deployment</a>
 
 Deployment Admins are responsible for managing the privileges, sites,
 images, flavors, and visibility for the deployment. Select the
