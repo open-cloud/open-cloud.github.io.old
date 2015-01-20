@@ -18,8 +18,8 @@ independent ideas:
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that implements the
   XaaS architecture. XOS runs on OpenCloud, but is also available as
-  open source software. Developers can access XOS source code using
-  [git](http://git.planet-lab.org/plstackapi.git).
+  open source software. Developers can access XOS source code from a
+  [git repository](http://git.planet-lab.org/plstackapi.git).
 
 * *OpenCloud* is an operational cloud that runs XOS and spans a set of
   servers distributed across multiple sites world-wide. Users can
