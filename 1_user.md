@@ -88,14 +88,15 @@ his or her home dashboard.
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of tabs (Deployments,
 Sites, Slices, and Users) correspond to the core XOS objects, as
-described in the [Data Model](../0_overview/#data-model) Section.
-Later sections describe how administrators use these tabs to manage
-deployments, sites, and users. (The views described in this section
-are typically use to manage slices.) The bottom set of tabs
-(RequestRouter, HyperCache, and Syndicate) correspond to services that
-extend XOS. Most users will have no need to directly access these
-services, but will instead indirectly access the services through the
-tailored workflows supported by the various views.
+described in the [Data Model](../0_overview/#data-model). The
+following sections of this guide describe how administrators use these
+tabs to manage users, sites, and deployments, respectively. (The views
+described in this section are typically use to manage slices.) The
+bottom set of tabs (RequestRouter, HyperCache, and Syndicate)
+correspond to services that extend XOS. Most users will have no need
+to directly access these services, but will instead indirectly access
+the services through the tailored workflows supported by the various
+views.
 
 There are also views designed to support operators, as described
 in the [Operator's Guide](../3_operator).

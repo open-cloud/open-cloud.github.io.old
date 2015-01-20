@@ -49,3 +49,5 @@ title: Release Notes
 
 3. A current limitation is that only one user key is injected into the
    slice. That user can login and manually add the keys of other users.
+
+4. Need to automate the binding of interfaces to images.

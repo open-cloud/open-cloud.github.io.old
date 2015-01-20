@@ -4,9 +4,9 @@ title: Overview
 ---
 
 OpenCloud is an operational cloud running on servers distributed
-across multiple sites world-wide. This overview describes its software
-architecture and the hardware infrastructure on which it is currently
-deployed.
+across multiple sites world-wide. This overview describes OpenCloud's
+software architecture and sketches the hardware infrastructure on
+which it is currently deployed.
 
 To help frame the discussion, this guide distinguishes among three
 independent ideas:
@@ -18,8 +18,8 @@ independent ideas:
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that implements the
   XaaS architecture. XOS runs on OpenCloud, but is also available as
-  open source software. Developers can access XOS source code on
-  [GitHub](http://open-cloud.github.io).
+  open source software. Developers can access XOS source code using
+  [git](http://git.planet-lab.org/plstackapi.git).
 
 * *OpenCloud* is an operational cloud that runs XOS and spans a set of
   servers distributed across multiple sites world-wide. Users can
@@ -46,21 +46,20 @@ Figure 1. Software components running on OpenCloud.
 
 The middle orange boxes represent a collection of services, or more
 specifically, the controllers for those services. This includes a set
-of core services -- Compute-as-a-Service (CaaS), Network-as-a-Service
-(NaaS), and Id-Management-as-a-Service (IDaaS) -- required to "boot"
-an operational system. These core services are based on OpenStack. It
-also includes a library of contributed services drawn from research
-prototypes, open source projects, and trial deployments of commercial
-services.
+of core OpenStack services: Compute-as-a-Service (Nova),
+Network-as-a-Service (Neutron), and Id-Management-as-a-Service
+(Keystone). It also includes a library of contributed services drawn
+from research prototypes, open source projects, and trial deployments
+of commercial services.
 
 The top-most purple box represents XOS proper, an extensible Cloud OS
-(or alternatively, "Service Orchestrator") that includes explicit
-support for folding new services built on top of OpenCloud back into
-OpenCloud. By way of analogy, XOS is similar to the Unix kernel, where
-the set of services built around XOS correspond to the
-commands-and-libraries bundled with Unix. An important aspect of this
-design is that to most users, the distinction between the kernel (XOS)
-and the commands-and-libraries (set of services) is not important.
+that includes support for folding new services built on top of
+OpenCloud back into OpenCloud. By way of analogy, XOS is similar to
+the Unix kernel, where the set of services built around XOS correspond
+to the commands-and-libraries bundled with Unix. An important aspect
+of this design is that to most users, the distinction between the
+kernel (XOS) and the commands-and-libraries (set of services) is not
+important.
 
 More information about how users interact with XOS is given in the
 [User Guide](../1_user), while more information about how to extend
@@ -87,8 +86,8 @@ On top of these abstractions is a set of *Views* that defines how
 various actors interact with XOS. These include cloud tenants, service
 developers, and cloud operators. We expect the set of views to evolve
 over time, and to this end, XOS provides a programming environment for
-writing new views (see Section [Adding
-Views to XOS](../2_developer/#adding-views) of the Developer Guide.
+writing new views (see Section [Adding Views to
+XOS](../2_developer/#adding-views) of the Developer Guide).
 
 Below the Model sits a collection of controller plugins that react to
 changes in the Data Model by manipulating the interfaces to the
@@ -131,8 +130,8 @@ Type).
 
 The following introduces and motivates XOS's core Object Types, along
 with some of their key Fields, including relationships to other Object
-Types. The discussion is organized around six categories: access
-control, infrastructure, policy, virtualization, accounting, and
+Types. The discussion is organized around five categories: access
+control, infrastructure, policy, virtualization, and
 services.
 
 ###Access Control
@@ -165,8 +164,6 @@ objects.
   - **PI:** Read/write access to a Site's Slices and Users.
 
   - **Tech:** Read/write access to a Site's Nodes.
-
-  - **Billing:** Read/write access to a Site's Account and Invoices.
 
   - **Default:** Read-only access to all of a Site's objects.
 
@@ -253,8 +250,6 @@ collaborate to manage nodes. This results in three core Object Types:
   - Bound to a set of Nodes located at the Site.
 
   - Bound to a set of Deployments that the Site may access.
-
-  - Bound to an Account that reports the Site's resource consumption.
 
 * **Deployment:** A logical grouping of Nodes running a compatible set
   of virtualization technologies and being managed according to a
@@ -354,8 +349,6 @@ managed as follows:
 * **Sliver:** A single instance (VM) associated with a Slice. Each
   Sliver is instantiated on some physical Node.
 
-* **Usage:** Records Slice-specific state about resource usage.
-
 * **Network:** A virtual network associated with a Slice. Each Network
  also specifies a (possibly empty) set of other Slices that may join
  it, has an IP AddrSpace (CIDR block and port range) by which all
@@ -402,36 +395,6 @@ There is intended asymmetry in the definition of a Slice. All Slivers
 bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).
-
-###Billing and Accounting
-
-XOS includes a billing model that can be used to charge Sites for
-resource usage. The model includes enough detail so the Site can pass
-charges on to the responsible Slice. Includes the following objects:
-
-* **Account:** Record of billing information (e.g., contacts) for a
-    Site.
-
-  - Bound to a set of Invoices.
-
-* **Invoice:** Charges for the resources consumed by all Slices at
-  this Site over some time period (e.g., weekly).
-
-  - Bound to a set of Charges that aggregate charges over some time
-    interval.
-
-* **Charge:** Detailed report of resource usage at the granularity of
-  a Slice.
-
-  - Bound to a Slice-specific Usage object.
-
-Operationally, a User with the (Site, Billing) Role maintains the
-Account for the Site, and receives periodic email notifications of
-Invoices that have been generated by the system. XOS's underlying
-resource allocation mechanism generates and maintains a set of Invoice
-objects, each of which aggregates a set of Charges over some time
-interval. Each Charge includes a reference to a per-Slice Usage
-object.
 
 ###Services
 
