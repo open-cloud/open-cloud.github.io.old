@@ -35,6 +35,22 @@ title: Release Notes
    home page (and does not reflect changes made through the Customize
    tab).
 
+11. For private networks, need to create the subnet without a gateway.
+
+12. Decide what VM images we will offer (e.g., Ubuntu 12.04).
+Distribute the proper images to all clusters. Remove unavailable
+images from the GUI.
+
+13. Node flavor not being honored (e.g., on Stanford cluster:
+requested m1.small, got m1.medium).
+
+14. Reconcile OVX documentation about Neutron with the rest of the
+OpenStack install process.
+
+15. Slice objects should not be saved if creator is not set. A non-admin should not be able to set the creator to someone else.
+
+16. Determine if Sliver.IP is a useful field or redundant with NetworkSlivers. Update admin to display the appropriate one (right now we display comma-separated NetworkSlivers addresses in Sliver list, but Sliver.IP in Sliver detail view)
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.

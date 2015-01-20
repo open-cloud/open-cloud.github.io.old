@@ -47,12 +47,12 @@ to utilizing OpenCloud resources:
    connections.  In your ~/.ssh/config file add lines similar to the
    following:
 
-```
-Host foobar
-  User ubuntu
-  IdentityFile ~/.ssh/id_rsa
-  ProxyCommand ssh -q instance-0000006c@node6.cs.arizona.edu
-```
+   ```
+   Host foobar
+     User ubuntu
+     IdentityFile ~/.ssh/id_rsa
+     ProxyCommand ssh -q instance-0000006c@node6.cs.arizona.edu
+   ```
 
    Above, replace "foobar" with a label of your choice for this
    sliver.  *User* is the default login user for the image.
@@ -63,9 +63,9 @@ Host foobar
    Once an entry is present for the sliver in ~/.ssh/config, you can
    login using the label:
 
-```
-# ssh foobar
-```
+   ```
+   # ssh foobar
+   ```
 
    Other utilities like scp also work as expected when referencing
    the sliver using the label.
@@ -165,7 +165,7 @@ access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
-##<a name="admin-site">Administering a User</a>
+##<a name="admin-user">Administering a User</a>
 
 All users are able to manage their own accounts and Site Admins are
 able to manage the accounts of users homed at that site. Select the
@@ -225,7 +225,7 @@ site details are as follows:
 * **Deployments:** Select the *Deploymements* tab to affiliate the
   site's nodes with one or more deployments....
 
-##Administering a Deployment
+##<a name="admin-deployment">Administering a Deployment</a>
 
 Deployment Admins are responsible for managing the privileges, sites,
 images, flavors, and visibility for the deployment. Select the
