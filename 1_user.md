@@ -44,7 +44,10 @@ to utilizing OpenCloud resources:
    to login using this ID and the physical node it is running on.
    By default, slivers connect to the network via NAT; logging into
    the sliver relies on SSH proxying to forward incoming SSH
-   connections.  In your ~/.ssh/config file add lines similar to the
+   connections.  In the Tenant View, click on the *SSH Commands* button
+   to see SSH commands that can be cut-and-pasted into the terminal for 
+   logging into your instances.  
+   Alternatively, in your ~/.ssh/config file add lines similar to the
    following:
 
    ```
@@ -59,7 +62,6 @@ to utilizing OpenCloud resources:
    *IdentitiyFile* should point to the key that you've uploaded to
    OpenCloud.  *ProxyCommand* should point to the instance ID and
    node for the sliver.
-
    Once an entry is present for the sliver in ~/.ssh/config, you can
    login using the label:
 
