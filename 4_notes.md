@@ -9,13 +9,13 @@ title: Release Notes
    Invoices.
 
 2. Need to either hide or document the ability to whitelist Networks.
-   [DONE]
+   [DONE: limitation documented below]
 
 3. Hide undocumented Views. Keep only Tenant, Developer, Nagios, and 
    xsh. [DONE]
 
 4. Complete Site Privilges (Admin, Tech, PI, Default) or document as
-   incomplete.
+   incomplete. [DONE: limitation documented below]
 
 5. Nodes tab should be visible from the Sites page. [DONE]
 
@@ -59,6 +59,14 @@ OpenStack install process.
    documented.
 
 3. A current limitation is that only one user key is injected into the
-   slice. That user can login and manually add the keys of other users.
+   slice. That user can login and manually add the keys of other users.  
+   Related to this limitation, the current Default SlicePrivilege needs
+   attention should mean "no special slice privilege" whereas a new
+   SlicePrivlige (let's call it "User") means the user's key has been
+   installed and he or she may ssh into the slice's slivers.
 
-4. Need to automate the binding of interfaces to images.
+4. The full range of SitePrivileges is not implemented. Only Admin 
+   (currently mis-named PI) is supported, as opposed to Admin, Tech,
+   and PI.
+
+5. Need to automate the binding of interfaces to images.
