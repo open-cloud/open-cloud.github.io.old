@@ -35,8 +35,9 @@ to utilizing OpenCloud resources:
      be able to extend slice privileges to other users.)  
    - Click the *Save* button when done.
 
-3. **Create slivers.** Use either the Tenant or the Developer View
-   (see next section) to instantiate slivers (VMs) for your slice.
+3. **Create slivers.** Use either the [Tenant](#tenant-view) or the
+   [Developer](#developer-view) View (see next section) to instantiate
+   slivers (VMs) for your slice.
 
 4. **Log into slivers.** Once a sliver comes up, you will be able to
    learn its *instance ID*. You can then ssh into the instance using
@@ -70,7 +71,7 @@ views.
 There are also views designed to support operators, as described
 in the [Operator's Guide](../3_operator).
 
-###Tenant View
+###<a name="tenant-view">Tenant View</a>
 
 The Tenant view provides a simple means to acquire Slivers, with
 minimal control over the low-level details of where those Slivers are
@@ -99,8 +100,7 @@ Note that slices intially created through the Tenant view may also be
 managed through the Developer view. The reverse is true as long as the
 slice is instantiated only on the ViCCI deployment.
 
-
-###Developer View
+###<a name="developer-view">Developer View</a>
 
 The Developer view gives users full control over how their slices are
 instantiated, including sliver placement, network configuration, and
