@@ -54,8 +54,8 @@ displayed in the user's browser.
 
 3. Create a javascript file that contains the code that will execute
 the client side of the view
-   o fetch dynamic data from xoslib
-   o commit modified data back to xoslib
+  * fetch dynamic data from xoslib
+  * commit modified data back to xoslib
 
 4. (optional) extend the XOS api with new objects
 
@@ -63,7 +63,7 @@ the client side of the view
 homepage.
 
 The rest of this document walks through these steps, creating a "Hello
-World" view to illustrate. It uses
+World" view as an illustration. It uses
 http://devel.opencloud.us:8000 as the example server running
 Django/XOS, and assumes the software at
 http://git.planet-lab.org/plstackapi.git has been installed on that
@@ -260,7 +260,7 @@ occur in 10-second intervals.
 Models in xoslib have a save method that can be used to commit
 modified data back to XOS. Let's modify helloworld so that when the
 user presses the submit button, we change the description of the first
-slice in the list
+slice in the list:
 
 ```
 // helloworld.js
@@ -282,7 +282,7 @@ REST calls to change the description of the first slice.
 ###Extend the XOS API with New Objects
 
 Sometimes we feel the need to add new objects to the XOS API. While
-the REST API does a pretty good job of explosing the data model,
+the REST API does a pretty good job of exposing the data model,
 fetching each individual bit of it separately may not be the most
 efficient means of displaying a page.
 

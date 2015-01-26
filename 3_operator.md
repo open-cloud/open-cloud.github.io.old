@@ -296,7 +296,7 @@ Instructions](http://ovx.onlab.us/getting-started/installation/) and
 [OpenStack Neutron Installation
 Instructions](http://ovx.onlab.us/openstack/).
 
-![Figure 2. OpenCloud Neutron Architecture.](figures/neutron.jpg)
+![Figure 2. OpenCloud Neutron Architecture.]({{ site.url }}/figures/neutron.jpg)
 
 Figure 2. OpenCloud Neutron Architecture.
 

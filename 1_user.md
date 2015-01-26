@@ -90,11 +90,11 @@ and specify the *TCP Ports* the slice is going to use. Users can also
 set the *ServiceClass* for the slice, although *Best Effort* is
 currently the only supported class.
 
-Click the *Download Slice Details* button to download a text file that
-gives details about the slice, including the DNS names at which the
-slivers can be accessed. Section [Getting Started](#getting-started)
-explains how to use this configuration information to access (e.g.,
-ssh into) the slivers instantiated for a slice.
+In the Tenant View, click on the *SSH Commands* button to see SSH
+commands that can be cut-and-pasted into the terminal for logging into
+your instances; click the *Download* button to save them as a local
+text file.  [Accessing a Sliver](#access-sliver) explains other 
+ways to configure SSH access for a slice's slivers.
 
 Note that slices intially created through the Tenant view may also be
 managed through the Developer view. The reverse is true as long as the
@@ -137,18 +137,19 @@ tutorial illustrates how to use xsh.
 ##<a name="access-sliver">Accessing a Sliver</a>
 
 Slivers connect to the network via NAT; logging into the sliver relies
-on SSH proxying to forward incoming SSH connections. In the Developer
-View, the instance Id and node name are displayed in the Sliver frame.
-In the Tenant View, click on the *SSH Commands* button to see SSH
+on SSH proxying to forward incoming SSH connections. In the Tenant View, 
+click on the *SSH Commands* button to see SSH
 commands that can be cut-and-pasted into the terminal for logging into
-your instances.  Alternatively, in your ~/.ssh/config file add lines
+your instances. In the Developer
+View, the instance Id and node name are displayed in the Sliver frame.
+You can use this information to add lines to your ~/.ssh/config file 
 similar to the following:
 
 ```
 Host foobar
   User ubuntu
   IdentityFile ~/.ssh/id_rsa
-  ProxyCommand ssh -q instance-0000006c@node6.cs.arizona.edu
+  ProxyCommand ssh -q instance-0000006c@node5.cs.arizona.edu
 ```
 
 In the above, replace "foobar" with a label of your choice for this
@@ -167,15 +168,16 @@ the sliver using the label.
 
 A current limitation is that only one user key is injected into the
 slice. Because SSH is indirect through the *ProxyCommand*, it is not
-sufficint add additional keys for other users to the sliver; for the
-time being, an administrator will need to add additional keys.
+sufficient to manually add additional keys for other users to an 
+account inside the sliver; for the time being, an administrator will 
+need to add the additional keys to the proxy environment as well.
 
 In addition to SSH connectivity via NAT, there are two other
 network-related issues of note. First, to run an Internet-accessible
 service in a slice, it is necessary to reserve a TCP or UDP port.
 This is done using the *Network Ports* field in the Tenant View. The
 service can then be accessed at this port on the hosting server (e.g.,
-*node6.cs.arizona.edu* in the above example). Second, all the slivers
+*node5.cs.arizona.edu* in the above example). Second, all the slivers
 at a given site are automatically connected by a private network. Run
 *ifconfig* from within a sliver to learn the sliver's private address
 (i.e., the *10.x.x.x* address associated with *eth0*). This private

@@ -37,7 +37,8 @@ title: Release Notes
    home page (and does not reflect changes made through the Customize
    tab).
 
-11. Slice objects should not be saved if creator is not set. A non-admin should not be able to set the creator to someone else.
+11. Slice objects should not be saved if creator is not set. A
+    non-admin should not be able to set the creator to someone else.
 
 12. Determine if Sliver.IP is a useful field or redundant with
     NetworkSlivers. Update admin to display the appropriate one (right
@@ -59,7 +60,9 @@ title: Release Notes
    documented.
 
 3. A current limitation is that only one user key is injected into the
-   slice. That user can login and manually add the keys of other users.  
+   slice. That user can login and manually add the keys of other users,
+   but an OpenCloud admin also needs to add the keys to the account used
+   to support proxy login to the slice.
    Related to this limitation, the current Default SlicePrivilege needs
    attention should mean "no special slice privilege" whereas a new
    SlicePrivlige (let's call it "User") means the user's key has been
