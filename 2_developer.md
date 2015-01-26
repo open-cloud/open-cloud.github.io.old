@@ -54,8 +54,8 @@ displayed in the user's browser.
 
 3. Create a javascript file that contains the code that will execute
 the client side of the view
-   o fetch dynamic data from xoslib
-   o commit modified data back to xoslib
+  * fetch dynamic data from xoslib
+  * commit modified data back to xoslib
 
 4. (optional) extend the XOS api with new objects
 
@@ -63,7 +63,7 @@ the client side of the view
 homepage.
 
 The rest of this document walks through these steps, creating a "Hello
-World" view to illustrate. It uses
+World" view as an illustration. It uses
 http://devel.opencloud.us:8000 as the example server running
 Django/XOS, and assumes the software at
 http://git.planet-lab.org/plstackapi.git has been installed on that
