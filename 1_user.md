@@ -93,7 +93,7 @@ currently the only supported class.
 In the Tenant View, click on the *SSH Commands* button to see SSH
 commands that can be cut-and-pasted into the terminal for logging into
 your instances; click the *Download* button to save them as a local
-text file.  Section [Accessing a Sliver](#access-sliver) explains other 
+text file.  [Accessing a Sliver](#access-sliver) explains other 
 ways to configure SSH access for a slice's slivers.
 
 Note that slices intially created through the Tenant view may also be
