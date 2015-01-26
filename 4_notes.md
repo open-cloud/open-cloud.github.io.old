@@ -59,7 +59,9 @@ OpenStack install process.
    documented.
 
 3. A current limitation is that only one user key is injected into the
-   slice. That user can login and manually add the keys of other users.  
+   slice. That user can login and manually add the keys of other users,
+   but an OpenCloud admin also needs to add the keys to the account used
+   to support proxy login to the slice.
    Related to this limitation, the current Default SlicePrivilege needs
    attention should mean "no special slice privilege" whereas a new
    SlicePrivlige (let's call it "User") means the user's key has been
