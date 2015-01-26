@@ -6,7 +6,7 @@ title: Release Notes
 ##To Fix Before Release
 
 1. Remove visible references to Reservations, Accounts, Billing, and
-   Invoices.
+   Invoices. [DONE]
 
 2. Need to either hide or document the ability to whitelist Networks.
    [DONE: limitation documented below]
@@ -37,12 +37,12 @@ title: Release Notes
    home page (and does not reflect changes made through the Customize
    tab).
 
-11. Reconcile OVX documentation about Neutron with the rest of the
-OpenStack install process.
+11. Slice objects should not be saved if creator is not set. A non-admin should not be able to set the creator to someone else.
 
-12. Slice objects should not be saved if creator is not set. A non-admin should not be able to set the creator to someone else.
-
-13. Determine if Sliver.IP is a useful field or redundant with NetworkSlivers. Update admin to display the appropriate one (right now we display comma-separated NetworkSlivers addresses in Sliver list, but Sliver.IP in Sliver detail view)
+12. Determine if Sliver.IP is a useful field or redundant with
+    NetworkSlivers. Update admin to display the appropriate one (right
+    now we display comma-separated NetworkSlivers addresses in Sliver
+    list, but Sliver.IP in Sliver detail view)
 
 ##Incomplete and Undocumented Features
 
@@ -66,7 +66,11 @@ OpenStack install process.
    installed and he or she may ssh into the slice's slivers.
 
 4. The full range of SitePrivileges is not implemented. Only Admin 
-   (currently mis-named PI) is supported, as opposed to Admin, Tech,
+   (currently named "PI") is supported, as opposed to Admin, Tech,
    and PI.
 
-5. Need to automate the binding of interfaces to images.
+5. OVX installation is currently disjoint from the OpenStack
+   installation.  Eventually, OVX (and the corresponding Neutron
+   plugin) will be installed as part of OpenStack via Juju.
+
+6. Need to automate the binding of interfaces to images.
