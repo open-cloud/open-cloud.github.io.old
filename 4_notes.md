@@ -56,8 +56,11 @@ title: Release Notes
 2. Two Networks are automatically created and assigned to every
    Slice. There is sufficient support to create new networks, bind
    them to a slice, and whitelist other slices that are allowed to
-   connect to a network, but the workflow is brittle and not
-   documented.
+   connect to a network, but the workflow is brittle and not well
+   documented. In particular, OpenStack limitations require that
+   a Network be created before the VMs that are to attach to them,
+   and adding a Network to a Slice requires re-instantiating all
+   the associated Slivers.
 
 3. A current limitation is that only one user key is injected into the
    slice. That user can login and manually add the keys of other users,
