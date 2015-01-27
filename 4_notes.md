@@ -45,6 +45,9 @@ title: Release Notes
     now we display comma-separated NetworkSlivers addresses in Sliver
     list, but Sliver.IP in Sliver detail view)
 
+13. In the Developer view, a status of "1-OK" still shows up as a red
+    error symbol.
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
@@ -80,3 +83,6 @@ title: Release Notes
    plugin) will be installed as part of OpenStack via Juju.
 
 6. Need to automate the binding of interfaces to images.
+
+7. For slivers attached to a "Dedicated public IP" network, the IP address
+   and SSH command shown on the Sliver Details page are both incorrect.
