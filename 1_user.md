@@ -271,7 +271,7 @@ desired deployment. The available deployment details are as follows:
   slivers. The current policy language is simple: *allow all*
   indicates that all users may instantiate slivers on the deployment, 
   *allow site &lt;sitename&gt;* grants access to all users from a particular site, and
-  *allow user &lt;email&ht;* grants access to a specic user.
+  *allow user &lt;email&gt;* grants access to a specic user.
   Deny rules may also be used (*deny site &lt;sitename&gt;*, *deny user &lt;email&gt;*, etc). 
   Rules are evaluated in order from top to bottom, with an implicit *deny all*
   at the bottom of the list.
