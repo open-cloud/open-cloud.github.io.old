@@ -77,3 +77,6 @@ title: Release Notes
    plugin) will be installed as part of OpenStack via Juju.
 
 6. Need to automate the binding of interfaces to images.
+
+7. For slivers attached to a "Dedicated public IP" network, the IP address
+   and SSH command shown on the Sliver Details page are both incorrect.
