@@ -268,9 +268,13 @@ desired deployment. The available deployment details are as follows:
   policy for what users are and are not allowed to access the
   deployment's resources. A given user sees only those deployments
   that have granted access when they attempt to instantiate
-  slivers. The current policy language is simple: *access all*
-  indicates that all users may instantiate slivers on the deployment,
-  ...
+  slivers. The current policy language is simple: *allow all*
+  indicates that all users may instantiate slivers on the deployment, 
+  *allow site &lt;sitename&gt;* grants access to all users from a particular site, and
+  *allow user &lt;email&gt;* grants access to a specic user.
+  Deny rules may also be used (*deny site &lt;sitename&gt;*, *deny user &lt;email&gt;*, etc). 
+  Rules are evaluated in order from top to bottom, with an implicit *deny all*
+  at the bottom of the list.
 
 * **Privileges:** Select the *Privileges* tab to grant other users
   Admin privileges for the deployment.
