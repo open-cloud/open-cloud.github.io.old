@@ -31,7 +31,7 @@ title: Release Notes
 
 9. Make sure user's can't set/unset Admin and Read-Only buttons in
    Login Details without the proper authorization. (And do we really
-   need Read-Only any more?)
+   need Read-Only any more?) [DONE]
 
 10. Users->Dashboard View != the set of views visible on the user's
    home page (and does not reflect changes made through the Customize
@@ -47,6 +47,8 @@ title: Release Notes
 
 13. In the Developer view, a status of "1-OK" still shows up as a red
     error symbol.
+
+14. Normal users should not be able to change their site.
 
 ##Incomplete and Undocumented Features
 
