@@ -48,12 +48,12 @@ to utilizing OpenCloud resources:
 
 Users interact with OpenCloud through a configurable set of *Views*,
 each tailored for a different usage scenario or workflow. By default,
-a user's home dashboard includes *Tenant*, *Developer*, and *xsh*
-views; a fourth tab, *Customize* allows the user to add and remove
-views from their home dashboard. The Tenant and Developer views are in
-the context of a given (selectable) slice. From any page, selecting
-the *Home* tab in the left-hand navigation bar brings the user back to
-his or her home dashboard.
+a user's home dashboard includes the *Tenant* views; a *Customize* tab
+allows the user to add and remove views from their home dashboard,
+including the more "advanced" *Developer* view. Both the Tenant and
+Developer views are used to administer a user's slices. From any page,
+selecting the *Home* tab in the left-hand navigation bar brings the
+user back to his or her home dashboard.
 
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of tabs (Deployments,
@@ -197,8 +197,7 @@ desired user. The available user details are as follows:
   (which uniquely identifies the user), home *Site*, *Password*, and
   *Public Key* (which is used to ssh into any slivers created on the
   user's behalf). Click the The *Is Active* button to enable the
-  account.  The *Is Admin* button can be set only by OpenCloud
-  administrators to grant a user global Admin privilege.
+  account.
 
 * **Contact Information:** Select the *Contact Information* tab to set
     the user's name and phone number.
@@ -208,10 +207,6 @@ desired user. The available user details are as follows:
 
 * **Slice Privileges:**: Select the *Slice Privileges* tab to set the
   slice-related privileges for the user.
-
-* **Dashboard Views:**: Select the *Dashboard Views* tab to select the
-  views available on the user's dashboard. This can also be done using
-  the *Customize* tab on the user's home page.  
 
 ##<a name="admin-site">Administering a Site</a>
 
@@ -240,10 +235,11 @@ site details are as follows:
   bar, as described in [Getting Started](#getting-started).
 
 * **Nodes:** Select the *Nodes* tab to create and manage the site's
-  nodes. To create a new node, select *Add Node*, fill in...
+  nodes. To create a new node, select *Add Node*, fill in its FQDN
+  and the *Deployment* it belongs to.
 
 * **Deployments:** Select the *Deploymements* tab to affiliate the
-  site's nodes with one or more deployments....
+  site's nodes with one or more deployments.
 
 ##<a name="admin-deployment">Administering a Deployment</a>
 
@@ -269,11 +265,12 @@ desired deployment. The available deployment details are as follows:
   deployment's resources. A given user sees only those deployments
   that have granted access when they attempt to instantiate
   slivers. The current policy language is simple: *allow all*
-  indicates that all users may instantiate slivers on the deployment, 
-  *allow site &lt;sitename&gt;* grants access to all users from a particular site, and
-  *allow user &lt;email&gt;* grants access to a specic user.
-  Deny rules may also be used (*deny site &lt;sitename&gt;*, *deny user &lt;email&gt;*, etc). 
-  Rules are evaluated in order from top to bottom, with an implicit *deny all*
+  indicates that all users may instantiate slivers on the deployment,
+  *allow site &lt;sitename&gt;* grants access to all users from a
+  particular site, and *allow user &lt;email&gt;* grants access to a
+  specic user.  Deny rules may also be used (*deny site
+  &lt;sitename&gt;*, *deny user &lt;email&gt;*, etc).  Rules are
+  evaluated in order from top to bottom, with an implicit *deny all*
   at the bottom of the list.
 
 * **Privileges:** Select the *Privileges* tab to grant other users
