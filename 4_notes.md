@@ -23,7 +23,7 @@ title: Release Notes
    Slices). [DONE]
 
 7. Finish the example Acceess Control policy language example in the
-   Administering a Deployment section.
+   Administering a Deployment section. [DONE]
 
 8. Why does the Deployment page include both an Images selector and
    an Images tab. Seems like the latter is unnecessary. If that's not
