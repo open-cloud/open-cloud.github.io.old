@@ -46,9 +46,11 @@ title: Release Notes
     list, but Sliver.IP in Sliver detail view)
 
 13. In the Developer view, a status of "1-OK" still shows up as a red
-    error symbol.
+    error symbol. [DONE]
 
 14. Normal users should not be able to change their site.
+
+15. Generate RESTful API documentation.
 
 ##Incomplete and Undocumented Features
 
@@ -73,6 +75,10 @@ title: Release Notes
 4. The full range of SitePrivileges is not implemented. Only Admin 
    (currently named "PI") is supported, as opposed to Admin, Tech,
    and PI.
+
+5. The services (Syndicate, HyperCache, RequestRouter) are not
+   currently running. They will be instantiated once the release
+   is stable.
 
 
 
