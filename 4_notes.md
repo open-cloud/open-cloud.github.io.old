@@ -53,36 +53,25 @@ title: Release Notes
 1. There is only partial support for ServiceClass object.
    BestEffort is the only available class, and related objects
    (e.g., Reservations, Accounts, Invoices) are incomplete. 
-   The relationship between the BestEffort class and Flavors
-   needs attention.
 
 2. Two Networks are automatically created and assigned to every
-   Slice. There is sufficient support to create new networks, bind
+   Slice. There is sufficient mechanism to create new networks, bind
    them to a slice, and whitelist other slices that are allowed to
    connect to a network, but the workflow is brittle and not well
-   documented. In particular, OpenStack limitations require that
-   a Network be created before the VMs that are to attach to them,
-   and adding a Network to a Slice requires re-instantiating all
-   the associated Slivers.
+   documented. In particular, OpenStack limitations require that a
+   Network be created before the VMs that are to attach to them, and
+   adding a Network to a Slice requires re-instantiating all the
+   associated Slivers.
 
 3. A current limitation is that only one user key is injected into the
    slice. That user can login and manually add the keys of other users,
    but an OpenCloud admin also needs to add the keys to the account used
    to support proxy login to the slice.
-   Related to this limitation, the current Default SlicePrivilege needs
-   attention should mean "no special slice privilege" whereas a new
-   SlicePrivlige (let's call it "User") means the user's key has been
-   installed and he or she may ssh into the slice's slivers.
 
 4. The full range of SitePrivileges is not implemented. Only Admin 
    (currently named "PI") is supported, as opposed to Admin, Tech,
    and PI.
 
-5. OVX installation is currently disjoint from the OpenStack
-   installation.  Eventually, OVX (and the corresponding Neutron
-   plugin) will be installed as part of OpenStack via Juju.
 
-6. Need to automate the binding of interfaces to images.
 
-7. For slivers attached to a "Dedicated public IP" network, the IP address
-   and SSH command shown on the Sliver Details page are both incorrect.
+
