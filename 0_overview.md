@@ -233,7 +233,7 @@ policy. This approach is motivated by the need to decouple the hosting
 organization from the operational organization, both of which
 collaborate to manage nodes. This results in three core Object Types:
 
-* **Nodes:** A physical server that can be virtualized.
+* **Node:** A physical server that can be virtualized.
 
   - Bound to one Site that hosts the Node and shares responsibility
     for operating it.
