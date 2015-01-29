@@ -55,6 +55,9 @@ title: Release Notes
 16. Remove Deployment tab from Site page. Add Site/Controller tab to
     Deployment page.
 
+17. Have "Documentation" link at top of all pages point to Guide rather 
+    than ../admin/doc.
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
