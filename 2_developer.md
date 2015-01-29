@@ -16,6 +16,20 @@ environments we use.
 
 ##xoslib
 
+xoslib is a client/server library for extending XOS. The server portion of
+the library is primarily comprised of REST API endpoints that may be
+used to create, read, update, and delete XOS objects such as slices, users,
+etc. xoslib includes support for adding new objects or extending existing
+objects on the server as necessary. The REST API uses HTTP as a transport
+mechanism and may be used from a variety of clients and languages.
+
+To facilitate development in Javascript, we constructed an extensive client
+library based on Backbone.js and Marionette.js. Portions of the XOS user
+interface are implemented on top of this library. Backbone.js provides an
+efficient event-driven interface. The xoslib library is responsible for
+fetching models from the server, and notifying views when data has been
+fetched for display to the user.
+
 ##<a name="adding-views">Adding Views to XOS</a>
 
 XOS is designed to be extensible -- to provide an explicit means to
