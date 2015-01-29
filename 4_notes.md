@@ -35,7 +35,7 @@ title: Release Notes
 
 10. Users->Dashboard View != the set of views visible on the user's
    home page (and does not reflect changes made through the Customize
-   tab).
+   tab). [DONE]
 
 11. Slice objects should not be saved if creator is not set. A
     non-admin should not be able to set the creator to someone else.
@@ -51,6 +51,9 @@ title: Release Notes
 14. Normal users should not be able to change their site.
 
 15. Generate RESTful API documentation.
+
+16. Remove Deployment tab from Site page. Add Site/Controller tab to
+    Deployment page.
 
 ##Incomplete and Undocumented Features
 
