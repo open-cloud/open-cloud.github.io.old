@@ -55,6 +55,8 @@ title: Release Notes
 16. Remove Deployment tab from Site page. Add Site/Controller tab to
     Deployment page.
 
+17. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_")
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
