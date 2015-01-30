@@ -10,8 +10,8 @@ the general concepts presented in the [Overview](../0_overview).
 ##<a name="getting-started">Getting Started</a>
 
 Users access OpenCloud by logging into the portal at
-[opencloud.us](http://opencloud.us). New users register through the
-same portal, with the request approved by the PI (Principle
+[portal.opencloud.us](http://opencloud.us). New users register through
+the same portal, with the request approved by the PI (Principle
 Investigator) at their home site. Sites join OpenCloud through an
 off-line process that starts by sending email to info@opencloud.us.
 

@@ -17,13 +17,13 @@ independent ideas:
   [whitepapers](http://opencloud.us/whitepapers.html) for more information.
 
 * *XaaS Operating System (XOS)* is a Cloud OS that that implements the
-  XaaS architecture. XOS runs on OpenCloud, but will also be available
-  as open source software.
+  XaaS architecture. XOS runs on OpenCloud, but is also available as
+  open source software at [GitHub](http://github.com/open-cloud/xos).
 
 * *OpenCloud* is an operational cloud that runs XOS and spans a set of
   servers distributed across multiple sites world-wide. Users can
   access OpenCloud resources via the portal at
-  [opencloud.us](http://opencloud.us).
+  [portal.opencloud.us](http://portal.opencloud.us).
 
 This guide refers to XOS and OpenCloud interchangably when the
 distinction between the software and the deployment is not critical to
