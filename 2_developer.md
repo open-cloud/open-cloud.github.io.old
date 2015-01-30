@@ -641,7 +641,8 @@ http://django-rest-framework.org/#quickstart
 
 ##Reporting Bugs
 
-
+Bugs reports and feature requests can be filed using the 
+[GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
 
 

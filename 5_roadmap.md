@@ -5,35 +5,25 @@ title: Roadmap
 
 This section will eventually record a detailed roadmap. For now it is
 a place to collect todo items, roughly divided into short-term fixes
-and medium-term features (plus our deployment plans).
+and medium-term features (plus our deployment plans). Bug reports and
+feature requests should also be filed at the
+[GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
 ##Immediate Fixes and Upgrades
 
-1. For slivers attached to a "Dedicated public IP" network, the IP
-   address and SSH command shown on the Sliver Details page are both
-   incorrect.
+1. Automate the binding of interfaces to images.
 
-2. Automate the binding of interfaces to images.
+2. Enhance and document Developer View's VN management interface.
 
-3. Enhance and document Developer View's VN management interface.
+3. Relation between ServiceClass and Flavor need attention.
 
-4. Complete full range of Site Privilges.
+4. Bring up Syndicate and integrate into Tenant view.
 
-5. Automatically manage multiple user keys pers slice.
+5. Prepare Docker image of "base" XOS and document installation.
 
-6. SlicePrivilege=Default should mean the user may ssh into the
-   slice's slivers (not "no special privilege"). Rename "Default" to
-   "User".
+6. Perform a complete security audit.
 
-7. Relation between ServiceClass and Flavor need attention.
-
-8. Bring up Syndicate and integrate into Tenant view.
-
-9. Prepare Docker image of "base" XOS and document installation.
-
-10. Perform a complete security audit.
-
-11. Enable monitoring mini-dashboard.
+7. Enable monitoring mini-dashboard.
 
 ##Medium-Term Feature Development
 
