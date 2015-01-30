@@ -11,9 +11,9 @@ title: Release Notes
 2. Normal users should not be able to change their site. [Tony]
 
 3. Documentation link at top of all pages point to Guide rather 
-    than admin/doc. [Scott]
+    than admin/doc. [Done]
 
-4. Hide monitoring mini-dashboard for now. [Scott]
+4. Hide monitoring mini-dashboard for now. [Done]
 
 5. A non-admin should not be able to write Deployment state. [Tony]
 
