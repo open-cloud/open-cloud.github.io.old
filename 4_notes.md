@@ -37,7 +37,7 @@ title: Release Notes
    home page (and does not reflect changes made through the Customize
    tab). [DONE]
 
-11. Slice objects should not be saved if creator is not set. A
+11. Slice objects should not be saved if creator is not set. [DONE] A
     non-admin should not be able to set the creator to someone else.
 
 12. Determine if Sliver.IP is a useful field or redundant with
