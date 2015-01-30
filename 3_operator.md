@@ -10,6 +10,18 @@ own infrastructure.
 
 ##Installing XOS
 
+##Configuring XOS
+
+There is an XOS Configuration File at /opt/planetstack/plstackapi_config. This
+file may be edited with any text editor.
+
+### Disabling Monitoring
+
+To disable monitoring, add the following section to the config file:
+
+    [gui]
+    disable_minidashboard=True
+
 ##Installing OpenStack
 
 This section describes how to bring up OpenCloud's version of an
