@@ -10,6 +10,20 @@ own infrastructure.
 
 ##Installing XOS
 
+##Configuring XOS
+
+There is an XOS Configuration File at /opt/planetstack/plstackapi_config. This
+file may be edited with any text editor.
+
+### Disabling Monitoring
+
+Monitoring services using ceilometer are enabled by default. To disable
+monitoring and the associated mini-dashboard statistics that are displayed
+throughout the XOS website, add the following section to the config file:
+
+    [gui]
+    disable_minidashboard=True
+
 ##Installing OpenStack
 
 This section describes how to bring up OpenCloud's version of an
