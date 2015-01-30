@@ -58,7 +58,7 @@ title: Release Notes
 17. Have "Documentation" link at top of all pages point to Guide rather 
     than ../admin/doc.
 
-18. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_")
+18. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_") [DONE]
 
 ##Incomplete and Undocumented Features
 
