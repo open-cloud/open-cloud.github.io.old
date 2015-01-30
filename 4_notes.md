@@ -55,7 +55,10 @@ title: Release Notes
 16. Remove Deployment tab from Site page. Add Site/Controller tab to
     Deployment page.
 
-17. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_")
+17. Have "Documentation" link at top of all pages point to Guide rather 
+    than ../admin/doc.
+
+18. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_")
 
 ##Incomplete and Undocumented Features
 
