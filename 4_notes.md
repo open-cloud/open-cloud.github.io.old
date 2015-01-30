@@ -60,6 +60,8 @@ title: Release Notes
 
 18. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_") [DONE]
 
+19. Remove m1.tiny, it's causing sliver instantiation problems
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
