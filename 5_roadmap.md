@@ -33,6 +33,8 @@ and medium-term features (plus our deployment plans).
 
 10. Perform a complete security audit.
 
+11. Enable monitoring mini-dashboard.
+
 ##Medium-Term Feature Development
 
 1. Service Composition View/Language
