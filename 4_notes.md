@@ -5,62 +5,20 @@ title: Release Notes
 
 ##To Fix Before Release
 
-1. Remove visible references to Reservations, Accounts, Billing, and
-   Invoices. [DONE]
-
-2. Need to either hide or document the ability to whitelist Networks.
-   [DONE: limitation documented below]
-
-3. Hide undocumented Views. Keep only Tenant, Developer, Nagios, and 
-   xsh. [DONE]
-
-4. Complete Site Privilges (Admin, Tech, PI, Default) or document as
-   incomplete. [DONE: limitation documented below]
-
-5. Nodes tab should be visible from the Sites page. [DONE]
-
-6. Tags tab should not be visible from the Sites page (only from
-   Slices). [DONE]
-
-7. Finish the example Acceess Control policy language example in the
-   Administering a Deployment section. [DONE]
-
-8. Why does the Deployment page include both an Images selector and
-   an Images tab. Seems like the latter is unnecessary. If that's not
-   the case, document the tab. [DONE]
-
-9. Make sure user's can't set/unset Admin and Read-Only buttons in
-   Login Details without the proper authorization. (And do we really
-   need Read-Only any more?) [DONE]
-
-10. Users->Dashboard View != the set of views visible on the user's
-   home page (and does not reflect changes made through the Customize
-   tab). [DONE]
-
-11. Slice objects should not be saved if creator is not set. [DONE] A
+1. Slice objects should not be saved if creator is not set. [DONE] A
     non-admin should not be able to set the creator to someone else.
 
-12. Determine if Sliver.IP is a useful field or redundant with
+2. Determine if Sliver.IP is a useful field or redundant with
     NetworkSlivers. Update admin to display the appropriate one (right
     now we display comma-separated NetworkSlivers addresses in Sliver
     list, but Sliver.IP in Sliver detail view)
 
-13. In the Developer view, a status of "1-OK" still shows up as a red
-    error symbol. [DONE]
+3. Normal users should not be able to change their site.
 
-14. Normal users should not be able to change their site.
+4. Generate RESTful API documentation.
 
-15. Generate RESTful API documentation.
-
-16. Remove Deployment tab from Site page. Add Site/Controller tab to
-    Deployment page.
-
-17. Have "Documentation" link at top of all pages point to Guide rather 
+5. Have "Documentation" link at top of all pages point to Guide rather 
     than ../admin/doc.
-
-18. Slices should not allow names that are truncated after the first underscore (i.e. "onlab_") [DONE]
-
-19. Remove m1.tiny, it's causing sliver instantiation problems
 
 ##Incomplete and Undocumented Features
 
