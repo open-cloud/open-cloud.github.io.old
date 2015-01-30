@@ -29,6 +29,10 @@ and medium-term features (plus our deployment plans).
 
 8. Bring up Syndicate and integrate into Tenant view.
 
+9. Prepare Docker image of "base" XOS and document installation.
+
+10. Perform a complete security audit.
+
 ##Medium-Term Feature Development
 
 1. Service Composition View/Language
