@@ -17,7 +17,9 @@ file may be edited with any text editor.
 
 ### Disabling Monitoring
 
-To disable monitoring, add the following section to the config file:
+Monitoring services using ceilometer are enabled by default. To disable
+monitoring and the associated mini-dashboard statistics that are displayed
+throughout the XOS website, add the following section to the config file:
 
     [gui]
     disable_minidashboard=True
