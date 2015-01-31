@@ -25,7 +25,9 @@ title: Release Notes
    * REST API [Scott]  
    * Adding Services to XOS [Sapan]  
 
-9. Attempting to use the REST API while not logged in returns "AttributeError: 'AnonymousUser' object has no attribute 'is_readonly'"
+9. Attempting to use the REST API while not logged in returns "AttributeError: 'AnonymousUser' object has no attribute 'is_readonly'" [SCOTT]
+
+10. REST API: /plstackapi/ should be renamed to /xos/ [SCOTT]
 
 ##Incomplete and Undocumented Features
 
