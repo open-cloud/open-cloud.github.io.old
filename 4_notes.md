@@ -3,6 +3,10 @@ layout: page
 title: Release Notes
 ---
 
+![Axtell Release](/figures/axtell.jpg "Axtell Release")
+
+Release notes for Axtell, as of 2-February-2015.
+
 ##To Fix Before Release
 
 1. A non-admin should not be able to set the creator of a slice to 
@@ -10,18 +14,13 @@ title: Release Notes
 
 2. Normal users should not be able to change their site. [Tony]
 
-3. Documentation link at top of all pages point to Guide rather 
-    than admin/doc. [Done]
+3. A non-admin should not be able to write Deployment state. [Tony]
 
-4. Hide monitoring mini-dashboard for now. [Done]
+4. Augment Ansible to tie OpenCloud passwords to OpenStack passwords. [Sapan]
 
-5. A non-admin should not be able to write Deployment state. [Tony]
+5. Delete non-sync'ed objects. [Sapan]
 
-6. Augment Ansible to tie OpenCloud passwords to OpenStack passwords. [Sapan]
-
-7. Delete non-sync'ed objects. [Sapan]
-
-8. Documentation
+6. Documentation
    * REST API [Scott]  
    * Adding Services to XOS [Sapan]  
 

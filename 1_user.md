@@ -10,10 +10,11 @@ the general concepts presented in the [Overview](../0_overview).
 ##<a name="getting-started">Getting Started</a>
 
 Users access OpenCloud by logging into the portal at
-[portal.opencloud.us](http://opencloud.us). New users register through
-the same portal, with the request approved by the PI (Principle
-Investigator) at their home site. Sites join OpenCloud through an
-off-line process that starts by sending email to info@opencloud.us.
+[portal.opencloud.us](http://portal.opencloud.us). New users register
+through the same portal, with the request approved by the PI
+(Principle Investigator) at their home site. Sites join OpenCloud
+through an off-line process that starts by sending email to
+<support@opencloud.us>.
 
 Once the user has an account, the following steps are a quick guide
 to utilizing OpenCloud resources:
@@ -468,3 +469,15 @@ a URL that name the service, and configure various maps.
 
 The format of the two map files is defined elsewhere.
 
+##Mailing Lists
+
+All registered OpenCloud users are automatically subscribed to
+[users@opencloud.us](mailto:users@opencloud.us). Use this mailing list
+to announce topics of general interest to other users, and to ask
+questions about best practices using OpenCloud.
+
+To report problems or ask for specific assistance, send email to
+[support@opencloud.us](mailto:support@opencloud.us).
+
+To participate in a discussion about XOS development, join
+[devel@opencloud.us](https://groups.google.com/a/opencloud.us/forum/#!forum/devel).

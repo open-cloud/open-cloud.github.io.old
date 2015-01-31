@@ -3,49 +3,41 @@ layout: page
 title: Roadmap
 ---
 
-This section will eventually record a detailed roadmap. For now it is
-a place to collect todo items, roughly divided into short-term fixes
-and medium-term features (plus our deployment plans). Bug reports and
-feature requests should also be filed at the
-[GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
+![Burwell Release](/figures/burwell.jpg)
 
-##Immediate Fixes and Upgrades
+This section will eventually record a detailed roadmap for the Burwell
+release, and beyond. For now it is a place to collect medium- and
+long-term feature requests and deployment plans. Bug reports and
+short-term feature requests should be filed at the [GitHub Issue
+Tracker](https://github.com/open-cloud/xos/issues).
 
-1. Automate the binding of interfaces to images.
+##Feature Development
+
+1. Bring up Syndicate and integrate into Tenant view.
 
 2. Enhance and document Developer View's VN management interface.
 
 3. Relation between ServiceClass and Flavor need attention.
 
-4. Bring up Syndicate and integrate into Tenant view.
+4. Prototype a Service Composition View/Language
 
-5. Prepare Docker image of "base" XOS and document installation.
+5. Support OVX-based VN interconnection
 
-6. Perform a complete security audit.
+6. Re-establish Service Classes and Invoices
 
-7. Enable monitoring mini-dashboard.
+7. Bring up HPC; revisit user-visible API.
 
-##Medium-Term Feature Development
+8. Make RequestRouter as a stand-alone service
 
-1. Service Composition View/Language
+9. Support user-contributed images
 
-2. OVX-based VN interconnection
+10. Enhance monitoring and stats
 
-3. Service Classes and Invoices
+11. Integrate OVX installation into the OpenStack install process
 
-4. Bring up HPC; revisit user-visible API.
+12. Integrate Docker support
 
-5. RequestRouter as a stand-alone service
-
-6. User-contributed images
-
-7. Enhanced monitoring and stats
-
-8. Integrate OVX installation into the OpenStack install process
-
-9. Docker support
-
-10. Run ONOS in "domain0"
+13. Run ONOS in "domain0"
 
 ##Deployments
 
