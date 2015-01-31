@@ -25,6 +25,8 @@ title: Release Notes
    * REST API [Scott]  
    * Adding Services to XOS [Sapan]  
 
+9. Attempting to use the REST API while not logged in returns "AttributeError: 'AnonymousUser' object has no attribute 'is_readonly'"
+
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
@@ -53,6 +55,10 @@ title: Release Notes
    currently running. They will be instantiated once the release
    is stable.
 
+## Installation Notes
 
+1. some files need to be manually copied when installing using WSGI
+    sudo mkdir /var/www/planetstack/static/rest_framework_swagger
+    sudo cp -a /usr/local/lib/python2.7/dist-packages/rest_framework_swagger/static/rest_framework_swagger/* /var/www/planetstack/static/rest_framework_swagger/
 
 
