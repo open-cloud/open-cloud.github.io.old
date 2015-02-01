@@ -3,12 +3,9 @@ layout: page
 title: Roadmap
 ---
 
-![Burwell Release](/figures/burwell.jpg)
-
-This section will eventually record a detailed roadmap for the Burwell
-release, and beyond. For now it is a place to collect medium- and
-long-term feature requests and deployment plans. Bug reports and
-short-term feature requests should be filed at the [GitHub Issue
+This section is a place to collect medium- and long-term feature
+requests and deployment plans. Bug reports and short-term feature
+requests should be filed at the [GitHub Issue
 Tracker](https://github.com/open-cloud/xos/issues).
 
 ##Feature Development

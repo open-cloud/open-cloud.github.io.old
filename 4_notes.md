@@ -3,8 +3,6 @@ layout: page
 title: Release Notes
 ---
 
-![Axtell Release](/figures/axtell.jpg "Axtell Release")
-
 Release notes for Axtell, as of 2-February-2015.
 
 ##To Fix Before Release
