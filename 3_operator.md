@@ -12,7 +12,7 @@ own infrastructure.
 
 ##Configuring XOS
 
-There is an XOS Configuration File at /opt/planetstack/plstackapi_config. This
+There is an XOS Configuration File at /opt/xos/xos_config. This
 file may be edited with any text editor.
 
 ### Disabling Monitoring

@@ -85,7 +85,7 @@ The rest of this document walks through these steps, creating a "Hello
 World" view as an illustration. It uses
 http://devel.opencloud.us:8000 as the example server running
 Django/XOS, and assumes the software at
-http://git.planet-lab.org/plstackapi.git has been installed on that
+http://github.com/open-cloud/xos.git has been installed on that
 node.
 
 ###Create a Django Template
@@ -95,7 +95,7 @@ the user. A view can be almost entirely HTML or almost entirely
 javascript. Most of our example templates are a combination of the
 two. In the git repository, templates for views are stored in
 xoslib/dashboards/. In an OpenCloud installation, you'll find these
-views in /opt/planetstack/xoslib/dashboards/.
+views in /opt/xos/xoslib/dashboards/.
 
 There is no need to worry about building a full HTML page with \<head\>
 and \<body\> and all the usual boilerplate. XOS automatically handles
@@ -104,7 +104,7 @@ so on. The view need only include HTML that contains what needs to be
 shown to the user. For example, file helloworld.html contains:
 
 ```
-<!-- /opt/planetstack/templates/admin/dashboard/helloworld.html -->
+<!-- /opt/xos/templates/admin/dashboard/helloworld.html -->
 <div>Hello, {{ user.firstname }} {{ user.lastname }}.</div>
 <div>This is the hello world view. The value of foobar is {{ foobar }}.</div>
 <div id="dynamicTableOfInterestingThings"></div>
@@ -162,7 +162,7 @@ change while the user is looking at the view.
 [TODO: suggest the user use xoslib instead of context variables?]
 
 The easiest place to add more Django context variables is in
-/opt/planetstack/core/dashboard/views/view_common.py:
+/opt/xos/core/dashboard/views/view_common.py:
 getDashboardContext(). This function returns the set of context
 variables that are usable by the views:
 
@@ -204,7 +204,7 @@ appropriate place.
 
 Now that we've created a template, let's create some javascript to
 make our view more dynamic. The javascript should be placed in
-/opt/planetstack/core/xoslib/static/js/helloworld.js.
+/opt/xos/core/xoslib/static/js/helloworld.js.
 
 [Note: we could have placed the javascript in the html template using
 \<script\>\</script\> tags, but placing it in a separate .js file is
@@ -309,10 +309,10 @@ xoslib is designed with the ability to easily add new REST API
 functions. These are done in two steps:
 
 1. Create an "object" that contains the new files. These go in
-/opt/planetstack/core/xoslib/objects/.
+/opt/xos/core/xoslib/objects/.
 
 2. Create some REST API views that expose the new object via
-django. These go in /opt/planetstack/core/xoslib/methods/
+django. These go in /opt/xos/core/xoslib/methods/
 
 How to do this is best demonstrated by taking a look at an
 example. SlicePlus is an object that was created to use with the
@@ -425,11 +425,11 @@ to perform a "loaddata" whenever the database is created for the very
 first time.
 
 3. django.setup needs to be called by external scripts before using
-models. planetstack-backend.py has been modified to do this
+models. xos-backend.py has been modified to do this
 automatically.
 
 Upgrading from Django 1.5 to Django 1.7 was messy, so it could be
-messy inside of peoples' private planetstacks as well. It may be
+messy inside of peoples' private XOS installations as well. It may be
 necessary to fully uninstall Django and it's related packages
 
 ```
@@ -594,11 +594,11 @@ for your new model to fully take effect and be visible in OpenCloud:
 
 | Where to go        | Why                |
 |--------------------|--------------------|
-| /opt/planetstack/core/models/__init__.py | Add your new model into the python package.|
-| /opt/planetstack/core/admin.py | Register your model with the admin interface, until this is complete your model will not be visible in the Admin interface. For example, *admin.site.register(Deployment)*. You may also want a custom Admin Page rather than the auto-generated page so that you can tailor the view to just the fields and display widgets you prefer. To do that use *admin.site.register(Deployment, DeploymentAdmin)* and see the Tips and Tricks for GUI Views for more detailed instructions.|
-| /opt/planetstack/planetstack/urls.py | REST related. Add in the url paths to tie in to callbacks for CRUD. Typically there are 2 different urls to expose: (1) Creation at the directory/container level to handle POST commands; and (2) RetrieveUpdateDestroy path based on GET|PUT|DELETE commands. For example, *url(r'^plstackapi/sites/$', SiteListCreate.as_view(), name='site-list')*, *url(r'^plstackapi/sites/(?P<pk>[a-zA-Z0-9_\-]+)/$', SiteRetrieveUpdateDestroy.as_view(), name='site-detail')*.|
-| /opt/planetstack/core/views | REST related. Add classes to support the Create, Read, Update and Destroy needs for your new model when it is accessed via REST.|
-| /opt/planetstack/core/serializers.py | REST related. Add a class to specify the fields that are exposed via the REST api for your model.  In particular, the serialization preferences if other than default for the field type would also be specified here.|
+| /opt/xos/core/models/__init__.py | Add your new model into the python package.|
+| /opt/xos/core/admin.py | Register your model with the admin interface, until this is complete your model will not be visible in the Admin interface. For example, *admin.site.register(Deployment)*. You may also want a custom Admin Page rather than the auto-generated page so that you can tailor the view to just the fields and display widgets you prefer. To do that use *admin.site.register(Deployment, DeploymentAdmin)* and see the Tips and Tricks for GUI Views for more detailed instructions.|
+| /opt/xos/xos/urls.py | REST related. Add in the url paths to tie in to callbacks for CRUD. Typically there are 2 different urls to expose: (1) Creation at the directory/container level to handle POST commands; and (2) RetrieveUpdateDestroy path based on GET|PUT|DELETE commands. For example, *url(r'^xos/sites/$', SiteListCreate.as_view(), name='site-list')*, *url(r'^xos/sites/(?P<pk>[a-zA-Z0-9_\-]+)/$', SiteRetrieveUpdateDestroy.as_view(), name='site-detail')*.|
+| /opt/xos/core/views | REST related. Add classes to support the Create, Read, Update and Destroy needs for your new model when it is accessed via REST.|
+| /opt/xos/core/serializers.py | REST related. Add a class to specify the fields that are exposed via the REST api for your model.  In particular, the serialization preferences if other than default for the field type would also be specified here.|
 
 ###Modeling and Filter impacts
 
@@ -627,7 +627,7 @@ needs to:
 
 Serializers are required in order to properly pack and unpack data
 that is being exchanged via the HTTP requests.  Go to the
-/opt/planetstack/core/serializers.py
+/opt/xos/core/serializers.py
 
 ####About REST Views
 

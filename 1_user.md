@@ -49,7 +49,7 @@ to utilizing OpenCloud resources:
 
 Users interact with OpenCloud through a configurable set of *Views*,
 each tailored for a different usage scenario or workflow. By default,
-a user's home dashboard includes the *Tenant* views; a *Customize* tab
+a user's home dashboard includes the *Tenant* view; a *Customize* tab
 allows the user to add and remove views from their home dashboard,
 including the more "advanced" *Developer* view. Both the Tenant and
 Developer views are used to administer a user's slices. From any page,
