@@ -5,25 +5,6 @@ title: Release Notes
 
 Release notes for Axtell, as of 2-February-2015.
 
-##To Fix Before Release
-
-1. A non-admin should not be able to set the creator of a slice to 
-   someone else. [Tony]
-
-2. Normal users should not be able to change their site. [Tony]
-
-3. A non-admin should not be able to write Deployment state. [Tony]
-
-4. Augment Ansible to tie OpenCloud passwords to OpenStack passwords. [Sapan]
-
-5. Delete non-sync'ed objects. [Sapan]
-
-6. Documentation
-   * REST API [Scott]  
-   * Adding Services to XOS [Sapan]  
-
-9. Attempting to use the REST API while not logged in returns "AttributeError: 'AnonymousUser' object has no attribute 'is_readonly'"
-
 ##Incomplete and Undocumented Features
 
 1. There is only partial support for ServiceClass object.
@@ -52,9 +33,12 @@ Release notes for Axtell, as of 2-February-2015.
    currently running. They will be instantiated once the release
    is stable.
 
+6. The currently installed sites are using GRE-tunnel based VNs. OVX
+   is running only on the Stanford development cluster.
+
 ## Installation Notes
 
-1. some files need to be manually copied when installing using WSGI
+1. Some files need to be manually copied when installing using WSGI
     sudo mkdir /var/www/planetstack/static/rest_framework_swagger
     sudo cp -a /usr/local/lib/python2.7/dist-packages/rest_framework_swagger/static/rest_framework_swagger/* /var/www/planetstack/static/rest_framework_swagger/
 
