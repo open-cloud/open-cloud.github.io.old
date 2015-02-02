@@ -3,9 +3,10 @@ layout: page
 title: Roadmap
 ---
 
-This section is a place to collect medium- and long-term feature
-requests and deployment plans. Bug reports and short-term feature
-requests should be filed at the [GitHub Issue
+This section will eventually record a detailed roadmap, but is
+currently a place to collect medium- and long-term feature requests
+and deployment plans. Bug reports and short-term feature requests
+should be filed at the [GitHub Issue
 Tracker](https://github.com/open-cloud/xos/issues).
 
 ##Feature Development
@@ -38,12 +39,12 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 ##Deployments
 
-1. Migrate ViCCI servers to OpenCloud.
+1. Migrate additional ViCCI servers to OpenCloud.
 
 2. Bring up ViNI sites.
 
 3. Autonomous OpenStack clusters (both private clouds and the HP
    public cloud).
 
-4. Migrate OpenFlow-enabled clusters to OVX.
+4. Transition OpenFlow-capable clusters to OVX.
 
