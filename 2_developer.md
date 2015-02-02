@@ -14,6 +14,10 @@ environments we use.
 
 ##<a name="rest-api">REST API</a>
 
+A REST API and associated
+[documentation](http://portal.opencloud.us/docs/) is auto-generated
+from the data model.
+
 ##xoslib
 
 xoslib is a client/server library for extending XOS. The server

@@ -155,14 +155,12 @@ objects.
 
 * **SitePrivilege:** A binding of a User to a Role in the context of a
   particular Site, which implies the Role applies to all Nodes,
-  Slices, Invoices, and Users associated with the Site. Site-level
+  Slices, and Users associated with the Site. Site-level
   roles include:
 
-  - **Admin:** Read/write access to all Site-specific objects.
+  - **PI:** Read/write access to all Site-specific objects.
 
-  - **PI:** Read/write access to a Site's Slices and Users.
-
-  - **Tech:** Read/write access to a Site's Nodes.
+  - **Tech:** Read/write access to a Site's Nodes. (Unsupported)
 
   - **Default:** Read-only access to all of a Site's objects.
 
