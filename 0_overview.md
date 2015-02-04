@@ -145,16 +145,15 @@ objects.
 * **Role:** A set of privileges granted to a User in the context of
   some set of objects.
 
-* **RootPrivilege:** By virtue of having a User account bound to some
-  home Site, a User implicitly has root privilege, with one of the
-  following roles:
+* **RootPrivilege:** By virtue of having a User account, every 
+  User implicitly has root privilege at one of two levels:
 
   - **Admin:** Read/write access to all objects.
 
   - **Default:** Read/write access to this User (with the exception of
-    being able to change their home Site), read access to all objects
-    associated with the home Site, and the right to enumerate (list)
-    all Users, Sites, Deployments, and Nodes in the system.
+    being able to change their home Site); read access to all objects
+    associated with the User's home Site; and the right to list all
+    Users, Sites, Deployments, and Nodes in the system.
 
 * **SitePrivilege:** A binding of a User to a Role in the context of a
   particular Site, which implies the Role applies to all Nodes,
@@ -179,14 +178,14 @@ objects.
 * **Deployment Privileges:** The binding of a User to a Role in the
   context of a particular Deployment, which implies the Role applies
   to all Objects of type Image, NetworkTemplate, and Flavors
-  assocaited with the Deployment. Deployment-level role is:
+  assocaited with the Deployment. The sole Deployment-level role is:
 
   - **Admin:** Read/write access to all Deployment-specific objects.
 
 Operationally, Root-level Admins create Sites, Deployments, and Users,
 granting Admin privileges to select Users affiliated with Sites and
 Deployments. By default, all Users are able to list the registered
-Sites, Deployments, and Nodes, have read access to their home site,
+Sites, Deployments, and Nodes; have read access to their home site;
 and have read/write access to its own User Object.
 
 Site Admins create Nodes, Users, and Slices associated with the Site. 
