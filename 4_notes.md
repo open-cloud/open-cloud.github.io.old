@@ -29,8 +29,8 @@ title: Release Notes
    but an OpenCloud admin also needs to add the keys to the account used
    to support proxy login to the slice.
 
-5. Virtual networks are implemented as GRE-tunnel via the default
-   Neutron plugin. OVX is currently running only on development
+5. Virtual networks are implemented as GRE-tunnels using the default
+   Neutron plugin. OVX is currently running only on a development
    cluster.
 
 6. There is only partial support for ServiceClass object.

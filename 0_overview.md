@@ -158,9 +158,11 @@ objects.
   Slices, and Users associated with the Site. Site-level
   roles include:
 
-  - **PI:** Read/write access to all Site-specific objects.
+  - **Admin:** Read/write access to all Site-specific objects.
 
-  - **Tech:** Read/write access to a Site's Nodes. (Unsupported)
+  - **PI:** Read/write access to a Site's Users and Slices.
+
+  - **Tech:** Read/write access to a Site's Nodes.
 
   - **Default:** Read-only access to all of a Site's objects.
 
