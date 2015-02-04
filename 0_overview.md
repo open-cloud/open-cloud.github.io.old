@@ -145,8 +145,8 @@ objects.
 * **Role:** A set of privileges granted to a User in the context of
   some set of objects.
 
-* **RootPrivilege:** By virtue of having a User account, every 
-  User implicitly has root privilege at one of two levels:
+* **RootPrivilege:** By virtue of having an account, every User
+  implicitly has root privilege at one of two levels:
 
   - **Admin:** Read/write access to all objects.
 
