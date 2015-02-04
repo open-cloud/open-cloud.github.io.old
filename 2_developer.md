@@ -21,19 +21,18 @@ from the data model.
 ##xoslib
 
 xoslib is a client/server library for extending XOS. The server side
-of the library defines a REST API that is used to create, read,
-update, and delete XOS objects (e.g., deployments, slices, users),
-along with new xoslib-defined objects that extend XOS. This REST API
-uses HTTP as a transport mechanism and may be used from a variety of
-clients and languages.
+of the library defines a [REST API](http://portal.opencloud.us/docs/)
+that extends the XOS core with new xoslib-defined objects. This REST
+API uses HTTP as a transport mechanism and may be used from a variety
+of clients and languages.
 
 To facilitate development in Javascript, xoslib also includes an
 extensive client library based on Backbone.js and Marionette.js.
-Portions of the XOS user interface are implemented on top of this
-library. Backbone.js provides an efficient event-driven interface,
-where the xoslib's client-side library fetches models from the
-server-side, and notifies client programs when data has been fetched
-for display to the user.
+Backbone.js provides an efficient event-driven interface, where the
+xoslib's client-side library fetches models from the server-side, and
+notifies client programs when data has been fetched for display to the
+user. Portions of the OpenCloud user interface (specifically, [User
+Views](../1_user/#user-views)) are implemented on top of this library.
 
 ##<a name="adding-views">Adding Views to XOS</a>
 
