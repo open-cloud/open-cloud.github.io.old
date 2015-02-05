@@ -18,8 +18,6 @@ A REST API and associated
 [documentation](http://portal.opencloud.us/docs/) is auto-generated
 from the data model.
 
-##Using the REST API programmatically
-
 The REST API may be used via a number of programming languages. Below are a few examples using common tools and languages:
 
 ###command line via curl
