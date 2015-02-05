@@ -25,7 +25,7 @@ The REST API may be used via a number of programming languages. Below are a few 
 ###command line via curl
 
      # use your XOS username and password for my_email and my_password
-     curl -H "Accept: application/json; indent=4" -u my_email:my_password http//portal.opencloud.us/xos/users/
+     curl -H "Accept: application/json; indent=4" -u my_email:my_password http://portal.opencloud.us/xos/users/
 
 ###python
 
