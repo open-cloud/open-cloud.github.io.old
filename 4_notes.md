@@ -29,8 +29,8 @@ title: Release Notes
    but an OpenCloud admin also needs to add the keys to the account used
    to support proxy login to the slice.
 
-5. Virtual networks are implemented as GRE-tunnel via the default
-   Neutron plugin. OVX is currently running only on development
+5. Virtual networks are implemented as GRE-tunnels using the default
+   Neutron plugin. OVX is currently running only on a development
    cluster.
 
 6. There is only partial support for ServiceClass object.
@@ -40,12 +40,10 @@ title: Release Notes
 7. Some files need to be manually copied when installing using WSGI
 
 ```
-sudo mkdir /var/www/planetstack/static/rest_framework_swagger
+sudo mkdir /var/www/xos/static/rest_framework_swagger
 
-sudo cp -a /usr/local/lib/python2.7/dist-packages/rest_framework_swagger/static/rest_framework_swagger/* /var/www/planetstack/static/rest_framework_swagger/
+sudo cp -a /usr/local/lib/python2.7/dist-packages/rest_framework_swagger/static/rest_framework_swagger/* /var/www/xos/static/rest_framework_swagger/
 ```
 
-8. Source code still refers to "xos" as "planetstack" and "plstackapi". 
-   A code cleanup is planned before leaving beta.
 
 

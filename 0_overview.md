@@ -145,24 +145,26 @@ objects.
 * **Role:** A set of privileges granted to a User in the context of
   some set of objects.
 
-* **RootPrivilege:** A binding of a User to a Role in the context of
-  all objects. Root-level roles include:
+* **RootPrivilege:** By virtue of having an account, every User
+  implicitly has root privilege at one of two levels:
 
   - **Admin:** Read/write access to all objects.
 
-  - **Default:** Read/write access to this User; read-only access to
-    Users, Sites, Deployments, and Nodes.
+  - **Default:** Read/write access to this User (with the exception of
+    being able to change their home Site); read access to all objects
+    associated with the User's home Site; and the right to list all
+    Users, Sites, Deployments, and Nodes in the system.
 
 * **SitePrivilege:** A binding of a User to a Role in the context of a
   particular Site, which implies the Role applies to all Nodes,
   Slices, and Users associated with the Site. Site-level
   roles include:
 
-  - **PI:** Read/write access to all Site-specific objects.
+  - **Admin:** Read/write access to all Site-specific objects.
 
-  - **Tech:** Read/write access to a Site's Nodes. (Unsupported)
+  - **PI:** Read/write access to a Site's Users and Slices.
 
-  - **Default:** Read-only access to all of a Site's objects.
+  - **Tech:** Read/write access to a Site's Nodes.
 
 * **SlicePrivilege:** The binding of a User to a Role in the context
   of a particular Slice, which implies the Role applies to all Slivers
@@ -170,41 +172,37 @@ objects.
 
   - **Admin:** Read/write access to all Slice-specific objects.
 
-  - **Default:** Allowed to access Slivers instantiated as part of the
+  - **Access:** Allowed to access Slivers instantiated as part of the
     slice.
 
 * **Deployment Privileges:** The binding of a User to a Role in the
   context of a particular Deployment, which implies the Role applies
   to all Objects of type Image, NetworkTemplate, and Flavors
-  assocaited with the Deployment. Deployment-level roles include:
+  assocaited with the Deployment. The sole Deployment-level role is:
 
   - **Admin:** Read/write access to all Deployment-specific objects.
 
-  - **Default:** Read-only access to all Deployment-specific objects.
-
 Operationally, Root-level Admins create Sites, Deployments, and Users,
 granting Admin privileges to select Users affiliated with Sites and
-Deployments. By default, all Users have read-only access to all Sites,
-Deployments, and Nodes, and read/write access to its own User Object.
+Deployments. By default, all Users are able to list the registered
+Sites, Deployments, and Nodes; have read access to their home site;
+and have read/write access to its own User Object.
 
 Site Admins create Nodes, Users, and Slices associated with the Site. 
 The Site Admin may also grant PI privileges to select Users (giving
 them the ability to manage the Site's Users and Slices), and Tech
 privileges to select Users (giving them the ability to manage the
-Site's Nodes). By default, all Users affiliated with a Site have
-read-only access to the Site's objects.
+Site's Nodes).
 
 Site Admins and PIs grant Admin privileges to select Users affiliated
 with the Site's Slices. These Users, in turn, add additional Users to
-the Slice and instantiate the Slice's Sliver's and Networks. By
-default, all Users affiliated with a Slice have read-only access to
-the Slice object, and may access (ssh into) the Slice's Slivers.
+the Slice and instantiate the Slice's Sliver's and Networks. All Users
+affiliated with a Slice may access (ssh into) the Slice's Slivers.
 
 Deployment Admins manage Deployments, including defining their
 operating parameters, specifying what Sites may contribute Nodes to
 the Deployment, and specifying what Sites may acquire resources from
-the Deployment. By default, all Users affiliated with a Deployment
-have read-only access to to the Deployment's objects.
+the Deployment.
 
 Note that while the data model permits many different bindings between
 objects, all of the above scoping rules refer to a parent/child
