@@ -18,6 +18,17 @@ A REST API and associated
 [documentation](http://portal.opencloud.us/docs/) is auto-generated
 from the data model.
 
+##Using the REST API programmatically
+
+The REST API may be used via a number of programming languages. For example, we recommend using the
+requests library when interacting with the REST API via python.
+
+    import requests
+    admin_auth=("my_email", "my_password")   # use your XOS username and password
+    users = requests.get("http://portal.opencloud.us/xos/users", auth=admin_auth).json()
+    for user in users:
+         print user["email"]
+
 ##xoslib
 
 xoslib is a client/server library for extending XOS. The server side
