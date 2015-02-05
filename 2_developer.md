@@ -20,8 +20,13 @@ from the data model.
 
 ##Using the REST API programmatically
 
-The REST API may be used via a number of programming languages. For example, we recommend using the
-requests library when interacting with the REST API via python.
+The REST API may be used via a number of programming languages. Below are a few examples using common tools and languages:
+
+###command line via curl
+
+     curl -H "Accept: application/json; indent=4" -u scott@onlab.us:letmein http//portal.opencloud.us/xos/users/
+
+###python
 
     import requests
     admin_auth=("my_email", "my_password")   # use your XOS username and password
