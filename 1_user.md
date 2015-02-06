@@ -287,7 +287,8 @@ this contributed services.
 
 There are currently three contributed Services, each of which extends
 the XOS Data Model with its own abstract objects, and hence, is
-accessible via OpenCloud's REST API.
+accessible via OpenCloud's REST API. This section concludes by
+describing how to prototype a new service. 
 
 ###Syndicate
 
@@ -468,6 +469,21 @@ a URL that name the service, and configure various maps.
     is and is not available.
 
 The format of the two map files is defined elsewhere.
+
+###Prototyping a New Service
+
+Users are able to create their own services, and make them available
+to other users. There are two approaches to doing this, which we refer
+to as *prototype* and *production*. A prototype service, as its name
+suggests, is usually in development phase. XOS provides a set of
+light-weight mechanisms to help the developer manage a prototype
+service. Similarly, a production service is one that is officially
+offered as part of a deployment, for example, OpenCloud offers three
+production services: RequestRouter, HyperCache, and Syndicate. Section
+[Adding Services to XOS](../2_developer#adding-services) of the
+Developer Guide describes how to add a production service to XOS. This
+section focuses on the available mechanisms for prototyping a service.
+
 
 ##Mailing Lists
 
