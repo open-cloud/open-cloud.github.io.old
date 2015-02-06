@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Overview
+title: Architecture Guide
 ---
 
 OpenCloud is an operational cloud running on servers distributed
@@ -109,13 +109,15 @@ describes the solution adopted by the Observer in more detail.
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
-and should not be read as an formal specification. A detailed and
-up-to-date definition is included in the Appendix.
+and should not be read as a formal specification. A detailed and
+up-to-date specification of the REST API exported by the data model is
+available at
+[portal.opencloud.us/docs/](http://portal.opencloud.us/docs/).
 
 The data model is implemented in Django, so we (mostly) adopt Django
 terminology to describe it. Briefly, what is often referred to as an
 *Object Class* or *Object Type* is called a *Content Type* or *Model*
-in Django. This document uses the term *Object Type* for this concept.
+in Django. This guide uses the term *Object Type* for this concept.
 
 An Object Type defines a set of *Fields*, each Field has a *Type*, and
 each Type has a set of *Attributes*. Some of these Attributes are core
@@ -130,8 +132,7 @@ Type).
 The following introduces and motivates XOS's core Object Types, along
 with some of their key Fields, including relationships to other Object
 Types. The discussion is organized around five categories: access
-control, infrastructure, policy, virtualization, and
-services.
+control, infrastructure, policy, virtualization, and services.
 
 ###Access Control
 
@@ -334,10 +335,7 @@ managed as follows:
   - Bound to a Flavor that defines how the Slice's Slivers are
     scheduled.
 
-  - Bound to a Image that boots in each of the Slice's Slivers.
-
-  - Bound to a Usage object that records data about resource
-    consumption.
+  - Bound to an Image that boots in each of the Slice's Slivers.
 
   - Optionally bound to a Service that defines the Slice's interface.
 
@@ -378,8 +376,8 @@ create one or more Networks that logically connect those Slivers.
 Slivers can be added to and removed from a Slice over time, with the
 corresponding Networks adjusted to account for those changes.
 
-The system maintains the invariant that all Slivers belonging to the
-Slice are attached to all Networks associated with the Slice, with the
+XOS maintains the invariant that all Slivers belonging to the Slice
+are attached to all Networks associated with the Slice, with the
 convention that every Network appears as an interface (in the sense of
 an Unix interface, for example, eth1) within each Sliver. Each such
 interface inherits the Labels associated with the Network, such that
@@ -417,6 +415,8 @@ Developer Guide.
 XOS offers two layered interfaces. The primary interface is a RESTful
 API running directly on top of Django. The second is in the form of a
 library, called *xoslib*, that simplifies the task of building Views.
+A specification for both can be found at
+[portal.opencloud.us/docs/](http://portal.opencloud.us/docs/).
 
 ##<a name="hardware-infrastructure">Hardware Infrastructure</a>
 
