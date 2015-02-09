@@ -10,6 +10,10 @@ own infrastructure.
 
 ##Installing XOS
 
+The steps to install a fresh version of XOS are described in Section
+[Development Environment](../2_developer.md/#devel-env) of the
+Developer Guide.
+
 ##Configuring XOS
 
 There is an XOS Configuration File at /opt/xos/xos_config. This
