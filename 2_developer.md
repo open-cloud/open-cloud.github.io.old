@@ -17,8 +17,7 @@ files in the Docker image are copied from the local file tree,
 so it is easy to create a customized version of XOS by making
 local changes to the XOS source before building the Docker image.
 
-A minimal fixture, named *initial_data.json*, is provided 
-in *planetlab/core/fixtures* inside the repo. The login credentials
+A minimal *initial_data.json* fixture is provided. The login credentials
 are *username=padmin@vicci.org* with password *letmein*. This
 *initial_data.json* doesn't contain any nodes and is suitable for
 fresh installations. To obtain a version that contains an
