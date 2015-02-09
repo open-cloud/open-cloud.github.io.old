@@ -12,31 +12,31 @@ environments we use.
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
-can be used to build a Docket image for running XOS. Note:
+can be used to build a Docket image for running XOS.
 
-1. A minimal *initial_data.json* is provided. The login credentials
-   are *username=padmin@vicci.org* with password *letmein*. This
-   initial_data.json doesn't contain any nodes and is suitable for
-   fresh installations. To obtain a version that contains an
-   interesting set of Nodes and Slices (e.g., for demo purpoes), a
-   dump can be made logging into *portal.opencloud.us* and running
+A minimal *initial_data.json* is provided. The login credentials
+are *username=padmin@vicci.org* with password *letmein*. This
+initial_data.json doesn't contain any nodes and is suitable for
+fresh installations. To obtain a version that contains an
+interesting set of Nodes and Slices (e.g., for demo purpoes), a
+dump can be made logging into *portal.opencloud.us* and running
 
 ```
 $ sudo /opt/xos/scripts/opencloud dumpdata
-
 ```
 
-   and then replacing the *initial_data.json* file with the dumpdata
-   file produced above.
+and then replacing the *initial_data.json* file with the dumpdata
+file produced above.
 
-2. Then run
+Then run
 
 ```
 $ docker build -t xos .
 $ docker run -t -i -p 8000:8000 xos
+```
 
-3. Now you will have a bash prompt as root inside the XOS container.
-   To start up XOS, run
+Now you will have a bash prompt as root inside the XOS container.
+To start up XOS, run
    
 ```
 # /opt/xos/scripts/opencloud runserver
