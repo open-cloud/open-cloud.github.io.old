@@ -12,11 +12,15 @@ environments we use.
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
-can be used to build a Docker image for running XOS.
+can be used to build a Docker image for running XOS.  The XOS 
+files in the Docker image are copied from the local file tree, 
+so it is easy to create a customized version of XOS by making
+changes to the XOS source before building the Docker image.
 
-A minimal *initial_data.json* is provided. The login credentials
+A minimal fixture, named *initial_data.json*, is provided 
+in *planetlab/core/fixtures* inside the repo. The login credentials
 are *username=padmin@vicci.org* with password *letmein*. This
-initial_data.json doesn't contain any nodes and is suitable for
+*initial_data.json* doesn't contain any nodes and is suitable for
 fresh installations. To obtain a version that contains an
 interesting set of Nodes and Slices (e.g., for demo purpoes), a
 dump can be made logging into *portal.opencloud.us* and running:
@@ -28,7 +32,7 @@ $ sudo /opt/xos/scripts/opencloud dumpdata
 and then replacing the *initial_data.json* file with the dumpdata
 file produced above.
 
-Then run:
+Then run, in the directory containing the Dockerfile:
 
 ```
 $ docker build -t xos .
