@@ -249,17 +249,13 @@ images, flavors, and visibility for the deployment. Select the
 *Deployments* tab in the left-hand navigation bar and click on the
 desired deployment. The available deployment details are as follows:
 
-* **Sites:** The *Sites* selector is used to specify which sites host
-  nodes as part of the deployment. Site adminstrators (see above) are
-  responsible for binding nodes at their site to the deployment.
+* **Images:** The *Images* selector is used to specify which images
+  are supported by the deployment. Root adminstrators specify the
+  global set of available images.
 
 * **Flavors:** The *Flavors* selector is used to specify which flavors
   are supported by the deployment. Root adminstrators specify the
   global set of available flavors.
-
-* **Images:** The *Images* selector is used to specify which images
-  are supported by the deployment. Root adminstrators specify the
-  global set of available images.
 
 * **AccessControl:** The *AccessControl* form is used to specify a
   policy for what users are and are not allowed to access the
@@ -277,7 +273,8 @@ desired deployment. The available deployment details are as follows:
 The *Privileges* tab is used to grant other users Admin privileges for
 the deployment.
 
-The *Site Deployments* tab is used to Sites to the *Controller* that
+The *Sites* tab is used to allow Sites to host nodes on the Deployment.
+To host Nodes, there must be a *Controller* that
 is responsible for Nodes at the Site. For example, in the case of an
 OpenStack cluster, the Controller effectively connects XOS to the
 Nove, Neutron, and Keystone services running on the OpenStack head
