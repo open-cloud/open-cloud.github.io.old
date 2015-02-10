@@ -291,6 +291,8 @@ dropdown may be used to create a new Controller.
 Controllers are the point of interaction between XOS and the underlying
 infrastructure, for example EC2 or OpenStack. 
 
+**Adding a new controller**
+
 Controller objects are typically created when adding Sites to 
 Deployments using the Sites table of the Deployment Administration
 page (see #admin-deployment). 
@@ -304,6 +306,12 @@ The Controller Admin details include the following fields:
 * **Admin User** Controller-specific admin username. 
 * **Admin Password** Controller-specific admin password.
 * **Admin tenant** Controller-specific admin tenant. 
+
+**Editing an existing controller**
+
+The list of controllers is not a top-level item in the navigation panel. To reach it, first go to another object,
+such as Site, then use the "Core" link at the top of the page to bring up the list of Core XOS objects, then 
+select the "Change" link next to Controller.
 
 ##Services
 
