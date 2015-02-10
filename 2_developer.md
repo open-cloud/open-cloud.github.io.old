@@ -14,21 +14,20 @@ A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
 can be used to build a Docket image for running XOS.
 
-A minimal *initial_data.json* is provided. The login credentials
-are *username=padmin@vicci.org* with password *letmein*. This
-initial_data.json doesn't contain any nodes and is suitable for
-fresh installations. To obtain a version that contains an
-interesting set of Nodes and Slices (e.g., for demo purpoes), a
-dump can be made logging into *portal.opencloud.us* and running
+A minimal *initial_data.json* is provided to bootstrap the XOS
+database. The login credentials are *username=padmin@vicci.org* with
+password *letmein*. This initial_data.json doesn't contain any nodes
+and is suitable for fresh installations. To obtain a version that
+contains an interesting set of Nodes and Slices (e.g., for demo
+purpoes), a dump can be made logging into *portal.opencloud.us* and
+running
 
 ```
 $ sudo /opt/xos/scripts/opencloud dumpdata
 ```
 
-and then replacing the *initial_data.json* file with the dumpdata
-file produced above.
-
-Then run
+and then replacing the *initial_data.json* file with the *dumpdata*
+file produced above. Then run
 
 ```
 $ docker build -t xos .
@@ -36,7 +35,7 @@ $ docker run -t -i -p 8000:8000 xos
 ```
 
 Now you will have a bash prompt as root inside the XOS container.
-To start up XOS, run
+To start XOS, run
    
 ```
 # /opt/xos/scripts/opencloud runserver
@@ -46,15 +45,19 @@ You can access the XOS login at *http:<server>:8000*, where *<server>*
 is the name of the server running Docker.
 
 Note that the above steps result in a running XOS, but without any
-particular backend resources. If you have an OpenStack installation
-available, then *[describe how to import an OpenStack cluster]*.
+backend resources. This is sufficient for working on the data model
+and views, but not for actually managing cloud infrastructure. See
+Section [Connecting XOS to OpenStack](../3_operator.md/#xos-openstack)
+for instructions on connecting XOS to a back-end OpenStack cluster.
 
-Alternative, it is possiblet to host a virtual OpenStack cluster in
-EC2. *[Describe how to do this.]*
+Alternative, it is possible to host a virtual OpenStack cluster in
+EC2... *[describe how to do this]*
 
 ##Testing Environment
 
-*[To be completed...]*
+We have built an end-to-end testing environment that includes a
+virtual backend OpenStack cluster running in EC2... *[describe how to
+do this]*
 
 ##REST API
 

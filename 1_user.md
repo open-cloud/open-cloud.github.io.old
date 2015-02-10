@@ -274,8 +274,14 @@ desired deployment. The available deployment details are as follows:
   evaluated in order from top to bottom, with an implicit *deny all*
   at the bottom of the list.
 
-* **Privileges:** Select the *Privileges* tab to grant other users
-  Admin privileges for the deployment.
+The *Privileges* tab is used to grant other users Admin privileges for
+the deployment.
+
+The *Site Deployments* tab is used to Sites to the *Controller* that
+is responsible for Nodes at the Site. For example, in the case of an
+OpenStack cluster, the Controller effectively connects XOS to the
+Nove, Neutron, and Keystone services running on the OpenStack head
+node.
 
 ##Services
 
