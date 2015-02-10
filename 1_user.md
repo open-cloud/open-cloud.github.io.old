@@ -274,11 +274,36 @@ The *Privileges* tab is used to grant other users Admin privileges for
 the deployment.
 
 The *Sites* tab is used to allow Sites to host nodes on the Deployment.
-To host Nodes, there must be a *Controller* that
-is responsible for Nodes at the Site. For example, in the case of an
+Hosting nodes is always done through a *Controller* that is responsible
+for instantiating and managing Nodes. For example, in the case of an
 OpenStack cluster, the Controller effectively connects XOS to the
 Nove, Neutron, and Keystone services running on the OpenStack head
-node.
+node. 
+
+To create a new Site/Deployment linkage, us the "Add another Site
+Deployment" link at the bottom of the Sites tab. You will be 
+prompted for the Site and the Controller. If an existing Controller
+is not suitable, then the "+" button next to the Controller 
+dropdown may be used to create a new Controller.
+
+##<a name="admin-controller">Administering a Controller</a>
+
+Controllers are the point of interaction between XOS and the underlying
+infrastructure, for example EC2 or OpenStack. 
+
+Controller objects are typically created when adding Sites to 
+Deployments using the Sites table of the Deployment Administration
+page (see #admin-deployment). 
+
+The Controller Admin details include the following fields:
+
+* **Name** A human-readable name for the deployment. 
+* **Backend Type** The type of backend for the deployment. Current backend types are limited to "OpenStack". 
+* **Version** The version of the backend. This is currently limited to "Icehouse" and "Havana". 
+* **Auth URL** Controller-specific authentication URL. For OpenStack controllers, this is the URL of the keystone endpoint.
+* **Admin User** Controller-specific admin username. 
+* **Admin Password** Controller-specific admin password.
+* **Admin tenant** Controller-specific admin tenant. 
 
 ##Services
 
