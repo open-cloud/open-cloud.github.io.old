@@ -12,22 +12,24 @@ environments we use.
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
-can be used to build a Docket image for running XOS.
+can be used to build a Docker image for running XOS.  The XOS 
+files in the Docker image are copied from the local file tree, 
+so it is easy to create a customized version of XOS by making
+local changes to the XOS source before building the Docker image.
 
-A minimal *initial_data.json* is provided to bootstrap the XOS
-database. The login credentials are *username=padmin@vicci.org* with
-password *letmein*. This initial_data.json doesn't contain any nodes
-and is suitable for fresh installations. To obtain a version that
-contains an interesting set of Nodes and Slices (e.g., for demo
-purpoes), a dump can be made logging into *portal.opencloud.us* and
-running
+A minimal *initial_data.json* fixture is provided. The login
+credentials are *username=padmin@vicci.org* with password
+*letmein*. This *initial_data.json* doesn't contain any nodes and is
+suitable for fresh installations. To obtain a version that contains an
+interesting set of Nodes and Slices (e.g., for demo purpoes), a dump
+can be made logging into *portal.opencloud.us* and running:
 
 ```
 $ sudo /opt/xos/scripts/opencloud dumpdata
 ```
 
 and then replacing the *initial_data.json* file with the *dumpdata*
-file produced above. Then run
+file produced above.
 
 ```
 $ docker build -t xos .
@@ -41,8 +43,8 @@ To start XOS, run
 # /opt/xos/scripts/opencloud runserver
 ```
 
-You can access the XOS login at *http:<server>:8000*, where *<server>*
-is the name of the server running Docker.
+You can access the XOS login at *http://server:8000*, where *server*
+is the name of the server hosting the Docker container.
 
 Note that the above steps result in a running XOS, but without any
 backend resources. This is sufficient for working on the data model
