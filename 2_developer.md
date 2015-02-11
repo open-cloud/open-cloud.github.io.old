@@ -12,7 +12,7 @@ environments we use.
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
-can be used to build a Docker image for running XOS.  The XOS 
+can be used to build a Docker image for running XOS. The XOS 
 files in the Docker image are copied from the local file tree, 
 so it is easy to create a customized version of XOS by making
 local changes to the XOS source before building the Docker image.
@@ -48,14 +48,19 @@ is the name of the server hosting the Docker container.
 
 Note that the above steps result in a running XOS, but without any
 backend resources. This is sufficient for working on the data model
-and views, but not for actually managing cloud infrastructure. See
-Section [Connecting XOS to OpenStack](../3_operator.md/#xos-openstack)
-for instructions on connecting XOS to a back-end OpenStack cluster.
+and views, but not for actually managing cloud infrastructure.
 
-Alternative, it is possible to host a virtual OpenStack cluster in
-EC2... *[describe how to do this]*
+Information on bringing up an OpenStack cluster is given in Section
+[Installing OpenStack](#install-openstack) of the Operator Guide.
+Information on connecting XOS to an operational OpenStack cluster is
+given in Sections [Administering a
+Deployment](../1_user/#admin-deployment) and [Administering a
+Site](../1_user/#admin-site) of the User's Guide. These two sections
+explain how to configure a Deployment to know about a set of OpenStack
+clusters and how to configure a Site to know about a set of Nodes,
+respectively.
 
-##Testing Environment
+##Test Environment
 
 We have built an end-to-end testing environment that includes a
 virtual backend OpenStack cluster running in EC2... *[describe how to

@@ -10,13 +10,16 @@ own infrastructure.
 
 ##Installing XOS
 
-See Section [Development Environment](../2_developer.md/#devel-env) of
+See Section [Development Environment](../2_developer/#devel-env) of
 the Developer Guide for instructions on installing XOS. Once XOS is
 installed, the next step for most installations is to connect XOS to
-one or more backend OpenStack clusters. Information on bringing up an
-OpenStack cluster is given below (Section [Installing
-OpenStack](#install-openstack). Information on connecting XOS to an
-existing OpenStack cluster is given in Sections [Administering a
+one or more backend OpenStack clusters. 
+
+Information on bringing up an OpenStack cluster is given below
+(Section [Installing OpenStack](#install-openstack)).
+
+Information on connecting XOS to an existing OpenStack cluster is
+given in Sections [Administering a
 Deployment](../1_user/#admin-deployment) and [Administering a
 Site](../1_user/#admin-site) of the User's Guide. These two sections
 explain how to configure a Deployment to know about a set of OpenStack
