@@ -273,31 +273,20 @@ desired deployment. The available deployment details are as follows:
 The *Privileges* tab is used to grant other users Admin privileges for
 the deployment.
 
-The *Sites* tab is used to allow Sites to host nodes on the Deployment.
-Hosting nodes is always done through a *Controller* that is responsible
-for instantiating and managing Nodes. For example, in the case of an
-OpenStack cluster, the Controller effectively connects XOS to the
-Nove, Neutron, and Keystone services running on the OpenStack head
-node. 
+The *Sites* tab is used to bind Site (and the Nodes they host) to this
+Deployment.  Nodes are imported into a Deployment through a
+*Controller* that is responsible for instantiating and managing
+Nodes. For example, in the case of an OpenStack cluster, the
+Controller effectively connects XOS to the Nove, Neutron, and Keystone
+services running on the OpenStack head node.
 
-To create a new Site/Deployment linkage, us the "Add another Site
-Deployment" link at the bottom of the Sites tab. You will be 
-prompted for the Site and the Controller. If an existing Controller
-is not suitable, then the "+" button next to the Controller 
-dropdown may be used to create a new Controller.
+To create a new Deployment-to-Site-to-Controller binding, us the *Add
+another Site Deployment* link at the bottom of the Sites tab. You will
+be prompted for the Site and the Controller. If an existing Controller
+is not suitable, then the "+" button next to the Controller dropdown
+may be used to create a new Controller.
 
-##<a name="admin-controller">Administering a Controller</a>
-
-Controllers are the point of interaction between XOS and the underlying
-infrastructure, for example EC2 or OpenStack. 
-
-**Adding a new controller**
-
-Controller objects are typically created when adding Sites to 
-Deployments using the Sites table of the Deployment Administration
-page (see #admin-deployment). 
-
-The Controller Admin details include the following fields:
+Creating a Controller involves defining the following fields:
 
 * **Name** A human-readable name for the deployment. 
 * **Backend Type** The type of backend for the deployment. Current backend types are limited to "OpenStack". 
@@ -307,11 +296,10 @@ The Controller Admin details include the following fields:
 * **Admin Password** Controller-specific admin password.
 * **Admin tenant** Controller-specific admin tenant. 
 
-**Editing an existing controller**
-
-The list of controllers is not a top-level item in the navigation panel. To reach it, first go to another object,
-such as Site, then use the "Core" link at the top of the page to bring up the list of Core XOS objects, then 
-select the "Change" link next to Controller.
+The list of controllers is not a top-level item in the navigation
+panel. To reach it, first go to another object, such as Site, then use
+the *Core* link at the top of the page to bring up the list of Core
+XOS objects, then select the *Change* link next to Controller.
 
 ##Services
 
