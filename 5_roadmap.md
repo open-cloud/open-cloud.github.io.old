@@ -9,33 +9,37 @@ and deployment plans. Bug reports and short-term feature requests
 should be filed at the [GitHub Issue
 Tracker](https://github.com/open-cloud/xos/issues).
 
-##Feature Development
+##Priorities for Burwell Release
 
-1. Bring up Syndicate and integrate into Tenant view.
+1. Simplify Service model and prototype a Service Composition View.
 
-2. Enhance and document Developer View's VN management interface.
+2. Bring up Syndicate and integrate into Tenant view.
 
-3. Relation between ServiceClass and Flavor need attention.
+3. Bring up HPC and revisit user-visible API.
 
-4. Prototype a Service Composition View/Language
+4. Enhance and document Developer View's VN management interface.
 
-5. Support OVX-based VN interconnection
+5. Integrate OVX installation into the OpenStack install process.
 
-6. Re-establish Service Classes and Invoices
+6. Support autonomous OpenStack clusters using domain feature.
 
-7. Bring up HPC; revisit user-visible API.
+##Future Releases
 
-8. Make RequestRouter as a stand-alone service
+1. Relation between ServiceClass and Flavor need attention.
 
-9. Support user-contributed images
+2. Support OVX-based VN interconnection
 
-10. Enhance monitoring and stats
+3. Re-establish Service Classes and Invoices
 
-11. Integrate OVX installation into the OpenStack install process
+4. Make RequestRouter as a stand-alone service
 
-12. Integrate Docker support
+5. Support user-contributed images
 
-13. Run ONOS in "domain0"
+6. Enhance monitoring and stats
+
+7. Integrate Docker support
+
+8. Run ONOS in "domain0"
 
 ##Deployments
 
@@ -43,8 +47,5 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 2. Bring up ViNI sites.
 
-3. Autonomous OpenStack clusters (both private clouds and the HP
-   public cloud).
-
-4. Transition OpenFlow-capable clusters to OVX.
+3. Transition OpenFlow-capable clusters to OVX.
 
