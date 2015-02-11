@@ -273,14 +273,14 @@ desired deployment. The available deployment details are as follows:
 The *Privileges* tab is used to grant other users Admin privileges for
 the deployment.
 
-The *Sites* tab is used to bind Site (and the Nodes they host) to this
-Deployment.  Nodes are imported into a Deployment through a
-*Controller* that is responsible for instantiating and managing
+The *Sites* tab is used to bind a Site (and the Nodes they host) to
+this Deployment. Nodes are imported into a Deployment through a
+*Controller* that is responsible for instantiating and managing the
 Nodes. For example, in the case of an OpenStack cluster, the
-Controller effectively connects XOS to the Nove, Neutron, and Keystone
+Controller effectively connects XOS to the Nova, Neutron, and Keystone
 services running on the OpenStack head node.
 
-To create a new Deployment-to-Site-to-Controller binding, us the *Add
+To create a new Deployment-to-Site-to-Controller binding, use the *Add
 another Site Deployment* link at the bottom of the Sites tab. You will
 be prompted for the Site and the Controller. If an existing Controller
 is not suitable, then the "+" button next to the Controller dropdown
@@ -288,18 +288,28 @@ may be used to create a new Controller.
 
 Creating a Controller involves defining the following fields:
 
-* **Name** A human-readable name for the deployment. 
-* **Backend Type** The type of backend for the deployment. Current backend types are limited to "OpenStack". 
-* **Version** The version of the backend. This is currently limited to "Icehouse" and "Havana". 
-* **Auth URL** Controller-specific authentication URL. For OpenStack controllers, this is the URL of the keystone endpoint.
-* **Admin User** Controller-specific admin username. 
-* **Admin Password** Controller-specific admin password.
-* **Admin tenant** Controller-specific admin tenant. 
+* **Name:** A human-readable name for the deployment. 
+
+* **Backend Type:** The type of backend for the deployment. Current
+    backend types are limited to "OpenStack".
+
+* **Version:** The version of the backend. This is currently limited
+    to *Icehouse* and *Havana*.
+
+* **Auth URL:** Controller-specific authentication URL. For OpenStack
+    controllers, this is the URL of the Keystone endpoint.
+
+* **Admin User:** Controller-specific admin username. 
+
+* **Admin Password:** Controller-specific admin password.
+
+* **Admin Tenant:** Controller-specific admin tenant. 
 
 The list of controllers is not a top-level item in the navigation
-panel. To reach it, first go to another object, such as Site, then use
-the *Core* link at the top of the page to bring up the list of Core
-XOS objects, then select the *Change* link next to Controller.
+panel, so to edit an existing Controller, first go to another object
+(e.g., Deployment), and then use the *Core* link at the top of the
+page to bring up the list of Core XOS objects. Select the *Change*
+link next to *Controller*. *[Workflow to be cleaned up.]*
 
 ##Services
 
