@@ -51,9 +51,9 @@ backend resources. This is sufficient for working on the data model
 and views, but not for actually managing cloud infrastructure.
 
 Information on bringing up an OpenStack cluster is given in Section
-[Installing OpenStack](#install-openstack) of the Operator Guide.
-Information on connecting XOS to an operational OpenStack cluster is
-given in Sections [Administering a
+[Installing OpenStack](../3_operator/#install-openstack) of the
+Operator Guide.  Information on connecting XOS to an operational
+OpenStack cluster is given in Sections [Administering a
 Deployment](../1_user/#admin-deployment) and [Administering a
 Site](../1_user/#admin-site) of the User's Guide. These two sections
 explain how to configure a Deployment to know about a set of OpenStack
