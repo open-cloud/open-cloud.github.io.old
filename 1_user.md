@@ -249,17 +249,13 @@ images, flavors, and visibility for the deployment. Select the
 *Deployments* tab in the left-hand navigation bar and click on the
 desired deployment. The available deployment details are as follows:
 
-* **Sites:** The *Sites* selector is used to specify which sites host
-  nodes as part of the deployment. Site adminstrators (see above) are
-  responsible for binding nodes at their site to the deployment.
+* **Images:** The *Images* selector is used to specify which images
+  are supported by the deployment. Root adminstrators specify the
+  global set of available images.
 
 * **Flavors:** The *Flavors* selector is used to specify which flavors
   are supported by the deployment. Root adminstrators specify the
   global set of available flavors.
-
-* **Images:** The *Images* selector is used to specify which images
-  are supported by the deployment. Root adminstrators specify the
-  global set of available images.
 
 * **AccessControl:** The *AccessControl* form is used to specify a
   policy for what users are and are not allowed to access the
@@ -274,8 +270,46 @@ desired deployment. The available deployment details are as follows:
   evaluated in order from top to bottom, with an implicit *deny all*
   at the bottom of the list.
 
-* **Privileges:** Select the *Privileges* tab to grant other users
-  Admin privileges for the deployment.
+The *Privileges* tab is used to grant other users Admin privileges for
+the deployment.
+
+The *Sites* tab is used to bind a Site (and the Nodes they host) to
+this Deployment. Nodes are imported into a Deployment through a
+*Controller* that is responsible for instantiating and managing the
+Nodes. For example, in the case of an OpenStack cluster, the
+Controller effectively connects XOS to the Nova, Neutron, and Keystone
+services running on the OpenStack head node.
+
+To create a new Deployment-to-Site-to-Controller binding, use the *Add
+another Site Deployment* link at the bottom of the Sites tab. You will
+be prompted for the Site and the Controller. If an existing Controller
+is not suitable, then the "+" button next to the Controller dropdown
+may be used to create a new Controller.
+
+Creating a Controller involves defining the following fields:
+
+* **Name:** A human-readable name for the deployment. 
+
+* **Backend Type:** The type of backend for the deployment. Current
+    backend types are limited to "OpenStack".
+
+* **Version:** The version of the backend. This is currently limited
+    to *Icehouse* and *Havana*.
+
+* **Auth URL:** Controller-specific authentication URL. For OpenStack
+    controllers, this is the URL of the Keystone endpoint.
+
+* **Admin User:** Controller-specific admin username. 
+
+* **Admin Password:** Controller-specific admin password.
+
+* **Admin Tenant:** Controller-specific admin tenant. 
+
+The list of controllers is not a top-level item in the navigation
+panel, so to edit an existing Controller, first go to another object
+(e.g., Deployment), and then use the *Core* link at the top of the
+page to bring up the list of Core XOS objects. Select the *Change*
+link next to *Controller*. *[Workflow to be cleaned up.]*
 
 ##Services
 

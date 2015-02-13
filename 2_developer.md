@@ -8,9 +8,63 @@ extend XOS with new services and views. It also documents modeling and
 naming conventions, and describes the development and testing
 environments we use.
 
-##Development Environment
+##<a name="devel-env">Development Environment</a>
 
-##Testing Framework
+A Dockerfile available at
+[github.com/open-cloud/xos](https://github.com/open-cloud/xos)
+can be used to build a Docker image for running XOS. The XOS 
+files in the Docker image are copied from the local file tree, 
+so it is easy to create a customized version of XOS by making
+local changes to the XOS source before building the Docker image.
+
+A minimal *initial_data.json* fixture is provided. The login
+credentials are *username=padmin@vicci.org* with password
+*letmein*. This *initial_data.json* doesn't contain any nodes and is
+suitable for fresh installations. To obtain a version that contains an
+interesting set of Nodes and Slices (e.g., for demo purpoes), a dump
+can be made logging into *portal.opencloud.us* and running:
+
+```
+$ sudo /opt/xos/scripts/opencloud dumpdata
+```
+
+and then replacing the *initial_data.json* file with the *dumpdata*
+file produced above.
+
+```
+$ docker build -t xos .
+$ docker run -t -i -p 8000:8000 xos
+```
+
+Now you will have a bash prompt as root inside the XOS container.
+To start XOS, run
+   
+```
+# /opt/xos/scripts/opencloud runserver
+```
+
+You can access the XOS login at *http://server:8000*, where *server*
+is the name of the server hosting the Docker container.
+
+Note that the above steps result in a running XOS, but without any
+backend resources. This is sufficient for working on the data model
+and views, but not for actually managing cloud infrastructure.
+
+Information on bringing up an OpenStack cluster is given in Section
+[Installing OpenStack](../3_operator/#install-openstack) of the
+Operator Guide.  Information on connecting XOS to an operational
+OpenStack cluster is given in Sections [Administering a
+Deployment](../1_user/#admin-deployment) and [Administering a
+Site](../1_user/#admin-site) of the User's Guide. These two sections
+explain how to configure a Deployment to know about a set of OpenStack
+clusters and how to configure a Site to know about a set of Nodes,
+respectively.
+
+##Test Environment
+
+We have built an end-to-end testing environment that includes a
+virtual backend OpenStack cluster running in EC2... *[describe how to
+do this]*
 
 ##REST API
 
