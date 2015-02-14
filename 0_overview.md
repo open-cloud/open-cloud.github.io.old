@@ -143,11 +143,11 @@ objects.
 * **User:** A principle that invokes operations on objects and uses
   XOS resources.
 
-* **Role:** A set of privileges granted to a User in the context of
+* **Role:** A set of privileges granted to a User in the scope of
   some set of objects.
 
-* **RootPrivilege:** By virtue of having an account, every User
-  implicitly has root privilege at one of two levels:
+* **RootPrivilege:** Global scope. By virtue of having an account,
+  every User implicitly has root privilege at one of two levels:
 
   - **Admin:** Read/write access to all objects.
 
@@ -156,10 +156,10 @@ objects.
     associated with the User's home Site; and the right to list all
     Users, Sites, Deployments, and Nodes in the system.
 
-* **SitePrivilege:** A binding of a User to a Role in the context of a
+* **SitePrivilege:** A binding of a User to a Role in the scope of a
   particular Site, which implies the Role applies to all Nodes,
-  Slices, and Users associated with the Site. Site-level
-  roles include:
+  Slices, and Users associated with the Site. Site-level roles
+  include:
 
   - **Admin:** Read/write access to all Site-specific objects.
 
@@ -167,7 +167,7 @@ objects.
 
   - **Tech:** Read/write access to a Site's Nodes.
 
-* **SlicePrivilege:** The binding of a User to a Role in the context
+* **SlicePrivilege:** The binding of a User to a Role in the scope
   of a particular Slice, which implies the Role applies to all Slivers
   and Networks associated with the Slice. Slice-level roles include:
 
@@ -177,7 +177,7 @@ objects.
     slice.
 
 * **Deployment Privileges:** The binding of a User to a Role in the
-  context of a particular Deployment, which implies the Role applies
+  scope of a particular Deployment, which implies the Role applies
   to all Objects of type Image, NetworkTemplate, and Flavors
   assocaited with the Deployment. The sole Deployment-level role is:
 
@@ -202,8 +202,9 @@ affiliated with a Slice may access (ssh into) the Slice's Slivers.
 
 Deployment Admins manage Deployments, including defining their
 operating parameters, specifying what Sites may contribute Nodes to
-the Deployment, and specifying what Sites may acquire resources from
-the Deployment.
+the Deployment, specifying what Sites may acquire resources from
+the Deployment, and binding the Sites in the Deployment to one or
+more Controllers.
 
 Note that while the data model permits many different bindings between
 objects, all of the above scoping rules refer to a parent/child
@@ -251,8 +252,7 @@ collaborate to manage nodes. This results in three core Object Types:
   of virtualization technologies and being managed according to a
   coherent set of resource allocation policies.
 
-  - Bound to a set of Users that establish the Deployment's
-    policies.
+  - Bound to a set of Users that establish the Deployment's policies.
 
   - Bound to a set of Nodes that adhere to the Deployment's policies.
 
@@ -272,7 +272,14 @@ correspond to a single distributed organization (e.g., Internet2) or
 agree to manage their Nodes in collaboration with the containing
 Deployment (e.g., Enterprise). Although not currently exercised in
 OpenCloud, it is also possible that a Site hosts Nodes that belong to
-more than one Deployment.
+more than one Deployment. 
+
+A Controller object represents the binding between Deployments and
+Sites, where in practice, a Controller typically corresponds to an
+OpenStack head node. There could be one Controller per Site in the
+Deployment (i.e., one head node per Site) or one Controller might
+be bound to a set of Sites (i.e., one head nodes manages a set of
+Sites).
 
 Operationally, the Root-level Admin creates Sites and Deployments. The
 Site-level Admin and Tech create and manage Nodes at that Site, and
@@ -347,9 +354,7 @@ managed as follows:
  it, has an IP AddrSpace (CIDR block and port range) by which all
  Slivers are addressed, is designated at Public or Private depending
  on whether its addresses are publicly routable, has a
- NetworkParameter that parameterizes the selected NetworkTemplate, and
- has a set of application-specific Labels that indicates how the
- Network is to be used.
+ NetworkParameter that parameterizes the selected NetworkTemplate.
 
   - Bound to a single "owner" Slice.
 
@@ -379,10 +384,7 @@ corresponding Networks adjusted to account for those changes.
 XOS maintains the invariant that all Slivers belonging to the Slice
 are attached to all Networks associated with the Slice, with the
 convention that every Network appears as an interface (in the sense of
-an Unix interface, for example, eth1) within each Sliver. Each such
-interface inherits the Labels associated with the Network, such that
-the program running in the Sliver can query the interface for these
-Labels to learn how the corresponding Network is being used.
+an Unix interface, for example, eth1) within each Sliver.
 
 There is intended asymmetry in the definition of a Slice. All Slivers
 bound to a Slice share the same Image (hence that field is defined
