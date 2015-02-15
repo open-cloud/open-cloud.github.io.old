@@ -265,6 +265,10 @@ collaborate to manage nodes. This results in three core Object Types:
   - Bound to a set of supported Flavors that establish allocation
     parameters.
 
+  - Bound to a set of Controllers that represent the back-end
+    infrastructure service that provides cloud resources (e.g., an
+    OpenStack head node).
+
 Sites and Deployments can be one-to-one, which corresponds to a each
 Site establishing its own policies. In practice, however, we expect
 Deployments will often span multiple Sites, where those Sites either
@@ -274,12 +278,11 @@ Deployment (e.g., Enterprise). Although not currently exercised in
 OpenCloud, it is also possible that a Site hosts Nodes that belong to
 more than one Deployment. 
 
-A Controller object represents the binding between Deployments and
-Sites, where in practice, a Controller typically corresponds to an
-OpenStack head node. There could be one Controller per Site in the
-Deployment (i.e., one head node per Site) or one Controller might
-be bound to a set of Sites (i.e., one head nodes manages a set of
-Sites).
+Correspondingly, a Controller object represents the binding between
+Deployments and Sites. There could be one Controller per Site in the
+Deployment (i.e., one OpenStack head node per Site) or one Controller
+might be bound to a set of Sites (i.e., one OpenStack head node
+manages a set of Sites).
 
 Operationally, the Root-level Admin creates Sites and Deployments. The
 Site-level Admin and Tech create and manage Nodes at that Site, and
@@ -306,6 +309,11 @@ models these as follows:
   network. Each NetworkTemplate implies a virtualization layer (e.g.,
   Neutron's default plug-in), so the latter need not be a distinct
   object. A NetworkTemplate can be parameterized.
+
+* **Controller:** An object that represents the binding of a site to
+  a back-end service (e.g., an OpenStack head node). Includes the URL
+  at which the back-end service controller can be invoked and the
+  credentials needed to invoke it.
 
 Each Deployment defines the set of Images and NetworkTemplates it
 supports -- and by implication, the virtualization layers it supports
@@ -399,6 +407,9 @@ XOS goes beyond Slices to define a model for the service runningwithin a Slice:
   access via extensions to the XOS data model and API. Each Service is
 
   - Bound to a set of Slices that collectively implement the Service.
+
+  - Bound to a set of Controllers that repesent the service's control
+    interfaces.
 
 Operationally, service developers -- Users with Admin privileges for
 the Slice(s) that implement a Service -- create Service objects, which
