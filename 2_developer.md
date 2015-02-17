@@ -60,10 +60,10 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-A simple way to create an end-to-end development environment is to use 
-[CloudLab](https://www.cloudlab.us/) to bring up a basic OpenStack Cloud.
-Besides the above pointers for general XOS configuration, here
-are some CloudLab-specific tips:
+A simple way to create an end-to-end development environment is by
+bringing up a basic OpenStack cloud on [CloudLab](https://www.cloudlab.us/)
+and configuring XOS to control it.  In addition to the above pointers 
+for general XOS configuration, here are some CloudLab-specific tips:
 
 * Use the *ARM64OpenStack-Basic* profile to create your CloudLab experiment.
 * Find the IP address of the *controller* node in your experiment. Add 
