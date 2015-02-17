@@ -82,8 +82,8 @@ Next, log into the running XOS and do the following:
 
 * Add the CloudLab experiment's nodes to your site.
 
-* Modify the *Public shared IPv4* NetworkTemplate: change Shared
-  *network name* to *tun-data-net*.
+* Modify the *Public shared IPv4* NetworkTemplate. Change *Shared
+  network name* to *tun-data-net*.
 
 * Add the Controller for the site with the following info:
   * Auth URL: http://controller:5000/v2.0
