@@ -80,9 +80,9 @@ are some CloudLab-specific tips:
 * In XOS, add the CloudLab experiment's nodes to your site
 * In XOS, add the Controller for the site with the following info:
   * Auth URL: http://controller:5000/v2.0
-  * User name: admin
-  * Tenant name: admin
-  * Password: admin
+  * Admin user: admin
+  * Admin tenant: admin
+  * Admin password: admin
 
 You should now be able to use XOS to create a VM in the OpenStack running
 on CloudLab.  Note that there are still a couple of issues with CloudLab's
