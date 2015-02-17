@@ -53,7 +53,7 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-###OpenStack Cluster
+###Minimal OpenStack Cluster
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
@@ -82,15 +82,20 @@ Next, log into the running XOS and do the following:
 
 * Add the CloudLab experiment's nodes to your site.
 
+* Modify the *Public shared IPv4* NetworkTemplate: change Shared
+  *network name* to *tun-data-net*.
+
 * Add the Controller for the site with the following info:
   * Auth URL: http://controller:5000/v2.0
-  * User name: admin
-  * Tenant name: admin
-  * Password: admin
+  * Admin user: admin
+  * Admin tenant: admin
+  * Admin password: admin
 
-You should now be able to use XOS to create a VM in the OpenStack running
-on CloudLab.  Note that there are still a couple of issues with CloudLab's
-OpenStack support and so you won't be able to login to the VM.
+You should now be able to use XOS to create a VM in the OpenStack
+running on CloudLab.  Note that there are currently a couple of issues
+with CloudLab's OpenStack support so you won't be able to login to the
+VM, but you can still verify that it boots by looking at its console
+log.
 
 ###Richer Demo Example
 
