@@ -20,23 +20,16 @@ local changes to the XOS source before building the Docker image.
 A minimal *initial_data.json* fixture is provided. The login
 credentials are *username=padmin@vicci.org* with password
 *letmein*. This *initial_data.json* doesn't contain any nodes and is
-suitable for fresh installations. To obtain a version that contains an
-interesting set of Nodes and Slices (e.g., for demo purpoes), a dump
-can be made logging into *portal.opencloud.us* and running:
+suitable for fresh installations.
 
-```
-$ sudo /opt/xos/scripts/opencloud dumpdata
-```
-
-and then replacing the *initial_data.json* file with the *dumpdata*
-file produced above.
+To build and start the container type:
 
 ```
 $ docker build -t xos .
 $ docker run -t -i -p 8000:8000 xos
 ```
 
-Now you will have a bash prompt as root inside the XOS container.
+You should now have a bash prompt as root inside the XOS container.
 To start XOS, run
    
 ```
@@ -60,12 +53,18 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-A simple way to create an end-to-end development environment is to use 
-[CloudLab](https://www.cloudlab.us/) to bring up a basic OpenStack Cloud.
-Besides the above pointers for general XOS configuration, here
-are some CloudLab-specific tips:
+###OpenStack Cluster
 
-* Use the *ARM64OpenStack-Basic* profile to create your CloudLab experiment.
+A simple way to create an end-to-end development environment is to use
+[CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
+cluster, and then link this cluster to the running XOS you just
+installed. If you already have a running OpenStack cluster, then it
+can be used in place of this CloudLab version. 
+
+To create the cluster on CloudLap do the following:
+
+* Create your CloudLab experiment using the *ARM64OpenStack-Basic* profile.
+
 * Find the IP address of the *controller* node in your experiment. Add 
   the following line to the */etc/hosts* file in your XOS container
   (replace 128.110.152.78 with the right address):
@@ -74,11 +73,16 @@ are some CloudLab-specific tips:
 128.110.152.78 controller
 ```
 
-* In XOS, add a public key for your user account (e.g., padmin@vicci.org)
-* In XOS, add the *ubuntu-core-14.04.1-core-arm64-sshd* image.  Add this 
-  image to your site's Deployment.
-* In XOS, add the CloudLab experiment's nodes to your site
-* In XOS, add the Controller for the site with the following info:
+Next, log into the running XOS and do the following:
+
+* Add a public key for your user account (e.g., padmin@vicci.org)
+
+* Add the *ubuntu-core-14.04.1-core-arm64-sshd* image, and then 
+  activate this image for your Deployment.
+
+* Add the CloudLab experiment's nodes to your site.
+
+* Add the Controller for the site with the following info:
   * Auth URL: http://controller:5000/v2.0
   * User name: admin
   * Tenant name: admin
@@ -87,6 +91,20 @@ are some CloudLab-specific tips:
 You should now be able to use XOS to create a VM in the OpenStack running
 on CloudLab.  Note that there are still a couple of issues with CloudLab's
 OpenStack support and so you won't be able to login to the VM.
+
+###Richer Demo Example
+
+The default *initial_data.json* is minimal. To obtain a version that
+contains an interesting set of Nodes and Slices (e.g., for demo
+purpoes), a dump of the live OpenCloud deployment can be made logging
+into *portal.opencloud.us* and running:
+
+```
+$ sudo /opt/xos/scripts/opencloud dumpdata
+```
+
+Replace the *initial_data.json* file with the *dumpdata* file you
+just produced.
 
 ##Test Environment
 
