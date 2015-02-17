@@ -78,6 +78,8 @@ are some CloudLab-specific tips:
 * In XOS, add the *ubuntu-core-14.04.1-core-arm64-sshd* image.  Add this 
   image to your site's Deployment.
 * In XOS, add the CloudLab experiment's nodes to your site
+* In XOS, modify the *Public shared IPv4* NetworkTemplate.  Change
+  *Shared network name* to *tun-data-net*.
 * In XOS, add the Controller for the site with the following info:
   * Auth URL: http://controller:5000/v2.0
   * Admin user: admin
@@ -86,7 +88,8 @@ are some CloudLab-specific tips:
 
 You should now be able to use XOS to create a VM in the OpenStack running
 on CloudLab.  Note that there are still a couple of issues with CloudLab's
-OpenStack support and so you won't be able to login to the VM.
+OpenStack support and so you won't be able to login to the VM... but you 
+can still verify that it boots by looking at its console log.
 
 ##Test Environment
 
