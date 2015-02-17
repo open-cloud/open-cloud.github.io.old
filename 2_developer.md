@@ -87,7 +87,7 @@ are some CloudLab-specific tips:
   * Admin password: admin
 
 You should now be able to use XOS to create a VM in the OpenStack running
-on CloudLab.  Note that there are still a couple of issues with CloudLab's
+on CloudLab.  Note that there are currently a couple of issues with CloudLab's
 OpenStack support and so you won't be able to login to the VM... but you 
 can still verify that it boots by looking at its console log.
 
