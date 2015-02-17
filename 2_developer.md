@@ -66,12 +66,14 @@ Besides the above pointers for general XOS configuration, here
 are some CloudLab-specific tips:
 
 * Use the *ARM64OpenStack-Basic* profile to create your CloudLab experiment.
-* Find the IP address of the *controller* node in your experiment.  
-  Add the following line to the */etc/hosts* file in your XOS container
+* Find the IP address of the *controller* node in your experiment. Add 
+  the following line to the */etc/hosts* file in your XOS container
   (replace 128.110.152.78 with the right address):
+
 ```
 128.110.152.78 controller
 ```
+
 * In XOS, add a public key for your user account (e.g., padmin@vicci.org)
 * In XOS, add the *ubuntu-core-14.04.1-core-arm64-sshd* image.  Add this 
   image to your site's Deployment.
