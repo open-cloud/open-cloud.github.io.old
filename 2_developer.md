@@ -60,6 +60,32 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
+A simple way to create an end-to-end development environment is to use 
+[CloudLab](https://www.cloudlab.us/) to bring up a basic OpenStack Cloud.
+Besides the above pointers for general XOS configuration, here
+are some CloudLab-specific tips:
+
+* Use the *ARM64OpenStack-Basic* profile to create your CloudLab experiment.
+* Find the IP address of the *controller* node in your experiment.  
+  Add the following line to the */etc/hosts* file in your XOS container
+  (replace 128.110.152.78 with the right address):
+```
+128.110.152.78 controller
+```
+* In XOS, add a public key for your user account (e.g., padmin@vicci.org)
+* In XOS, add the *ubuntu-core-14.04.1-core-arm64-sshd* image.  Add this 
+  image to your site's Deployment.
+* In XOS, add the CloudLab experiment's nodes to your site
+* In XOS, add the Controller for the site with the following info:
+  * Auth URL: http://controller:5000/v2.0
+  * User name: admin
+  * Tenant name: admin
+  * Password: admin
+
+You should now be able to use XOS to create a VM in the OpenStack running
+on CloudLab.  Note that there are still a couple of issues with CloudLab's
+OpenStack support and so you won't be able to login to the VM.
+
 ##Test Environment
 
 We have built an end-to-end testing environment that includes a
