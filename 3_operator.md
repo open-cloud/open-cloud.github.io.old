@@ -42,6 +42,10 @@ throughout the XOS website, add the following section to the config file:
 
 ##Using XOS with nginx via WSGI
 
+The development server is sufficient for most people wishing to develop XOS,
+but for production environments, we recommend running XOS behind a front-end
+such as nginx.
+
 A sample configuration file for nginx is located in the nginx subdirectory of
 the XOS git repository. This config fie is setup to look for static files in
 /var/www/xos/static, and that subdirectory must be created. All static files
