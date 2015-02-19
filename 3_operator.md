@@ -40,6 +40,27 @@ throughout the XOS website, add the following section to the config file:
     [gui]
     disable_minidashboard=True
 
+##Using XOS with nginx via WSGI
+
+A sample configuration file for nginx is located in the nginx subdirectory of
+the XOS git repository. This config fie is setup to look for static files in
+/var/www/xos/static, and that subdirectory must be created. All static files
+located in the following subdirectories must be copied to /var/www/xos/static/:
+
+   /opt/xos/core/static
+   /opt/xos/core/xoslib/static
+   # note that the following two paths may vary depending on Linux distribution
+   /usr/local/lib/python2.7/dist-packages/Django-1.7-py2.7.egg/django/contrib/admin/static
+   /usr/lib/python2.7/site-packages/suit/static
+
+The following commands can be used to start, stop, and restart the uwsgi server:
+
+    start: cd /opt/xos; uwsgi --start-unsubscribed /opt/xos/uwsgi/xos.ini
+
+    stop: uwsgi --stop /var/run/uwsgi/uwsgi.pid
+
+    restart: uwsgi --reload /var/run/uwsgi/uwsgi.pid
+
 ##<a name="install-openstack">Installing OpenStack</a>
 
 This section describes how to bring up OpenCloud's version of an
