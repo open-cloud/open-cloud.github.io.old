@@ -47,11 +47,11 @@ the XOS git repository. This config fie is setup to look for static files in
 /var/www/xos/static, and that subdirectory must be created. All static files
 located in the following subdirectories must be copied to /var/www/xos/static/:
 
-   /opt/xos/core/static
-   /opt/xos/core/xoslib/static
-   # note that the following two paths may vary depending on Linux distribution
-   /usr/local/lib/python2.7/dist-packages/Django-1.7-py2.7.egg/django/contrib/admin/static
-   /usr/lib/python2.7/site-packages/suit/static
+    /opt/xos/core/static
+    /opt/xos/core/xoslib/static
+    # note that the following two paths may vary depending on Linux distribution
+    /usr/local/lib/python2.7/dist-packages/Django-1.7-py2.7.egg/django/contrib/admin/static
+    /usr/lib/python2.7/site-packages/suit/static
 
 The following commands can be used to start, stop, and restart the uwsgi server:
 
