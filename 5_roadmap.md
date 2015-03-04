@@ -25,6 +25,14 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 7. Support autonomous OpenStack clusters using domain feature.
 
+8. Revisit how we're doing logging (separate observer log from
+   the web layer).
+
+9. Re-activate site, slice, node monitoring.
+
+10. Integrate Docker as a service (or maybe container-as-a-service)
+    to help users manage their slices.
+
 ##Future Releases
 
 1. Relation between ServiceClass and Flavor need attention.
