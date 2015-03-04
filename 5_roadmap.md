@@ -17,11 +17,13 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 3. Bring up HPC and revisit user-visible API.
 
-4. Enhance and document Developer View's VN management interface.
+4. Support multiple user ssh keys per slice.
 
-5. Integrate OVX installation into the OpenStack install process.
+5. Enhance and document Developer View's VN management interface.
 
-6. Support autonomous OpenStack clusters using domain feature.
+6. Integrate OVX installation into the OpenStack install process.
+
+7. Support autonomous OpenStack clusters using domain feature.
 
 ##Future Releases
 
