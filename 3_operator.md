@@ -602,3 +602,22 @@ know if something is not working as expected.
 **Fix:** You may be trying to SSH to the NAT interface of a Sliver that's configured with a public IP instead of NAT.
 
 * SSH to the Public IP Address instead. 
+
+**Symptom:** Instance are unreachable via network, but are running on the host.
+
+**Diagnostic Steps:** Use VNC to view console of broken instance. 
+
+* on host VM, run "virsh vncdisplay <instance_name>". Note the vnc console number, add 5900 to it to get the VNC port.
+
+* on host VM, make sure port is open: "iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 5900  -j ACCEPT"
+
+* from admin machine, setup an SSH tunnel: ssh -o "GatewayPorts yes" -L 5900:localhost:5900 ubuntu@<hostname>
+
+* establish vnc session to localhost:5900.
+
+**Symptom:** Interfaces become unreachable inside of instances. When inspected using VNC, instance shows UDP checksum errors
+ relating to DHCP packets.
+
+**Fix:** Older versions of dhclient are incompatible with checksum offloading on host. 
+
+* Upgrade guest image to a newer version of dhclient
