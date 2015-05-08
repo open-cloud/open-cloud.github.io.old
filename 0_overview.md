@@ -52,13 +52,12 @@ from research prototypes, open source projects, and trial deployments
 of commercial services.
 
 The top-most purple box represents XOS proper, an extensible Cloud OS
-that includes support for folding new services built on top of
-OpenCloud back into OpenCloud. By way of analogy, XOS is similar to
-the Unix kernel, where the set of services built around XOS correspond
-to the commands-and-libraries bundled with Unix. An important aspect
-of this design is that to most users, the distinction between the
-kernel (XOS) and the commands-and-libraries (set of services) is not
-important.
+that includes support for folding new services built on top of XOS
+back into XOS. By way of analogy, XOS is similar to the Unix kernel,
+where the set of services built around XOS correspond to the
+commands-and-libraries bundled with Unix. An important aspect of this
+design is that to most users, the distinction between the kernel (XOS)
+and the commands-and-libraries (set of services) is not important.
 
 More information about how users interact with XOS is given in the
 [User Guide](../1_user), while more information about how to extend
@@ -274,9 +273,8 @@ Site establishing its own policies. In practice, however, we expect
 Deployments will often span multiple Sites, where those Sites either
 correspond to a single distributed organization (e.g., Internet2) or
 agree to manage their Nodes in collaboration with the containing
-Deployment (e.g., Enterprise). Although not currently exercised in
-OpenCloud, it is also possible that a Site hosts Nodes that belong to
-more than one Deployment. 
+Deployment (e.g., Enterprise). It is also possible that a Site hosts
+Nodes that belong to more than one Deployment.
 
 Correspondingly, a Controller object represents the binding between
 Deployments and Sites. There could be one Controller per Site in the
@@ -433,16 +431,14 @@ A specification for both can be found at
 
 ##<a name="hardware-infrastructure">Hardware Infrastructure</a>
 
-This section sketches the OpenCloud hardware infrastructure, both in
-general terms (i.e., what we expect OpenCloud to look like when fully
-deployed), and in specific terms (i.e., what infrastructure is
-operational today).
+This section sketches the target hardware infrastructure, both in
+general terms (i.e., what XOS is designed to run on), and in specific
+terms (i.e., what OpenCloud infrastructure is operational today).
 
-OpenCloud is designed to span a wide spectrum of Cloud resources --
-existing commodity clouds, large private clusters, across wide-area
-national and regional networks, to edge access networks -- with
-SDN-enabled networks providing end-to-end connectivity across much of
-the system.
+XOS is designed to span a wide spectrum of Cloud resources -- existing
+commodity clouds, large private clusters, across wide-area national
+and regional networks, to edge access networks -- with SDN-enabled
+networks providing end-to-end connectivity across much of the system.
 
 ![Figure 3. OpenCloud Deployed Across Four Tiers of Resources.]({{ site.url }}/figures/Slide3.jpg)
 

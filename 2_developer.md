@@ -157,18 +157,18 @@ Views](../1_user/#user-views)) are implemented on top of this library.
 ##<a name="adding-views">Adding Views to XOS</a>
 
 XOS is designed to be extensible -- to provide an explicit means to
-incorporate services deployed on OpenCloud back into OpenCloud so they
-are readily available to other users. Our goal is to build a diverse
-collection of services that can be accessed through the OpenCloud
-programmatic interface. This is done by extending the XOS data model
-with objects that represent the available services.
+incorporate services deployed on XOS back into XOS so they are readily
+available to other users. Our goal is to build a diverse collection of
+services that can be accessed through the XOS programmatic
+interface. This is done by extending the XOS data model with objects
+that represent the available services.
 
 This collection of services, in turn, defines a range of functionality
 that can be combined in different ways to provide customized Views
 targeted at different user communities and usage scenarios. These
 views are similar to scripts -- small programs that leverage the
 underlying set of commands to create a new function for a particular
-purpose, where in OpenCloud's case, the "underlying set of commands"
+purpose, where in XOS's case, the "underlying set of commands"
 corresponds to operations on XOS's data model. The data model includes
 both core objects (e.g., Users, Slices, Slivers, Roles, Sites,
 Deployments, Services) and objects that represent various services
@@ -177,9 +177,9 @@ ServiceMaps). A given View can operate on any combination of these
 objects.
 
 We refer to these scripts as Views because they represent a particular
-perspective of OpenCloud, but they also happen to be implemented as a
-tailored view in Django, extending Django's standard template view. 
-When we need to disambiguate between the OpenCloud abstraction and the
+perspective of XOS, but they also happen to be implemented as a
+tailored view in Django, extending Django's standard template view.
+When we need to disambiguate between the XOS abstraction and the
 Django implementation, we refer to the former as a User View and the
 latter as a Django View.
 
@@ -213,7 +213,7 @@ A template contains the HTML and javascript that presents the view to
 the user. A view can be almost entirely HTML or almost entirely
 javascript. Most of our example templates are a combination of the
 two. In the git repository, templates for views are stored in
-xoslib/dashboards/. In an OpenCloud installation, you'll find these
+xoslib/dashboards/. In a given XOS installation, you'll find these
 views in /opt/xos/xoslib/dashboards/.
 
 There is no need to worry about building a full HTML page with \<head\>
@@ -273,10 +273,10 @@ This is the hello world view. The value of fubar is .
 
 ###Display Static Data Using Context Variables
 
-Opencloud includes some context variables that are built in. One
-example of this is "user", which represents the currently logged in
-user. Context variables are useful for values that we don't expect to
-change while the user is looking at the view.
+XOS includes some context variables that are built in. One example of
+this is "user", which represents the currently logged in user. Context
+variables are useful for values that we don't expect to change while
+the user is looking at the view.
 
 [TODO: suggest the user use xoslib instead of context variables?]
 
@@ -483,7 +483,7 @@ available as part of your home page.
 ####iframe-based Views
 
 iframe-based views allow you to insert and arbitrary web page into the
-opencloud dashboard. This is done by specifying a "http://" url
+XOS dashboard. This is done by specifying a "http://" url
 instead of a "template:" url. For example,
 
 1. Open your browser to
@@ -1008,7 +1008,7 @@ valid field names are: name, disk_format, controller_format.
 ####Field Types
 
 There are various built in Fields that may be specified at Class
-declaration. The basic field types commonly in use with OpenCloud:
+declaration. The basic field types commonly in use with XOS:
 
 | FieldType          | Why to Use It?     |
 |--------------------|--------------------|
@@ -1095,7 +1095,7 @@ effects on data integrity and REST relationships:
 
 | Model Setting      | When to use it     |
 |--------------------|--------------------|
-| abstract           | Used to specify that the defined model is not intended/able to be instantiated directly. For example, PlCoreBase, which is used to ensure that created, updated, and enacted fields will be provided for all OpenCloud participating objects.|
+| abstract           | Used to specify that the defined model is not intended/able to be instantiated directly. For example, PlCoreBase, which is used to ensure that created, updated, and enacted fields will be provided for all XOS participating objects.|
 | app_label          | Necessary if models are defined in modules other than models.py  In our core application we split out the model definitions into their own modules for clarity -- each of the models not derived from the PlCoreBase needs to explicitly state the "core" as the application this object is associated to. For example, PlCoreBase and User.|
 | order_with_respect_to | |
 | ordering | Defines the default column to order lists of the object type by. For example, Users => email.|
@@ -1103,7 +1103,7 @@ effects on data integrity and REST relationships:
 ###Model CheckList
 
 After creating a new model, here are the additional changes required
-for your new model to fully take effect and be visible in OpenCloud:
+for your new model to fully take effect and be visible in XOS:
 
 | Where to go        | Why                |
 |--------------------|--------------------|
