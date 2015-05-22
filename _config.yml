@@ -11,7 +11,7 @@ relative_permalinks: true
 # Setup
 title:            XOS Guide
 tagline:          'XOS Guide'
-description:      'A guide to using, developing and operating XOS'
+description:      'A guide to using, developing, and\break operating XOS'
 url:              http://open-cloud.github.io
 baseurl:          /
 
