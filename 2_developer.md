@@ -8,6 +8,12 @@ extend XOS with new services and views. It also documents modeling and
 naming conventions, and describes the development and testing
 environments we use.
 
+When necessary for clarity of exposition, this guide uses examples
+from OpenCloud for illustrative purposes. For example, on OpenCloud
+the XOS server process is started in directory
+/opt/xos/scripts/opencloud). Substitute local specifics for an
+alternative cloud built using XOS.
+
 ##<a name="devel-env">Development Environment</a>
 
 A Dockerfile available at
@@ -151,7 +157,7 @@ extensive client library based on Backbone.js and Marionette.js.
 Backbone.js provides an efficient event-driven interface, where the
 xoslib's client-side library fetches models from the server-side, and
 notifies client programs when data has been fetched for display to the
-user. Portions of the OpenCloud user interface (specifically, [User
+user. Portions of the XOS user interface (specifically, [User
 Views](../1_user/#user-views)) are implemented on top of this library.
 
 ##<a name="adding-views">Adding Views to XOS</a>
@@ -1156,10 +1162,10 @@ http://django-rest-framework.org/#quickstart
 
 ###Our conventions for the REST API
 
-##Reporting Bugs
+##Participaing in XOS Development
 
 Bugs reports and feature requests can be filed using the 
 [GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
-
-
+To participate in a discussion about XOS development, join
+[devel@opencloud.us](https://groups.google.com/a/opencloud.us/forum/#!forum/devel).

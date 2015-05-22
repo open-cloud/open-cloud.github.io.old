@@ -3,9 +3,15 @@ layout: page
 title: User Guide
 ---
 
-This guide describes how users log into OpenCloud, acquire VMs, and
-access OpenCloud services. It assumes the reader is familiar with the
-general concepts presented in the [Architecture Guide](../0_overview).
+This guide describes how users log into XOS, acquire VMs, and access
+XOS services. It assumes the reader is familiar with the general
+concepts presented in the [Architecture Guide](../0_overview). 
+
+Because this guide is focused on users, we use OpenCloud as an example
+of an operational cloud that users might access. This implies a
+particular portal, a particular set of nodes and sites, and a
+particular collection of services. Substitute local specifics for an
+alternative cloud built using XOS.
 
 ##<a name="getting-started">Getting Started</a>
 
@@ -329,16 +335,14 @@ deployment section above.
 
 ##Services
 
-OpenCloud includes a set of contributed services that are available to
-other OpenCloud users, as well as to services running on their behalf.
-In some cases, end-users are the client (tenant) of the service, while
-in other cases, services running on OpenCloud are clients of one of
-this contributed services. 
-
-There are currently three contributed Services, each of which extends
+XOS is designed to support a set of contributed services, but the set
+of services available on any particular cloud is as cloud-specific as
+the underlying hardware infrastructure. In the case of OpenCloud,
+there are currently three contributed Services, each of which extends
 the XOS Data Model with its own abstract objects, and hence, is
-accessible via OpenCloud's REST API. This section concludes by
-describing how to prototype a new service. 
+accessible via OpenCloud's REST API. This section briefly describes
+these three services (for illustrative purposes), and concludes by
+describing how to prototype a new service.
 
 ###Syndicate
 
@@ -534,7 +538,6 @@ production services: RequestRouter, HyperCache, and Syndicate. Section
 Developer Guide describes how to add a production service to XOS. This
 section focuses on the available mechanisms for prototyping a service.
 
-
 ##Mailing Lists
 
 All registered OpenCloud users are automatically subscribed to
@@ -545,5 +548,3 @@ questions about best practices using OpenCloud.
 To report problems or ask for specific assistance, send email to
 [support@opencloud.us](mailto:support@opencloud.us).
 
-To participate in a discussion about XOS development, join
-[devel@opencloud.us](https://groups.google.com/a/opencloud.us/forum/#!forum/devel).
