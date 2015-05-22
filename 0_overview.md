@@ -55,7 +55,7 @@ interesting functionality is provided by a collection of services.
 Moreover, XOS supports a shell-like mechanism that makes it possible
 to program new functionality from a combination of existing services.
 
-![Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).]({{ site.url }}/figures/slide18.jpg)
+![Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).]({{ site.url }}/figures/Slide18.jpg)
 
 Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).
 
@@ -70,7 +70,7 @@ geo-distributed set of clusters. For example, some VMs might be
 concentrated in one or more datacenters, while others are distributed
 across many edge sites.
 
-![Figure 2. Anantomy of a Service.]({{ site.url }}/figures/slide22.jpg)
+![Figure 2. Anantomy of a Service.]({{ site.url }}/figures/Slide22.jpg)
 
 Figure 2. Anatomy of a Service.
 
@@ -96,7 +96,7 @@ erroneous state of the remainder of the system: the so-called
 state of the system at these two levels (authoritative Data Model and
 operational backend) is a distinguishing property of XOS.
 
-![Figure 3. Block diagram of the XOS software structure.]({{ site.url }}/figures/slide21.jpg)
+![Figure 3. Block diagram of the XOS software structure.]({{ site.url }}/figures/Slide21.jpg)
 
 Figure 3. Block diagram of the XOS software structure.
 
