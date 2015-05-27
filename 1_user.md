@@ -11,7 +11,7 @@ Because this guide is focused on users, we use OpenCloud as an example
 of an operational cloud that users might access. This implies a
 particular portal, a particular set of nodes and sites, and a
 particular collection of services. Substitute local specifics for an
-alternative cloud built using XOS.
+alternative XOS installation.
 
 ##<a name="getting-started">Getting Started</a>
 

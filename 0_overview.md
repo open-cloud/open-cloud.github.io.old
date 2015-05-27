@@ -18,7 +18,7 @@ XOS leverages existing datacenter cloud management systems (e.g.,
 OpenStack) to implement low-level scheduling and resource allocation
 mechanisms for each autonomous site, and SDN-based network
 customization (e.g., control functions running on top of ONOS) to
-connect the sites.
+manage the switching fabric at each site and to connect the sites.
 
 XOS provides explicit support for multi-tenant services, making it
 possible to create, name, operationalize, manage and compose services
@@ -50,7 +50,7 @@ and *Everything-as-a-Service (XaaS)* in XOS.  Both also aim to have a
 minimal core (kernel) and are easily extended to include new
 functionality. In Unix, the set of extensions correspond to the
 applications running top of the Unix kernel. This is also the case
-with XOS, where as depicted in Figure~1, the core is minimal and the
+with XOS, where as depicted in Figure 1, the core is minimal and the
 interesting functionality is provided by a collection of services. 
 Moreover, XOS supports a shell-like mechanism that makes it possible
 to program new functionality from a combination of existing services.
@@ -59,11 +59,11 @@ to program new functionality from a combination of existing services.
 
 Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).
 
-Implicit in Figure~1 is an underlying model of exactly what
+Implicit in Figure 1 is an underlying model of exactly what
 constitutes a service. Our model is that every service incorporated
 into XOS provides a logically centralized interface, called a *service
 controller*; elastically scales across a set of *service instances*;
-and is multi-tenant with an associated *tenant abstraction*. Figure~2
+and is multi-tenant with an associated *tenant abstraction*. Figure 2
 depicts the anatomy of a service in this way, where the instances (for
 example, VMs) are potentially distributed widely over a
 geo-distributed set of clusters. For example, some VMs might be
@@ -85,7 +85,7 @@ the controller.
 ##Software Structure
 
 The XOS implementation is organized around three layers, as
-illustrated in Figure~3. At the core is a *Data Model*, which records
+illustrated in Figure 3. At the core is a *Data Model*, which records
 the logically centralized state of the system. It is the Data Model
 that ties all of the services together, and enables them to
 interoperate reliably and efficiently.  The logical centralization of
@@ -105,7 +105,7 @@ those objects, and operations on those objects. The operations are
 exported as a RESTful HTTP interface, as well as via a library
 (*xoslib*) that provides a higher-level programming interface. On top
 of this Data Model, a set of *Views* defines the lens through which
-different users interact with XOS. For example, Figure~3 shows a view
+different users interact with XOS. For example, Figure 3 shows a view
 tailored for tenants, one tailored for service developers, and one
 customized for service operators. Finally, a *Controller Framework* is
 responsible for distributed state management; that is, keeping the

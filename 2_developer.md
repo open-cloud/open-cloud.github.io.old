@@ -11,8 +11,8 @@ environments we use.
 When necessary for clarity of exposition, this guide uses examples
 from OpenCloud for illustrative purposes. For example, on OpenCloud
 the XOS server process is started in directory
-/opt/xos/scripts/opencloud). Substitute local specifics for an
-alternative cloud built using XOS.
+/opt/xos/scripts/opencloud. Substitute local specifics for an
+alternative XOS installation.
 
 ##<a name="devel-env">Development Environment</a>
 
