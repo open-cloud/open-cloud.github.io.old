@@ -114,12 +114,53 @@ following TCP ports should be opened for XOS: 22, 3128, 5000, 8080,
 The controller node architecture shown in Figure 1 runs each OpenStack
 service in its own VM, with all VMs connected by a private management
 (virtual) network. An Ansible playbook that automates bringing up
-this virtual infrastructure is available here:
+this virtual infrastructure is available on GitHub:
 
 https://github.com/andybavier/opencloud-cluster-setup
 
 Consult the README.md file for instructions on how to run this playbook
 and customize it for your own needs.
+
+####Service VMs
+
+Once you have set up the head node of your local OpenCloud cluster using 
+the above scripts, you can use **virsh list** to see a list of the running 
+VMs, each named after the service it hosts:
+
+```
+$ virsh list
+Id    Name                    State
+----------------------------------------------------
+3     juju                    running
+4     mysql                   running
+5     rabbitmq-server         running
+6     keystone                running
+7     glance                  running
+8     nova-cloud-controller   running
+9     quantum-gateway         running
+10    openstack-dashboard     running
+11    ceilometer              running
+12    nagios                  running
+16    xos                     running
+```
+
+All of the VMs are attached to bridge `virbr0` with private addresses on the 192.168.122.0/24 subnet, and so are not reachable externally.  The IP addresses of the VMs are in `/etc/hosts`, or can be obtained using **uvt-kvm ip <VM name>**:
+
+```
+$ uvt-kvm ip xos
+192.168.122.37
+```
+
+Log in to a VM using **ssh ubuntu@<VM name>**.  The default SSH key 
+for the admin user (`/home/admin/.ssh/id_rsa.pub`) has been added for 
+the ubuntu user inside all the VMs, so this should just work:
+
+```
+$ ssh ubuntu@xos
+Welcome to Ubuntu 14.04.2 LTS (GNU/Linux 3.13.0-49-generic x86_64)
+...
+ubuntu@xos:~$
+```
 
 ###Configuring Remote OpenStack Clients 
 
