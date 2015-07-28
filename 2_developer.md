@@ -35,21 +35,16 @@ $ docker build -t xos .
 $ docker run -t -i -p 8000:8000 xos
 ```
 
-You should now have a bash prompt as root inside the XOS container.
-To start XOS, run
-   
-```
-# /opt/xos/scripts/opencloud runserver
-```
-
+XOS will start automatically and you will see its log output in the shell window. 
 You can access the XOS login at *http://server:8000*, where *server*
-is the name of the server hosting the Docker container.
+is the name of the server hosting the Docker container.  Login credentials are 
+*padmin@vicci.org*/*letmein*.
 
 Note that the above steps result in a running XOS, but without any
 backend resources. This is sufficient for working on the data model
 and views, but not for actually managing cloud infrastructure.
 
-Information on bringing up an OpenStack cluster is given in Section
+Information on bringing up a local OpenStack cluster is given in Section
 [Installing OpenStack](../3_operator/#install-openstack) of the
 Operator Guide.  Information on connecting XOS to an operational
 OpenStack cluster is given in Sections [Administering a
@@ -69,33 +64,34 @@ can be used in place of this CloudLab version.
 
 To create the cluster on CloudLap do the following:
 
-* Create your CloudLab experiment using the *ARM64OpenStack-Basic* profile.
+* Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  
+  Instantiate it on the University of Wisconsin cluster.
 
-* Find the IP address of the *controller* node in your experiment. Add 
+* Find the IP address of the *ctl* node in your experiment. Add 
   the following line to the */etc/hosts* file in your XOS container
   (replace 128.110.152.78 with the right address):
 
 ```
-128.110.152.78 controller
+128.110.152.78 ctl
 ```
 
 Next, log into the running XOS and do the following:
 
 * Add a public key for your user account (e.g., padmin@vicci.org)
 
-* Add the *ubuntu-core-14.04.1-core-arm64-sshd* image, and then 
+* Add the *trusty-server-multi-nic* image, and then 
   activate this image for your Deployment.
 
-* Add the CloudLab experiment's nodes to your site.
+* Add the CloudLab experiment's node to your site.
 
 * Modify the *Public shared IPv4* NetworkTemplate. Change *Shared
   network name* to *tun-data-net*.
 
 * Add the Controller for the site with the following info:
-  * Auth URL: http://controller:5000/v2.0
+  * Auth URL: http://ctl:5000/v2.0
   * Admin user: admin
   * Admin tenant: admin
-  * Admin password: admin
+  * Admin password: \<admin password\>
 
 You should now be able to use XOS to create a VM in the OpenStack
 running on CloudLab.  Note that there are currently a couple of issues
