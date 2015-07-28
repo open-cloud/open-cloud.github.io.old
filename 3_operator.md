@@ -151,7 +151,7 @@ $ uvt-kvm ip xos
 192.168.122.37
 ```
 
-Log in to a VM using **ssh ubuntu@<VM name>**.  The default SSH key 
+Log in to a VM using **ssh ubuntu@\<VM name\>**.  The default SSH key 
 for the admin user (`/home/admin/.ssh/id_rsa.pub`) has been added for 
 the ubuntu user inside all the VMs, so this should just work:
 
