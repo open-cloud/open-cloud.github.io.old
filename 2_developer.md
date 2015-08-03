@@ -65,7 +65,7 @@ can be used in place of this CloudLab version.
 To create the cluster on CloudLap do the following:
 
 * Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  
-  Instantiate it on the University of Wisconsin cluster.
+  Instantiate it on the *CloudLab Wisconsin* cluster.
 
 * Find the IP address of the *ctl* node in your experiment. Add 
   the following line to the */etc/hosts* file in your XOS container
@@ -75,29 +75,48 @@ To create the cluster on CloudLap do the following:
 128.110.152.78 ctl
 ```
 
-Next, log into the running XOS and do the following:
+Next, log into the running XOS.  The instructions below assume that your XOS
+is running at URL *http://xos:8000*.  Do the following:
 
 * Add a public key for your user account (e.g., padmin@vicci.org)
+  * Click on *padmin@vicci.org* at the top of the page
+  * Paste or upload your public key 
 
-* Add the *trusty-server-multi-nic* image, and then 
-  activate this image for your Deployment.
+* Add the *trusty-server-multi-nic* image.
+  * Go to *http://xos:8000/admin/core/image/add/*
+    * Name: trusty-server-multi-nic
+    * Disk format: QCOW2
+    * Container format: BARE
+
+* Activate the above image for your Deployment.
+  * Click on *Deployments* at left, and then *My Deployment*
+  * Move *trusty-server-multi-nic* from *Available Images* to *Chosen Images*
 
 * Add the CloudLab experiment's node to your site.
+  * Click on *Sites* at left, and then *MySite*
+  * Click on *Nodes* tab 
+  * Enter the node's DNS name, as returned by *nova hypervisor-list* on your CloudLab control node
+  * Under *Site deployment* choose *MyDeployment MySite*
 
-* Modify the *Public shared IPv4* NetworkTemplate. Change *Shared
-  network name* to *tun-data-net*.
+* Modify the *Public shared IPv4* NetworkTemplate. 
+  * Go to *http://xos:8000/admin/core/networktemplate/*
+  * Click on *Public shared IPv4*
+  * Change *Shared network name* to *tun-data-net*
 
-* Add the Controller for the site with the following info:
-  * Auth URL: http://ctl:5000/v2.0
-  * Admin user: admin
-  * Admin tenant: admin
-  * Admin password: \<admin password\>
+* Create a Controller
+  * Go to *http://xos:8000/admin/core/controller/add/*
+    * Deployment: MyDeployment
+    * Name: CloudLab
+    * Backend type: OpenStack
+    * Version: Juno
+    * Auth URL: http://ctl:5000/v2.0
+    * Admin user: admin
+    * Admin tenant: admin
+    * Admin password: \<CloudLab admin password\>
 
-You should now be able to use XOS to create a VM in the OpenStack
-running on CloudLab.  Note that there are currently a couple of issues
-with CloudLab's OpenStack support so you won't be able to login to the
-VM, but you can still verify that it boots by looking at its console
-log.
+After a while you should start seeing the red error circles on the XOS
+pages turn into green checks.  You can then use XOS to create a new slice,
+and then launch a VM for that slice in the OpenStack running on CloudLab.  
 
 ###Richer Demo Example
 
