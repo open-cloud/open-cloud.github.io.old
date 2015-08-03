@@ -62,7 +62,7 @@ cluster, and then link this cluster to the running XOS you just
 installed. If you already have a running OpenStack cluster, then it
 can be used in place of this CloudLab version. 
 
-To create the cluster on CloudLap do the following:
+To set up XOS with an OpenStack cluster hosted on CloudLab:
 
 * Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  
   Instantiate it on the *CloudLab Wisconsin* cluster.
