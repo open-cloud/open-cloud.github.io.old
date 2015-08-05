@@ -54,15 +54,12 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-###Minimal OpenStack Cluster
+###Minimal OpenStack Cluster on CloudLab
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
 cluster, and then link this cluster to the running XOS you just
-installed. If you already have a running OpenStack cluster, then it
-can be used in place of this CloudLab version. 
-
-To set up XOS with an OpenStack cluster hosted on CloudLab:
+installed. To set up XOS with an OpenStack cluster hosted on CloudLab:
 
 * Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  Instantiate it on the *CloudLab Wisconsin* cluster.
 * Login to the *ctl* node of the experiment and run the following:
@@ -74,11 +71,10 @@ $ ./cloudlab-init.sh
 
 This script will build the XOS Docker image, run it in a container, 
 and configure XOS to talk to the OpenStack cluster on CloudLab.  You can 
-reach the XOS GUI at `http://ctl:9999` (substitute full DNS name of server 
-for `ctl`).
+reach the XOS GUI on port 9999 on the *ctl* node.
 
 Assuming everything has worked, you should be able to create a slice and 
-launch a VM.  You can log into the VM from the `ctl` node using the first IP 
+launch a VM.  You can log into the VM from the *ctl* node using the first IP 
 address shown in the *Slivers* view for the slice.
 
 ###Richer Demo Example
