@@ -61,7 +61,7 @@ A simple way to create an end-to-end development environment is to use
 cluster, and then link this cluster to the running XOS you just
 installed. To set up XOS with an OpenStack cluster hosted on CloudLab:
 
-* Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  Instantiate it on the *CloudLab Wisconsin* cluster.
+* Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  Instantiate it on the *CloudLab Clemson* or *CloudLab Wisconsin* clusters.
 * Login to the *ctl* node of the experiment and run the following:
 ```
 $ git clone https://github.com/open-cloud/xos.git
