@@ -7,7 +7,7 @@ XOS is an extensible cloud operating system that defines unifying
 abstractions on top of a collection of cloud services. We call XOS an
 operating system because it plays much the same role in a
 geo-distributed cloud as a traditional operating system does on a
-conventional computer -- it provides general programming abstractions
+conventional computer: it provides general programming abstractions
 to support a wide range of applications, while at the same time safely
 multiplexing the underlying hardware resources and software services
 between them. By regarding XOS as an operating system, we bring 50
