@@ -62,7 +62,8 @@ cluster, and then link this cluster to the running XOS you just
 installed. To set up XOS with an OpenStack cluster hosted on CloudLab:
 
 * If you don't already have a CloudLab account, you can go to `http://cloudlab.us` and join project **xos**.
-* Create your CloudLab experiment using the *Tutorial-OpenStack* profile.  Instantiate it on the *CloudLab Clemson* or *CloudLab Wisconsin* clusters.
+* Create your CloudLab experiment using the *OpenStack* profile.  The Juno and Kilo releases should both work.  
+We recommend that, under "Advanced Parameters" in the profile, you choose to "Disable Security Group Enforcement".  Instantiate it on the *CloudLab Clemson* or *CloudLab Wisconsin* clusters.
 * Login to the *ctl* node of the experiment and run the following:
 ```
 $ git clone https://github.com/open-cloud/xos.git
