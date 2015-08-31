@@ -76,8 +76,9 @@ and configure XOS to talk to the OpenStack cluster on CloudLab.  You can
 reach the XOS GUI on port 9999 on the *ctl* node.
 
 Assuming everything has worked, you should be able to create a slice and 
-launch a VM.  You can log into the VM from the *ctl* node using the first IP 
-address shown in the *Slivers* view for the slice.
+launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
+at the first IP address shown in the *Slivers* view for the slice (typically on the
+10.11.0.0/16 subnet).
 
 ###Richer Demo Example
 
