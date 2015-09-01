@@ -33,29 +33,10 @@ Ansible, and (b) support inter-model plugins (e.g., HPC and OpenStack).
 OpenStack's Ceilometer into XOS, making it available as a first-class
 XOS service that other services (and views) and use.
 
-##Future Releases
-
-1. Relation between ServiceClass and Flavor need attention.
-
-2. Support OVX-based VN interconnection
-
-3. Re-establish Service Classes and Invoices
-
-4. Make RequestRouter as a stand-alone service
-
-5. Support user-contributed images
-
-6. Enhance monitoring and stats
-
-7. Integrate Docker support
-
-8. Run ONOS in "domain0"
-
 ##Deployments
 
 1. Migrate additional ViCCI servers to OpenCloud.
 
-2. Bring up ViNI sites.
+2. Configure "Dev POD" for CORD.
 
-3. Transition OpenFlow-capable clusters to OVX.
 
