@@ -3,35 +3,35 @@ layout: page
 title: Roadmap
 ---
 
-This section will eventually record a detailed roadmap, but is
-currently a place to collect medium- and long-term feature requests
-and deployment plans. Bug reports and short-term feature requests
-should be filed at the [GitHub Issue
+This section records high-level the plan of record, but is typically
+less detailed than information on the
+[Development Mailing List](https://groups.google.com/a/xosproject.org/forum/#!forum/devel).
+Also see bug reports and short-term feature requests filed at the [GitHub Issue
 Tracker](https://github.com/open-cloud/xos/issues).
 
-##Priorities for Burwell Release
+##Priorities for Burwell Release (September 2015)
 
-1. Simplify Service model and prototype a Service Composition View.
+1. Configuration Management. The goal is to remove deployment
+dependencies from the code base so we can support multiple deployments
+(e.g., CORD, OpenCloud) from a common git branch. Also use Docker to
+simplify the development environment.
 
-2. Bring up Syndicate and integrate into Tenant view.
+2. Tenancy Model. The goal is to codify the tenancy model that came
+out of the CORD proof-of-concept.
 
-3. Bring up HPC and revisit user-visible API.
+3. Reconcile with OpenStack. The goal is to eliminate gratuitous
+differences between XOS and OpenStack (e.g., Instances instead of Slivers).
 
-4. Support multiple user ssh keys per slice.
+4. Upgrade to OpenStack Kilo.
 
-5. Enhance and document Developer View's VN management interface.
+5. New Observer/Synchronizer Framework. The goal is to transition to
+a more robust and complete Observer,  which we will likely rename as
+the Synchronizer. Sub-goals include: (a) better integration of
+Ansible, and (b) support inter-model plugins (e.g., HPC and OpenStack).
 
-6. Integrate OVX installation into the OpenStack install process.
-
-7. Support autonomous OpenStack clusters using domain feature.
-
-8. Revisit how we're doing logging (separate observer log from
-   the web layer).
-
-9. Re-activate site, slice, node monitoring.
-
-10. Integrate Docker as a service (or maybe container-as-a-service)
-    to help users manage their slices.
+6. Instrumentation-as-a-Service. The goal is to incorporate
+OpenStack's Ceilometer into XOS, making it available as a first-class
+XOS service that other services (and views) and use.
 
 ##Future Releases
 
