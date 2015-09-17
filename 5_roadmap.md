@@ -36,7 +36,12 @@ XOS service that other services (and views) and use. *[Not expected to
 be available for September release of Burwell, but will be included in
 subsequent deployment configurations (see below).]*
 
-##Deployment Configurations (September - November 2015)
+7. ONOS. The goal is to incorporate ONOS into XOS, replacing the
+default OpenStack/Neutron networking support. *[Not expected to
+be available for September release of Burwell, but will be included in
+subsequent deployment configurations (see below).]*
+
+##Deployment Configurations (Sept - Nov 2015)
 
 XOS is a framework that is deployed on different hardware
 configurations and populated with different service portfolios.  
