@@ -10,11 +10,11 @@ ONOS), to provide explicit support for multi-tenant services. In doing
 so, XOS makes it possible to create, name, operationalize, manage and
 compose services as first-class operations.
 
-In-depth descriptions of XOS are presented elsewhere. See for example:
+In-depth descriptions of XOS are presented elsewhere. For example, see:
 
-[Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf).
+* [Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf).
 
-[XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf).
+* [XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf).
 
 The following gives a high-level description of XOS sufficient for
 reading the rest of this Guide.
