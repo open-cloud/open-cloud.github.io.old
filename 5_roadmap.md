@@ -14,7 +14,8 @@ Tracker](https://github.com/open-cloud/xos/issues).
 1. Configuration Management. The goal is to remove deployment
 dependencies from the code base so we can support multiple deployments
 (e.g., CORD, OpenCloud) from a common release. Also use Docker to
-simplify the development environment.
+simplify the development environment and TOSCA as a means of
+specifying the deployment configuration.
 
 2. Tenancy Model. The goal is to codify the tenancy model that came
 out of the CORD proof-of-concept.
