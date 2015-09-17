@@ -3,31 +3,21 @@ layout: page
 title: Architecture Guide
 ---
 
-XOS is an extensible cloud operating system that defines unifying
-abstractions on top of a collection of cloud services. We call XOS an
-operating system because it plays much the same role in a
-geo-distributed cloud as a traditional operating system does on a
-conventional computer: it provides general programming abstractions
-to support a wide range of applications, while at the same time safely
-multiplexing the underlying hardware resources and software services
-between them. By regarding XOS as an operating system, we bring 50
-years of proven concepts and best practices to the problem of
-tranforming the cloud into a general-purpose computing environment.
+XOS defines a collection of abstractions in support of services and
+service composition. It leverages existing datacenter cloud management
+systems (e.g., OpenStack) and SDN-based network controllers (e.g.,
+ONOS), to provide explicit support for multi-tenant services. In doing
+so, XOS makes it possible to create, name, operationalize, manage and
+compose services as first-class operations.
 
-XOS leverages existing datacenter cloud management systems (e.g.,
-OpenStack) to implement low-level scheduling and resource allocation
-mechanisms for each autonomous site, and SDN-based network
-customization (e.g., control functions running on top of ONOS) to
-manage the switching fabric at each site and to connect the sites.
+In-depth descriptions of XOS are presented elsewhere. See for example:
 
-XOS provides explicit support for multi-tenant services, making it
-possible to create, name, operationalize, manage and compose services
-as first-class operations. Well-known multi-tenant clouds are designed
-to host applications, but they usually treat these as single-tenant
-services that run on top of the cloud, for the benefit of the user. In
-contrast, XOS provides a framework for implementing multi-tenant
-services that become part of the cloud, thereby lowering the barrier
-for services to build on each other.
+[Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf).
+
+[XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf).
+
+The following gives a high-level description of XOS sufficient for
+reading the rest of this Guide.
 
 ##OS Perspective
 
@@ -140,7 +130,7 @@ Suit is used to automatically generate an admin GUI). Views are
 Javascript programs running on the user's browser, where xoslib is a
 client/server library that uses Backbone.js and Marionette.js over the
 HTTP-based REST API. The Controller Framework is a from-scratch
-program (called the Observer) for executing service controller
+program (called the Synchronizer) for executing service controller
 plug-ins. It leverages Ansible to handle low-level configuration with
 the back-end controllers.
 
@@ -149,9 +139,11 @@ part of an XOS deployment, and some made available by commodity
 providers. Today, these include OpenStack (Nova, Neutron, Keystone,
 Ceilometer, and Glance), EC2, HyperCache and RequestRouter
 (proprietary CDN services from Akamai), ONOS and OpenVirtex (a network
-operating system and network hypervisor, respectively), and Syndicate
-(a research storage service built on top of S3, Dropbox, HyperCache,
-and Google App Engine). We have also prototyped multi-tenant services
+operating system and network hypervisor, respectively), Syndicate (a
+research storage service built on top of S3, Dropbox, HyperCache, and
+Google App Engine), and CORD (a telco central office re-architected as
+a datacenter, which includes virtualized access services, including
+vOLT, vCPE, and vBNG). We have also prototyped multi-tenant services
 using several open source projects, including Cassandra, Kairos,
 Swift, and Nagios.
 
@@ -478,8 +470,8 @@ to be more specific, for service providers to declare that ``Service A
 is a tenant of Service B.'' We represent this relationship in the XOS
 Data Model as:
 
-* **Tenant:** A binding of a Tenant Service to a Provider Service,
-  parameterized as a combination of:
+* **Tenant:** A binding of a Tenant (either an User or a Service) to a
+  Provider Service, parameterized as a combination of:
 
   - **Connect:** Means by which the two services connect and exchange
     packets with each other. Options include: Public, Shared-Private,
