@@ -78,7 +78,7 @@ reach the XOS GUI on port 9999 on the *ctl* node.
 
 Assuming everything has worked, you should be able to create a slice and 
 launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
-at the first IP address shown in the *Slivers* view for the slice (typically on the
+at the first IP address shown in the *Instances* view for the slice (typically on the
 10.11.0.0/16 subnet).
 
 ###Richer Demo Example
@@ -154,7 +154,7 @@ views are similar to scripts -- small programs that leverage the
 underlying set of commands to create a new function for a particular
 purpose, where in XOS's case, the "underlying set of commands"
 corresponds to operations on XOS's data model. The data model includes
-both core objects (e.g., Users, Slices, Slivers, Roles, Sites,
+both core objects (e.g., Users, Slices, Instances, Roles, Sites,
 Deployments, Services) and objects that represent various services
 (e.g., Syndicate Volumes, HPC OriginServers, RequestRouter
 ServiceMaps). A given View can operate on any combination of these
@@ -420,7 +420,7 @@ django. These go in /opt/xos/core/xoslib/methods/
 How to do this is best demonstrated by taking a look at an
 example. SlicePlus is an object that was created to use with the
 developer view, and looks like a slice object but with some additional
-fields that tabulate the number of slivers and sites used by the
+fields that tabulate the number of instances and sites used by the
 slice, as well as the role of the current user. Take a look at
 sliceplus.py in the objects/ and methods/ directory and it should be
 relatively straightforward how this was done.
@@ -527,7 +527,7 @@ it is actually a modular system, consisting of an Observer Framework
 and a set of Observer Instances. Each Observer Instance is associated
 with some subset of the Data Model, and acts upon some subset of the
 imported service controllers. For example, there is an Observer
-Instance that activates User, Slice, Sliver, and Network objects by
+Instance that activates User, Slice, Instances, and Network objects by
 calling OpenStack controllers (Nova, Neutron, KeyStone); another that
 activates CDN-related objects by calling the HyperCache controller;
 yet another that activate file system volumes by calling the Syndicate
@@ -540,11 +540,11 @@ need to be set for the system to be operational. This configuration is
 organized as a graph of interconnected Object-Oriented Classes (called
 Models). The graph of the core models is illustrated below.
 
-In this graph, arrows indicate relations between models. The Sliver
+In this graph, arrows indicate relations between models. The Instance
 model is related to and depends on the Slice model. Concretely, it
-means that a Sliver (VM on a node) is associated with a Slice (name
+means that an Instance (VM on a node) is associated with a Slice (name
 for a global resource allocation), or even more specifically, that
-Sliver objects have a field of type Slice.  The core data model should
+Instance objects have a field of type Slice.  The core data model should
 satisfy the needs of most services, but if not, then it can be
 extended.
 
@@ -593,8 +593,8 @@ actions execute properly. As mentioned in the previous section, one of
 the properties is a dependency structure implied by the relationships
 between various models. Each Observer ensures that actions are
 executed in an order that is consistent with these dependencies. For
-example, since the Sliver model depends on the Slice model, the
-Observer guarantees that a Sliver is only added to the System if a
+example, since the Instance model depends on the Slice model, the
+Observer guarantees that an Instance is only added to the System if a
 corresponding Slice already exists.
 
 ### Developing an Observer
@@ -669,9 +669,9 @@ in the main Observer directory, and exports a documented interface.
 Here is an example of an Observer Step:
 
 ```
-    class SyncSliver(SyncStep):
-        provides=[Sliver]
-        observer=[Sliver]
+    class SyncInstance(SyncStep):
+        provides=[Instance]
+        observer=[Instance]
         requested_interval=3600
 
         def fetch_pending(self):
@@ -731,7 +731,7 @@ The fetch_pending function can use these bookkeeping variables to
 fetch the set of changed objects:
 
 ```
-        new_objects = Sliver.objects.filter(Q(enacted__lt=F('updated')) | Q(enacted=None))
+        new_objects = Instance.objects.filter(Q(enacted__lt=F('updated')) | Q(enacted=None))
 ```
 
 The line above is typical, and can be copied and pasted into most
@@ -750,21 +750,21 @@ they were last enacted (enacted <= updated).
 Once the set of changed objects have been computed, the Observer
 invokes the appropriate set of backend operations and populates the
 objects with links to the back end. This functionality is contained in
-the sync_record function.  For example, the SyncSlivers step of the
+the sync_record function.  For example, the SyncInstances step of the
 EC2 Observer creates EC2 instances in response to the addition of
-Slivers.
+Instances.
 
 ```
-instance_type = sliver.node.name.rsplit('.',1)
-instance_sig = aws_run('ec2 run-instances --image-id %s --instance-type %s --count 1'%(sliver.image.image_id, instance_type))
+instance_type = instance.node.name.rsplit('.',1)
+instance_sig = aws_run('ec2 run-instances --image-id %s --instance-type %s --count 1'%(instance.image.image_id, instance_type))
 ```
 
 And then it associates the ‘instance_id’ an identifier that uniquely
-identifies the instance in the data model, with the Sliver.
+identifies the instance in the data model, with the Instance.
 
 ```
-    sliver.instance_id = instance_sig['Instances'][0]['InstanceId']
-    sliver.save()
+    instance.instance_id = instance_sig['Instances'][0]['InstanceId']
+    instance.save()
 ```
 
 It is essential that models in the Data Model be linked with actual
@@ -803,7 +803,7 @@ object that have been added or updated since the last execution of the
 step. When there are no such objects, the step is a no-op and simply
 yields execution back to the Observer, so that the next Step can run.
 
-The SyncSliver step illustrated in the previous section is an example
+The SyncInstance step illustrated in the previous section is an example
 of an Internal step.
 
 Whenever possible, implement Steps as Internal steps.
@@ -876,7 +876,7 @@ simply marked as deleted. The fetch_pending method in that case
 fetches the set of such deleted objects and passes it on, instead of
 sync_record, to a method called delete_record. It is the task of
 delete_record to pass the deletion of the record on to the back
-end. For example, if a Sliver is deleted, then the method should
+end. For example, if an Instance is deleted, then the method should
 delete and clean up the corresponding VM, along with recovering any
 other resources, such as volumes associated with that VM. If this
 method returns successfully, then XOS automatically takes care of
@@ -1045,7 +1045,7 @@ in Django.
 
 | FieldType          | When to Use it     |
 |--------------------|--------------------|
-| ForeignKeyField    | Used to represent a 1-to-Many relationship. For example: Sliver's may have 1 and only 1 Node; Node's may have 0 or more Slivers. Can also be used to represent recursive relationships for the same object types by providing "self" as the relationship (first position) parameter.|
+| ForeignKeyField    | Used to represent a 1-to-Many relationship. For example: Instance's may have 1 and only 1 Node; Node's may have 0 or more Instances. Can also be used to represent recursive relationships for the same object types by providing "self" as the relationship (first position) parameter.|
 | ManyToManyField    | Used to represent an N-to-N relationship. For example: Deployments may have 0 or more Sites; Sites may have 0 or more Deployments.|
 | OneToOneField      | Not currently in use, but would be useful for applications that wanted to augment a core class with their own additional settings. This has the same affect as a ForeignKey with unique=True.  The difference is that the reverse side of the relationship will always be 1 object (not a list).|
 | GenericForeignKey | Not currently in use, but can be used to specify a non specific relation to "another object." Meaning object A relates to any other object. This relationship requires a reverse attribute in the "other" object to see the relationship -- but would primarily be accessed through the GenericForeignKey owner Model. For example, https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1. The nuances of these relationships is brought about by the additional optional attributes that can be ascribed to each Field.|

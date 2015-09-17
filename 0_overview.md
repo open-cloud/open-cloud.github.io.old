@@ -218,12 +218,12 @@ objects.
   - **Tech:** Read/write access to a Site's Nodes.
 
 * **SlicePrivilege:** The binding of a User to a Role in the scope
-  of a particular Slice, which implies the Role applies to all Slivers
+  of a particular Slice, which implies the Role applies to all Instances
   and Networks associated with the Slice. Slice-level roles include:
 
   - **Admin:** Read/write access to all Slice-specific objects.
 
-  - **Access:** Allowed to access Slivers instantiated as part of the
+  - **Access:** Allowed to access Instances instantiated as part of the
     slice.
 
 * **Deployment Privileges:** The binding of a User to a Role in the
@@ -247,8 +247,8 @@ Site's Nodes).
 
 Site Admins and PIs grant Admin privileges to select Users affiliated
 with the Site's Slices. These Users, in turn, add additional Users to
-the Slice and instantiate the Slice's Sliver's and Networks. All Users
-affiliated with a Slice may access (ssh into) the Slice's Slivers.
+the Slice and instantiate the Slice's Instances's and Networks. All Users
+affiliated with a Slice may access (ssh into) the Slice's Instances.
 
 Deployment Admins manage Deployments, including defining their
 operating parameters, specifying what Sites may contribute Nodes to
@@ -337,7 +337,7 @@ binds each of the Site's Nodes to one of the available Deployments.
 Each Deployment-level Admin sets the policy and configuration
 parameters for the Deployment, decides what Sites are allowed to host
 Nodes in that Deployment, and decides what Sites are allowed to
-instantiate Slivers and Networks on the Deployment's resources.
+instantiate Instances and Networks on the Deployment's resources.
 
 ###Policies and Configurations
 
@@ -389,25 +389,25 @@ managed as follows:
   - Bound to a set of Users that manage and use the Slice's
     resources.
 
-  - Bound to a (possibly empty) set of Slivers that instantiate the
+  - Bound to a (possibly empty) set of Instances that instantiate the
     Slice.
 
-  - Bound to a set of Networks that connect the Slice's Slivers.
+  - Bound to a set of Networks that connect the Slice's Instances.
 
-  - Bound to a Flavor that defines how the Slice's Slivers are
+  - Bound to a Flavor that defines how the Slice's Instances are
     scheduled.
 
-  - Bound to an Image that boots in each of the Slice's Slivers.
+  - Bound to an Image that boots in each of the Slice's Instances.
 
   - Optionally bound to a Service that defines the Slice's interface.
 
-* **Sliver:** A single instance (VM) associated with a Slice. Each
-  Sliver is instantiated on some physical Node.
+* **Instance:** A single instance (VM) associated with a Slice. Each
+  Instance is instantiated on some physical Node.
 
 * **Network:** A virtual network associated with a Slice. Each Network
  also specifies a (possibly empty) set of other Slices that may join
  it, has an IP AddrSpace (CIDR block and port range) by which all
- Slivers are addressed, is designated at Public or Private depending
+ Instances are addressed, is designated at Public or Private depending
  on whether its addresses are publicly routable, has a
  NetworkParameter that parameterizes the selected NetworkTemplate.
 
@@ -423,25 +423,25 @@ managed as follows:
 Operationally, once an Admin or PI at a Site has created a Slice and
 assigned an initial set of Users (with Admin privilege) to that Slice,
 those Users instantiate the Slice on the underlying infrastructure by
-creating a set of Slivers and a set of Networks. Optionally, a Slice
+creating a set of Instances and a set of Networks. Optionally, a Slice
 may join Networks created (owned) by other Slices. Note that the set
-of Slivers and Networks instantiated for a Slice may span multiple
+of Instances and Networks instantiated for a Slice may span multiple
 Deployments, but this fact is not necessarily visible to the User.
 
 The workflow for instantiating a Slice on the physical infrastructure
 is typically iterative and incremental. A User associated with the
 Slice might first query the system to learn about the set of Sites and
-Nodes and create a set of Slivers accordingly. Next, the User might
-create one or more Networks that logically connect those Slivers. 
-Slivers can be added to and removed from a Slice over time, with the
+Nodes and create a set of Instances accordingly. Next, the User might
+create one or more Networks that logically connect those Instances. 
+Instances can be added to and removed from a Slice over time, with the
 corresponding Networks adjusted to account for those changes.
 
-XOS maintains the invariant that all Slivers belonging to the Slice
+XOS maintains the invariant that all Instances belonging to the Slice
 are attached to all Networks associated with the Slice, with the
 convention that every Network appears as an interface (in the sense of
-an Unix interface, for example, eth1) within each Sliver.
+an Unix interface, for example, eth1) within each Instance.
 
-There is intended asymmetry in the definition of a Slice. All Slivers
+There is intended asymmetry in the definition of a Slice. All Instances
 bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).

@@ -435,7 +435,7 @@ know if something is not working as expected.
 
 ##Troubleshooting
 
-**Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nova-compute instances as *down*. Additionally, XOS may display "timed out while waiting for node" in the backend_status field of the affected slivers.
+**Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nova-compute instances as *down*. Additionally, XOS may display "timed out while waiting for node" in the backend_status field of the affected instances.
 
 **Fix:** It seems that RabbitMQ is usually the culprit.  Follow these steps:
 
@@ -447,9 +447,9 @@ know if something is not working as expected.
 
 **Fix:** See *Can't create VMs on the nodes.*. It's the same rabbitmq problem, and the errors are coming from the nova-api-metadata service. 
 
-**Symptom:** When SSHing to a Sliver, "This is nc from the netcat-openbsd package" is printed along with the netcat syntax.
+**Symptom:** When SSHing to an Instance, "This is nc from the netcat-openbsd package" is printed along with the netcat syntax.
 
-**Fix:** You may be trying to SSH to the NAT interface of a Sliver that's configured with a public IP instead of NAT.
+**Fix:** You may be trying to SSH to the NAT interface of an Instance that's configured with a public IP instead of NAT.
 
 * SSH to the Public IP Address instead. 
 

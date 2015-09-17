@@ -42,14 +42,14 @@ to utilizing OpenCloud resources:
      be able to extend slice privileges to other users.)  
    - Click the *Save* button when done.
 
-3. **Create slivers.** Use either the [Tenant](#tenant-view) or the
+3. **Create instances.** Use either the [Tenant](#tenant-view) or the
    [Developer](#developer-view) View (see next section) to instantiate
-   slivers (VMs) for your slice.
+   instances (VMs) for your slice.
 
-4. **Log into slivers.** Once a sliver comes up, you will be able to
+4. **Log into instances.** Once an instance comes up, you will be able to
    learn its *instance ID*. You can then ssh into the instance using
    this ID and the physical node it is running on. See
-   [Accessing a Sliver](#access-sliver) for more information.
+   [Accessing a Instance](#access-instance) for more information.
 
 ##<a name="user-views">User Views</a>
 
@@ -80,19 +80,19 @@ in the [Operator's Guide](../3_operator).
 
 ###<a name="tenant-view">Tenant View</a>
 
-The Tenant view provides a simple means to acquire Slivers, with
-minimal control over the low-level details of where those Slivers are
+The Tenant view provides a simple means to acquire Instances, with
+minimal control over the low-level details of where those Instances are
 placed and what networks interconnect them. It is loosely patterned
 after the Amazon EC2 interface.
 
 The Tenant view is limited to the ViCCI Deployment, which includes
 clusters at five sites throughout the US and Europe. Users that want
-to acquire Slivers on any other deployment must use the Developer
+to acquire Instances on any other deployment must use the Developer
 view.
 
-The Tenant view allows users to specify the number of slivers that are
+The Tenant view allows users to specify the number of instances that are
 to be instantiated on the available sites, select an *Image* and
-*Flavor* for each sliver, mount select *Data Set(s)* into each sliver,
+*Flavor* for each instance, mount select *Data Set(s)* into each instance,
 and specify the *TCP Ports* the slice is going to use. Users can also
 set the *ServiceClass* for the slice, although *Best Effort* is
 currently the only supported class.
@@ -100,8 +100,8 @@ currently the only supported class.
 In the Tenant View, click on the *SSH Commands* button to see SSH
 commands that can be cut-and-pasted into the terminal for logging into
 your instances; click the *Download* button to save them as a local
-text file.  [Accessing a Sliver](#access-sliver) explains other 
-ways to configure SSH access for a slice's slivers.
+text file.  [Accessing an Instance](#access-instance) explains other 
+ways to configure SSH access for a slice's instances.
 
 Note that slices intially created through the Tenant view may also be
 managed through the Developer view. The reverse is true as long as the
@@ -110,20 +110,20 @@ slice is instantiated only on the ViCCI deployment.
 ###<a name="developer-view">Developer View</a>
 
 The Developer view gives users full control over how their slices are
-instantiated, including sliver placement, network configuration, and
+instantiated, including instance placement, network configuration, and
 the privileges granted to other users:
 
-* **Slivers:** Select the *Slivers* tab at the top to manage the
-  slivers bound to the slice. From the resulting page, select a target
+* **Instances:** Select the *Instances* tab at the top to manage the
+  instances bound to the slice. From the resulting page, select a target
   *Deployment*, and then pick an individual *Node* at that deployment. 
   Users are also able to select an *Image* and a *Flavor* on either a
-  per-sliver or a per-slice basis. All deployments that the user is
-  permitted to access are visible when instantiating slivers.
+  per-instance or a per-slice basis. All deployments that the user is
+  permitted to access are visible when instantiating instances.
 
 * **Networks:** Select the *Networks* tab at the top to manage the
   networks connected to the slice. Each slice is automatically
   configured with two virtual networks (one public and one private),
-  but the user has the option of connecting the slice's slivers to
+  but the user has the option of connecting the slice's instances to
   additional virtual networks. (Creating additional networks and
   connecting a slice to them is currently an undocumented feature.)
 
@@ -132,7 +132,7 @@ the privileges granted to other users:
   privilege means giving them the authority to modify slice
   parameters. Granting a user *Default* privilege means the giving
   them access to the slice itself, that is, the right to ssh into the
-  slice's slivers.
+  slice's instances.
 
 ###xsh View
 
@@ -141,14 +141,14 @@ access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
-##<a name="access-sliver">Accessing a Sliver</a>
+##<a name="access-instance">Accessing an Instance</a>
 
-Slivers connect to the network via NAT; logging into the sliver relies
+Instances connect to the network via NAT; logging into the instance relies
 on SSH proxying to forward incoming SSH connections. In the Tenant View, 
 click on the *SSH Commands* button to see SSH
 commands that can be cut-and-pasted into the terminal for logging into
 your instances. In the Developer
-View, the instance Id and node name are displayed in the Sliver frame.
+View, the instance Id and node name are displayed in the Instance frame.
 You can use this information to add lines to your ~/.ssh/config file 
 similar to the following:
 
@@ -160,10 +160,10 @@ Host foobar
 ```
 
 In the above, replace "foobar" with a label of your choice for this
-sliver.  *User* is the default login user for the image.
+instance.  *User* is the default login user for the image.
 *IdentitiyFile* should point to the key that you've uploaded to
 OpenCloud.  *ProxyCommand* should point to the instance ID and node
-for the sliver. Once an entry is present for the sliver in
+for the instance. Once an entry is present for the instance in
 ~/.ssh/config, you can login using the label:
 
 ```
@@ -171,12 +171,12 @@ for the sliver. Once an entry is present for the sliver in
 ```
 
 Other utilities like scp also work as expected when referencing
-the sliver using the label.
+the instance using the label.
 
 A current limitation is that only one user key is injected into the
 slice. Because SSH is indirect through the *ProxyCommand*, it is not
 sufficient to manually add additional keys for other users to an 
-account inside the sliver; for the time being, an administrator will 
+account inside the instance; for the time being, an administrator will 
 need to add the additional keys to the proxy environment as well.
 
 In addition to SSH connectivity via NAT, there are two other
@@ -184,11 +184,11 @@ network-related issues of note. First, to run an Internet-accessible
 service in a slice, it is necessary to reserve a TCP or UDP port.
 This is done using the *Network Ports* field in the Tenant View. The
 service can then be accessed at this port on the hosting server (e.g.,
-*node5.cs.arizona.edu* in the above example). Second, all the slivers
+*node5.cs.arizona.edu* in the above example). Second, all the instances
 at a given site are automatically connected by a private network. Run
-*ifconfig* from within a sliver to learn the sliver's private address
+*ifconfig* from within an instance to learn the instance's private address
 (i.e., the *10.x.x.x* address associated with *eth0*). This private
-virtual network is per-site. Slivers in different sites must use an
+virtual network is per-site. Instances in different sites must use an
 Internet-accessible address to communicate (i.e., using a reserved
 port and hosting server name as described above).
 
@@ -202,7 +202,7 @@ desired user. The available user details are as follows:
 * **Login Details:** Select the *Login Details* tab to set parameters
   of the user's account. These include the user's *Email Address*
   (which uniquely identifies the user), home *Site*, *Password*, and
-  *Public Key* (which is used to ssh into any slivers created on the
+  *Public Key* (which is used to ssh into any instances created on the
   user's behalf). Click the The *Is Active* button to enable the
   account.
 
@@ -267,8 +267,8 @@ desired deployment. The available deployment details are as follows:
   policy for what users are and are not allowed to access the
   deployment's resources. A given user sees only those deployments
   that have granted access when they attempt to instantiate
-  slivers. The current policy language is simple: *allow all*
-  indicates that all users may instantiate slivers on the deployment,
+  intances. The current policy language is simple: *allow all*
+  indicates that all users may instantiate instances on the deployment,
   *allow site &lt;sitename&gt;* grants access to all users from a
   particular site, and *allow user &lt;email&gt;* grants access to a
   specic user.  Deny rules may also be used (*deny site
@@ -347,7 +347,7 @@ describing how to prototype a new service.
 ###Syndicate
 
 Syndicate is a scalable storage service. It provides a private shared
-volume that both slivers and users can locally mount as a read/write
+volume that both instances and users can locally mount as a read/write
 filesystem. Syndicate also offers public read-only volumes that
 contain popular scientific datasets. Slices can specify that they want
 to mount one of these datasets (public volumes).
@@ -357,7 +357,7 @@ built into the Tenant view, meaning users need not directly access
 Syndicate through the corresponding tab in the left-hand navigation
 bar. When accessed in this way, the user will see the slice's private
 volume mounted under */syndicate* when they log into each of their
-slivers.
+instances.
 
 Selecting the *Syndicate* tab in the left-hand navigation bar and then
 clicking on the *Volumes* menu option allows users to control specific
@@ -379,28 +379,28 @@ user must start from the Volumes menu).
 
 4. Fill in the volume parameters, as follows:
     - **Slice**: The slice to receive the volume.
-    - **Cap read data**: Check this box if a sliver should be
+    - **Cap read data**: Check this box if an instance should be
       permitted to read volume data.  If unsure, check this box.
-    - **Cap write data**: Check this box if a sliver should be
+    - **Cap write data**: Check this box if a instance should be
       permitted to write volume data.  If unsure, do not check
       this box.
-    - **Cap host data**: Check this box if a sliver should be 
+    - **Cap host data**: Check this box if an instance should be 
       permitted to host data for the volume. Only check this 
-      box if you can rely on the slivers to work with Syndicate
+      box if you can rely on the instances to work with Syndicate
       to keep the volume data consistent and available.  If 
       unsure, do not check this box.
     - **UG port**: This is a port number, between 1024 and 65534,
-      on which each sliver's Syndicate User Gateway will listen.
+      on which each instance's Syndicate User Gateway will listen.
       It does not matter what number the user chooses; it only 
-      matters that it is available on each sliver in the slice.
+      matters that it is available on each instance in the slice.
     - **RG port**: This is a port number, between 1024 and 65534,
-      on which each sliver's Syndicate Replica Gateway will listen.
+      on which each instance's Syndicate Replica Gateway will listen.
       It does not matter which number the user chooses; it only 
-      matters that it is available on each sliver in the slice.
+      matters that it is available on each instance in the slice.
 5. Click *Save*.
 
 Once these steps are carried out, Syndicate ensures that the new
-volume is automatically mounted under */syndicate/* in each sliver.
+volume is automatically mounted under */syndicate/* in each instance.
 
 ####Creating and Updating Volumes
 
@@ -423,9 +423,9 @@ such that a Syndicate Acquisition Gateway (AG) can populate it
 with dataset metadata.  Do not check this box unless you know 
 what you are doing.
 
-* **Cap host data**:  If set, this means that by default, a sliver can 
+* **Cap host data**:  If set, this means that by default, an instance can 
 help Syndicate replicate data and coordinate writes to it.  This 
-implies a larger degree of trust in the sliver.  If your slivers 
+implies a larger degree of trust in the instance.  If your instances 
 will do most of the I/O in your volume, you should check this box.
 If you or other machines outside of OpenCloud will do most of the I/O,
 you should *not* check this box.
@@ -434,7 +434,7 @@ you should *not* check this box.
 
 Users can authorize other users to access their volumes. This is not
 limited to within OpenCloud. If Alice permits Bob to access her
-volume, then Bob can do so from his OpenCloud slivers or from his
+volume, then Bob can do so from his OpenCloud instances or from his
 personal machines. (Likewise, Alice can share her OpenCloud volume
 with her own off-OpenCloud machines.)  OpenCloud access to a Users can
 control the capabilities other users will have: read access (*Cap read
