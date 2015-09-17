@@ -44,9 +44,9 @@ subsequent deployment configurations (see below).]*
 ##Deployment Configurations (Sept - Nov 2015)
 
 XOS is a framework that is deployed on different hardware
-configurations and populated with different service portfolios.  
-We expect the following deployment configurations to be based on 
-the Burwell release.
+configurations and populated with different service portfolios. We
+expect the following deployment configurations to be based on the
+Burwell release.
 
 1. Development. Minimal configuration used for development, with
 backend cloud resources provided by CloudLab. Corresponds to the
