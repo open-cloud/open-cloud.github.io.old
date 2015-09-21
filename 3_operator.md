@@ -440,8 +440,22 @@ know if something is not working as expected.
 **Fix:** It seems that RabbitMQ is usually the culprit.  Follow these steps:
 
 * Restart the rabbitmq-server VM.  Wait for it to come back up.
+
+``` 
+$ ssh ubuntu@rabbitmq-server "sudo shutdown -r now"
+```
+
 * Restart the nova-api-metadata service in the quantum-gateway VM.
+
+```
+$ ssh ubuntu@quantum-gateway "sudo service nova-api-metadata restart"
+```
+
 * Restart the nova-compute service on all the compute nodes. 
+
+```
+$ ssh ubuntu@<compute-node> "sudo service nova-compute restart"
+```
 
 **Symptom:** Metadata service is slow and returns *500 Internal Server Error*
 
