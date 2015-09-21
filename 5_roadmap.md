@@ -50,16 +50,21 @@ configurations and populated with different service portfolios. We
 expect the following deployment configurations to be based on the
 Burwell release.
 
-1. Development. Minimal configuration used for development, with
-backend cloud resources provided by CloudLab. Corresponds to the
-environment described in [Developer Guide](../2_developer). Available
-with the Burwell release.
+1. Development: A minimal configuration used for development, with backend
+cloud resources provided by CloudLab. Corresponds to the environment
+described in [Developer Guide](../2_developer). Available with the
+Burwell release.
 
-2. OpenCloud. Deployed across multiple Internet2 sites. Service
-portfolio includes OpenStack, EC2, ONOS, Ceilometer, Syndicate, and
-vCDN. Available in October 2015.
+2. OpenCloud: Deployed across multiple Internet2 sites. Service
+portfolio includes OpenStack, EC2, Syndicate, and vCDN. Available with
+the Burwell release. (Extended to include Ceilometer in October and
+ONOS in November.)
 
-3. CORD POD: Deployed on CORD PODs with OLT hardware support. Service
-portfolio includes OpenStack, ONOS, Ceilometer, vCDN, vOLT, vSG
-(formerly vCPE), and vRouter (formerly vBNG). Avaiable in November
-2015.
+3. CORD Development: A configuration used for CORD development. 
+Includes vCPE and Ceilometer, but no virtualized access devices. 
+Leverages CloudLab servers rather than actual POD hardware. 
+Avaiable in October 2015.
+
+4. CORD POD: A configuration to be deployed on a CORD POD with OLT
+hardware support. Service portfolio includes OpenStack, ONOS,
+Ceilometer, vCDN, vOLT, vCPE, and vBNG. Avaiable in November 2015.
