@@ -26,18 +26,16 @@ and includes only the HelloWorld service.
 The general approach -- which is followed to create new configurations
 -- is to start with a baseline Dockerfile for XOS.  Currently, the
 Dockerfile just copies whatever is in the local XOS tree into the
-container.  So we make a baseline "Burwell" container by checkout out
-the Burwell tag from GitHub and doing
+container. So making a baseline container corresponds to:
 
 ```
 $ docker build -t xos .
 ```
 
-The baseline container brings up vanilla XOS. The next step is to
-install and configure additional software in the container. This is
-done by modifying the Dockerfile. For use cases that require
-additional software running in the container, we create a new
-Dockerfile that uses the vanilla XOS image as a starting point.
+The next step is to install and configure additional software in the
+container. This is done by modifying the Dockerfile. For use cases
+that require additional software running in the container, we create a
+new Dockerfile that uses the vanilla XOS image as a starting point.
 
 The final step is to modify the XOS data model, for example, to
 include additional services, slices, deployments, and so on. This is
