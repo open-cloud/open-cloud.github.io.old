@@ -3,6 +3,31 @@ layout: page
 title: Release Notes
 ---
 
+###Burwell / 1-Oct-2015.
+
+1. Improved configuration management, as documented in [Configuration
+   Management](../2_developer/#config-mgmt) section of the Developer's
+   Guide. Includes removing deployment dependencies from the code base
+   to better support multiple deployments (e.g., CORD, OpenCloud) from
+   a common release; the use Docker to configure the development
+   environment; and the use TOSCA to specifying the service
+   configuration.
+
+2. Codified the tenancy model, as documented in the [Services and
+   Tenancy](../0_overview.md/#service-tenancy) section of the
+   Architecture Guide.
+
+3. Reconciled with OpenStack by eliminating gratuitous differences,
+   instances and network ports.
+
+4. Upgraded to OpenStack Kilo. Support for Kilo's domain feature
+   is not yet available.
+
+5. Replace Observer framework Synchronizer framework, as described in
+   the [Adding Services to XOS](../2_developer/#adding-services)
+   section of the Developer's Guide. Support is included for
+   inter-Synchronizer coordination, but with limitations.
+
 ###Axtell / 1-May-2015.
 
 1. Two Networks are automatically created and assigned to every

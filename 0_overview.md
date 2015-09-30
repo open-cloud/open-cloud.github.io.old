@@ -438,7 +438,7 @@ bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).
 
-###Services and Tenancy
+###<a name="services-tenacy">Services and Tenancy</a>
 
 XOS goes beyond Slices to define a model for the service running
 within a Slice:

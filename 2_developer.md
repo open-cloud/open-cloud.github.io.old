@@ -19,14 +19,14 @@ alternative XOS installation.
 The XOS distribution includes a collection of configurations, each of
 which implies three main parameters: (1) the XOS release, (2) the
 target hardware, and (3) the service portfolio. For example, the
-Development Configuration described below uses the latest stable
-release (Burwell), runs on [CloudLab](https://www.cloudlab.us/),
-and includes only the HelloWorld service.
+*Devel Config* described below uses the latest stable release
+(Burwell), runs on [CloudLab](https://www.cloudlab.us/), and includes
+only the HelloWorld service.
 
 The general approach -- which is followed to create new configurations
 -- is to start with a baseline Dockerfile for XOS.  Currently, the
 Dockerfile just copies whatever is in the local XOS tree into the
-container. So making a baseline container corresponds to:
+container, so making a baseline container corresponds to:
 
 ```
 $ docker build -t xos .
@@ -34,14 +34,13 @@ $ docker build -t xos .
 
 The next step is to install and configure additional software in the
 container. This is done by modifying the Dockerfile. For use cases
-that require additional software running in the container, we create a
+that require additional software running in the container, create a
 new Dockerfile that uses the vanilla XOS image as a starting point.
 
 The final step is to modify the XOS data model, for example, to
 include additional services, slices, deployments, and so on. This is
-done by executing one or more TOSCA files that specify the model
-to be imported into XOS at boot time. More information on TOSCA
-can be found elsewhere.
+done by executing one or more TOSCA files that specify the model to be
+imported into XOS. More information on TOSCA can be found elsewhere.
 
 The rest of this section describes four stock configuations that
 are provided with the release.
