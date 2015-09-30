@@ -14,7 +14,41 @@ the XOS server process is started in directory
 /opt/xos/scripts/opencloud. Substitute local specifics for an
 alternative XOS installation.
 
-##<a name="devel-env">Development Environment</a>
+##<a name="config-mgmt">Configuration Management</a>
+
+The XOS distribution includes a collection of configurations, each of
+which implies three main parameters: (1) the XOS release, (2) the
+target hardware, and (3) the service portfolio. For example, the
+Development Configuration described below uses the latest stable
+release (Burwell), runs on [CloudLab](https://www.cloudlab.us/),
+and includes only the HelloWorld service.
+
+The general approach -- which is followed to create new configurations
+-- is to start with a baseline Dockerfile for XOS.  Currently, the
+Dockerfile just copies whatever is in the local XOS tree into the
+container.  So we make a baseline "Burwell" container by checkout out
+the Burwell tag from GitHub and doing
+
+```
+$ docker build -t xos .
+```
+
+The baseline container brings up vanilla XOS. The next step is to
+install and configure additional software in the container. This is
+done by modifying the Dockerfile. For use cases that require
+additional software running in the container, we create a new
+Dockerfile that uses the vanilla XOS image as a starting point.
+
+The final step is to modify the XOS data model, for example, to
+include additional services, slices, deployments, and so on. This is
+done by executing one or more TOSCA files that specify the model
+to be imported into XOS at boot time. More information on TOSCA
+can be found elsewhere.
+
+The rest of this section describes four stock configuations that
+are provided with the release.
+
+###<a name="devel">Devel Config</a>
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
@@ -54,7 +88,7 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-###Minimal OpenStack Cluster on CloudLab
+####Minimal OpenStack Cluster on CloudLab
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
@@ -81,25 +115,20 @@ launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
 at the first IP address shown in the *Instances* view for the slice (typically on the
 10.11.0.0/16 subnet).
 
-###Richer Demo Example
+###Test Config
 
-The default *initial_data.json* is minimal. To obtain a version that
-contains an interesting set of Nodes and Slices (e.g., for demo
-purpoes), a dump of the live OpenCloud deployment can be made logging
-into *portal.opencloud.us* and running:
+The test configuration brings XOS up on CloudLab and runs it through 
+a set of regression tests. All code that is to be checked into the
+master branch on github should first successfully pass all the test
+cases in this configuration.
 
-```
-$ sudo /opt/xos/scripts/opencloud dumpdata
-```
+###Bash Config
 
-Replace the *initial_data.json* file with the *dumpdata* file you
-just produced.
+Coming soon...
 
-##Test Environment
+###Frontend-Only Config
 
-We have built an end-to-end testing environment that includes a
-virtual backend OpenStack cluster running in EC2... *[describe how to
-do this]*
+Coming soon...
 
 ##REST API
 
