@@ -159,9 +159,12 @@ The XOS UI will not be running, but it can be started by typing
 
 The Frontend-Only configuration is aimed at developers who are working on
 the XOS Frontend, but do not need a functional synchronizer. As such, it does
-not require cloudlab or any active OpenStack deployment. While the UI is
+not require Cloudlab or any active OpenStack deployment. While the UI is
 functional, this configuration necessarily imposes the limitation that Instances
 will not be instantiated. 
+
+Additionally, as the synchronizer is not running, model_policies will not
+be executed. 
 
 ###OpenCloud Config
 
@@ -199,10 +202,11 @@ restart: uwsgi --reload /var/run/uwsgi/uwsgi.pid
 
 ###Debugging configurations
 
-There are two different configurations -- terminal interactive configurations and 
+There are two different kinds of configurations -- terminal interactive configurations and 
 background configurations. Terminal interactive configurations print output to 
 stdout and accept input from stdin. Examples of these configurations are the 
-Test and Bash configurations. 
+Test and Bash configurations. Debugging these are relatively easy, as one may
+directly observe the output of the container. 
 
 Background configurations do not produce output once launched. Examples of these
 configurations include the Devel and Frontend configurations. The Makefiles for
