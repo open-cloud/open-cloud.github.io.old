@@ -23,19 +23,28 @@ target hardware, and (3) the service portfolio. For example, the
 (Burwell), runs on [CloudLab](https://www.cloudlab.us/), and includes
 only the HelloWorld service.
 
-The general approach -- which is followed to create new configurations
--- is to start with a baseline Dockerfile for XOS.  Currently, the
-Dockerfile just copies whatever is in the local XOS tree into the
-container, so making a baseline container corresponds to:
+Configurations are organized in the directory xos/configurations within
+the XOS git repository. Each configuration is stored in a single subdirectory. 
+For example, the devel configuration can be found in xos/configurations/devel. 
+Each configuration consists at minimum of a Makefile and a Dockerfile. Optionally,
+there may also be TOSCA definitions that are used to internally configure XOS
+to bring up services and other files. A second Makefile, Makefile.inside, is
+commonly used to execute actions that need to occur after the container
+has been started. 
 
-```
-$ docker build -t xos .
-```
+The directory xos/configurations/common contains files that are useful to
+multiple configurations. Dockerfile.common contains a baseline Dockerfile
+that should be suitable for most XOS installations. By convention, common Dockerfile actions are
+abstracted to xos/configurations/common/Dockerfile.common, and only Dockerfile
+actions unique to a particular configuration need be specified in the individual
+configuration's Dockerfile. 
 
-The next step is to install and configure additional software in the
-container. This is done by modifying the Dockerfile. For use cases
-that require additional software running in the container, create a
-new Dockerfile that uses the vanilla XOS image as a starting point.
+To create a new configuration, first make a new subdirectory off of
+xos/configurations. Then create Dockerfile.<configname> and include
+any Docker actions unique to that configuration. Use one of the other
+Makefiles as a template (xos/configurations/devel/Makefile is generally
+a good starting point) and modify it as appropriate to create the
+Configuration's Makefile. 
 
 The final step is to modify the XOS data model, for example, to
 include additional services, slices, deployments, and so on. This is
