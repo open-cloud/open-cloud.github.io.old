@@ -40,21 +40,21 @@ actions unique to a particular configuration need be specified in the individual
 configuration's Dockerfile. 
 
 To create a new configuration, first make a new subdirectory off of
-xos/configurations. Then create Dockerfile.<configname> and include
+xos/configurations. Then create Dockerfile.configname and include
 any Docker actions unique to that configuration. Use one of the other
 Makefiles as a template (xos/configurations/devel/Makefile is generally
 a good starting point) and modify it as appropriate to create the
 Configuration's Makefile. 
 
-The final step is to modify the XOS data model, for example, to
+The final step is to optionally modify the XOS data model, for example, to
 include additional services, slices, deployments, and so on. This is
 done by executing one or more TOSCA files that specify the model to be
 imported into XOS. More information on TOSCA can be found elsewhere.
 
-Finally, we suggest placing a README file with each configuration that
+We suggest placing a README file with each configuration that
 documents the purpose of the configurations and any assumptions or
 requirements (such as the whether the configuration must be run 
-from inside cloudlab, etc). 
+from within cloudlab, etc). 
 
 The rest of this section describes four stock configuations that are
 provided with the release. It also includes a description of the
@@ -100,7 +100,7 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-####Minimal OpenStack Cluster on CloudLab
+####Minimal OpenStack Cluster on CloudLab using the Devel Configuration
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
@@ -196,6 +196,32 @@ start: cd /opt/xos; uwsgi --start-unsubscribed /opt/xos/uwsgi/xos.ini
 stop: uwsgi --stop /var/run/uwsgi/uwsgi.pid
 restart: uwsgi --reload /var/run/uwsgi/uwsgi.pid
 ```
+
+###Debugging configurations
+
+There are two different configurations -- terminal interactive configurations and 
+background configurations. Terminal interactive configurations print output to 
+stdout and accept input from stdin. Examples of these configurations are the 
+Test and Bash configurations. 
+
+Background configurations do not produce output once launched. Examples of these
+configurations include the Devel and Frontend configurations. The Makefiles for
+these configurations typically include a step that waits for the XOS UI to become
+reachable, as it may take up to 30 seconds for it to do so. After XOS is reachable,
+a background configuration's Makefile returns to the command line, and the container
+continues to execute. 
+
+Because of the nature of background configurations, failures are not necessarily 
+readily apparent. Docker includes a 'log' feature that may be used to display the
+stdout and stderr of a background container. This feature is exercised by first
+looking up the container's ID (with "docker ps" if the container is still executing,
+or "docker ps -a" if the container has exited). Then use that ID to execute "docker logs ID". 
+Several of the configurations include a Makefile target "make showlogs" that automatically
+executes these steps.
+
+Additionally, it may be necessary for a developer to sometimes attach a shell to
+a running background container to interact with it. This may be done first looking up the
+container ID, and then executing "docker exec -t -i ID bash".
 
 ##REST API
 
