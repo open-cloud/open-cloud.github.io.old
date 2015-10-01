@@ -51,6 +51,11 @@ include additional services, slices, deployments, and so on. This is
 done by executing one or more TOSCA files that specify the model to be
 imported into XOS. More information on TOSCA can be found elsewhere.
 
+Finally, we suggest placing a README file with each configuration that
+documents the purpose of the configurations and any assumptions or
+requirements (such as the whether the configuration must be run 
+from inside cloudlab, etc). 
+
 The rest of this section describes four stock configuations that are
 provided with the release. It also includes a description of the
 configuration we use for OpenCloud, a production system.
@@ -109,11 +114,11 @@ We recommend that, under "Advanced Parameters" in the profile, you choose to "Di
 
 ```
 $ git clone https://github.com/open-cloud/xos.git
-$ cd xos
-$ ./cloudlab-init.sh
+$ cd xos/xos/configurations/devel
+$ make
 ```
 
-This script will build the XOS Docker image, run it in a container, 
+The Makefile will build the XOS Docker image, run it in a container, 
 and configure XOS to talk to the OpenStack cluster on CloudLab.  You can 
 reach the XOS GUI on port 9999 on the *ctl* node.
 
@@ -127,15 +132,36 @@ at the first IP address shown in the *Instances* view for the slice (typically o
 The test configuration brings XOS up on CloudLab and runs it through 
 a set of regression tests. All code that is to be checked into the
 master branch on github should first successfully pass all the test
-cases in this configuration.
+cases in this configuration. After the test suite is completed, the
+container will automatically exit. 
+
+Generally the test suite executes in two phases. The first phase are
+simple data model regression tests driven by XOS's TOSCA engine. These
+test case create models with various sets of arguments, and ensure that
+the XOS data model is behaving properly.
+
+The second phase are synchronizer-exercising tests. These test cases create
+an object in the data model, and then run multiple passes of the XOS 
+synchronizer to instantiate the object using OpenStack. 
 
 ###Bash Config
 
-Coming soon...
+The Bash configuration may be found in xos/configurations/bash. It's purpose
+is to serve as an interactive environment for development, with a shell-based
+interface. After the Makefile has finished executing, the user will be 
+dropped into a bash shell inside of the container. Postgres will be running
+and the XOS data model will be populated with minimal data. 
+
+The XOS UI will not be running, but it can be started by typing 
+"cd /opt/xos; scripts/opencloud runserver".
 
 ###Frontend-Only Config
 
-Coming soon...
+The Frontend-Only configuration is aimed at developers who are working on
+the XOS Frontend, but do not need a functional synchronizer. As such, it does
+not require cloudlab or any active OpenStack deployment. While the UI is
+functional, this configuration necessarily imposes the limitation that Instances
+will not be instantiated. 
 
 ###OpenCloud Config
 
