@@ -200,6 +200,11 @@ $ ./openstack-command.sh "glance --os-cacert /etc/ssl/certs/ca-certificates.crt 
 Andy is the maintainer of these credential files and scripts; let him
 know if something is not working as expected. 
 
+##TOSCA
+
+XOS Supports use of [TOSCA](http://www.oasis-open.org/committees/tosca/) as a mechanism to configure and provision
+XOS services. 
+
 ##Troubleshooting
 
 **Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nova-compute instances as *down*. Additionally, XOS may display "timed out while waiting for node" in the backend_status field of the affected instances.
