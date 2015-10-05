@@ -3,59 +3,49 @@ layout: page
 title: Roadmap
 ---
 
-This section will eventually record a detailed roadmap, but is
-currently a place to collect medium- and long-term feature requests
-and deployment plans. Bug reports and short-term feature requests
-should be filed at the [GitHub Issue
+This section records high-level the plan of record, but is typically
+less detailed than information on the
+[Development Mailing List](https://groups.google.com/a/xosproject.org/forum/#!forum/devel).
+Also see bug reports and short-term feature requests filed at the [GitHub Issue
 Tracker](https://github.com/open-cloud/xos/issues).
 
-##Priorities for Burwell Release
+##Cozad Release (December 2015)
 
-1. Simplify Service model and prototype a Service Composition View.
+1. Improved support for isolating extensions and Sychronizers in their
+   own containers.
 
-2. Bring up Syndicate and integrate into Tenant view.
+2. Able to leverage OpenStack domains so XOS can run on autonomous
+   OpenStack clusters.
 
-3. Bring up HPC and revisit user-visible API.
+3. Monitoring Service fully integrated into XOS. The plan is to make
+   OpenStack's Ceilometer a first-class XOS service, including
+   instrumentation of all software services.
 
-4. Support multiple user ssh keys per slice.
+4. ONOS fully integrated into XOS. The plan is to make ONOS a
+   first-class XOS service, including replacing the default
+   OpenStack/Neutron networking support with ONOS. 
 
-5. Enhance and document Developer View's VN management interface.
+##Deployment Configurations (Oct - Dec 2015)
 
-6. Integrate OVX installation into the OpenStack install process.
+XOS can be deployed on different hardware configurations and populated
+with different service portfolios. We expect the following deployment
+configurations to be based on the Burwell release.
 
-7. Support autonomous OpenStack clusters using domain feature.
+1. Development: A minimal configuration used for development, with backend
+cloud resources provided by CloudLab. Corresponds to the environment
+described in [Developer Guide](../2_developer). Available with the
+Burwell release.
 
-8. Revisit how we're doing logging (separate observer log from
-   the web layer).
+2. OpenCloud: Deployed across multiple Internet2 sites. Service
+portfolio includes OpenStack, EC2, Syndicate, and vCDN. Available with
+the Burwell release. (Extended to include Ceilometer in October and
+ONOS in November.)
 
-9. Re-activate site, slice, node monitoring.
+3. CORD Development: A configuration used for CORD development. 
+Includes vCPE and Ceilometer, but no virtualized access devices. 
+Leverages CloudLab servers rather than actual POD hardware. 
+Avaiable in October 2015.
 
-10. Integrate Docker as a service (or maybe container-as-a-service)
-    to help users manage their slices.
-
-##Future Releases
-
-1. Relation between ServiceClass and Flavor need attention.
-
-2. Support OVX-based VN interconnection
-
-3. Re-establish Service Classes and Invoices
-
-4. Make RequestRouter as a stand-alone service
-
-5. Support user-contributed images
-
-6. Enhance monitoring and stats
-
-7. Integrate Docker support
-
-8. Run ONOS in "domain0"
-
-##Deployments
-
-1. Migrate additional ViCCI servers to OpenCloud.
-
-2. Bring up ViNI sites.
-
-3. Transition OpenFlow-capable clusters to OVX.
-
+4. CORD POD: A configuration to be deployed on a CORD POD with OLT
+hardware support. Service portfolio includes OpenStack, ONOS,
+Ceilometer, vCDN, vOLT, vCPE, and vBNG. Avaiable in November 2015.

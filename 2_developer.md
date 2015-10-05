@@ -8,7 +8,59 @@ extend XOS with new services and views. It also documents modeling and
 naming conventions, and describes the development and testing
 environments we use.
 
-##<a name="devel-env">Development Environment</a>
+When necessary for clarity of exposition, this guide uses examples
+from OpenCloud for illustrative purposes. For example, on OpenCloud
+the XOS server process is started in directory
+/opt/xos/scripts/opencloud. Substitute local specifics for an
+alternative XOS installation.
+
+##<a name="config-mgmt">Configuration Management</a>
+
+The XOS distribution includes a collection of configurations, each of
+which implies three main parameters: (1) the XOS release, (2) the
+target hardware, and (3) the service portfolio. For example, the
+*Devel Config* described below uses the latest stable release
+(Burwell), runs on [CloudLab](https://www.cloudlab.us/), and includes
+only the HelloWorld service.
+
+Configurations are organized in the directory xos/configurations within
+the XOS git repository. Each configuration is stored in a single subdirectory. 
+For example, the devel configuration can be found in xos/configurations/devel. 
+Each configuration consists at minimum of a Makefile and a Dockerfile. Optionally,
+there may also be TOSCA definitions that are used to internally configure XOS
+to bring up services and other files. A second Makefile, Makefile.inside, is
+commonly used to execute actions that need to occur after the container
+has been started. 
+
+The directory xos/configurations/common contains files that are useful to
+multiple configurations. Dockerfile.common contains a baseline Dockerfile
+that should be suitable for most XOS installations. By convention, common Dockerfile actions are
+abstracted to xos/configurations/common/Dockerfile.common, and only Dockerfile
+actions unique to a particular configuration need be specified in the individual
+configuration's Dockerfile. 
+
+To create a new configuration, first make a new subdirectory off of
+xos/configurations. Then create Dockerfile.configname and include
+any Docker actions unique to that configuration. Use one of the other
+Makefiles as a template (xos/configurations/devel/Makefile is generally
+a good starting point) and modify it as appropriate to create the
+Configuration's Makefile. 
+
+The final step is to optionally modify the XOS data model, for example, to
+include additional services, slices, deployments, and so on. This is
+done by executing one or more TOSCA files that specify the model to be
+imported into XOS. More information on TOSCA can be found elsewhere.
+
+We suggest placing a README file with each configuration that
+documents the purpose of the configurations and any assumptions or
+requirements (such as the whether the configuration must be run 
+from within cloudlab, etc). 
+
+The rest of this section describes four stock configuations that are
+provided with the release. It also includes a description of the
+configuration we use for OpenCloud, a production system.
+
+###<a name="devel">Devel Config</a>
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
@@ -29,21 +81,16 @@ $ docker build -t xos .
 $ docker run -t -i -p 8000:8000 xos
 ```
 
-You should now have a bash prompt as root inside the XOS container.
-To start XOS, run
-   
-```
-# /opt/xos/scripts/opencloud runserver
-```
-
+XOS will start automatically and you will see its log output in the shell window. 
 You can access the XOS login at *http://server:8000*, where *server*
-is the name of the server hosting the Docker container.
+is the name of the server hosting the Docker container.  Login credentials are 
+*padmin@vicci.org*/*letmein*.
 
 Note that the above steps result in a running XOS, but without any
 backend resources. This is sufficient for working on the data model
 and views, but not for actually managing cloud infrastructure.
 
-Information on bringing up an OpenStack cluster is given in Section
+Information on bringing up a local OpenStack cluster is given in Section
 [Installing OpenStack](../3_operator/#install-openstack) of the
 Operator Guide.  Information on connecting XOS to an operational
 OpenStack cluster is given in Sections [Administering a
@@ -53,69 +100,132 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-###Minimal OpenStack Cluster
+####Minimal OpenStack Cluster on CloudLab using the Devel Configuration
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
 cluster, and then link this cluster to the running XOS you just
-installed. If you already have a running OpenStack cluster, then it
-can be used in place of this CloudLab version. 
+installed. To set up XOS with an OpenStack cluster hosted on CloudLab:
 
-To create the cluster on CloudLap do the following:
-
-* Create your CloudLab experiment using the *ARM64OpenStack-Basic* profile.
-
-* Find the IP address of the *controller* node in your experiment. Add 
-  the following line to the */etc/hosts* file in your XOS container
-  (replace 128.110.152.78 with the right address):
+* If you don't already have a CloudLab account, you can go to `http://cloudlab.us` and join project **xos**.
+* Create your CloudLab experiment using the *OpenStack* profile.  The Juno and Kilo releases should both work.  
+We recommend that, under "Advanced Parameters" in the profile, you choose to "Disable Security Group Enforcement".  Instantiate it on the *CloudLab Clemson* or *CloudLab Wisconsin* clusters.
+* Login to the *ctl* node of the experiment and run the following:
 
 ```
-128.110.152.78 controller
+$ git clone https://github.com/open-cloud/xos.git
+$ cd xos/xos/configurations/devel
+$ make
 ```
 
-Next, log into the running XOS and do the following:
+The Makefile will build the XOS Docker image, run it in a container, 
+and configure XOS to talk to the OpenStack cluster on CloudLab.  You can 
+reach the XOS GUI on port 9999 on the *ctl* node.
 
-* Add a public key for your user account (e.g., padmin@vicci.org)
+Assuming everything has worked, you should be able to create a slice and 
+launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
+at the first IP address shown in the *Instances* view for the slice (typically on the
+10.11.0.0/16 subnet).
 
-* Add the *ubuntu-core-14.04.1-core-arm64-sshd* image, and then 
-  activate this image for your Deployment.
+###Test Config
 
-* Add the CloudLab experiment's nodes to your site.
+The test configuration brings XOS up on CloudLab and runs it through 
+a set of regression tests. All code that is to be checked into the
+master branch on github should first successfully pass all the test
+cases in this configuration. After the test suite is completed, the
+container will automatically exit. 
 
-* Modify the *Public shared IPv4* NetworkTemplate. Change *Shared
-  network name* to *tun-data-net*.
+Generally the test suite executes in two phases. The first phase are
+simple data model regression tests driven by XOS's TOSCA engine. These
+test case create models with various sets of arguments, and ensure that
+the XOS data model is behaving properly.
 
-* Add the Controller for the site with the following info:
-  * Auth URL: http://controller:5000/v2.0
-  * Admin user: admin
-  * Admin tenant: admin
-  * Admin password: admin
+The second phase are synchronizer-exercising tests. These test cases create
+an object in the data model, and then run multiple passes of the XOS 
+synchronizer to instantiate the object using OpenStack. 
 
-You should now be able to use XOS to create a VM in the OpenStack
-running on CloudLab.  Note that there are currently a couple of issues
-with CloudLab's OpenStack support so you won't be able to login to the
-VM, but you can still verify that it boots by looking at its console
-log.
+###Bash Config
 
-###Richer Demo Example
+The Bash configuration may be found in xos/configurations/bash. It's purpose
+is to serve as an interactive environment for development, with a shell-based
+interface. After the Makefile has finished executing, the user will be 
+dropped into a bash shell inside of the container. Postgres will be running
+and the XOS data model will be populated with minimal data. 
 
-The default *initial_data.json* is minimal. To obtain a version that
-contains an interesting set of Nodes and Slices (e.g., for demo
-purpoes), a dump of the live OpenCloud deployment can be made logging
-into *portal.opencloud.us* and running:
+The XOS UI will not be running, but it can be started by typing 
+"cd /opt/xos; scripts/opencloud runserver".
+
+###Frontend-Only Config
+
+The Frontend-Only configuration is aimed at developers who are working on
+the XOS Frontend, but do not need a functional synchronizer. As such, it does
+not require Cloudlab or any active OpenStack deployment. While the UI is
+functional, this configuration necessarily imposes the limitation that Instances
+will not be instantiated. 
+
+Additionally, as the synchronizer is not running, model_policies will not
+be executed. 
+
+###OpenCloud Config
+
+The preceeding configurations are primarily used for development.
+This section describes the configuration used on OpenCloud, which is
+an operational system that runs 24/7 and supports end-users.  
+
+Just like the other examples, the OpenCloud configuation is defined by
+a Dockerfile that sets up the underlying environment. One major
+difference from the development versions is that for production
+environments, we recommend running XOS behind a front-end such as
+nginx.
+
+A sample configuration file for nginx is located in the nginx subdirectory of
+the XOS git repository. This config fie is setup to look for static files in
+/var/www/xos/static, and that subdirectory must be created. All static files
+located in the following subdirectories must be copied to /var/www/xos/static/:
 
 ```
-$ sudo /opt/xos/scripts/opencloud dumpdata
+/opt/xos/core/static
+/opt/xos/core/xoslib/static
+# note that the following two paths may vary depending on Linux distribution
+/usr/local/lib/python2.7/dist-packages/Django-1.7-py2.7.egg/django/contrib/admin/static
+/usr/lib/python2.7/site-packages/suit/static
 ```
 
-Replace the *initial_data.json* file with the *dumpdata* file you
-just produced.
+The following commands can be used to start, stop, and restart the
+uwsgi server:
 
-##Test Environment
+````
+start: cd /opt/xos; uwsgi --start-unsubscribed /opt/xos/uwsgi/xos.ini
+stop: uwsgi --stop /var/run/uwsgi/uwsgi.pid
+restart: uwsgi --reload /var/run/uwsgi/uwsgi.pid
+```
 
-We have built an end-to-end testing environment that includes a
-virtual backend OpenStack cluster running in EC2... *[describe how to
-do this]*
+###Debugging configurations
+
+There are two different kinds of configurations -- terminal interactive configurations and 
+background configurations. Terminal interactive configurations print output to 
+stdout and accept input from stdin. Examples of these configurations are the 
+Test and Bash configurations. Debugging these are relatively easy, as one may
+directly observe the output of the container. 
+
+Background configurations do not produce output once launched. Examples of these
+configurations include the Devel and Frontend configurations. The Makefiles for
+these configurations typically include a step that waits for the XOS UI to become
+reachable, as it may take up to 30 seconds for it to do so. After XOS is reachable,
+a background configuration's Makefile returns to the command line, and the container
+continues to execute. 
+
+Because of the nature of background configurations, failures are not necessarily 
+readily apparent. Docker includes a 'log' feature that may be used to display the
+stdout and stderr of a background container. This feature is exercised by first
+looking up the container's ID (with "docker ps" if the container is still executing,
+or "docker ps -a" if the container has exited). Then use that ID to execute "docker logs ID". 
+Several of the configurations include a Makefile target "make showlogs" that automatically
+executes these steps.
+
+Additionally, it may be necessary for a developer to sometimes attach a shell to
+a running background container to interact with it. This may be done first looking up the
+container ID, and then executing "docker exec -t -i ID bash".
 
 ##REST API
 
@@ -151,35 +261,35 @@ extensive client library based on Backbone.js and Marionette.js.
 Backbone.js provides an efficient event-driven interface, where the
 xoslib's client-side library fetches models from the server-side, and
 notifies client programs when data has been fetched for display to the
-user. Portions of the OpenCloud user interface (specifically, [User
+user. Portions of the XOS user interface (specifically, [User
 Views](../1_user/#user-views)) are implemented on top of this library.
 
 ##<a name="adding-views">Adding Views to XOS</a>
 
 XOS is designed to be extensible -- to provide an explicit means to
-incorporate services deployed on OpenCloud back into OpenCloud so they
-are readily available to other users. Our goal is to build a diverse
-collection of services that can be accessed through the OpenCloud
-programmatic interface. This is done by extending the XOS data model
-with objects that represent the available services.
+incorporate services deployed on XOS back into XOS so they are readily
+available to other users. Our goal is to build a diverse collection of
+services that can be accessed through the XOS programmatic
+interface. This is done by extending the XOS data model with objects
+that represent the available services.
 
 This collection of services, in turn, defines a range of functionality
 that can be combined in different ways to provide customized Views
 targeted at different user communities and usage scenarios. These
 views are similar to scripts -- small programs that leverage the
 underlying set of commands to create a new function for a particular
-purpose, where in OpenCloud's case, the "underlying set of commands"
+purpose, where in XOS's case, the "underlying set of commands"
 corresponds to operations on XOS's data model. The data model includes
-both core objects (e.g., Users, Slices, Slivers, Roles, Sites,
+both core objects (e.g., Users, Slices, Instances, Roles, Sites,
 Deployments, Services) and objects that represent various services
 (e.g., Syndicate Volumes, HPC OriginServers, RequestRouter
 ServiceMaps). A given View can operate on any combination of these
 objects.
 
 We refer to these scripts as Views because they represent a particular
-perspective of OpenCloud, but they also happen to be implemented as a
-tailored view in Django, extending Django's standard template view. 
-When we need to disambiguate between the OpenCloud abstraction and the
+perspective of XOS, but they also happen to be implemented as a
+tailored view in Django, extending Django's standard template view.
+When we need to disambiguate between the XOS abstraction and the
 Django implementation, we refer to the former as a User View and the
 latter as a Django View.
 
@@ -213,7 +323,7 @@ A template contains the HTML and javascript that presents the view to
 the user. A view can be almost entirely HTML or almost entirely
 javascript. Most of our example templates are a combination of the
 two. In the git repository, templates for views are stored in
-xoslib/dashboards/. In an OpenCloud installation, you'll find these
+xoslib/dashboards/. In a given XOS installation, you'll find these
 views in /opt/xos/xoslib/dashboards/.
 
 There is no need to worry about building a full HTML page with \<head\>
@@ -273,10 +383,10 @@ This is the hello world view. The value of fubar is .
 
 ###Display Static Data Using Context Variables
 
-Opencloud includes some context variables that are built in. One
-example of this is "user", which represents the currently logged in
-user. Context variables are useful for values that we don't expect to
-change while the user is looking at the view.
+XOS includes some context variables that are built in. One example of
+this is "user", which represents the currently logged in user. Context
+variables are useful for values that we don't expect to change while
+the user is looking at the view.
 
 [TODO: suggest the user use xoslib instead of context variables?]
 
@@ -436,7 +546,7 @@ django. These go in /opt/xos/core/xoslib/methods/
 How to do this is best demonstrated by taking a look at an
 example. SlicePlus is an object that was created to use with the
 developer view, and looks like a slice object but with some additional
-fields that tabulate the number of slivers and sites used by the
+fields that tabulate the number of instances and sites used by the
 slice, as well as the role of the current user. Take a look at
 sliceplus.py in the objects/ and methods/ directory and it should be
 relatively straightforward how this was done.
@@ -483,7 +593,7 @@ available as part of your home page.
 ####iframe-based Views
 
 iframe-based views allow you to insert and arbitrary web page into the
-opencloud dashboard. This is done by specifying a "http://" url
+XOS dashboard. This is done by specifying a "http://" url
 instead of a "template:" url. For example,
 
 1. Open your browser to
@@ -543,7 +653,7 @@ it is actually a modular system, consisting of an Observer Framework
 and a set of Observer Instances. Each Observer Instance is associated
 with some subset of the Data Model, and acts upon some subset of the
 imported service controllers. For example, there is an Observer
-Instance that activates User, Slice, Sliver, and Network objects by
+Instance that activates User, Slice, Instances, and Network objects by
 calling OpenStack controllers (Nova, Neutron, KeyStone); another that
 activates CDN-related objects by calling the HyperCache controller;
 yet another that activate file system volumes by calling the Syndicate
@@ -556,11 +666,11 @@ need to be set for the system to be operational. This configuration is
 organized as a graph of interconnected Object-Oriented Classes (called
 Models). The graph of the core models is illustrated below.
 
-In this graph, arrows indicate relations between models. The Sliver
+In this graph, arrows indicate relations between models. The Instance
 model is related to and depends on the Slice model. Concretely, it
-means that a Sliver (VM on a node) is associated with a Slice (name
+means that an Instance (VM on a node) is associated with a Slice (name
 for a global resource allocation), or even more specifically, that
-Sliver objects have a field of type Slice.  The core data model should
+Instance objects have a field of type Slice.  The core data model should
 satisfy the needs of most services, but if not, then it can be
 extended.
 
@@ -609,8 +719,8 @@ actions execute properly. As mentioned in the previous section, one of
 the properties is a dependency structure implied by the relationships
 between various models. Each Observer ensures that actions are
 executed in an order that is consistent with these dependencies. For
-example, since the Sliver model depends on the Slice model, the
-Observer guarantees that a Sliver is only added to the System if a
+example, since the Instance model depends on the Slice model, the
+Observer guarantees that an Instance is only added to the System if a
 corresponding Slice already exists.
 
 ### Developing an Observer
@@ -685,9 +795,9 @@ in the main Observer directory, and exports a documented interface.
 Here is an example of an Observer Step:
 
 ```
-    class SyncSliver(SyncStep):
-        provides=[Sliver]
-        observer=[Sliver]
+    class SyncInstance(SyncStep):
+        provides=[Instance]
+        observer=[Instance]
         requested_interval=3600
 
         def fetch_pending(self):
@@ -747,7 +857,7 @@ The fetch_pending function can use these bookkeeping variables to
 fetch the set of changed objects:
 
 ```
-        new_objects = Sliver.objects.filter(Q(enacted__lt=F('updated')) | Q(enacted=None))
+        new_objects = Instance.objects.filter(Q(enacted__lt=F('updated')) | Q(enacted=None))
 ```
 
 The line above is typical, and can be copied and pasted into most
@@ -766,21 +876,21 @@ they were last enacted (enacted <= updated).
 Once the set of changed objects have been computed, the Observer
 invokes the appropriate set of backend operations and populates the
 objects with links to the back end. This functionality is contained in
-the sync_record function.  For example, the SyncSlivers step of the
+the sync_record function.  For example, the SyncInstances step of the
 EC2 Observer creates EC2 instances in response to the addition of
-Slivers.
+Instances.
 
 ```
-instance_type = sliver.node.name.rsplit('.',1)
-instance_sig = aws_run('ec2 run-instances --image-id %s --instance-type %s --count 1'%(sliver.image.image_id, instance_type))
+instance_type = instance.node.name.rsplit('.',1)
+instance_sig = aws_run('ec2 run-instances --image-id %s --instance-type %s --count 1'%(instance.image.image_id, instance_type))
 ```
 
 And then it associates the ‘instance_id’ an identifier that uniquely
-identifies the instance in the data model, with the Sliver.
+identifies the instance in the data model, with the Instance.
 
 ```
-    sliver.instance_id = instance_sig['Instances'][0]['InstanceId']
-    sliver.save()
+    instance.instance_id = instance_sig['Instances'][0]['InstanceId']
+    instance.save()
 ```
 
 It is essential that models in the Data Model be linked with actual
@@ -819,7 +929,7 @@ object that have been added or updated since the last execution of the
 step. When there are no such objects, the step is a no-op and simply
 yields execution back to the Observer, so that the next Step can run.
 
-The SyncSliver step illustrated in the previous section is an example
+The SyncInstance step illustrated in the previous section is an example
 of an Internal step.
 
 Whenever possible, implement Steps as Internal steps.
@@ -892,7 +1002,7 @@ simply marked as deleted. The fetch_pending method in that case
 fetches the set of such deleted objects and passes it on, instead of
 sync_record, to a method called delete_record. It is the task of
 delete_record to pass the deletion of the record on to the back
-end. For example, if a Sliver is deleted, then the method should
+end. For example, if an Instance is deleted, then the method should
 delete and clean up the corresponding VM, along with recovering any
 other resources, such as volumes associated with that VM. If this
 method returns successfully, then XOS automatically takes care of
@@ -1008,7 +1118,7 @@ valid field names are: name, disk_format, controller_format.
 ####Field Types
 
 There are various built in Fields that may be specified at Class
-declaration. The basic field types commonly in use with OpenCloud:
+declaration. The basic field types commonly in use with XOS:
 
 | FieldType          | Why to Use It?     |
 |--------------------|--------------------|
@@ -1061,7 +1171,7 @@ in Django.
 
 | FieldType          | When to Use it     |
 |--------------------|--------------------|
-| ForeignKeyField    | Used to represent a 1-to-Many relationship. For example: Sliver's may have 1 and only 1 Node; Node's may have 0 or more Slivers. Can also be used to represent recursive relationships for the same object types by providing "self" as the relationship (first position) parameter.|
+| ForeignKeyField    | Used to represent a 1-to-Many relationship. For example: Instance's may have 1 and only 1 Node; Node's may have 0 or more Instances. Can also be used to represent recursive relationships for the same object types by providing "self" as the relationship (first position) parameter.|
 | ManyToManyField    | Used to represent an N-to-N relationship. For example: Deployments may have 0 or more Sites; Sites may have 0 or more Deployments.|
 | OneToOneField      | Not currently in use, but would be useful for applications that wanted to augment a core class with their own additional settings. This has the same affect as a ForeignKey with unique=True.  The difference is that the reverse side of the relationship will always be 1 object (not a list).|
 | GenericForeignKey | Not currently in use, but can be used to specify a non specific relation to "another object." Meaning object A relates to any other object. This relationship requires a reverse attribute in the "other" object to see the relationship -- but would primarily be accessed through the GenericForeignKey owner Model. For example, https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1. The nuances of these relationships is brought about by the additional optional attributes that can be ascribed to each Field.|
@@ -1095,7 +1205,7 @@ effects on data integrity and REST relationships:
 
 | Model Setting      | When to use it     |
 |--------------------|--------------------|
-| abstract           | Used to specify that the defined model is not intended/able to be instantiated directly. For example, PlCoreBase, which is used to ensure that created, updated, and enacted fields will be provided for all OpenCloud participating objects.|
+| abstract           | Used to specify that the defined model is not intended/able to be instantiated directly. For example, PlCoreBase, which is used to ensure that created, updated, and enacted fields will be provided for all XOS participating objects.|
 | app_label          | Necessary if models are defined in modules other than models.py  In our core application we split out the model definitions into their own modules for clarity -- each of the models not derived from the PlCoreBase needs to explicitly state the "core" as the application this object is associated to. For example, PlCoreBase and User.|
 | order_with_respect_to | |
 | ordering | Defines the default column to order lists of the object type by. For example, Users => email.|
@@ -1103,7 +1213,7 @@ effects on data integrity and REST relationships:
 ###Model CheckList
 
 After creating a new model, here are the additional changes required
-for your new model to fully take effect and be visible in OpenCloud:
+for your new model to fully take effect and be visible in XOS:
 
 | Where to go        | Why                |
 |--------------------|--------------------|
@@ -1156,10 +1266,10 @@ http://django-rest-framework.org/#quickstart
 
 ###Our conventions for the REST API
 
-##Reporting Bugs
+##Participaing in XOS Development
 
 Bugs reports and feature requests can be filed using the 
 [GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
-
-
+To participate in a discussion about XOS development, join
+[devel@opencloud.us](https://groups.google.com/a/opencloud.us/forum/#!forum/devel).

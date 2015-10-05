@@ -9,9 +9,9 @@ permalink:        pretty
 relative_permalinks: true
 
 # Setup
-title:            OpenCloud Guide
-tagline:          'OpenCloud Guide'
-description:      'A guide to using, developing and operating OpenCloud'
+title:            XOS Guide
+tagline:          'XOS Guide'
+description:      'A guide to using, developing, and<br> operating XOS'
 url:              http://open-cloud.github.io
 baseurl:          /
 
