@@ -1,0 +1,1590 @@
+<html><head>
+<title>Tosca Documentation</title>
+
+<style>
+.properties {
+  border-collapse: collapse;
+}
+.properties td, .properties th {
+  border: 1px solid black;
+  padding: 3px 7px 2px 7px;
+}
+.properties th {
+  font-size: 1.1em;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  background-color: #A7C942;
+  color: #ffffff;
+}
+</style>
+
+</head>
+<body>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <h2>tosca.nodes.CDNService</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>scalable</td><td>tosca.capabilities.Scalable</td></tr>
+  
+     <tr><td>service</td><td>tosca.capabilities.xos.Service</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>icon_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>public_key</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>published</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>view_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>enabled</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>versionNumber</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.CORDSubscriber</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>subscriber</td><td>tosca.capabilities.xos.Subscriber</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>cdn_enable</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>url_filter_level</td>
+         <td></td>
+         <td>string</td>
+         <td>PG</td>
+     </tr>
+     
+  
+     <tr><td>service_specific_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>firewall_enable</td>
+         <td></td>
+         <td>boolean</td>
+         <td>False</td>
+     </tr>
+     
+  
+     <tr><td>url_filter_enable</td>
+         <td></td>
+         <td>boolean</td>
+         <td>False</td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.CORDUser</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>mac</td>
+         <td>True</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>level</td>
+         <td></td>
+         <td>string</td>
+         <td>PG_13</td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Controller</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>controller</td><td>tosca.capabilities.xos.Controller</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>domain</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>backend_type</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>auth_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>version</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>admin_user</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>admin_tenant</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>admin_password</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Deployment</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>deployment</td><td>tosca.capabilities.xos.Deployment</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>accessControl</td>
+         <td></td>
+         <td>string</td>
+         <td>allow all</td>
+     </tr>
+     
+  
+     <tr><td>flavors</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>no-delete</td>
+         <td></td>
+         <td>boolean</td>
+         <td>False</td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">do not allow Tosca to delete this object</td></tr>
+     
+  
+     <tr><td>no-create</td>
+         <td></td>
+         <td>boolean</td>
+         <td>False</td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">do not allow Tosca to create this object</td></tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Image</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>image</td><td>tosca.capabilities.xos.Image</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>container_format</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>disk_format</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>path</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.NetworkTemplate</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>network_template</td><td>tosca.capabilities.xos.NetworkTemplate</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>topology_kind</td>
+         <td></td>
+         <td>string</td>
+         <td>BigSwitch</td>
+     </tr>
+     
+  
+     <tr><td>controller_kind</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>translation</td>
+         <td></td>
+         <td>string</td>
+         <td>none</td>
+     </tr>
+     
+  
+     <tr><td>shared_network_name</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>visibility</td>
+         <td></td>
+         <td>string</td>
+         <td>private</td>
+     </tr>
+     
+  
+     <tr><td>shared_network_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Node</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+
+<h3>Properties:</h3>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Service</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>scalable</td><td>tosca.capabilities.Scalable</td></tr>
+  
+     <tr><td>service</td><td>tosca.capabilities.xos.Service</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>icon_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>public_key</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>published</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>view_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>enabled</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>versionNumber</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Site</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>site</td><td>tosca.capabilities.xos.Site</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>display_name</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">name of the site</td></tr>
+     
+  
+     <tr><td>hosts_nodes</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>is_public</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>site_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>enabled</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>hosts_users</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Slice</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>slice_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>enabled</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>description</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>max_instances</td>
+         <td></td>
+         <td>integer</td>
+         <td>10</td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.Subscriber</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>subscriber</td><td>tosca.capabilities.xos.Subscriber</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>service_specific_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.User</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>user</td><td>tosca.capabilities.xos.User</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>public_key</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>login_page</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>firstname</td>
+         <td>True</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>user_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>lastname</td>
+         <td>True</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>is_active</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>phone</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>is_admin</td>
+         <td></td>
+         <td>boolean</td>
+         <td>False</td>
+     </tr>
+     
+  
+     <tr><td>password</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.VBNGService</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>scalable</td><td>tosca.capabilities.Scalable</td></tr>
+  
+     <tr><td>service</td><td>tosca.capabilities.xos.Service</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>public_key</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>view_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>vbng_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>enabled</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>versionNumber</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>published</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>icon_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.VCPEService</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>scalable</td><td>tosca.capabilities.Scalable</td></tr>
+  
+     <tr><td>service</td><td>tosca.capabilities.xos.Service</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>public_key</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>backend_network_label</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>published</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>enabled</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>versionNumber</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>view_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>icon_url</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.VOLTTenant</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+
+<h3>Capabilities:</h3>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>kind</td>
+         <td></td>
+         <td>string</td>
+         <td>generic</td>
+     </tr>
+     
+  
+     <tr><td>vlan_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>service_specific_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <h2>tosca.nodes.network.Network.XOS</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+  <blockquote>
+  The TOSCA Network node represents a simple, logical network service.
+
+  </blockquote>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>link</td><td>tosca.capabilities.network.Linkable</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>permit_all_slices</td>
+         <td></td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+  
+     <tr><td>network_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">An identifier that represents an existing Network instance in the underlying cloud infrastructure. This property is mutually exclusive with all other properties except network_name. This can be used alone or together with network_name to identify an existing network.
+</td></tr>
+     
+  
+     <tr><td>segmentation_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">A segmentation identifier in the underlying cloud infrastructure. E.g. VLAN ID, GRE tunnel ID, etc..
+</td></tr>
+     
+  
+     <tr><td>labels</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+     <tr><td>dhcp_enabled</td>
+         <td>False</td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">Indicates should DHCP service be enabled on the network or not.
+</td></tr>
+     
+  
+     <tr><td>ip_version</td>
+         <td>False</td>
+         <td>integer</td>
+         <td>4</td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">The IP version of the requested network. Valid values are 4 for ipv4 or 6 for ipv6.
+</td></tr>
+     
+  
+     <tr><td>end_ip</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">The IP address to be used as the end of a pool of addresses within the full IP range derived from the cidr block.
+</td></tr>
+     
+  
+     <tr><td>gateway_ip</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">The gateway IP address.
+</td></tr>
+     
+  
+     <tr><td>start_ip</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">The IP address to be used as the start of a pool of addresses within the full IP range derived from the cidr block.
+</td></tr>
+     
+  
+     <tr><td>cidr</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">The cidr block of the requested network.
+</td></tr>
+     
+  
+     <tr><td>network_name</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 style="padding-left: 30px;">An identifier that represents an existing Network instance in the underlying cloud infrastructure or can be used as the name of the newly created network. If network_name is provided and no other properties are provided (with exception of network_id), then an existing network instance will be used. If network_name is provided alongside with more properties then a new network with this name will be created.
+</td></tr>
+     
+  
+     <tr><td>ports</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<h3>XOS Relationships</h3>
+<blockquote>
+<table class="properties">
+<tr><th>name</th><th>target_types</th></tr>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+      <tr><td>tosca.relationships SiteDeployment</td><td>tosca.capabilities.xos.Deployment</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.AccessPrivilege</td><td>tosca.capabilities.xos.Slice, tosca.capabiltys.xos.Site</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.AdminPrivilege</td><td>tosca.capabilities.xos.Slice, tosca.capabiltys.xos.Site</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.BelongsToSubscriber</td><td></td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.ConnectsToNetwork</td><td>tosca.capabilities.xos.Network</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.ConnectsToSlice</td><td></td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.ControllerDeployment</td><td>tosca.capabilities.xos.Deployment</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.MemberOfDeployment</td><td>tosca.capabilities.xos.Deployment</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.MemberOfService</td><td>tosca.capabilities.xos.Service</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.MemberOfSite</td><td>tosca.capabilities.xos.Site</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.MemberOfSlice</td><td>tosca.capabilities.xos.Slice</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.PIPrivilege</td><td>tosca.capabiltys.xos.Site</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.SubscriberDevice</td><td></td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.SupportsImage</td><td>tosca.capabilities.xos.Image</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.TechPrivilege</td><td>tosca.capabiltys.xos.Site</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.TenantOfService</td><td>tosca.capabilities.xos.Service</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.UsesController</td><td>tosca.capabilities.xos.Controller</td></tr>
+  
+
+  
+      <tr><td>tosca.relationships.UsesNetworkTemplate</td><td>tosca.capabilities.xos.NetworkTemplate</td></tr>
+  
+
+</table>
+</blockquote>
+
+<h3>XOS Capabilities</h3>
+<blockquote>
+<table class="properties">
+<tr><th>name</th></tr>
+
+  
+      <tr><td>tosca.capabilities.xos.Controller</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Deployment</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Image</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.NetworkTemplate</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Node</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Service</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Site</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Slice</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Subscriber</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.User</td></tr>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</table>
+</blockquote>
+
+</body>
+</html>
