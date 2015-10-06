@@ -235,7 +235,7 @@ There are two ways to use TOSCA in XOS:
   /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
   ```
   
-For a reference guide to XOS-specific TOSCA extensions, see [http://guide.xosproject.org/tosca_reference.html](guide.xosproject.org/tosca_reference.html)
+For a reference guide to XOS-specific TOSCA extensions, see [http://guide.xosproject.org/tosca_reference.html](http://guide.xosproject.org/tosca_reference.html)
 
 ##Troubleshooting
 
