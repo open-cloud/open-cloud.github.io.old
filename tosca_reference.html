@@ -57,6 +57,8 @@ Table of Contents:
   
 
   
+
+  
     <li><a href="#tosca.nodes.CDNService">tosca.nodes.CDNService</a></li>
   
 
@@ -66,6 +68,10 @@ Table of Contents:
 
   
     <li><a href="#tosca.nodes.CORDUser">tosca.nodes.CORDUser</a></li>
+  
+
+  
+    <li><a href="#tosca.nodes.Compute">tosca.nodes.Compute</a></li>
   
 
   
@@ -121,6 +127,10 @@ Table of Contents:
   
 
   
+    <li><a href="#tosca.nodes.network.Network">tosca.nodes.network.Network</a></li>
+  
+
+  
     <li><a href="#tosca.nodes.network.Network.XOS">tosca.nodes.network.Network.XOS</a></li>
   
 
@@ -166,6 +176,8 @@ Table of Contents:
 <li><a href="#xos_capabilities">Capabilities</a></li>
 </ul>
 
+
+  
 
   
 
@@ -328,6 +340,8 @@ Table of Contents:
          <td>generic</td>
      </tr>
      
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Kind of subscriber</td></tr>
+     
   
      <tr><td>cdn_enable</td>
          <td></td>
@@ -352,6 +366,8 @@ Table of Contents:
          <td>string</td>
          <td></td>
      </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Service specific ID</td></tr>
      
   
      <tr><td>firewall_enable</td>
@@ -397,6 +413,15 @@ Table of Contents:
 
 <h3>Capabilities:</h3>
 
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>device</td><td>tosca.capabilities.xos.Device</td></tr>
+  
+  </table>
+  </blockquote>
+
 
 <h3>Properties:</h3>
 
@@ -424,6 +449,46 @@ Table of Contents:
   
   </table>
   </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <hr>
+<h2 id="tosca.nodes.Compute">tosca.nodes.Compute</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+  <blockquote>
+  The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) server.
+
+  </blockquote>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>binding</td><td>tosca.capabilities.network.Bindable</td></tr>
+  
+     <tr><td>host</td><td>tosca.capabilities.Container</td></tr>
+  
+     <tr><td>os</td><td>tosca.capabilities.OperatingSystem</td></tr>
+  
+     <tr><td>scalable</td><td>tosca.capabilities.Scalable</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
 
 
 </blockquote>
@@ -718,6 +783,8 @@ Table of Contents:
          <td>BigSwitch</td>
      </tr>
      
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Describes the topology of the network.</td></tr>
+     
   
      <tr><td>controller_kind</td>
          <td>False</td>
@@ -1009,6 +1076,15 @@ Table of Contents:
 
 <h3>Capabilities:</h3>
 
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>slice</td><td>tosca.capabilities.xos.Slice</td></tr>
+  
+  </table>
+  </blockquote>
+
 
 <h3>Properties:</h3>
 
@@ -1096,12 +1172,16 @@ Table of Contents:
          <td>generic</td>
      </tr>
      
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Kind of subscriber</td></tr>
+     
   
      <tr><td>service_specific_id</td>
          <td>False</td>
          <td>string</td>
          <td></td>
      </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Service specific ID</td></tr>
      
   
   </table>
@@ -1488,6 +1568,8 @@ Table of Contents:
          <td>generic</td>
      </tr>
      
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Kind of tenant</td></tr>
+     
   
      <tr><td>vlan_id</td>
          <td>False</td>
@@ -1503,6 +1585,139 @@ Table of Contents:
          <td>string</td>
          <td></td>
      </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Service specific ID</td></tr>
+     
+  
+  </table>
+  </blockquote>
+
+
+</blockquote>
+
+
+
+  
+
+  
+    <hr>
+<h2 id="tosca.nodes.network.Network">tosca.nodes.network.Network</h2>
+<blockquote>
+
+<h3>Description:</h3>
+
+  <blockquote>
+  The TOSCA Network node represents a simple, logical network service.
+
+  </blockquote>
+
+
+<h3>Capabilities:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>type</th></tr>
+  
+     <tr><td>link</td><td>tosca.capabilities.network.Linkable</td></tr>
+  
+  </table>
+  </blockquote>
+
+
+<h3>Properties:</h3>
+
+  <blockquote>
+  <table class="properties">
+  <tr><th>name</th><th>required</th><th>type</th><th>default</th></tr>
+  
+     <tr><td>network_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">An identifier that represents an existing Network instance in the underlying cloud infrastructure. This property is mutually exclusive with all other properties except network_name. This can be used alone or together with network_name to identify an existing network.
+</td></tr>
+     
+  
+     <tr><td>segmentation_id</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">A segmentation identifier in the underlying cloud infrastructure. E.g. VLAN ID, GRE tunnel ID, etc..
+</td></tr>
+     
+  
+     <tr><td>dhcp_enabled</td>
+         <td>False</td>
+         <td>boolean</td>
+         <td>True</td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">Indicates should DHCP service be enabled on the network or not.
+</td></tr>
+     
+  
+     <tr><td>ip_version</td>
+         <td>False</td>
+         <td>integer</td>
+         <td>4</td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">The IP version of the requested network. Valid values are 4 for ipv4 or 6 for ipv6.
+</td></tr>
+     
+  
+     <tr><td>end_ip</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">The IP address to be used as the end of a pool of addresses within the full IP range derived from the cidr block.
+</td></tr>
+     
+  
+     <tr><td>gateway_ip</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">The gateway IP address.
+</td></tr>
+     
+  
+     <tr><td>start_ip</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">The IP address to be used as the start of a pool of addresses within the full IP range derived from the cidr block.
+</td></tr>
+     
+  
+     <tr><td>cidr</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">The cidr block of the requested network.
+</td></tr>
+     
+  
+     <tr><td>network_name</td>
+         <td>False</td>
+         <td>string</td>
+         <td></td>
+     </tr>
+     
+     <tr><td colspan=4 class="helptext" style="apadding-left: 30px;">An identifier that represents an existing Network instance in the underlying cloud infrastructure or can be used as the name of the newly created network. If network_name is provided and no other properties are provided (with exception of network_id), then an existing network instance will be used. If network_name is provided alongside with more properties then a new network with this name will be created.
+</td></tr>
      
   
   </table>
@@ -1523,7 +1738,7 @@ Table of Contents:
 <h3>Description:</h3>
 
   <blockquote>
-  The TOSCA Network node represents a simple, logical network service.
+  This is a variant of the TOSCA Network object that includes additional XOS-specific properties.
 
   </blockquote>
 
@@ -1771,19 +1986,25 @@ Table of Contents:
   
 
   
+
+  
+
+  
+
+  
       <tr><td>tosca.relationships SiteDeployment</td><td>tosca.capabilities.xos.Deployment</td></tr>
   
 
   
-      <tr><td>tosca.relationships.AccessPrivilege</td><td>tosca.capabilities.xos.Slice, tosca.capabiltys.xos.Site</td></tr>
+      <tr><td>tosca.relationships.AccessPrivilege</td><td>tosca.capabilities.xos.Slice, tosca.capabilities.xos.Site</td></tr>
   
 
   
-      <tr><td>tosca.relationships.AdminPrivilege</td><td>tosca.capabilities.xos.Slice, tosca.capabiltys.xos.Site</td></tr>
+      <tr><td>tosca.relationships.AdminPrivilege</td><td>tosca.capabilities.xos.Slice, tosca.capabilities.xos.Site</td></tr>
   
 
   
-      <tr><td>tosca.relationships.BelongsToSubscriber</td><td></td></tr>
+      <tr><td>tosca.relationships.BelongsToSubscriber</td><td>tosca.capabilities.xos.Subscriber</td></tr>
   
 
   
@@ -1791,7 +2012,7 @@ Table of Contents:
   
 
   
-      <tr><td>tosca.relationships.ConnectsToSlice</td><td></td></tr>
+      <tr><td>tosca.relationships.ConnectsToSlice</td><td>tosca.capabilities.xos.Slice</td></tr>
   
 
   
@@ -1815,11 +2036,11 @@ Table of Contents:
   
 
   
-      <tr><td>tosca.relationships.PIPrivilege</td><td>tosca.capabiltys.xos.Site</td></tr>
+      <tr><td>tosca.relationships.PIPrivilege</td><td>tosca.capabilities.xos.Site</td></tr>
   
 
   
-      <tr><td>tosca.relationships.SubscriberDevice</td><td></td></tr>
+      <tr><td>tosca.relationships.SubscriberDevice</td><td>tosca.capabilities.xos.Subscriber</td></tr>
   
 
   
@@ -1827,7 +2048,7 @@ Table of Contents:
   
 
   
-      <tr><td>tosca.relationships.TechPrivilege</td><td>tosca.capabiltys.xos.Site</td></tr>
+      <tr><td>tosca.relationships.TechPrivilege</td><td>tosca.capabilities.xos.Site</td></tr>
   
 
   
@@ -1856,6 +2077,10 @@ Table of Contents:
 
   
       <tr><td>tosca.capabilities.xos.Deployment</td></tr>
+  
+
+  
+      <tr><td>tosca.capabilities.xos.Device</td></tr>
   
 
   
@@ -1888,6 +2113,10 @@ Table of Contents:
 
   
       <tr><td>tosca.capabilities.xos.User</td></tr>
+  
+
+  
+
   
 
   
