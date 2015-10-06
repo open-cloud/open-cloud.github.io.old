@@ -237,6 +237,8 @@ There are two ways to use TOSCA in XOS:
   
 For a reference guide to XOS-specific TOSCA extensions, see [http://guide.xosproject.org/tosca_reference.html](http://guide.xosproject.org/tosca_reference.html)
 
+For samples of XOS TOSCA specifications, consult the [xos/tosca/samples](https://github.com/open-cloud/xos/tree/master/xos/tosca/samples) section of the XOS git repository.
+
 ##Troubleshooting
 
 **Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nova-compute instances as *down*. Additionally, XOS may display "timed out while waiting for node" in the backend_status field of the affected instances.
