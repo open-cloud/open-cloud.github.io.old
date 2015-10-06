@@ -225,15 +225,15 @@ There are two ways to use TOSCA in XOS:
   XOS to queue and execute the specification. The command-line tool will return output on completion. To execute a 
   TOSCA specification, use the following command:
   
-  '''
+  ```
   /opt/xos/tosca/run.py <email-address> <filename>
-  '''
+  ```
   
   For example,
   
-  '''
+  ```
   /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
-  '''
+  ```
   
 For a reference guide to XOS-specific TOSCA extensions, see [http://guide.xosproject.org/tosca.html](guide.xosproject.org/tosca_reference.html)
 
