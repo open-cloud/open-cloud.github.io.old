@@ -200,6 +200,43 @@ $ ./openstack-command.sh "glance --os-cacert /etc/ssl/certs/ca-certificates.crt 
 Andy is the maintainer of these credential files and scripts; let him
 know if something is not working as expected. 
 
+##TOSCA
+
+XOS Supports use of [TOSCA](http://www.oasis-open.org/committees/tosca/) as a mechanism to configure and provision
+XOS services. 
+
+There are two ways to use TOSCA in XOS:
+
+1. By adding a program to the XOS GUI.
+
+  1. Navigate to Home>Core>Programs in the GUI, and select the 'Add Program' button. 
+  2. Enter a name and a description for your program. 
+  3. Click the 'Program Source' tab. Here you may either type in your TOSCA specification directly, or use your browser to upload a file
+  4. Click the 'Save and Continue' button. 
+  5. Go back to the 'Program Details' tab
+  6. Select 'Run' in the Command dropdown.
+  7. Click the 'Save and Continue' button.
+  8. XOS will now run your program in the background. Check back later (i.e. refresh the page in your browser) and the result of the program will be displayed in the Output box. 
+  
+2. By running a TOSCA program using command line tools
+
+  From inside the XOS container, you can use command-line tools to run TOSCA specifications directly from the 
+  command line. You don't have to add the specification to the data model, and you don't have to wait for 
+  XOS to queue and execute the specification. The command-line tool will return output on completion. To execute a 
+  TOSCA specification, use the following command:
+  
+  ```
+  /opt/xos/tosca/run.py <email-address> <filename>
+  ```
+  
+  For example,
+  
+  ```
+  /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
+  ```
+  
+For a reference guide to XOS-specific TOSCA extensions, see [http://guide.xosproject.org/tosca_reference.html](http://guide.xosproject.org/tosca_reference.html)
+
 ##Troubleshooting
 
 **Symptom:** Can't create VMs on the nodes.  The *nova service-list* command shows all nova-compute instances as *down*. Additionally, XOS may display "timed out while waiting for node" in the backend_status field of the affected instances.
