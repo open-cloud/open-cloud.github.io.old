@@ -638,28 +638,28 @@ The first task is an exercise in writing Django models, which this
 guide discusses in Section [Data Modeling
 Conventions](#model-conventions).
 
-The second task involves extending the XOS Observer, which is
+The second task involves extending the XOS Synchronizer, which is
 responsible for enacting the state recorded in the XOS data model
 (i.e., configuring and controlling the underlying service by invoking
 operations on its controller). All changes made to the data model --
 including the addition of new objects, updates to existing objects,
-and the deletion of objects -- are intercepted by the Observer. The
-Observer is an event-driven program written in Python. Every time the
-Data Model changes, the Observer receives a notification, upon which
+and the deletion of objects -- are intercepted by the Synchronizer. The
+Synchronizer is an event-driven program written in Python. Every time the
+Data Model changes, the Synchronizer receives a notification, upon which
 it queries the Data Model to retrieve the set of updated objects.
 
-Although we have been describing the Observer as a monolithic entity,
-it is actually a modular system, consisting of an Observer Framework
-and a set of Observer Instances. Each Observer Instance is associated
+Although we have been describing the Synchronizer as a monolithic entity,
+it is actually a modular system, consisting of an Synchronizer Framework
+and a set of Synchronizer Instances. Each Synchronizer Instance is associated
 with some subset of the Data Model, and acts upon some subset of the
-imported service controllers. For example, there is an Observer
+imported service controllers. For example, there is an Synchronizer
 Instance that activates User, Slice, Instances, and Network objects by
 calling OpenStack controllers (Nova, Neutron, KeyStone); another that
 activates CDN-related objects by calling the HyperCache controller;
 yet another that activate file system volumes by calling the Syndicate
 controller; and so on. In general, any service-related objects in the
 data model that need to interact with a low level platform must
-include a service-specific Observer Instance. 
+include a service-specific Synchronizer Instance. 
 
 The XOS Data Model consists of the set of configuration values that
 need to be set for the system to be operational. This configuration is
@@ -674,59 +674,59 @@ Instance objects have a field of type Slice.  The core data model should
 satisfy the needs of most services, but if not, then it can be
 extended.
 
-XOS currently has five Observer Instances: (1) an OpenStack Observer,
-(2) an Amazon EC2 Observer, (3) a Syndicate Storage Observer, (4) a
-High-Performance Cache (HPC) Observer, and (5) a Request Router
-Observer.  Each of these Observers reads from the same data model, but
+XOS currently has five Synchronizer Instances: (1) an OpenStack Synchronizer,
+(2) an Amazon EC2 Synchronizer, (3) a Syndicate Storage Synchronizer, (4) a
+High-Performance Cache (HPC) Synchronizer, and (5) a Request Router
+Synchronizer.  Each of these Synchronizer reads from the same data model, but
 administers a different set of backend resources. The OpenStack
-Observer uses OpenStack to create, manage and tear down VMs. The EC2
-Observer helps manage instances on Amazon EC2. Syndicate, HPC, and
-RequestRouter are service-specific Observers.  In this document, we
-will use the Amazon EC2 Observer to illustrate how to develop a new
+Synchronizer uses OpenStack to create, manage and tear down VMs. The EC2
+Synchronizer helps manage instances on Amazon EC2. Syndicate, HPC, and
+RequestRouter are service-specific Synchronizer.  In this document, we
+will use the Amazon EC2 Synchronizer to illustrate how to develop a new
 instance.
 
-*[Note: The Observer Framework, which is common across all Observer
- Instances, is currently embedded in the OpenStack Observer Instance.
+*[Note: The Synchronizer Framework, which is common across all Synchronizer
+ Instances, is currently embedded in the OpenStack Synchronizer Instance.
  Our plan is to lift it out of this instance and into the core of
  XOS.]*
 
-### Introduction to an Observer
+### Introduction to an Synchronizer
 
-For simplicity, we sometimes say Observer in lieu of Observer
+For simplicity, we sometimes say Synchronizer in lieu of Synchronizer
 Instance.
 
-Much like a declarative programing language, Observers are
+Much like a declarative programing language, Synchronizers are
 goal-oriented (as opposed to task-oriented.) They consider the
 contents of the data model to be the declaration of the "goal state"
 of the system, and then take the necessary steps to steer the system
 into that target state.
 
-The implementation of each Observer is lock-free, transaction-free,
-and therefore stateless. Every time an Observer runs, it calculates
+The implementation of each Synchronizer is lock-free, transaction-free,
+and therefore stateless. Every time an Synchronizer runs, it calculates
 the delta between the state of the backend system and the state of the
 Data Model. It then applies this delta to the backend system, bringing
 its state up to date with the state of the data model.
 
-Each Observer is an Event-driven application that monitors the Data
+Each Synchronizer is an Event-driven application that monitors the Data
 Model for changes. When a change is detected in the data model, XOS
-notifies the Observer using an XMPP-based notification system, called
-Feefie. The Observer then queries the data model to calculate the
+notifies the Synchronizer using an XMPP-based notification system, called
+Feefie. The Synchronizer then queries the data model to calculate the
 delta on the basis of which it updates the state of the system.
 
-The actions of an Observer are a direct consequence of the state of
+The actions of an Synchronizer are a direct consequence of the state of
 the data model. The data model has several properties that make such
 actions execute properly. As mentioned in the previous section, one of
 the properties is a dependency structure implied by the relationships
-between various models. Each Observer ensures that actions are
+between various models. Each Synchronizer ensures that actions are
 executed in an order that is consistent with these dependencies. For
 example, since the Instance model depends on the Slice model, the
-Observer guarantees that an Instance is only added to the System if a
+Synchronizer guarantees that an Instance is only added to the System if a
 corresponding Slice already exists.
 
-### Developing an Observer
+### Developing an Synchronizer
 
-We have developed the Observer Framework in a way that relieves the
-developer of each Observer Instance of having to re-implement certain
+We have developed the Synchronizer Framework in a way that relieves the
+developer of each Synchronizer Instance of having to re-implement certain
 core functionality. By using this framework, the following benefits
 are automatically realized:
 
@@ -740,15 +740,15 @@ are automatically realized:
 
 * Optimized delta computation based on timestamps
 
-* Error reporting -- errors encountered by an Observer are reported
+* Error reporting -- errors encountered by an Synchronizer are reported
   to the user via the web interface
 
 * Concurrent execution of independent steps
 
 * Automatically inferred object-level dependencies 
 
-The remainder of this section uses the Amazon EC2 Observer as an
-example to illustrate how an Observer Instance works. First, a look at
+The remainder of this section uses the Amazon EC2 Synchronizer as an
+example to illustrate how an Synchronizer Instance works. First, a look at
 the core. You can skip the next few paragraphs if you are not
 interested in finding out about the inner details of the framework.
 
@@ -758,46 +758,46 @@ Let's start with the main source files:
   contained in the Data Model. You can use it with the -dot argument
   to generate a dot representation which looks like the illustration
   in the Data Model section. Or you can run it without arguments to
-  generate the dependency graph used by the Observer Framework to
-  ensure that actions taken by the individual Observer Instances are
+  generate the dependency graph used by the Synchronizer Framework to
+  ensure that actions taken by the individual Synchronizer Instances are
   ordered correctly.
 
-* mainloop.py -- This file contains the main run loop of the Observer
+* mainloop.py -- This file contains the main run loop of the Synchronizer
   Framework. It is the mechanism that receives events, dispatches
-  actions, and orchestrates the components of the Observer.
+  actions, and orchestrates the components of the Synchronizer.
 
-* event_manager.py -- This file is the part of the Observer Framework
+* event_manager.py -- This file is the part of the Synchronizer Framework
   that interacts with the Feefie notification system, used to transmit
-  events from the Data Model to the Observer Framework.
+  events from the Data Model to the Synchronizer Framework.
 
-* toposort.py -- This program sorts the actions in the Observer
+* toposort.py -- This program sorts the actions in the Synchronizer
   Framework in accordance with the dependency graph generated by
   dmdot.
 
 The remainder of the files contain peripheral support code, or base
-classes to be subclassed by your Observer Instance.
+classes to be subclassed by your Synchronizer Instance.
 
-### Observer Steps
+### Synchronizer Steps
 
-Within the *observer/* subdirectory of the XOS repository, you will
+Within the *Synchronizer/* subdirectory of the XOS repository, you will
 find a *steps/* subdirectory. This directory contains the actual
-"payload" of that Observer Instance -- the actions that read state
+"payload" of that Synchronizer Instance -- the actions that read state
 from the XOS data model and apply them to the backend system, to the
 point that the backend system has been brought up-to-date with that
 state.
 
-Thus, your task in implementing your specific Observer Instance boils
+Thus, your task in implementing your specific Synchronizer Instance boils
 down to providing a set of sync steps, each step corresponding to a
 set of models in the Data Model.
 
-An Observer Step is a Python class that subclasses the SyncStep class
-in the main Observer directory, and exports a documented interface.
-Here is an example of an Observer Step:
+An Synchronizer Step is a Python class that subclasses the SyncStep class
+in the main Synchronizer directory, and exports a documented interface.
+Here is an example of an Synchronizer Step:
 
 ```
     class SyncInstance(SyncStep):
         provides=[Instance]
-        observer=[Instance]
+        Synchronizer=[Instance]
         requested_interval=3600
 
         def fetch_pending(self):
@@ -824,7 +824,7 @@ Here is an example of an Observer Step:
 ```
 
 The mandatory interface of a Step, which is used by the framework to
-hook Steps into the core of the Observer Framewrok, consists of the
+hook Steps into the core of the Synchronizer Framewrok, consists of the
 following instance properties (three variable and three methods):
 
 * **provides**: The models that this step provides, and the ones that
@@ -837,7 +837,7 @@ following instance properties (three variable and three methods):
 
 * **requested_interval**: The intervals at which this model is enacted. 
   For slow executing models, set this to a high value so that it 
-  does not interrupt every run of the Observer.
+  does not interrupt every run of the Synchronizer.
 
 * **fetch_pending**: The method that fetches the pending set of objects
   that have to be enacted. There is a default implementation that uses
@@ -861,7 +861,7 @@ fetch the set of changed objects:
 ```
 
 The line above is typical, and can be copied and pasted into most
-Observer implementations. It retrieves the set of objects that have
+Synchronizer implementations. It retrieves the set of objects that have
 never been enacted (enacted = None) or that have been updated since
 they were last enacted (enacted <= updated).
 
@@ -873,11 +873,11 @@ they were last enacted (enacted <= updated).
              site.save()
 ```
 
-Once the set of changed objects have been computed, the Observer
+Once the set of changed objects have been computed, the Synchronizer
 invokes the appropriate set of backend operations and populates the
 objects with links to the back end. This functionality is contained in
 the sync_record function.  For example, the SyncInstances step of the
-EC2 Observer creates EC2 instances in response to the addition of
+EC2 Synchronizer creates EC2 instances in response to the addition of
 Instances.
 
 ```
@@ -897,29 +897,29 @@ It is essential that models in the Data Model be linked with actual
 facilities in the backend, so that they may be updated or deleted at a
 later point. The sync_record function need not update the value of the
 enacted field in the model. This operation is performed by the
-Observer Framework core.
+Synchronizer Framework core.
 
-###Observer Steps are Idempotent
+###Synchronizer Steps are Idempotent
 
 As shown in the previous sections, the bulk of the work involved in
-implementing an Observer Instance lies in providing a set of Observer
-Steps by placing them in the *observer/steps/* directory within the
+implementing an Synchronizer Instance lies in providing a set of Synchronizer
+Steps by placing them in the *Synchronizer/steps/* directory within the
 repository. All Steps at this location are automatically picked up by
-the Observer Framwork when it runs, and sewn together into the
+the Synchronizer Framwork when it runs, and sewn together into the
 pre-computed dependency graph generated by dmdot.
 
-There is one additional requirement essential for an Observer to
+There is one additional requirement essential for an Synchronizer to
 function correctly. The lock-free and transaction-free operation
 depends on an important invariant that it is your responsibility to
 maintain when implementing Steps.
 
-Observer Steps are Idempotent Operations. They may run multiple times,
+Synchronizer Steps are Idempotent Operations. They may run multiple times,
 and it is your responsibility to ensure that a subsequent execution
 does not cause the system to go into an error state.
 
 ### Internal Steps
 
-An Observer has two kinds of steps: Internal Steps and External
+An Synchronizer has two kinds of steps: Internal Steps and External
 Steps. An Internal Step is one that responds to specific changes in
 the Data Model, and can make use of the updated and enacted variables
 to discover the set of changed objects in the Model.
@@ -927,7 +927,7 @@ to discover the set of changed objects in the Model.
 Internal steps are typically fast since they operate on the set of
 object that have been added or updated since the last execution of the
 step. When there are no such objects, the step is a no-op and simply
-yields execution back to the Observer, so that the next Step can run.
+yields execution back to the Synchronizer, so that the next Step can run.
 
 The SyncInstance step illustrated in the previous section is an example
 of an Internal step.
@@ -971,7 +971,7 @@ Sometimes, the authoritative state for a given model is not entered by
 users, but rather, is sourced from the back end. Usually, this happens
 when a model represents the state of actual physical resources. In the
 example above, we illustrate the SyncSites Step in the Amazon EC2
-Observer.
+Synchronizer.
 
 Rather than bringing up Sites in Amazon EC2 when a new Site is created
 in the XOS data model, this Step populates the XOS data model with
@@ -991,12 +991,12 @@ objects using the enacted and updated variables are External Steps.
 
 External Steps should have their requested_interval set to hours or
 days, so that they do not block Internal steps. This is because the
-Observer is single-threaded and Internal steps are expected to be
+Synchronizer is single-threaded and Internal steps are expected to be
 responsive.
 
 ### Deletions
 
-Observers handle deletions in the same way as they handle
+Synchronizers handle deletions in the same way as they handle
 synchronization. When an object is deleted in the data model, it is
 simply marked as deleted. The fetch_pending method in that case
 fetches the set of such deleted objects and passes it on, instead of

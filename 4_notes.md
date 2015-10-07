@@ -23,7 +23,7 @@ title: Release Notes
 4. Upgraded to OpenStack Kilo. Support for Kilo's domain feature
    is not yet available.
 
-5. Replace Observer framework Synchronizer framework, as described in
+5. Replace Synchronizer framework, as described in
    the [Adding Services to XOS](../2_developer/#adding-services)
    section of the Developer's Guide. Support is included for
    inter-Synchronizer coordination, but with limitations.
