@@ -51,6 +51,10 @@ include additional services, slices, deployments, and so on. This is
 done by executing one or more TOSCA files that specify the model to be
 imported into XOS. More information on TOSCA can be found elsewhere.
 
+By convention, XOS configurations are configured with a single administrative 
+user and login credentials of *username=padmin@vicci.org* with password
+*letmein*, unless specified otherwise.
+
 We suggest placing a README file with each configuration that
 documents the purpose of the configurations and any assumptions or
 requirements (such as the whether the configuration must be run 
@@ -59,46 +63,6 @@ from within cloudlab, etc).
 The rest of this section describes four stock configuations that are
 provided with the release. It also includes a description of the
 configuration we use for OpenCloud, a production system.
-
-###<a name="devel">Devel Config</a>
-
-A Dockerfile available at
-[github.com/open-cloud/xos](https://github.com/open-cloud/xos)
-can be used to build a Docker image for running XOS. The XOS 
-files in the Docker image are copied from the local file tree, 
-so it is easy to create a customized version of XOS by making
-local changes to the XOS source before building the Docker image.
-
-A minimal *initial_data.json* fixture is provided. The login
-credentials are *username=padmin@vicci.org* with password
-*letmein*. This *initial_data.json* doesn't contain any nodes and is
-suitable for fresh installations.
-
-To build and start the container type:
-
-```
-$ docker build -t xos .
-$ docker run -t -i -p 8000:8000 xos
-```
-
-XOS will start automatically and you will see its log output in the shell window. 
-You can access the XOS login at *http://server:8000*, where *server*
-is the name of the server hosting the Docker container.  Login credentials are 
-*padmin@vicci.org*/*letmein*.
-
-Note that the above steps result in a running XOS, but without any
-backend resources. This is sufficient for working on the data model
-and views, but not for actually managing cloud infrastructure.
-
-Information on bringing up a local OpenStack cluster is given in Section
-[Installing OpenStack](../3_operator/#install-openstack) of the
-Operator Guide.  Information on connecting XOS to an operational
-OpenStack cluster is given in Sections [Administering a
-Deployment](../1_user/#admin-deployment) and [Administering a
-Site](../1_user/#admin-site) of the User's Guide. These two sections
-explain how to configure a Deployment to know about a set of OpenStack
-clusters and how to configure a Site to know about a set of Nodes,
-respectively.
 
 ####Minimal OpenStack Cluster on CloudLab using the Devel Configuration
 
@@ -226,6 +190,46 @@ executes these steps.
 Additionally, it may be necessary for a developer to sometimes attach a shell to
 a running background container to interact with it. This may be done first looking up the
 container ID, and then executing "docker exec -t -i ID bash".
+
+###Building XOS without using the configuration system
+
+A Dockerfile available at
+[github.com/open-cloud/xos](https://github.com/open-cloud/xos)
+can be used to build a Docker image for running XOS. The XOS 
+files in the Docker image are copied from the local file tree, 
+so it is easy to create a customized version of XOS by making
+local changes to the XOS source before building the Docker image.
+
+A minimal *initial_data.json* fixture is provided. The login
+credentials are *username=padmin@vicci.org* with password
+*letmein*. This *initial_data.json* doesn't contain any nodes and is
+suitable for fresh installations.
+
+To build and start the container type:
+
+```
+$ docker build -t xos .
+$ docker run -t -i -p 8000:8000 xos
+```
+
+XOS will start automatically and you will see its log output in the shell window. 
+You can access the XOS login at *http://server:8000*, where *server*
+is the name of the server hosting the Docker container.  Login credentials are 
+*padmin@vicci.org*/*letmein*.
+
+Note that the above steps result in a running XOS, but without any
+backend resources. This is sufficient for working on the data model
+and views, but not for actually managing cloud infrastructure.
+
+Information on bringing up a local OpenStack cluster is given in Section
+[Installing OpenStack](../3_operator/#install-openstack) of the
+Operator Guide.  Information on connecting XOS to an operational
+OpenStack cluster is given in Sections [Administering a
+Deployment](../1_user/#admin-deployment) and [Administering a
+Site](../1_user/#admin-site) of the User's Guide. These two sections
+explain how to configure a Deployment to know about a set of OpenStack
+clusters and how to configure a Site to know about a set of Nodes,
+respectively.
 
 ##REST API
 
