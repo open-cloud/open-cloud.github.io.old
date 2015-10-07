@@ -64,7 +64,7 @@ The rest of this section describes four stock configuations that are
 provided with the release. It also includes a description of the
 configuration we use for OpenCloud, a production system.
 
-####Minimal OpenStack Cluster on CloudLab using the Devel Configuration
+####Devel Config
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
