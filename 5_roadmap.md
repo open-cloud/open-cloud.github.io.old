@@ -17,11 +17,14 @@ Tracker](https://github.com/open-cloud/xos/issues).
 2. Able to leverage OpenStack domains so XOS can run on autonomous
    OpenStack clusters.
 
-3. Monitoring Service fully integrated into XOS. The plan is to make
+3. Extend support for "subscribers" by taking advantage of external
+   identity management systems, for example using OpenID.
+
+4. Monitoring Service fully integrated into XOS. The plan is to make
    OpenStack's Ceilometer a first-class XOS service, including
    instrumentation of all software services.
 
-4. ONOS fully integrated into XOS. The plan is to make ONOS a
+5. ONOS fully integrated into XOS. The plan is to make ONOS a
    first-class XOS service, including replacing the default
    OpenStack/Neutron networking support with ONOS. 
 

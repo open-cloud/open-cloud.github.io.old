@@ -25,8 +25,7 @@ title: Release Notes
 
 5. Replace Synchronizer framework, as described in
    the [Adding Services to XOS](../2_developer/#adding-services)
-   section of the Developer's Guide. Support is included for
-   inter-Synchronizer coordination, but with limitations.
+   section of the Developer's Guide.
 
 ###Axtell / 1-May-2015.
 

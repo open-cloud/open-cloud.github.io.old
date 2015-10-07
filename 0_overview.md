@@ -443,39 +443,28 @@ NetworkTemplate (hence that field is defined per-Network).
 XOS goes beyond Slices to define a model for the service running
 within a Slice:
 
-* **Service:** A registered network service that other Services can
-  access via extensions to the XOS data model and API. Each Service is
+* **Service:** A registered service that other Services can access via
+  extensions to the XOS data model and API. Each Service is
 
   - Bound to a set of Slices that collectively implement the Service.
 
-  - Bound to a set of Controller that repesents the service's control
+  - Bound to a set of Controllers that repesents the service's control
     interface.
 
+  - Bound to a set of other Services upon which it depends. The binding
+    is represented by a **Tenant** object, which also includes the
+    means by which the two services connect. Current options include
+    Public and Shared-Private.
+
 Operationally, service developers -- Users with Admin privileges for
-the Slice(s) that implement a Service -- create Service objects, which
-automatically registers them with XOS. Doing so may also involve
-defining one or more Service-specific objects that extend the core
-data model, and provide other users with a means to create an
-"instance" of the Service for their use (e.g., create a "Volume" for
-storage service). Extending XOS with these new Service-specific
-objects is not currently a first-class operation in XOS, but rather,
-involves directly augmenting the data model, as described in the
+the Slice(s) that implement a Service -- create Service objects and
+define dependencies among a set of services.
+
+Note that adding a new service to XOS involves creating a Service
+object in the data model, and binding that object to the associated
+collection of Slice, Controller, and Service objects, but it also
+involves extending the underlying XOS code base. These additional
+steps are described in the
 [Adding Services to XOS](../2_developer/#adding-services) section of the
 Developer Guide.
 
-The power of building a system from modular components is realized
-when the system provides a means (framework) for composing those
-components. XOS provides explicit support for composing services, or
-to be more specific, for service providers to declare that ``Service A
-is a tenant of Service B.'' We represent this relationship in the XOS
-Data Model as:
-
-* **Tenant:** A binding of a Tenant (either an User or a Service) to a
-  Provider Service, parameterized as a combination of:
-
-  - **Connect:** Means by which the two services connect and exchange
-    packets with each other. Options include: Public, Shared-Private,
-    and Interconnect-Private.
-
-  - **Attributes:** Tenancy related state required by provider service
-    on behalf of a given tenant service.
