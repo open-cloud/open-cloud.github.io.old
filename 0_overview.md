@@ -451,10 +451,13 @@ within a Slice:
   - Bound to a set of Controllers that repesents the service's control
     interface.
 
-  - Bound to a set of other Services upon which it depends. The binding
-    is represented by a **Tenant** object, which also includes the
-    means by which the two services connect. Current options include
-    Public and Shared-Private.
+  - Bound to a set of other Services upon which it depends. 
+
+* **Tenant:** Represents a binding of a tenant service to a provider
+  service, and so corresponds to the edges in a service dependency
+  graph. Each Tenant object includes the means by which the two
+  services connect in the data plane. Current objects include Public
+  and Shared-Private.
 
 Operationally, service developers -- Users with Admin privileges for
 the Slice(s) that implement a Service -- create Service objects and
