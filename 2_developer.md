@@ -246,7 +246,14 @@ explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
 
-##REST API
+##Programmatic Interfaces
+
+XOS provides three programmatic interfaces. The first -- a RESTful
+interface to the underlying data model -- is XOS's "system call"
+interface. The other two -- xoslib and TOSCA -- are built on top of
+the RESTful API.
+
+###REST API
 
 A REST API and associated
 [documentation](http://guide.xosproject.org/restapi/) is auto-generated
@@ -269,7 +276,7 @@ The REST API may be used via a number of programming languages. Below are a few 
     for user in users:
          print user["email"]
 
-##xoslib
+###xoslib
 
 xoslib is a client/server library for extending XOS. The server side
 of the library defines a [REST API](http://portal.opencloud.us/docs/)
@@ -284,6 +291,50 @@ xoslib's client-side library fetches models from the server-side, and
 notifies client programs when data has been fetched for display to the
 user. Portions of the XOS user interface (specifically, [User
 Views](../1_user/#user-views)) are implemented on top of this library.
+
+###TOSCA
+
+XOS supports use of
+[TOSCA](http://www.oasis-open.org/committees/tosca/) as a mechanism to
+configure and provision XOS services.
+
+There are two ways to use TOSCA in XOS:
+
+The first is by loading and running a TOSCA program via the XOS GUI.
+This is done as follows:
+
+  1. Navigate to Home>Core>Programs in the GUI, and select the 'Add Program' button. 
+  2. Enter a name and a description for your program. 
+  3. Click the 'Program Source' tab. Here you may either type in your TOSCA specification directly, or use your browser to upload a file
+  4. Click the 'Save and Continue' button. 
+  5. Go back to the 'Program Details' tab
+  6. Select 'Run' in the Command dropdown.
+  7. Click the 'Save and Continue' button.
+  8. XOS will now run your program in the background. Check back later (i.e. refresh the page in your browser) and the result of the program will be displayed in the Output box. 
+  
+The second is by running a TOSCA program using command line tools.  To
+do this from inside the XOS container, use command-line tools to run
+TOSCA specifications. You don't have to add the specification to the
+data model, and you don't have to wait for XOS to queue and execute
+the specification. The command-line tool returns output on completion. 
+To execute a TOSCA specification, use the following command:
+  
+```
+  /opt/xos/tosca/run.py <email-address> <filename>
+```
+  
+For example,
+  
+```
+  /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
+```
+
+For a reference guide to XOS-specific TOSCA extensions, see
+[http://guide.xosproject.org/tosca_reference.html](http://guide.xosproject.org/tosca_reference.html)
+
+For samples of XOS TOSCA specifications, consult the
+[xos/tosca/samples](https://github.com/open-cloud/xos/tree/master/xos/tosca/samples)
+section of the XOS git repository.
 
 ##<a name="adding-views">Adding Views to XOS</a>
 
