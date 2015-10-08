@@ -18,7 +18,8 @@ Tracker](https://github.com/open-cloud/xos/issues).
    OpenStack clusters.
 
 3. Extend support for "subscribers" by taking advantage of external
-   identity management systems, for example using OpenID.
+   identity management systems, for example using OpenID. Re-visit
+   the XOS data model for users, roles, and privileges.
 
 4. Monitoring Service fully integrated into XOS. The plan is to make
    OpenStack's Ceilometer a first-class XOS service, including
