@@ -319,13 +319,13 @@ output on completion. To execute a TOSCA specification, use the
 following command:
   
 ```
-  /opt/xos/tosca/run.py <email-address> <filename>
+/opt/xos/tosca/run.py <email-address> <filename>
 ```
   
 For example,
   
 ```
-  /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
+/opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
 ```
 
 For a reference guide to XOS-specific TOSCA extensions, see
