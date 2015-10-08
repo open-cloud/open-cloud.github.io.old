@@ -471,3 +471,8 @@ steps are described in the
 [Adding Services to XOS](../2_developer/#adding-services) section of the
 Developer Guide.
 
+XOS supports a restrictive form of User informally called a "Service
+User". Service users have a bit set in their record that disables access to all
+sections of the XOS UI except those sections which they explicitly have
+privileges. In this way, custom service portals may be created, and users
+confined within those portals. 
