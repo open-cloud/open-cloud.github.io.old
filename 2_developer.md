@@ -21,7 +21,7 @@ which implies three main parameters: (1) the XOS release, (2) the
 target hardware, and (3) the service portfolio. For example, the
 *Devel Config* described below uses the latest stable release
 (Burwell), runs on [CloudLab](https://www.cloudlab.us/), and includes
-only the HelloWorld service.
+only the HelloWorld service.  
 
 Configurations are organized in the directory *xos/configurations*
 within the XOS git repository. Each configuration is stored in a
@@ -71,10 +71,10 @@ configuration we use for OpenCloud, a production system.
 
 A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
-cluster, and then link this cluster to the running XOS you just
-installed. To set up XOS with an OpenStack cluster hosted on CloudLab:
+cluster, and then link this cluster to XOS. To set up XOS with an OpenStack cluster hosted on CloudLab:
 
-* If you don't already have a CloudLab account, you can go to `http://cloudlab.us` and join project **xos**.
+* If you don't already have a CloudLab account, go to `http://cloudlab.us` and join project **xos**.
+(Only recognized collaborators will be approved for a CloudLab account.)
 * Create your CloudLab experiment using the *OpenStack* profile.  The Juno and Kilo releases should both work.  
 We recommend that, under "Advanced Parameters" in the profile, you choose to "Disable Security Group Enforcement".  Instantiate it on the *CloudLab Clemson* or *CloudLab Wisconsin* clusters.
 * Login to the *ctl* node of the experiment and run the following:
@@ -87,7 +87,8 @@ $ make
 
 The Makefile will build the XOS Docker image, run it in a container, 
 and configure XOS to talk to the OpenStack cluster on CloudLab.  You can 
-reach the XOS GUI on port 9999 on the *ctl* node.
+reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
+*padmin@vicci.org*/*letmein*.
 
 Assuming everything has worked, you should be able to create a slice and 
 launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
