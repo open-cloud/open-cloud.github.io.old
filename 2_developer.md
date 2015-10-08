@@ -120,7 +120,9 @@ reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
 The configuration setups up subscriber information for a family (Mom,
 Dad, Jack, and Jill) and spins up a vCPE for the subscriber.  An
 instance will be created for slice *mysite_vcpe*  (it may take a couple
-of minutes) and the vCPE Docker container will launch inside.
+of minutes) and the vCPE Docker container will launch inside. For more
+information on exactly what is being set up, consult the `cord.yaml` file
+in the CORD configuration directory.
 
 NOTE: The vCPE Synchronizer must be able to login to the instance to
 set up the vCPE Docker container.  Make sure that OpenStack Security Groups are
