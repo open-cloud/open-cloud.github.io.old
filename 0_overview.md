@@ -261,6 +261,11 @@ example, if user Jane.Smith has the Admin SitePrivilege for Princeton
 and Stanford, then she may assign a Role to a user at Princeton for
 default access to Stanford.
 
+Finally, XOS supports a restrictive form of User, called a *Service 
+User*, that have restricted access to just a subset of Services and
+not other aspects of the XOS interface. In this way, custom service
+portals may be created, and users confined within those portals. 
+
 ###Infrastructure
 
 XOS manages of a set of physical servers deployed throughout the
@@ -459,9 +464,10 @@ within a Slice:
   services connect in the data plane. Current objects include Public
   and Shared-Private.
 
-Operationally, service developers -- Users with Admin privileges for
-the Slice(s) that implement a Service -- create Service objects and
-define dependencies among a set of services.
+Operationally, Users with Root-Level Admin privileges create Service
+objects and define dependencies among a set of Services. Service
+developers -- Users with Admin privilege for the Slice(s) that
+implement a Service -- bind the Service to its implementation.
 
 Note that adding a new service to XOS involves creating a Service
 object in the data model, and binding that object to the associated
@@ -471,8 +477,3 @@ steps are described in the
 [Adding Services to XOS](../2_developer/#adding-services) section of the
 Developer Guide.
 
-XOS supports a restrictive form of User informally called a "Service
-User". Service users have a bit set in their record that disables access to all
-sections of the XOS UI except those sections which they explicitly have
-privileges. In this way, custom service portals may be created, and users
-confined within those portals. 
