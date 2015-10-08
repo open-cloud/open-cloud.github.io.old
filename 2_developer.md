@@ -263,12 +263,12 @@ XOS also supports Swagger, and an interactive Swagger page is available at
 
 The REST API may be used via a number of programming languages. Below are a few examples using common tools and languages:
 
-###command line via curl
+####command line via curl
 
      # use your XOS username and password for my_email and my_password
      curl -H "Accept: application/json; indent=4" -u my_email:my_password http://portal.opencloud.us/xos/users/
 
-###python
+####python
 
     import requests
     admin_auth=("my_email", "my_password")   # use your XOS username and password
@@ -296,9 +296,8 @@ Views](../1_user/#user-views)) are implemented on top of this library.
 
 XOS supports use of
 [TOSCA](http://www.oasis-open.org/committees/tosca/) as a mechanism to
-configure and provision XOS services.
-
-There are two ways to use TOSCA in XOS:
+configure and provision XOS services. There are two ways to use TOSCA
+in XOS.
 
 The first is by loading and running a TOSCA program via the XOS GUI.
 This is done as follows:
@@ -312,12 +311,12 @@ This is done as follows:
   7. Click the 'Save and Continue' button.
   8. XOS will now run your program in the background. Check back later (i.e. refresh the page in your browser) and the result of the program will be displayed in the Output box. 
   
-The second is by running a TOSCA program using command line tools.  To
-do this from inside the XOS container, use command-line tools to run
-TOSCA specifications. You don't have to add the specification to the
-data model, and you don't have to wait for XOS to queue and execute
-the specification. The command-line tool returns output on completion. 
-To execute a TOSCA specification, use the following command:
+The second is by running a TOSCA program using command line tools. To
+do this from inside the XOS container, you don't have to add the
+specification to the data model, and you don't have to wait for XOS to
+queue and execute the specification. The command-line tool returns
+output on completion. To execute a TOSCA specification, use the
+following command:
   
 ```
   /opt/xos/tosca/run.py <email-address> <filename>
