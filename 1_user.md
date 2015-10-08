@@ -322,11 +322,11 @@ link next to *Controller*. *[Workflow to be cleaned up.]*
 To upload an image to XOS, place the image file in /opt/xos/images. Note that
 adding a file to this directory must be done atomically, for example by uploading
 the file elsewhere and then using 'mv' to move the file into the directory. If
-a file is uploaded directly to /opt/xos/images, then it's possible the observer
+a file is uploaded directly to /opt/xos/images, then it's possible the Synchronizer
 may attempt to sync the image to controllers while the upload is in progress,
 before the file is complete.
 
-Once the image has been placed in /opt/xos/images, the observer will run and
+Once the image has been placed in /opt/xos/images, the Synchronizer will run and
 automatically sync that image to all controllers. 
 
 Even though an image has been uploaded and synced, it is still not available
