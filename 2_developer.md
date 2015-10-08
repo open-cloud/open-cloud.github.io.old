@@ -248,8 +248,10 @@ respectively.
 ##REST API
 
 A REST API and associated
-[documentation](http://guide.xosproject.org/restapi/) is auto-generated
-from the data model.
+[documentation](http://guide.xosproject.org/restdocs/) is auto-generated
+from the data model. In addition to the staticly-generated documentation linked here, 
+XOS also supports Swagger, and an interactive Swagger page is available at 
+/docs/ on any XOS development server. 
 
 The REST API may be used via a number of programming languages. Below are a few examples using common tools and languages:
 
