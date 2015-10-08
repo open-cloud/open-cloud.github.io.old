@@ -85,23 +85,54 @@ $ cd xos/xos/configurations/devel
 $ make
 ```
 
-The Makefile will build the XOS Docker image, run it in a container, 
-and configure XOS to talk to the OpenStack cluster on CloudLab.  You can 
+The Makefile will build the XOS Docker image, run it in a container,
+and configure XOS to talk to the OpenStack cluster on CloudLab.  You can
 reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
 *padmin@vicci.org*/*letmein*.
 
-Assuming everything has worked, you should be able to create a slice and 
+Assuming everything has worked, you should be able to create a slice and
 launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
 at the first IP address shown in the *Instances* view for the slice (typically on the
 10.11.0.0/16 subnet).
 
+###CORD Config
+
+The CORD configuration of XOS is a variant of the Devel configuration described above.
+The purpose of this configuration is to enable development of the vCPE service
+and related CORD services on CloudLab.  XOS is configured with the vCPE, vOLT,
+and vBNG services (though the vOLT and vBNG services are just stubs as the
+CloudLab setup does not include ONOS yet).
+
+To set up the CORD configuration for XOS, bring up the OpenStack profile on
+CloudLab and login to the *ctl* node.  Then execute:
+
+```
+$ git clone https://github.com/open-cloud/xos.git
+$ cd xos/xos/configurations/cord
+$ make
+```
+
+The Makefile will build the XOS Docker image, run it in a container,
+and configure XOS to talk to the OpenStack cluster on CloudLab.  You can
+reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
+*padmin@vicci.org*/*letmein*.
+
+The configuration setups up subscriber information for a family (Mom,
+Dad, Jack, and Jill) and spins up a vCPE for the subscriber.  An
+instance will be created for slice *mysite_vcpe*  (it may take a couple
+of minutes) and the vCPE Docker container will launch inside.
+
+NOTE: The vCPE Synchronizer must be able to login to the instance to
+set up the vCPE Docker container.  Make sure that OpenStack Security Groups are
+disabled or else configured appropriately.
+
 ###Test Config
 
-The Test configuration brings XOS up on CloudLab and runs it through 
+The Test configuration brings XOS up on CloudLab and runs it through
 a set of regression tests. All code that is to be checked into the
 master branch on github should first successfully pass all the test
 cases in this configuration. After the test suite is completed, the
-container will automatically exit. 
+container will automatically exit.
 
 Generally the test suite executes in two phases. The first phase are
 simple data model regression tests driven by XOS's TOSCA engine. These
@@ -109,8 +140,8 @@ test case create models with various sets of arguments, and ensure that
 the XOS data model is behaving properly.
 
 The second phase are Synchronizer-exercising tests. These test cases create
-an object in the data model, and then run multiple passes of the XOS 
-synchronizer to instantiate the object using OpenStack. 
+an object in the data model, and then run multiple passes of the XOS
+synchronizer to instantiate the object using OpenStack.
 
 ###Bash Config
 
@@ -121,7 +152,7 @@ executing, the user will be dropped into a bash shell inside of the
 container. Postgres will be running and the XOS data model will be
 populated with minimal data.
 
-The XOS UI will not be running, but it can be started by typing 
+The XOS UI will not be running, but it can be started by typing
 
 ```
 $cd /opt/xos; scripts/opencloud runserver
@@ -183,7 +214,7 @@ stdin. Examples of these configurations are Test and Bash. Debugging
 these are relatively easy, as one may directly observe the output of
 the container.
 
-Background configurations do not produce output once launched. 
+Background configurations do not produce output once launched.
 Examples of these include the Devel and Frontend configurations. The
 Makefiles for these configurations typically include a step that waits
 for the XOS UI to become reachable, as it may take up to 30 seconds
@@ -210,8 +241,8 @@ may be done first looking up the container ID, and then executing
 
 A Dockerfile available at
 [github.com/open-cloud/xos](https://github.com/open-cloud/xos)
-can be used to build a Docker image for running XOS. The XOS 
-files in the Docker image are copied from the local file tree, 
+can be used to build a Docker image for running XOS. The XOS
+files in the Docker image are copied from the local file tree,
 so it is easy to create a customized version of XOS by making
 local changes to the XOS source before building the Docker image.
 
@@ -227,9 +258,9 @@ $ docker build -t xos .
 $ docker run -t -i -p 8000:8000 xos
 ```
 
-XOS will start automatically and you will see its log output in the shell window. 
+XOS will start automatically and you will see its log output in the shell window.
 You can access the XOS login at *http://server:8000*, where *server*
-is the name of the server hosting the Docker container.  Login credentials are 
+is the name of the server hosting the Docker container.  Login credentials are
 *padmin@vicci.org*/*letmein*.
 
 Note that the above steps result in a running XOS, but without any
@@ -257,9 +288,9 @@ the RESTful API.
 
 A REST API and associated
 [documentation](http://guide.xosproject.org/restapi/) is auto-generated
-from the data model. In addition to the staticly-generated documentation linked here, 
-XOS also supports Swagger, and an interactive Swagger page is available at 
-/docs/ on any XOS development server. 
+from the data model. In addition to the staticly-generated documentation linked here,
+XOS also supports Swagger, and an interactive Swagger page is available at
+/docs/ on any XOS development server.
 
 The REST API may be used via a number of programming languages. Below are a few examples using common tools and languages:
 
@@ -302,28 +333,28 @@ in XOS.
 The first is by loading and running a TOSCA program via the XOS GUI.
 This is done as follows:
 
-  1. Navigate to Home>Core>Programs in the GUI, and select the 'Add Program' button. 
-  2. Enter a name and a description for your program. 
+  1. Navigate to Home>Core>Programs in the GUI, and select the 'Add Program' button.
+  2. Enter a name and a description for your program.
   3. Click the 'Program Source' tab. Here you may either type in your TOSCA specification directly, or use your browser to upload a file
-  4. Click the 'Save and Continue' button. 
+  4. Click the 'Save and Continue' button.
   5. Go back to the 'Program Details' tab
   6. Select 'Run' in the Command dropdown.
   7. Click the 'Save and Continue' button.
-  8. XOS will now run your program in the background. Check back later (i.e. refresh the page in your browser) and the result of the program will be displayed in the Output box. 
-  
+  8. XOS will now run your program in the background. Check back later (i.e. refresh the page in your browser) and the result of the program will be displayed in the Output box.
+
 The second is by running a TOSCA program using command line tools. To
 do this from inside the XOS container, you don't have to add the
 specification to the data model, and you don't have to wait for XOS to
 queue and execute the specification. The command-line tool returns
 output on completion. To execute a TOSCA specification, use the
 following command:
-  
+
 ```
 /opt/xos/tosca/run.py <email-address> <filename>
 ```
-  
+
 For example,
-  
+
 ```
 /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
 ```
@@ -730,7 +761,7 @@ activates CDN-related objects by calling the HyperCache controller;
 yet another that activate file system volumes by calling the Syndicate
 controller; and so on. In general, any service-related objects in the
 data model that need to interact with a low level platform must
-include a service-specific Synchronizer Instance. 
+include a service-specific Synchronizer Instance.
 
 The XOS Data Model consists of the set of configuration values that
 need to be set for the system to be operational. This configuration is
@@ -816,7 +847,7 @@ are automatically realized:
 
 * Concurrent execution of independent steps
 
-* Automatically inferred object-level dependencies 
+* Automatically inferred object-level dependencies
 
 The remainder of this section uses the Amazon EC2 Synchronizer as an
 example to illustrate how a Synchronizer Instance works. First, a look at
@@ -889,7 +920,7 @@ Here is an example of a Synchronizer Step:
                 new_sites.append(site)
 
         return new_sites
-   
+
      def sync_record(self, site):
         site.save()
 ```
@@ -906,8 +937,8 @@ following instance properties (three variable and three methods):
   of. Usually the same as provides, but may be an auxilary model that
   holds state that complements the main model provided.
 
-* **requested_interval**: The intervals at which this model is enacted. 
-  For slow executing models, set this to a high value so that it 
+* **requested_interval**: The intervals at which this model is enacted.
+  For slow executing models, set this to a high value so that it
   does not interrupt every run of the Synchronizer.
 
 * **fetch_pending**: The method that fetches the pending set of objects
@@ -1126,16 +1157,16 @@ messy inside of peoples' private XOS installations as well. It may be
 necessary to fully uninstall Django and it's related packages
 
 ```
-pip uninstall django djangorestframework django-filter django-timezones 
-django-crispy-forms django-geoposition django-extensions django-suit 
+pip uninstall django djangorestframework django-filter django-timezones
+django-crispy-forms django-geoposition django-extensions django-suit
 django-evolution django-bitfield django-ipware django-encrypted-fields
 ```
 
 and then reinstall them
 
 ```
-pip install django==1.7 djangorestframework django-filter django-timezones 
-django-crispy-forms django-geoposition django-extensions django-suit 
+pip install django==1.7 djangorestframework django-filter django-timezones
+django-crispy-forms django-geoposition django-extensions django-suit
 django-evolution django-bitfield django-ipware django-encrypted-fields
 ```
 
@@ -1143,7 +1174,7 @@ Django's migration will get upset if you attempt to have an unmigrated
 app that depends on a migrated app, for example, in Foreign Key
 relationships or model inheritance. Most of our apps have such a
 dependency between the 'Service' object in the app and
-core.Service. When creating new apps, run 
+core.Service. When creating new apps, run
 
 ```
 python manage.py makemigrations <appname>
@@ -1202,7 +1233,7 @@ declaration. The basic field types commonly in use with XOS:
 | GenericIPAddressField | Able to validate IPv4 and IPv6 flavors of addresses; default widget is TextInput.|
 | URLField           | Verifies well formed URL, max_length is defaulted to 200.  GUI convenience is that the value of the field is displayed as a clickable link above the input widget.|
 | SlugField          | Used to represent a short label for something containing only letters, numbers, underscores or hyphens. This should be used for the name of Tags so that there is a better chance of promoting the Tag to be an actual field attribute once the model has been solidified.|
-	
+
 ####Core Field Attributes
 
 List of Field level optional attributes currently in use:
@@ -1218,7 +1249,7 @@ List of Field level optional attributes currently in use:
 | blank=True | Allows the field to be present but empty.|
 | null=True | Allows the field to have a value of null if the field is blank.|
 | editable=False | If you would like to make this a readOnly field to the user.|
-	 
+
 List of Field level optional attributes we should not use, or use judiciously:
 
 | Attribute          | Why                |
@@ -1339,7 +1370,7 @@ http://django-rest-framework.org/#quickstart
 
 ##Participaing in XOS Development
 
-Bugs reports and feature requests can be filed using the 
+Bugs reports and feature requests can be filed using the
 [GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
 To participate in a discussion about XOS development, join
