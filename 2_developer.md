@@ -248,7 +248,7 @@ respectively.
 ##REST API
 
 A REST API and associated
-[documentation](http://portal.opencloud.us/docs/) is auto-generated
+[documentation](http://guide.xosproject.org/restapi/) is auto-generated
 from the data model.
 
 The REST API may be used via a number of programming languages. Below are a few examples using common tools and languages:
