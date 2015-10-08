@@ -117,7 +117,7 @@ and configure XOS to talk to the OpenStack cluster on CloudLab.  You can
 reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
 *padmin@vicci.org*/*letmein*.
 
-The configuration setups up subscriber information for a family (Mom,
+The configuration adds subscriber information for a family (Mom,
 Dad, Jack, and Jill) and spins up a vCPE for the subscriber.  An
 instance will be created for slice *mysite_vcpe*  (it may take a couple
 of minutes) and the vCPE Docker container will launch inside. For more
