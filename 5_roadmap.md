@@ -31,11 +31,10 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 6. Provide a complete set of views, including
    * Operator: Complete "XOS Admin", Nagios, Horizon, ELK-Stack.
-   * Developer: Evolve "Tenant View" into full-featured "Developer View".
+   * Developer: Evolve "Tenant View" into "Developer View".
    * Service User: Content Provider (CDN), Syndicate, CORD Subscriber.
-
-   Current "Developer View" conflates Operator, Developer, and Subscriber
-   perspectives. Re-factor as outlined above.
+   * *[Note: Current "Developer View" conflates Operator, Developer, 
+     and Subscriber perspectives. Re-factor as outlined above.]*
 
 7. Integrate Monitoring Service into XOS. The plan is to make
     OpenStack's Ceilometer a first-class XOS service, including
