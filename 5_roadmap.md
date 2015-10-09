@@ -11,27 +11,37 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 ##Cozad Release (December 2015)
 
-1. Support isolating extensions and Sychronizers in their own containers.
+1. Support isolating Sychronizers in their own containers.
+   We need to do some design work around how to best extend 
+   the data model schema.
 
 2. Leverage OpenStack domains so XOS can run on autonomous
     OpenStack clusters.
 
-3. Extend support for "subscribers" by taking advantage of external
-   identity management systems, for example using OpenID. Revisit
-   the XOS data model for users, roles, and privileges.
+3. Extend support for "subscribers" (and other "service users") by
+   taking advantage of external identity management systems; e.g.,
+   via OpenID. 
 
-4. Improve UI programming environment, including a re-engineering
-    of xoslib to support Single Page Application and to adhere to an
-    enforced style guide.
+4. Related to (3), revisit the XOS data model for users, roles, 
+   and privileges.
 
-5. Add views in support of operations, including Horizon dashboard
-    (related to Ceilometer -- next item), Nagios, and syslog.
+5. Improve UI programming environment, including (a) re-engineering
+   xoslib to support Single Page Application, and (b) re-factoring
+   to support a Js StyleGuide.
 
-6. Integrate Monitoring Service into XOS. The plan is to make
+6. Provide a complete set of views, including
+   * Operator: Complete "XOS Admin", Nagios, Horizon, ELK-Stack.
+   * Developer: Evolve "Tenant View" into full-featured "Developer View".
+   * Service User: Content Provider (CDN), Syndicate, CORD Subscriber.
+
+   Current "Developer View" conflates Operator, Developer, and Subscriber
+   perspectives. Re-factor as outlined above.
+
+7. Integrate Monitoring Service into XOS. The plan is to make
     OpenStack's Ceilometer a first-class XOS service, including
    instrumentation of all software services.
 
-7. Integrate ONOS into XOS. The plan is to make ONOS a
+8. Integrate ONOS into XOS. The plan is to make ONOS a
    first-class XOS service, including replacing the default
    OpenStack/Neutron networking support with ONOS. 
 
