@@ -11,21 +11,27 @@ Tracker](https://github.com/open-cloud/xos/issues).
 
 ##Cozad Release (December 2015)
 
-1. Improved support for isolating extensions and Sychronizers in their
-   own containers.
+1. Support isolating extensions and Sychronizers in their own containers.
 
-2. Able to leverage OpenStack domains so XOS can run on autonomous
-   OpenStack clusters.
+2. Leverage OpenStack domains so XOS can run on autonomous
+    OpenStack clusters.
 
 3. Extend support for "subscribers" by taking advantage of external
-   identity management systems, for example using OpenID. Re-visit
+   identity management systems, for example using OpenID. Revisit
    the XOS data model for users, roles, and privileges.
 
-4. Monitoring Service fully integrated into XOS. The plan is to make
-   OpenStack's Ceilometer a first-class XOS service, including
+4. Improve UI programming environment, including a re-engineering
+    of xoslib to support Single Page Application and to adhere to an
+    enforced style guide.
+
+5. Add views in support of operations, including Horizon dashboard
+    (related to Ceilometer -- next item), Nagios, and syslog.
+
+6. Integrate Monitoring Service into XOS. The plan is to make
+    OpenStack's Ceilometer a first-class XOS service, including
    instrumentation of all software services.
 
-5. ONOS fully integrated into XOS. The plan is to make ONOS a
+7. Integrate ONOS into XOS. The plan is to make ONOS a
    first-class XOS service, including replacing the default
    OpenStack/Neutron networking support with ONOS. 
 
