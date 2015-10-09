@@ -1376,4 +1376,4 @@ Bugs reports and feature requests can be filed using the
 [GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
 To participate in a discussion about XOS development, join
-[devel@opencloud.us](https://groups.google.com/a/opencloud.us/forum/#!forum/devel).
+[devel@xosproject.org](https://groups.google.com/a/xosproject.org/forum/#!forum/devel).
