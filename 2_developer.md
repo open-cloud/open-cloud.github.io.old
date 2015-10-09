@@ -309,7 +309,7 @@ The REST API may be used via a number of programming languages. Below are a few 
     for user in users:
          print user["email"]
 
-###xoslib
+###XOSlib
 
 xoslib is a client/server library for extending XOS. The server side
 of the library defines a [REST API](http://portal.opencloud.us/docs/)
