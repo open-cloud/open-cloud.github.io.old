@@ -45,8 +45,8 @@ Tracker](https://github.com/open-cloud/xos/issues).
    first-class XOS service, including replacing the default
    OpenStack/Neutron networking support with ONOS.
 
-9. Define a data model migration strategy (and stick with it). The
-    current strategy too often depends on resetting the data model.
+9. Define a data model migration strategy. The current strategy
+    too often depends on resetting the data model.
 
 ##Deployment Configurations (Oct - Dec 2015)
 
@@ -65,14 +65,12 @@ with the Burwell release.
 
 3. OpenCloud: Deployed across multiple Internet2 sites. Service
 portfolio includes OpenStack, EC2, Syndicate, and vCDN. Available with
-the Burwell release. (Extended to include Ceilometer in October and 
-ONOS in November.)
+the Burwell release.
 
 4. CORD Development: A configuration used for CORD development. 
 Includes vCPE, ONOS, and minimal vOLT and vBNG. Leverages CloudLab
-servers rather than actual POD hardware. Avaiable in October 2015.
-(Extended to include Ceilometer in October and ONOS in November.)
+servers rather than actual POD hardware. Avaiable by end of October 2015.
 
 5. CORD POD: A configuration to be deployed on a CORD POD with OLT
 hardware support. Service portfolio includes OpenStack, ONOS,
-Ceilometer, vCDN, vOLT, vCPE, and vBNG. Avaiable in November 2015.
+Ceilometer, vCDN, vOLT, vCPE, and vBNG. Avaiable by end of November 2015.
