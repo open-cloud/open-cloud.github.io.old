@@ -81,7 +81,7 @@ service in its own VM, with all VMs connected by a private management
 (virtual) network. An Ansible playbook that automates bringing up
 this virtual infrastructure is available on GitHub:
 
-https://github.com/andybavier/opencloud-cluster-setup
+https://github.com/open-cloud/openstack-cluster-setup
 
 Consult the README.md file for instructions on how to run this playbook
 and customize it for your own needs.
