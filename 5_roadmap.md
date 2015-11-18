@@ -17,7 +17,7 @@ Tracker](https://github.com/open-cloud/xos/issues).
     some design work around how to best extend the data model schema.
 
 2. Address XOS scalability and high availability. Both are a function
-   of the underlyin database solution.
+   of the underlying database solution.
 
 3. Leverage OpenStack domains so XOS can run on autonomous
     OpenStack clusters.
@@ -69,14 +69,14 @@ Burwell release.
 core, with backend cloud resources provided by CloudLab. Available
 with the Burwell release.
 
-3. OpenCloud: Deployed across multiple Internet2 sites. Service
-portfolio includes OpenStack, EC2, Syndicate, and vCDN. Available with
-the Burwell release.
+3. CORD Development: A configuration used for CORD development. 
+Includes vSG, ONOS, and minimal vOLT and vRouter. Leverages CloudLab 
+servers rather than actual POD hardware. Avaiable by end of October 2015. 
 
-4. CORD Development: A configuration used for CORD development. 
-Includes vCPE, ONOS, and minimal vOLT and vBNG. Leverages CloudLab
-servers rather than actual POD hardware. Avaiable by end of October 2015.
+4. OpenCloud: Deployed across multiple Internet2 sites. Service
+portfolio includes OpenStack, EC2, Syndicate, and vCDN. Available by
+end of November 2015.
 
 5. CORD POD: A configuration to be deployed on a CORD POD with OLT
 hardware support. Service portfolio includes OpenStack, ONOS,
-Ceilometer, vCDN, vOLT, vCPE, and vBNG. Avaiable by end of November 2015.
+Ceilometer, vCDN, vOLT, vSG, and vRouter. Avaiable by end of December 2015.
