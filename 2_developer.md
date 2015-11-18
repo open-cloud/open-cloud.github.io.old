@@ -726,6 +726,10 @@ the core value provided by a service, not binding it to the underlying
 mechanisms of the Cloud substrate. This section describes the
 framework into which services are plugged into XOS.
 
+There is also a simple 
+[HelloWorld Service](http://guide.xosproject.org/HelloWorld-in-XOS.pdf)
+that illustrates how a service is configured into XOS.
+
 ### Design Overview
 
 The work of defining a new service is twofold: (1) designing
