@@ -100,33 +100,9 @@ at the first IP address shown in the *Instances* view for the slice (typically o
 The CORD configuration of XOS is a variant of the Devel configuration described above.
 The purpose of this configuration is to enable development of the vCPE service
 and related CORD services on CloudLab.  XOS is configured with the vCPE, vOLT,
-and vBNG services (though the vOLT and vBNG services are just stubs as the
-CloudLab setup does not include ONOS yet).
-
-To set up the CORD configuration for XOS, bring up the OpenStack profile on
-CloudLab and login to the *ctl* node.  Then execute:
-
-```
-$ git clone https://github.com/open-cloud/xos.git
-$ cd xos/xos/configurations/cord
-$ make
-```
-
-The Makefile will build the XOS Docker image, run it in a container,
-and configure XOS to talk to the OpenStack cluster on CloudLab.  You can
-reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
-*padmin@vicci.org*/*letmein*.
-
-The configuration adds subscriber information for a family (Mom,
-Dad, Jack, and Jill) and spins up a vCPE for the subscriber.  An
-instance will be created for slice *mysite_vcpe*  (it may take a couple
-of minutes) and the vCPE Docker container will launch inside. For more
-information on exactly what is being set up, consult the `cord.yaml` file
-in the CORD configuration directory.
-
-NOTE: The vCPE Synchronizer must be able to login to the instance to
-set up the vCPE Docker container.  Make sure that OpenStack Security Groups are
-disabled or else configured appropriately.
+and vBNG services.  For the latest instructions on how to build this configuration,
+see the [README.md](https://github.com/open-cloud/xos/blob/master/xos/configurations/cord/README.md)
+file in the `xos/configurations/cord/` directory of the XOS GitHub repository.
 
 ###Test Config
 
@@ -726,7 +702,7 @@ the core value provided by a service, not binding it to the underlying
 mechanisms of the Cloud substrate. This section describes the
 framework into which services are plugged into XOS.
 
-There is also a simple 
+There is also a simple
 [HelloWorld Service](http://guide.xosproject.org/HelloWorld-in-XOS.pdf)
 that illustrates how a service is configured into XOS.
 
