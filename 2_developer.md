@@ -73,8 +73,7 @@ A simple way to create an end-to-end development environment is to use
 [CloudLab](https://www.cloudlab.us/) to host a basic OpenStack
 cluster, and then link this cluster to XOS. To set up XOS with an OpenStack cluster hosted on CloudLab:
 
-* If you don't already have a CloudLab account, go to `http://cloudlab.us` and join project **xos**.
-(Only recognized collaborators will be approved for a CloudLab account.)
+* If you don't already have a CloudLab account, go to `http://cloudlab.us` and join project **cord-testdrive**.
 * Create your CloudLab experiment using the *OpenStack* profile.  The Juno and Kilo releases should both work.  
 We recommend that, under "Advanced Parameters" in the profile, you choose to "Disable Security Group Enforcement".  Instantiate it on the *CloudLab Clemson* or *CloudLab Wisconsin* clusters.
 * Login to the *ctl* node of the experiment and run the following:
