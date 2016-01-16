@@ -69,6 +69,11 @@ html {
     text-align: left;
   }
 }
+@media print {
+  .sidebar {
+    display: none;
+  }
+}
 
 /* Sidebar links */
 .sidebar a {
@@ -142,6 +147,12 @@ a.sidebar-nav-item:focus {
   }
 }
 
+@media print {
+  .content {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
 
 /*
  * Reverse layout
