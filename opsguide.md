@@ -46,9 +46,7 @@ compute nodes running the nova-compute and neutron-plugin-openvswitch
 agents.  The compute nodes connect to a publicly routable network as
 well as the management network.
 
-![Figure 1. XOS cluster architecture.]({{ site.url }}/figures/controller.jpg)
-
-Figure 1. XOS Cluster Architecture.
+{% include figure.html url="/figures/opsguide-fig01_xos_cluster_architecture.jpg" caption="Figure 1. XOS Cluster Architecture." %}
 
 The private management network is an IP subnet with a private IP address 
 space (e.g., 192.168.122.0/24).  VMs on the controller node connect to this

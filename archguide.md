@@ -47,9 +47,7 @@ interesting functionality is provided by a collection of services.
 Moreover, XOS supports a shell-like mechanism that makes it possible
 to program new functionality from a combination of existing services.
 
-![Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).]({{ site.url }}/figures/Slide18.jpg)
-
-Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).
+{% include figure.html url="/figures/archguide-fig01_xos_layers.jpg" caption="Figure 1. XOS layers an OS on top of a set of cloud services (service controllers)." %}
 
 Implicit in Figure 1 is an underlying model of exactly what
 constitutes a service. Our model is that every service incorporated
@@ -62,9 +60,7 @@ geo-distributed set of clusters. For example, some VMs might be
 concentrated in one or more datacenters, while others are distributed
 across many edge sites.
 
-![Figure 2. Anantomy of a Service.]({{ site.url }}/figures/Slide22.jpg)
-
-Figure 2. Anatomy of a Service.
+{% include figure.html url="/figures/archguide-fig02_service_anatomy.jpg" caption="Figure 2. Anatomy of a Service." %}
 
 The separation of service controller from service instances is central
 to XOS's design. The controller maintains all authoritative state for
@@ -88,9 +84,7 @@ erroneous state of the remainder of the system: the so-called
 state of the system at these two levels (authoritative Data Model and
 operational backend) is a distinguishing property of XOS.
 
-![Figure 3. Block diagram of the XOS software structure.]({{ site.url }}/figures/Slide21.jpg)
-
-Figure 3. Block diagram of the XOS software structure.
+{% include figure.html url="/figures/archguide-fig03_block_diagram.jpg" caption="Figure 3. Block diagram of the XOS software structure." %}
 
 The Data Model encapsulates the abstract objects, relationships among
 those objects, and operations on those objects. The operations are
