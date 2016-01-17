@@ -3,6 +3,8 @@ layout: page
 title: Architecture Guide
 ---
 
+## Overview
+
 XOS defines a collection of abstractions in support of services and
 service composition. It leverages existing datacenter cloud management
 systems (e.g., OpenStack) and SDN-based network controllers (e.g.,
@@ -41,7 +43,7 @@ minimal core (kernel) and are easily extended to include new
 functionality. In Unix, the set of extensions correspond to the
 applications running top of the Unix kernel. This is also the case
 with XOS, where as depicted in Figure 1, the core is minimal and the
-interesting functionality is provided by a collection of services. 
+interesting functionality is provided by a collection of services.
 Moreover, XOS supports a shell-like mechanism that makes it possible
 to program new functionality from a combination of existing services.
 
@@ -165,7 +167,7 @@ An Object Type defines a set of *Fields*, each Field has a *Type*, and
 each Type has a set of *Attributes*. Some of these Attributes are core
 (common across all Types) and some are Type-specific. Relationships
 between Object Types are expressed by Fields with one of a set of
-distinguished relationship-oriented Types (e.g., *OneToOneField*). 
+distinguished relationship-oriented Types (e.g., *OneToOneField*).
 Finally, an *Object* is an instance (instantiation) of an Object Type,
 where each Object has a unique primary key (or more precisely, a
 primary index *Object Id* into the table that implements the Object
@@ -231,7 +233,7 @@ Deployments. By default, all Users are able to list the registered
 Sites, Deployments, and Nodes; have read access to their home site;
 and have read/write access to its own User Object.
 
-Site Admins create Nodes, Users, and Slices associated with the Site. 
+Site Admins create Nodes, Users, and Slices associated with the Site.
 The Site Admin may also grant PI privileges to select Users (giving
 them the ability to manage the Site's Users and Slices), and Tech
 privileges to select Users (giving them the ability to manage the
@@ -261,10 +263,10 @@ example, if user Jane.Smith has the Admin SitePrivilege for Princeton
 and Stanford, then she may assign a Role to a user at Princeton for
 default access to Stanford.
 
-Finally, XOS supports a restrictive form of User, called a *Service 
+Finally, XOS supports a restrictive form of User, called a *Service
 User*, that have restricted access to just a subset of Services and
 not other aspects of the XOS interface. In this way, custom service
-portals may be created, and users confined within those portals. 
+portals may be created, and users confined within those portals.
 
 ###Infrastructure
 
@@ -429,7 +431,7 @@ The workflow for instantiating a Slice on the physical infrastructure
 is typically iterative and incremental. A User associated with the
 Slice might first query the system to learn about the set of Sites and
 Nodes and create a set of Instances accordingly. Next, the User might
-create one or more Networks that logically connect those Instances. 
+create one or more Networks that logically connect those Instances.
 Instances can be added to and removed from a Slice over time, with the
 corresponding Networks adjusted to account for those changes.
 
@@ -456,7 +458,7 @@ within a Slice:
   - Bound to a set of Controllers that repesents the service's control
     interface.
 
-  - Bound to a set of other Services upon which it depends. 
+  - Bound to a set of other Services upon which it depends.
 
 * **Tenant:** Represents a binding of a tenant service to a provider
   service, and so corresponds to the edges in a service dependency

@@ -203,16 +203,16 @@ Because of the nature of background configurations, failures are not
 necessarily readily apparent. Docker includes a 'log' feature that may
 be used to display the stdout and stderr of a background
 container. This feature is exercised by first looking up the
-container's ID (with "docker ps" if the container is still executing,
-or "docker ps -a" if the container has exited). Then use that ID to
-execute "docker logs ID".  Several of the configurations include a
+container's ID (with `docker ps` if the container is still executing,
+or `docker ps -a` if the container has exited). Then use that ID to
+execute `docker logs ID`.  Several of the configurations include a
 Makefile target "make showlogs" that automatically executes these
 steps.
 
 Additionally, it may be necessary for a developer to sometimes attach
 a shell to a running background container to interact with it. This
 may be done first looking up the container ID, and then executing
-"docker exec -t -i ID bash".
+`docker exec -t -i ID bash`.
 
 ###Building XOS Without the Configuration System
 
@@ -230,10 +230,10 @@ suitable for fresh installations.
 
 To build and start the container type:
 
-```
+{% highlight bash %}
 $ docker build -t xos .
 $ docker run -t -i -p 8000:8000 xos
-```
+{% endhighlight %}
 
 XOS will start automatically and you will see its log output in the shell window.
 You can access the XOS login at *http://server:8000*, where *server*
@@ -273,16 +273,20 @@ The REST API may be used via a number of programming languages. Below are a few 
 
 ####command line via curl
 
-     # use your XOS username and password for my_email and my_password
-     curl -H "Accept: application/json; indent=4" -u my_email:my_password http://portal.opencloud.us/xos/users/
+{% highlight sh %}
+# use your XOS username and password for my_email and my_password
+curl -H "Accept: application/json; indent=4" -u my_email:my_password http://portal.opencloud.us/xos/users/
+{% endhighlight %}
 
 ####python
 
-    import requests
-    admin_auth=("my_email", "my_password")   # use your XOS username and password
-    users = requests.get("http://portal.opencloud.us/xos/users", auth=admin_auth).json()
-    for user in users:
-         print user["email"]
+{% highlight python %}
+import requests
+admin_auth=("my_email", "my_password")   # use your XOS username and password
+users = requests.get("http://portal.opencloud.us/xos/users", auth=admin_auth).json()
+for user in users:
+  print user["email"]
+{% endhighlight %}
 
 ###XOSlib
 
@@ -326,15 +330,15 @@ queue and execute the specification. The command-line tool returns
 output on completion. To execute a TOSCA specification, use the
 following command:
 
-```
+{% highlight sh %}
 /opt/xos/tosca/run.py <email-address> <filename>
-```
+{% endhighlight %}
 
 For example,
 
-```
+{% highlight sh %}
 /opt/xos/tosca/run.py padmin@vicci.org /opt/xos/tosca/samples/new_site_deploy_slice.yaml
-```
+{% endhighlight %}
 
 For a reference guide to XOS-specific TOSCA extensions, see
 [http://guide.xosproject.org/tosca_reference.html](http://guide.xosproject.org/tosca_reference.html)
@@ -411,7 +415,7 @@ those parts, as well as including the navigation panel, title bar, and
 so on. The view need only include HTML that contains what needs to be
 shown to the user. For example, file helloworld.html contains:
 
-```
+{% highlight html %}
 <!-- /opt/xos/templates/admin/dashboard/helloworld.html -->
 <div>Hello, {{ user.firstname }} {{ user.lastname }}.</div>
 <div>This is the hello world view. The value of foobar is {{ foobar }}.</div>
@@ -425,11 +429,11 @@ shown to the user. For example, file helloworld.html contains:
 <script src="{{ STATIC_URL }}/js/xoslib/xos-backbone.js"></script>
 
 <script src="{{ STATIC_URL }}/helloworld.js"></script>  
-```
+{% endhighlight %}
 
 It illustrates four things:
 
-* A comment, "<!-- ... -->"
+* A comment, `<!-- ... -->`
 
 * Static text, such as "this is the hello world view"
 
@@ -441,10 +445,10 @@ It illustrates four things:
 * An input box where the user can type some stuff and a submit button
   to go with it
 
-* Some \<script\> tags that load javascript for xoslib and its
+* Some `<script>` tags that load javascript for xoslib and its
   dependencies
 
-* A \<script\> tag that loads javascript for the helloworld view
+* A `<script>` tag that loads javascript for the helloworld view
   (helloworld.js).
 
 At this point, we are able to display the user view in the browser. To
@@ -474,7 +478,7 @@ The easiest place to add more Django context variables is in
 getDashboardContext(). This function returns the set of context
 variables that are usable by the views:
 
-```
+{% highlight python %}
 def getDashboardContext(user, context={}, tableFormat = False):
    context = {}
 
@@ -493,14 +497,14 @@ def getDashboardContext(user, context={}, tableFormat = False):
    context['unusedDashboards'] = unusedDashboards
 
    return context
-```
+{% endhighlight %}
 
 To add a new context variable, just insert a new statement near the
 bottom of this function, before the return statement:
 
-```
+{% highlight python %}
 context['foobar'] = "value_of_foobar"
-```
+{% endhighlight %}
 
 Now we have a new context variable called "foobar", and any user view
 template can display that variable by using the syntax "{{ foobar }}".

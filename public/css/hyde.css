@@ -103,6 +103,10 @@ a.sidebar-nav-item:focus {
 .sidebar-nav-item.active {
   font-weight: bold;
 }
+.sidebar ul {
+  margin-bottom: 0;
+  font-size: 0.8em;
+}
 
 /* Sticky sidebar
  *
