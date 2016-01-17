@@ -19,8 +19,6 @@ author:
   name:           'open-cloud'
   url:            https://github.com/open-cloud
 
-paginate:         5
-
 # Custom vars
 version:          0.0.1
 
