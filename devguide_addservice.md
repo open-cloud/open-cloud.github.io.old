@@ -6,32 +6,29 @@ permalink: /devguide/addservice/
 
 {% include toc.html %}
 
-XOS provides a collection of abstractions, interfaces and mechanisms
-that enable Cloud services to interoperate reliably and efficiently.
-By using XOS, the service developer focuses his or her attention on
-the core value provided by a service, not binding it to the underlying
-mechanisms of the Cloud substrate. This section describes the
-framework into which services are plugged into XOS.
+XOS provides a collection of abstractions, interfaces and mechanisms that
+enable Cloud services to interoperate reliably and efficiently.  By using XOS,
+the service developer focuses his or her attention on the core value provided
+by a service, not binding it to the underlying mechanisms of the Cloud
+substrate. This section describes the framework into which services are plugged
+into XOS.
 
-There is also a simple
-[HelloWorld Service](http://guide.xosproject.org/HelloWorld-in-XOS.pdf)
-that illustrates how a service is configured into XOS.
+There is also a simple [HelloWorld Service](/devguide/helloworld/) that
+illustrates how a service is configured into XOS.
 
 ##  Design Overview
 
-The work of defining a new service is twofold: (1) designing
-abstractions and adding them to XOS through a standard interface (the
-data model, implemented in Django), and (2) plumbing those
-abstractions through to the actual mechanism that implements the
-service (the service controller). For example, if the value provided
-is that of a storage service, then the first task is to capture the
-user-facing configuration of the storage service as a set of data
-values that represent it, and the second task is to link this
-representation to the actual implementation of the service.
+The work of defining a new service is twofold: (1) designing abstractions and
+adding them to XOS through a standard interface (the data model, implemented in
+Django), and (2) plumbing those abstractions through to the actual mechanism
+that implements the service (the service controller). For example, if the value
+provided is that of a storage service, then the first task is to capture the
+user-facing configuration of the storage service as a set of data values that
+represent it, and the second task is to link this representation to the actual
+implementation of the service.
 
-The first task is an exercise in writing Django models, which this
-guide discusses in Section [Data Modeling
-Conventions](/devguide/datamodel/).
+The first task is an exercise in writing Django models, which this guide
+discusses in Section [Data Modeling Conventions](/devguide/datamodel/).
 
 The second task involves extending the XOS Synchronizer, which is
 responsible for enacting the state recorded in the XOS data model
@@ -43,18 +40,17 @@ Synchronizer is an event-driven program written in Python. Every time the
 Data Model changes, the Synchronizer receives a notification, upon which
 it queries the Data Model to retrieve the set of updated objects.
 
-Although we have been describing the Synchronizer as a monolithic entity,
-it is actually a modular system, consisting of a Synchronizer Framework
-and a set of Synchronizer Instances. Each Synchronizer Instance is associated
-with some subset of the Data Model, and acts upon some subset of the
-imported service controllers. For example, there is a Synchronizer
-Instance that activates User, Slice, Instances, and Network objects by
-calling OpenStack controllers (Nova, Neutron, KeyStone); another that
-activates CDN-related objects by calling the HyperCache controller;
-yet another that activate file system volumes by calling the Syndicate
-controller; and so on. In general, any service-related objects in the
-data model that need to interact with a low level platform must
-include a service-specific Synchronizer Instance.
+Although we have been describing the Synchronizer as a monolithic entity, it is
+actually a modular system, consisting of a Synchronizer Framework and a set of
+Synchronizer Instances. Each Synchronizer Instance is associated with some
+subset of the Data Model, and acts upon some subset of the imported service
+controllers. For example, there is a Synchronizer Instance that activates User,
+Slice, Instances, and Network objects by calling OpenStack controllers (Nova,
+Neutron, KeyStone); another that activates CDN-related objects by calling the
+HyperCache controller; yet another that activate file system volumes by calling
+the Syndicate controller; and so on. In general, any service-related objects in
+the data model that need to interact with a low level platform must include a
+service-specific Synchronizer Instance.
 
 The XOS Data Model consists of the set of configuration values that
 need to be set for the system to be operational. This configuration is
