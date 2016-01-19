@@ -2,6 +2,7 @@
 layout: page
 title: Architecture Guide
 ---
+{% include toc.html %}
 
 ## Overview
 
@@ -14,14 +15,14 @@ compose services as first-class operations.
 
 In-depth descriptions of XOS are presented elsewhere. For example, see:
 
-* [Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf).
+* [Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf)
 
-* [XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf).
+* [XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf)
 
 The following gives a high-level description of XOS sufficient for
 reading the rest of this Guide.
 
-##OS Perspective
+## OS Perspective
 
 XOS is designed from the perspective of an operating system. An OS
 provides many inter-related mechanisms to empower users. If we define
@@ -70,7 +71,7 @@ controller, which exposes a global interface; any per-instance or
 per-device interface is an implementation detail that is hidden behind
 the controller.
 
-##Software Structure
+## Software Structure
 
 The XOS implementation is organized around three layers, as
 illustrated in Figure 3. At the core is a *Data Model*, which records
@@ -143,7 +144,7 @@ vOLT, vCPE, and vBNG). We have also prototyped multi-tenant services
 using several open source projects, including Cassandra, Kairos,
 Swift, and Nagios.
 
-##<a name="data-model">Data Model</a>
+## Data Model
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
@@ -172,7 +173,7 @@ with some of their key Fields, including relationships to other Object
 Types. The discussion is organized around five categories: access
 control, infrastructure, policy, virtualization, and services.
 
-###Access Control
+### Access Control
 
 XOS uses role-based access control, where a user with a particular
 role is granted privileges in the context (scope) of some set of
@@ -217,7 +218,7 @@ objects.
 * **Deployment Privileges:** The binding of a User to a Role in the
   scope of a particular Deployment, which implies the Role applies
   to all Objects of type Image, NetworkTemplate, and Flavors
-  assocaited with the Deployment. The sole Deployment-level role is:
+  associated with the Deployment. The sole Deployment-level role is:
 
   - **Admin:** Read/write access to all Deployment-specific objects.
 
@@ -262,7 +263,7 @@ User*, that have restricted access to just a subset of Services and
 not other aspects of the XOS interface. In this way, custom service
 portals may be created, and users confined within those portals.
 
-###Infrastructure
+### Infrastructure
 
 XOS manages of a set of physical servers deployed throughout the
 network. These servers are aggregated along two dimensions, one
@@ -332,7 +333,7 @@ parameters for the Deployment, decides what Sites are allowed to host
 Nodes in that Deployment, and decides what Sites are allowed to
 instantiate Instances and Networks on the Deployment's resources.
 
-###Policies and Configurations
+### Policies and Configurations
 
 Each Deployment defines a set of parameters, configurations and
 policies that govern how a collection of resources are managed. XOS
@@ -370,7 +371,7 @@ parameterize an existing NetworkTemplate.) Note that Images and
 NetworkTemplates are analogous constructs in the sense that both are
 opaque objects from the perspective of the data model.
 
-###Virtualization
+### Virtualization
 
 A virtualized Slice of the physical infrastructure is allocated and
 managed as follows:
@@ -439,7 +440,7 @@ bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).
 
-###<a name="services-tenacy">Services and Tenancy</a>
+### Services and Tenancy
 
 XOS goes beyond Slices to define a model for the service running
 within a Slice:
@@ -449,7 +450,7 @@ within a Slice:
 
   - Bound to a set of Slices that collectively implement the Service.
 
-  - Bound to a set of Controllers that repesents the service's control
+  - Bound to a set of Controllers that represents the service's control
     interface.
 
   - Bound to a set of other Services upon which it depends.
@@ -470,6 +471,6 @@ object in the data model, and binding that object to the associated
 collection of Slice, Controller, and Service objects, but it also
 involves extending the underlying XOS code base. These additional
 steps are described in the
-[Adding Services to XOS](../2_developer/#adding-services) section of the
+[Adding Services](/devguide/addservice/) section of the
 Developer Guide.
 

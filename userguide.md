@@ -3,9 +3,11 @@ layout: page
 title: User Guide
 ---
 
+{% include toc.html %}
+
 This guide describes how users log into XOS, acquire VMs, and access
 XOS services. It assumes the reader is familiar with the general
-concepts presented in the [Architecture Guide](../0_overview). 
+concepts presented in the [Architecture Guide](/archguide/). 
 
 Because this guide is focused on users, we use OpenCloud as an example
 of an operational cloud that users might access. This implies a
@@ -13,7 +15,7 @@ particular portal, a particular set of nodes and sites, and a
 particular collection of services. Substitute local specifics for an
 alternative XOS installation.
 
-##<a name="getting-started">Getting Started</a>
+## Getting Started
 
 Users access OpenCloud by logging into the portal at
 [portal.opencloud.us](http://portal.opencloud.us). New users register
@@ -51,7 +53,7 @@ to utilizing OpenCloud resources:
    this ID and the physical node it is running on. See
    [Accessing a Instance](#access-instance) for more information.
 
-##<a name="user-views">User Views</a>
+## User Views
 
 Users interact with OpenCloud through a configurable set of *Views*,
 each tailored for a different usage scenario or workflow. By default,
@@ -65,7 +67,7 @@ user back to his or her home dashboard.
 Users are also able to directly navigate the underlying data model
 using the left-hand navigation bar. The top set of tabs (Deployments,
 Sites, Slices, and Users) correspond to the core XOS objects, as
-described in the [Data Model](../0_overview/#data-model). The
+described in the [Data Model](/archguide/#data-model). The
 following sections of this guide describe how administrators use these
 tabs to manage users, sites, and deployments, respectively. (The views
 described in this section are typically use to manage slices.) The
@@ -76,9 +78,9 @@ the services through the tailored workflows supported by the various
 views.
 
 There are also views designed to support operators, as described
-in the [Operator's Guide](../3_operator).
+in the [Operator Guide](/opsguide/).
 
-###<a name="tenant-view">Tenant View</a>
+### Tenant View
 
 The Tenant view provides a simple means to acquire Instances, with
 minimal control over the low-level details of where those Instances are
@@ -107,7 +109,7 @@ Note that slices intially created through the Tenant view may also be
 managed through the Developer view. The reverse is true as long as the
 slice is instantiated only on the ViCCI deployment.
 
-###<a name="developer-view">Developer View</a>
+### Developer View
 
 The Developer view gives users full control over how their slices are
 instantiated, including instance placement, network configuration, and
@@ -134,14 +136,14 @@ the privileges granted to other users:
   them access to the slice itself, that is, the right to ssh into the
   slice's instances.
 
-###xsh View
+### xsh View
 
 The xsh view provides an interactive shell through which users can
 access XOS objects. It is a Javascript-based environment that includes
 *xoslib*, a library projection of the XOS data model. A builtin
 tutorial illustrates how to use xsh.
 
-##<a name="access-instance">Accessing an Instance</a>
+## Accessing an Instance
 
 Instances connect to the network via NAT; logging into the instance relies
 on SSH proxying to forward incoming SSH connections. In the Tenant View, 
@@ -192,7 +194,7 @@ virtual network is per-site. Instances in different sites must use an
 Internet-accessible address to communicate (i.e., using a reserved
 port and hosting server name as described above).
 
-##<a name="admin-user">Administering a User</a>
+## Administering a User
 
 All users are able to manage their own accounts and Site Admins are
 able to manage the accounts of users homed at that site. Select the
@@ -215,7 +217,7 @@ desired user. The available user details are as follows:
 * **Slice Privileges:**: Select the *Slice Privileges* tab to set the
   slice-related privileges for the user.
 
-##<a name="admin-site">Administering a Site</a>
+## Administering a Site
 
 Site Admins are responsible for managing the users, slices, nodes, and
 deployments affiliated with the site. Select the *Sites* tab in the
@@ -248,7 +250,7 @@ site details are as follows:
 * **Deployments:** Select the *Deploymements* tab to affiliate the
   site's nodes with one or more deployments.
 
-##<a name="admin-deployment">Administering a Deployment</a>
+## Administering a Deployment
 
 Deployment Admins are responsible for managing the privileges, sites,
 images, flavors, and visibility for the deployment. Select the
@@ -317,7 +319,7 @@ panel, so to edit an existing Controller, first go to another object
 page to bring up the list of Core XOS objects. Select the *Change*
 link next to *Controller*. *[Workflow to be cleaned up.]*
 
-##Administering Images
+## Administering Images
 
 To upload an image to XOS, place the image file in /opt/xos/images. Note that
 adding a file to this directory must be done atomically, for example by uploading
@@ -333,7 +335,7 @@ Even though an image has been uploaded and synced, it is still not available
 for use until it has been enabled in a deployment. See the Administering a
 deployment section above. 
 
-##Services
+## Services
 
 XOS is designed to support a set of contributed services, but the set
 of services available on any particular cloud is as cloud-specific as
@@ -344,7 +346,7 @@ accessible via OpenCloud's REST API. This section briefly describes
 these three services (for illustrative purposes), and concludes by
 describing how to prototype a new service.
 
-###Syndicate
+### Syndicate
 
 Syndicate is a scalable storage service. It provides a private shared
 volume that both instances and users can locally mount as a read/write
@@ -366,7 +368,7 @@ view. From the resulting page, users can add and remove additional
 volumes to their slices, bind their volumes to other slices, and
 control volume capabilities for other users and slices.
 
-####Mounting to an Existing Volume in a Slice
+#### Mounting to an Existing Volume in a Slice
 
 A user can add another volume to a slice in the following manner (the
 user must start from the Volumes menu).
@@ -402,7 +404,7 @@ user must start from the Volumes menu).
 Once these steps are carried out, Syndicate ensures that the new
 volume is automatically mounted under */syndicate/* in each instance.
 
-####Creating and Updating Volumes
+#### Creating and Updating Volumes
 
 Users can create or change the parameters of their volumes by
 selecting their volume from the volume list, and navigating to the
@@ -430,7 +432,7 @@ will do most of the I/O in your volume, you should check this box.
 If you or other machines outside of OpenCloud will do most of the I/O,
 you should *not* check this box.
 
-####Volume Access Control
+#### Volume Access Control
 
 Users can authorize other users to access their volumes. This is not
 limited to within OpenCloud. If Alice permits Bob to access her
@@ -447,7 +449,7 @@ capability will grant that user the ability to coordinate writes to
 the volume's files.  If unsure, the user should not check *Cap host
 data*.
 
-###HyperCache
+### HyperCache
 
 HyperCache (HPC) is a Content Distribution Nework (CDN). It uses a set
 of distributed caches to to accelerate the delivery of content on
@@ -490,7 +492,7 @@ served.
 
 The format of the map files is defined elsewhere.
 
-###RequestRouter
+### RequestRouter
 
 RequestRouter (RR) is a multi-tenant service that redirects user
 requests to the best instance of a given client service. For example,
@@ -524,7 +526,7 @@ a URL that name the service, and configure various maps.
 
 The format of the two map files is defined elsewhere.
 
-###Prototyping a New Service
+### Prototyping a New Service
 
 Users are able to create their own services, and make them available
 to other users. There are two approaches to doing this, which we refer
@@ -534,11 +536,11 @@ light-weight mechanisms to help the developer manage a prototype
 service. Similarly, a production service is one that is officially
 offered as part of a deployment, for example, OpenCloud offers three
 production services: RequestRouter, HyperCache, and Syndicate. Section
-[Adding Services to XOS](../2_developer#adding-services) of the
+[Adding Services](/devguide/addservice/) of the
 Developer Guide describes how to add a production service to XOS. This
 section focuses on the available mechanisms for prototyping a service.
 
-##Mailing Lists
+## Mailing Lists
 
 All registered OpenCloud users are automatically subscribed to
 [users@opencloud.us](mailto:users@opencloud.us). Use this mailing list

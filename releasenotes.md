@@ -3,10 +3,10 @@ layout: page
 title: Release Notes
 ---
 
-###Burwell / 1-Oct-2015.
+## Burwell / 1-Oct-2015.
 
 1. Improved configuration management, as documented in [Configuration
-   Management](../2_developer/#config-mgmt) section of the Developer's
+   Management](/devguide/configmgmt/) section of the Developer's
    Guide. Includes removing deployment dependencies from the code base
    to better support multiple deployments (e.g., CORD, OpenCloud) from
    a common release; the use Docker to configure the development
@@ -14,7 +14,7 @@ title: Release Notes
    configuration.
 
 2. Codified the tenancy model, as documented in the [Services and
-   Tenancy](../0_overview.md/#service-tenancy) section of the
+   Tenancy](/archguide/#services-and-tenancy) section of the
    Architecture Guide.
 
 3. Reconciled with OpenStack by eliminating gratuitous differences,
@@ -24,10 +24,10 @@ title: Release Notes
    is not yet available.
 
 5. Replace Synchronizer framework, as described in
-   the [Adding Services to XOS](../2_developer/#adding-services)
+   the [Adding Services](/devguide/addservice/)
    section of the Developer's Guide.
 
-###Axtell / 1-May-2015.
+## Axtell / 1-May-2015.
 
 1. Two Networks are automatically created and assigned to every
    Slice. There is sufficient mechanism to create new networks, bind
@@ -53,11 +53,10 @@ title: Release Notes
 
 5. Some files need to be manually copied when installing using WSGI
 
-```
-sudo mkdir /var/www/xos/static/rest_framework_swagger
+{% highlight sh %}
+# mkdir /var/www/xos/static/rest_framework_swagger
 
-sudo cp -a /usr/local/lib/python2.7/dist-packages/rest_framework_swagger/static/rest_framework_swagger/* /var/www/xos/static/rest_framework_swagger/
-```
-
+# cp -a /usr/local/lib/python2.7/dist-packages/rest_framework_swagger/static/rest_framework_swagger/* /var/www/xos/static/rest_framework_swagger/
+{% endhighlight %}
 
 

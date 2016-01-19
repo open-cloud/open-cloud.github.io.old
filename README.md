@@ -1,6 +1,6 @@
 # XOS documentation on [guide.xosproject.org](https://guide.xosproject.org)
 
-This documentation uses [GitHub Pages](https://pages.github.com), specifically the [Jekyll Integration](https://help.github.com/articles/using-jekyll-with-pages/), which can be deployed using [Bundler](http://bundler.io/). 
+This documentation uses [GitHub Pages](https://pages.github.com), specifically the [Jekyll Integration](https://help.github.com/articles/using-jekyll-with-pages/), which can be deployed using [Bundler](http://bundler.io/).
 
 ## Previewing a local copy during editing
 
@@ -8,16 +8,51 @@ To set up github-pages flavored Jekyll, `bundle install --path ../github-pages` 
 
 To view the local edits: `bundle exec jekyll serve`, then visit http://localhost:4000 .
 
+Note that you will have to restart this command if you modify the `_config.yml` file that contains the Jekyll configuration.
+
 ## Style notes
 
-When quoting a section of text inline, such as method or variable names, filenames and paths, commands, and similar, use the backtick (`` ` ``) character.  One exception - when creating a URL for a filename/path link that points to that location in the code repo, quoting isn't needed.
+*Quoting Text*: When quoting a section of text inline, such as method or variable names, filenames and paths, commands, and similar, use the backtick (`` ` ``) character, except when creating a URL for a filename/path link that points to that location in the code repo in which case quoting isn't needed.
 
-For standalone or multi-line code snippets, wrap code in tags for [Jekyll's code highlighting support](http://jekyllrb.com/docs/posts/#highlighting-code-snippets). You do not need to add additional indentation to the code.
+*Code*: For standalone or multi-line code snippets, wrap code in tags for [Jekyll's code highlighting support](http://jekyllrb.com/docs/posts/#highlighting-code-snippets), which looks like this :
+```
+{% highlight sh %}
+Code in shell script
+{% endhighlight %}
+```
 
-For shell commands that are intended to be run interactively by a user, prefix each line with `$` if run as a unprivledged user, or `#` if being run as root.  Put a space between the prefix and the command. If you need to specify which user is running a commands, or on which host, add that to the prefix (ex: `username@host $`).
+If you're quoting a template that uses the same `{% %}` tags as Jekyll, you may need to [escape the code as described here](http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags).
 
-When embedding figures, name the image file with a prefix of the section where it's being used, place in `/figures`, and then use the Jekyll `include` command to add it with the figure template and a caption/alttext:
+*Shell Commands*: For shell commands that are intended to be run interactively by a user, prefix line with `$` if run as a unprivileged user, or `#` if being run as root.  Put a space between the prefix and the command. If you need to specify which user is running a commands, or on which host, add that to the prefix (ex: `username@host $`).
+
+*Figures/Images*: When embedding figures:
+
+ 1. Name the image file with a prefix of the page where it's being used,
+ 2. Optionally prefix it with the figure number and a description.
+ 3. Place in `/figures`
+ 4. Use the Jekyll `include` command to add it with the figure template and a caption/alttext:
 
 ```
-    {% include figure.html url="/figures/archguide-fig02_service_anatomy.jpg" caption="Figure 2. Anatomy of a Service." %}
+{% include figure.html url="/figures/archguide-fig02_service_anatomy.jpg" caption="Figure 2. Anatomy of a Service." %}
 ```
+
+## Converting documents to include in this repo
+
+Note - all the below methods require a bit of cleanup after conversion, but should do the majority of the work for you
+
+### PDF
+
+The [Poppler](http://poppler.freedesktop.org) library includes the utilties `pdftotext` and `pdfimages`.   
+
+Extract text: `pdftotext -layout -enc UTF-8 file.pdf file.txt`
+Extract images: `pdfimages -all file.pdf image_prefix` 
+
+### Google Docs
+
+The [gdocs2md](https://github.com/mangini/gdocs2md) tool can convert then email you a markdown version in a zipfile. 
+
+### Other text/document formats
+
+Many file formats are supported by [Pandoc](http://pandoc.org/).
+
+
