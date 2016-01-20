@@ -11,7 +11,7 @@ environments we use.
 When necessary for clarity of exposition, this guide uses examples
 from OpenCloud for illustrative purposes. For example, on OpenCloud
 the XOS server process is started in directory
-/opt/xos/scripts/opencloud. Substitute local specifics for an
+`/opt/xos/scripts/opencloud`. Substitute local specifics for an
 alternative XOS installation.
 
 ## Sections
@@ -20,7 +20,8 @@ alternative XOS installation.
 - [Programmatic Interfaces](/devguide/interfaces/)
 - [Adding Views](/devguide/addview/)
 - [Adding Services](/devguide/addservice/)
-- [Adding Services using Ansible](/devguide/addserviceansible/)
+  - [Hello World in XOS](/devguide/helloworld/)
+  - [Hello World using Ansible](/devguide/hwansible/)
 - [Data Modelling](/devguide/datamodel/)
 
 ##Participaing in XOS Development
