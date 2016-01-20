@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Hello World using Ansible
+title: Hello World Using Ansible
 permalink: /devguide/hwansible/
 ---
 
@@ -72,7 +72,9 @@ This section lists each change you need to make without explaining them. Use thi
 
         * Repeat the above for each model class you need to sync with Ansible
 
-    * Add a line to the appropriate configuration’s Dockerfile in `xos/xos/configurations` to copy `xos/configurations/common/id_rsa` to `/opt/xos/synchronizers/<service name>/<service name>_private_key`.
+* Add a line to the appropriate configuration’s Dockerfile in `xos/xos/configurations` to copy `xos/configurations/common/id_rsa` to `/opt/xos/synchronizers/<service name>/<service name>_private_key`.
+
+Note that earlier versions of XOS referred to the "Synchronizer" as the "Observer". File and directory names now consistently call it the "Synchronizer" but there are still references to "observer" in the code itself.
 
 ### Complete Version
 
