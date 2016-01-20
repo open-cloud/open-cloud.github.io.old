@@ -50,17 +50,17 @@ This section lists each change you need to make without explaining them. Use thi
 
 * If you want to use this service on CloudLab, add a line to make migrations for your service to `xos/xos/scripts/opencloud`
 
-### Add your Observer
+### Add Your Synchronizer
 
-* Create a directory for your observer in `xos/xos/observers`
+* Create a directory for your synchronizer in `xos/xos/synchronizers`
 
     * Create `<service name>_config` with a config for your service
 
-    * Create `<service name>-observer.py` to run the xos-observer module
+    * Create `<service name>-synchronizer.py` to run the xos-synchronizer module
 
     * Create model-deps with the dependencies for your service
 
-    * Add `run.sh` to run your `<service name>-observer.py` with your `<service name>_config`
+    * Add `run.sh` to run your `<service name>-sychronizer.py` with your `<service name>_config`
 
     * Create a steps directory for the steps to sync your service in the data model with instances
 
@@ -68,11 +68,11 @@ This section lists each change you need to make without explaining them. Use thi
 
         * Repeat the above for each model class you need to sync
 
-        * Create a `sync_<class name>.yaml` to define to configuration you want to send to instances when the observer runs for class name
+        * Create a `sync_<class name>.yaml` to define to configuration you want to send to instances when the synchronizer runs for class name
 
         * Repeat the above for each model class you need to sync with Ansible
 
-    * Add a line to the appropriate configuration’s Dockerfile in `xos/xos/configurations` to copy `xos/configurations/common/id_rsa` to `/opt/xos/observers/<service name>/<service name>_private_key`.
+    * Add a line to the appropriate configuration’s Dockerfile in `xos/xos/configurations` to copy `xos/configurations/common/id_rsa` to `/opt/xos/synchronizers/<service name>/<service name>_private_key`.
 
 ### Complete Version
 
@@ -102,20 +102,19 @@ To accomplish this we will need to do the following:
 
 * Add HelloWorldTenant to the Django data model
 
-* Add an `observer*` to synchronize the data model with XOS using Ansible
+* Add a `synchronizer` to synchronize the data model with XOS using Ansible
 
 * Configure XOS to use the HelloWorldService
 
 * Demonstrate the full working service
 
-### Add the model
+### Add the Model
 
 XOS uses the Django web framework as a database. Django is an object-relational database that uses a data model that XOS defines. The first step in creating a new service is to add our service to the data model by adding classes that represent our service. An XOS service is represented by a Service class and a Tenant class. The Service contains information for the Service as a whole (metadata, the slices allocated for the service, privileges, service specific attributes, and the tenants that subscribe the service). The Tenant is a subscriber to the service, when a tenant is created it’s state is synced with the underlying instances (a later section). The Tenant contains tenant specific attribute, in our case a display message that the user wants to show on a web server.
 
-#### Create HelloWorldService and HelloWorldTenant in the model
+#### Create HelloWorldService and HelloWorldTenant in the Model
 
 First we need to alter the data model so that our service is logically reflected in XOS. Navigate to xos/xos and create a directory named helloworldservice. This directory will contain all of the code needed to add helloworldservice classes to the data model. Create a file named [models.py](https://github.com/open-cloud/xos/blob/master/xos/services/helloworldservice_complete/models.py)
-
 
 For the most part the comments in the file explain what every line is doing. The following is what we do in this file:
 
@@ -131,11 +130,11 @@ For the most part the comments in the file explain what every line is doing. The
 
 * We create a HelloWorldTenant class that extends TenantWithContainer, this will be used to present the data for each tenant of the data model. For this class we need to define some extra fields for the message contained in each tenant and because we are going to use Ansible fields for the NAT IP and NAT MAC of the VM for our tenant.
 
-    * For the most part this class is simple, we add some getters and setters for the display_message, nat_ip, and nat_mac field. The sync_attributes attribute is used later by the observer and minimally must have nat_ip and nat_mac. It is important to note in the save function that we atomically manage the container (sets up the instance and the VM) to avoid race conditions.
+    * For the most part this class is simple, we add some getters and setters for the display_message, nat_ip, and nat_mac field. The sync_attributes attribute is used later by the synchronizer and minimally must have nat_ip and nat_mac. It is important to note in the save function that we atomically manage the container (sets up the instance and the VM) to avoid race conditions.
 
     * We also make HelloWorldTenant a proxy of TenantWithContainer because we want XOS to treat this as a Tenant so that we can leverage the existing framework.
 
-#### Create basic forms to create and edit the service and tenants
+#### Create Forms to Create and Edit the Service and Tenants
 
 Now that we have changed the data model to support the HelloWorldService we need to add some admin forms so that we can create and edit HelloWorldServices and HelloWorldTenants. We are going to be leveraging the forms from Django and some of the custom fields from XOS to do this. In xos/xos/helloworldservice create a file named [admin.py](https://github.com/open-cloud/xos/blob/master/xos/services/helloworldservice_complete/admin.py).
 
@@ -151,25 +150,25 @@ For a line-by-line breakdown please see the comments in the file. As a summary h
 
         * The most important parts of the HelloWorldTenantForm are the init function and the save function. In the init function we provide the logic to set up the form when it first created depending on if we are adding a new HelloWorldTenant or we are editing an existing one. In the save function we set attributes in the HelloWorldTenant attribute for the creator and the display_message so that these will be passed along when we enact the instance in a VM and when we want to edit the instance again.
 
-#### Create the custom template for the administration page
+#### Create the Custom Template for the Admin View
 
 As is noted above we need to create a custom template for the administration tab of HelloWorldServiceAdmin. This can be very complex if needed but for our purposes we are just going to create a button that links to the HelloWorldTenant form. Create a directory named templates in xos/xos/helloworldservice. Create a file named [helloworldserviceadmin.html](https://github.com/open-cloud/xos/blob/master/xos/services/helloworldservice_complete/templates/helloworldserviceadmin.html).
 
 This makes use of the "left-nav" class to style the button, it leads to the form for the HelloWorldTenant.
 
-## Install the service
+## Install the Service
 
 Now that we have the model complete we can need to install our service as an app and configure the cloudlab script to add the HelloWorldService to the Django database when we start XOS on cloudlab.
 
-### Install HelloWorldService in XOS settings
+### Register HelloWorldService with XOS
 
 Navigate to `xos/xos/xos/settings.py` and add `'helloworldservice',` to the INSTALLED_APPS list. This will install helloworldservice in XOS. Note that this is the name given in the `app_label` field of the HelloWorldService.
 
-### Add HelloWorldService to the database on cloudlab
+### Add HelloWorldService to the DB on CloudLab
 
 Navigate to `xos/xos/scripts/opencloud`. Add the line `python ./manage.py makemigrations helloworldservice` to the makemigrations function. This will add the helloworldservice model to the Django database when XOS is started on opencloud.
 
-## Verify the model on CloudLab
+## Verify the Model on CloudLab
 
 In this section you will start XOS on CloudLab and verify the following:
 
@@ -183,7 +182,7 @@ In this section you will start XOS on CloudLab and verify the following:
 
 * The state of your HelloWorldTenant is saved between instances
 
-### Start XOS on Opencloud
+### Start XOS
 
 This part assumes that you have an account on CloudLab. First we need to start the experiment on CloudLab to do this do the following:
 
@@ -300,11 +299,11 @@ Click anyone of the links, verify that the display message is the same as when y
 
 If you can change the message and that message is restored when you edit the HelloWorldTenant then you have successfully completed the model.
 
-## Add the synchronizer
+## Add the Synchronizer
 
 To enact the state of the data model on the XOS instances we need to create an synchronizer program. This program will wait for changes to the data model and then complete a series of steps to synchronize the model with the instances. Most of this is boilerplate, but it is a good idea to become familiar with the setup. In our case we will be waiting for changes to the HelloWorldTenant (since HelloWorldService doesn’t add anything on top of Service we can rely on the synchronizer already built for synchronizing Services), when there is a change if we are creating or editing the display_message of the tenant we will pass on the new display_message to an Ansible template which will start up a web server displaying the message.
 
-### Set up the boilerplate
+### Set up the Boilerplate
 
 To set up the boilerplate code do the following:
 
@@ -314,7 +313,7 @@ To set up the boilerplate code do the following:
 
 * Create the file [xos/xos/synchronizers/helloworldservice_complete/helloworldservice-synchronizer.py](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/helloworldservice-synchronizer.py) which will run the existing XOS synchronizer. We will create a script in a later step that will pass a particular configuration into this program that will have the XOS synchronizer execute the steps for the HelloWorldTenant.
 
-* Create the file [xos/xos/synchronizers/helloworldservice/model-deps](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/model-deps). This file is used to denote the dependencies of the observer that are needed, in our case we don’t have any dependencies so we indicate this with the empty set.
+* Create the file [xos/xos/synchronizers/helloworldservice/model-deps](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/model-deps). This file is used to denote the dependencies of the synchronizer that are needed, in our case we don’t have any dependencies so we indicate this with the empty set.
 
 **Note: **For a real model with dependencies you can generate the dependency graph within a VM from /opt/xos: ./dmdot helloworldservice.
 
@@ -330,27 +329,27 @@ To set up the boilerplate code do the following:
 
 * Create the file [xos/xos/synchronizers/helloworldservice_complete/stop.sh](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/stop.sh). This is a simple script used to kill your synchronizer.
 
-### Create the sync steps
+### Create the Sync Steps
 
 Now that we have all of the necessary boilerplate we can define what should happen when a HelloWorldTenant is altered in the data model. In particular we want to start a web server to display the message that was entered using ansible. To do this do the following:
 
 * Create the file [xos/xos/synchronizers/helloworldservice_complete/steps/sync_helloworldtenant.yaml](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/steps/sync_helloworldtenant.yaml).  This file is the ansible template that will be used to configure instances that are created for the HelloWorldTenants. The top part (before the tasks section) gives certain configuration attributes, namely the name of the instance that we are connecting to, the connection type, the user, and if we need admin privileges. In the tasks section we enumerate in order the tasks that need to be performed when this configuration is used. Each task as a name and what it does. There are some shorthands like apt and service, but you can always use shell to do anything you need. In this case we install apache, write out the display_message that is passed to template, and then stop and start the apache service.
 
-* Lastly we need to define what to do when the observer runs for a HelloWorldTenant. We define this in [xos/xos/synchronizers/helloworldservice_complete/steps/sync_helloworldtenant.py](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/steps/sync_helloworldtenant.py). In this file we using the SyncInstanceUsingAnsible class to handle most of the ansible configuration for us. All we need to do is indicate what is being observed, how often the observer runs, the template name, the ssh key location (in a later step), what instances of HelloWorldTenant need to be enacted, and what additional attributes are necessary in the ansible template. This is all explained in the comments of the file, but special attention should be given to the get_extra_attributes function. This function is used in SyncInstanceUsingAnsible to get the extra attributes needed in the ansible template. Here we return the display_message of  particular data model instance of a HelloWorldTenant so that we can make use of it like we do in the template.  
+* Lastly we need to define what to do when the synchronizer runs for a HelloWorldTenant. We define this in [xos/xos/synchronizers/helloworldservice_complete/steps/sync_helloworldtenant.py](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/helloworldservice_complete/steps/sync_helloworldtenant.py). In this file we using the SyncInstanceUsingAnsible class to handle most of the ansible configuration for us. All we need to do is indicate what is being observed, how often the synchronizer runs, the template name, the ssh key location (in a later step), what instances of HelloWorldTenant need to be enacted, and what additional attributes are necessary in the ansible template. This is all explained in the comments of the file, but special attention should be given to the get_extra_attributes function. This function is used in SyncInstanceUsingAnsible to get the extra attributes needed in the ansible template. Here we return the display_message of  particular data model instance of a HelloWorldTenant so that we can make use of it like we do in the template.  
 
-### Add the SSH key
+### Add the SSH Key
 
 As we saw in sync_helloworldtenant.py above, we need to have an SSH key to use ansible. To add this we simply change the Dockerfile to copy over the appropriate key when starting up XOS. To do this open the file xos/xos/configurations/devel/Dockerfile.devel and add the line:
 
 ```
-ADD xos/configurations/common/id_rsa /opt/xos/observers/helloworldservice/helloworldservice_private_key
+ADD xos/configurations/common/id_rsa /opt/xos/synchronizers/helloworldservice/helloworldservice_private_key
 ```
 
 Note that this is one line, not two. This key is used by ansible when using an SSH connection to avoid using passwords.
 
-## Verify the observer on CloudLab
+## Verify the Synchronizer on CloudLab
 
-Now that we have the observer made we can verify that it is working on CloudLab. To do this we do the following:
+Now that we have the synchronizer made we can verify that it is working on CloudLab. To do this we do the following:
 
 * Copy your changes over to the ctl node on CloudLab as you did in [Start XOS on Cloudlab](#start-xos-on-opencloud).
 
@@ -362,17 +361,17 @@ Now that we have the observer made we can verify that it is working on CloudLab.
 
 * Once XOS has finished starting up, enter the VM by running make enter
 
-* Navigate to `/opt/xos/observers/helloworldservice`
+* Navigate to `/opt/xos/synchronizers/helloworldservice`
 
-* Run `./run.sh` (keep the window open with the output from this to observe the observer in action)
+* Run `./run.sh` (keep the window open with the output from this to observe the synchronizer in action)
 
-You should see some output constantly streaming from the observer, it will look something like this:
+You should see some output constantly streaming from the synchronizer, it will look something like this:
 
 {% include figure.html url="/figures/devguide_hwansible-fig10_runsh_output.png" caption="" %}
 
 * Repeat steps [Create a HelloWorldService Instance](#create-a-helloworldservice-instance) and [Create a HelloWorldTenant Instance](#create-a-helloworldtenant-instance) until you complete creating one HelloWorldTenant instance.
 
-* Pay close attention to the window with the output from the observer, initially since you just created a new HelloWorldTenant, the instance will be still be starting up so you will see an error like:
+* Pay close attention to the window with the output from the synchronizer, initially since you just created a new HelloWorldTenant, the instance will be still be starting up so you will see an error like:
 
 Exception: defer object helloworldservice-tenant-3 due to waiting on instance.instance_name
 
@@ -412,7 +411,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -f "dangling=true" -q)
 {% endhighlight %}
 
-## Using HelloWorldService as a template
+## Using HelloWorldService as a Template
 
 The HelloWorldService you build in this codelab is suitable as a template for creating another service. Most of this is boilerplate, so the only changes that need to be made at the following:
 
