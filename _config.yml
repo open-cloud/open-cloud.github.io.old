@@ -1,7 +1,7 @@
 # Dependencies
 markdown:         redcarpet
 redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables"]
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 highlighter:      pygments
 
 # Permalinks
@@ -19,10 +19,8 @@ author:
   name:           'open-cloud'
   url:            https://github.com/open-cloud
 
-paginate:         5
-
 # Custom vars
-version:          0.0.1
+version:          0.0.2
 
 github:
   repo:           https://github.com/open-cloud/open-cloud.github.io

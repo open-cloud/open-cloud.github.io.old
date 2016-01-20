@@ -2,6 +2,9 @@
 layout: page
 title: Architecture Guide
 ---
+{% include toc.html %}
+
+## Overview
 
 XOS defines a collection of abstractions in support of services and
 service composition. It leverages existing datacenter cloud management
@@ -12,14 +15,14 @@ compose services as first-class operations.
 
 In-depth descriptions of XOS are presented elsewhere. For example, see:
 
-* [Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf).
+* [Services and Service Composition in XOS](http://xos.wpengine.com/wp-content/uploads/2015/04/Services-in-XOS.pdf)
 
-* [XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf).
+* [XOS: An Extensible Cloud Operating System](http://xosproject.org/wp-content/uploads/2015/04/paper-xos-bigsys15.pdf)
 
 The following gives a high-level description of XOS sufficient for
 reading the rest of this Guide.
 
-##OS Perspective
+## OS Perspective
 
 XOS is designed from the perspective of an operating system. An OS
 provides many inter-related mechanisms to empower users. If we define
@@ -41,13 +44,11 @@ minimal core (kernel) and are easily extended to include new
 functionality. In Unix, the set of extensions correspond to the
 applications running top of the Unix kernel. This is also the case
 with XOS, where as depicted in Figure 1, the core is minimal and the
-interesting functionality is provided by a collection of services. 
+interesting functionality is provided by a collection of services.
 Moreover, XOS supports a shell-like mechanism that makes it possible
 to program new functionality from a combination of existing services.
 
-![Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).]({{ site.url }}/figures/Slide18.jpg)
-
-Figure 1. XOS layers an OS on top of a set of cloud services (service controllers).
+{% include figure.html url="/figures/archguide-fig01_xos_layers.jpg" caption="Figure 1. XOS layers an OS on top of a set of cloud services (service controllers)." %}
 
 Implicit in Figure 1 is an underlying model of exactly what
 constitutes a service. Our model is that every service incorporated
@@ -60,9 +61,7 @@ geo-distributed set of clusters. For example, some VMs might be
 concentrated in one or more datacenters, while others are distributed
 across many edge sites.
 
-![Figure 2. Anantomy of a Service.]({{ site.url }}/figures/Slide22.jpg)
-
-Figure 2. Anatomy of a Service.
+{% include figure.html url="/figures/archguide-fig02_service_anatomy.jpg" caption="Figure 2. Anatomy of a Service." %}
 
 The separation of service controller from service instances is central
 to XOS's design. The controller maintains all authoritative state for
@@ -72,7 +71,7 @@ controller, which exposes a global interface; any per-instance or
 per-device interface is an implementation detail that is hidden behind
 the controller.
 
-##Software Structure
+## Software Structure
 
 The XOS implementation is organized around three layers, as
 illustrated in Figure 3. At the core is a *Data Model*, which records
@@ -86,9 +85,7 @@ erroneous state of the remainder of the system: the so-called
 state of the system at these two levels (authoritative Data Model and
 operational backend) is a distinguishing property of XOS.
 
-![Figure 3. Block diagram of the XOS software structure.]({{ site.url }}/figures/Slide21.jpg)
-
-Figure 3. Block diagram of the XOS software structure.
+{% include figure.html url="/figures/archguide-fig03_block_diagram.jpg" caption="Figure 3. Block diagram of the XOS software structure." %}
 
 The Data Model encapsulates the abstract objects, relationships among
 those objects, and operations on those objects. The operations are
@@ -147,7 +144,7 @@ vOLT, vCPE, and vBNG). We have also prototyped multi-tenant services
 using several open source projects, including Cassandra, Kairos,
 Swift, and Nagios.
 
-##<a name="data-model">Data Model</a>
+## Data Model
 
 This section gives a high-level overview of the XOS data model. This
 overview focuses on the abstract objects and relationships among them,
@@ -165,7 +162,7 @@ An Object Type defines a set of *Fields*, each Field has a *Type*, and
 each Type has a set of *Attributes*. Some of these Attributes are core
 (common across all Types) and some are Type-specific. Relationships
 between Object Types are expressed by Fields with one of a set of
-distinguished relationship-oriented Types (e.g., *OneToOneField*). 
+distinguished relationship-oriented Types (e.g., *OneToOneField*).
 Finally, an *Object* is an instance (instantiation) of an Object Type,
 where each Object has a unique primary key (or more precisely, a
 primary index *Object Id* into the table that implements the Object
@@ -176,7 +173,7 @@ with some of their key Fields, including relationships to other Object
 Types. The discussion is organized around five categories: access
 control, infrastructure, policy, virtualization, and services.
 
-###Access Control
+### Access Control
 
 XOS uses role-based access control, where a user with a particular
 role is granted privileges in the context (scope) of some set of
@@ -221,7 +218,7 @@ objects.
 * **Deployment Privileges:** The binding of a User to a Role in the
   scope of a particular Deployment, which implies the Role applies
   to all Objects of type Image, NetworkTemplate, and Flavors
-  assocaited with the Deployment. The sole Deployment-level role is:
+  associated with the Deployment. The sole Deployment-level role is:
 
   - **Admin:** Read/write access to all Deployment-specific objects.
 
@@ -231,7 +228,7 @@ Deployments. By default, all Users are able to list the registered
 Sites, Deployments, and Nodes; have read access to their home site;
 and have read/write access to its own User Object.
 
-Site Admins create Nodes, Users, and Slices associated with the Site. 
+Site Admins create Nodes, Users, and Slices associated with the Site.
 The Site Admin may also grant PI privileges to select Users (giving
 them the ability to manage the Site's Users and Slices), and Tech
 privileges to select Users (giving them the ability to manage the
@@ -261,12 +258,12 @@ example, if user Jane.Smith has the Admin SitePrivilege for Princeton
 and Stanford, then she may assign a Role to a user at Princeton for
 default access to Stanford.
 
-Finally, XOS supports a restrictive form of User, called a *Service 
+Finally, XOS supports a restrictive form of User, called a *Service
 User*, that have restricted access to just a subset of Services and
 not other aspects of the XOS interface. In this way, custom service
-portals may be created, and users confined within those portals. 
+portals may be created, and users confined within those portals.
 
-###Infrastructure
+### Infrastructure
 
 XOS manages of a set of physical servers deployed throughout the
 network. These servers are aggregated along two dimensions, one
@@ -336,7 +333,7 @@ parameters for the Deployment, decides what Sites are allowed to host
 Nodes in that Deployment, and decides what Sites are allowed to
 instantiate Instances and Networks on the Deployment's resources.
 
-###Policies and Configurations
+### Policies and Configurations
 
 Each Deployment defines a set of parameters, configurations and
 policies that govern how a collection of resources are managed. XOS
@@ -374,7 +371,7 @@ parameterize an existing NetworkTemplate.) Note that Images and
 NetworkTemplates are analogous constructs in the sense that both are
 opaque objects from the perspective of the data model.
 
-###Virtualization
+### Virtualization
 
 A virtualized Slice of the physical infrastructure is allocated and
 managed as follows:
@@ -429,7 +426,7 @@ The workflow for instantiating a Slice on the physical infrastructure
 is typically iterative and incremental. A User associated with the
 Slice might first query the system to learn about the set of Sites and
 Nodes and create a set of Instances accordingly. Next, the User might
-create one or more Networks that logically connect those Instances. 
+create one or more Networks that logically connect those Instances.
 Instances can be added to and removed from a Slice over time, with the
 corresponding Networks adjusted to account for those changes.
 
@@ -443,7 +440,7 @@ bound to a Slice share the same Image (hence that field is defined
 Slice-wide), while each Network potentially has a different
 NetworkTemplate (hence that field is defined per-Network).
 
-###<a name="services-tenacy">Services and Tenancy</a>
+### Services and Tenancy
 
 XOS goes beyond Slices to define a model for the service running
 within a Slice:
@@ -453,10 +450,10 @@ within a Slice:
 
   - Bound to a set of Slices that collectively implement the Service.
 
-  - Bound to a set of Controllers that repesents the service's control
+  - Bound to a set of Controllers that represents the service's control
     interface.
 
-  - Bound to a set of other Services upon which it depends. 
+  - Bound to a set of other Services upon which it depends.
 
 * **Tenant:** Represents a binding of a tenant service to a provider
   service, and so corresponds to the edges in a service dependency
@@ -474,6 +471,6 @@ object in the data model, and binding that object to the associated
 collection of Slice, Controller, and Service objects, but it also
 involves extending the underlying XOS code base. These additional
 steps are described in the
-[Adding Services to XOS](../2_developer/#adding-services) section of the
+[Adding Services](/devguide/addservice/) section of the
 Developer Guide.
 

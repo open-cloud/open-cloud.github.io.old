@@ -12,19 +12,26 @@
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="{{ site.baseurl }}">Home</a>
 
-      {% comment %}
-        The code below dynamically generates a sidebar nav of pages with
-        `layout: page` in the front-matter. See readme for usage.
-      {% endcomment %}
+      <a class="sidebar-nav-item{% if page.url == '/archguide/' %} active{% endif %}" href="/archguide/">Architecture Guide</a>
+      <a class="sidebar-nav-item{% if page.url == '/userguide/' %} active{% endif %}" href="/userguide/">User Guide</a>
+      <a class="sidebar-nav-item{% if page.url == '/devguide/' %} active{% endif %}" href="/devguide/">Developer Guide</a>
+      <ul class="sidebar_children">
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/configmgmt/' %} active{% endif %}" href="/devguide/configmgmt/">Configuration Management</a></li>
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/interfaces/' %} active{% endif %}" href="/devguide/interfaces/">Programmatic Interfaces</a></li>
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/addview/' %} active{% endif %}" href="/devguide/addview/">Adding Views</a></li>
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/addservice/' %} active{% endif %}" href="/devguide/addservice/">Adding Services</a>
+        <ul>
 
-      {% assign pages_list = site.pages %}
-      {% for node in pages_list %}
-        {% if node.title != null %}
-          {% if node.layout == "page" %}
-            <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/helloworld/' %} active{% endif %}" href="/devguide/helloworld/">Hello World in XOS</a></li>
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/hwansible/' %} active{% endif %}" href="/devguide/hwansible/">Hello World using Ansible</a></li>
+        </ul>
+        </li>
+        <li><a class="sidebar-nav-item{% if page.url == '/devguide/datamodel/' %} active{% endif %}" href="/devguide/datamodel/">Data Modeling Conventions</a></li>
+
+      </ul>
+      <a class="sidebar-nav-item{% if page.url == '/opsguide/' %} active{% endif %}" href="/opsguide/">Operator Guide</a>
+      <a class="sidebar-nav-item{% if page.url == '/releasenotes/' %} active{% endif %}" href="/releasenotes/">Release Notes</a>
+      <a class="sidebar-nav-item{% if page.url == '/roadmap/' %} active{% endif %}" href="/roadmap/">Roadmap</a>
 
       <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
       <span class="sidebar-nav-item">Currently v{{ site.version }}</span>

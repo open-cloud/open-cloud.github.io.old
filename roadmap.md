@@ -62,7 +62,7 @@ configurations to be based on the Burwell release.
 
 1. Development: A minimal configuration used for development, with backend 
 cloud resources provided by CloudLab. Corresponds to the environment 
-described in [Developer Guide](../2_developer). Available with the 
+described in [Developer Guide](/devguide/). Available with the 
 Burwell release.
 
 2. Test: A configuration used used to run regression tests on the XOS

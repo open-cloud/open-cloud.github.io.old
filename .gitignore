@@ -1,1 +1,4 @@
 _site
+.jekyll-metadata
+.bundle
+Gemfile.lock

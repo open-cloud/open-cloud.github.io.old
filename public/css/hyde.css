@@ -69,6 +69,11 @@ html {
     text-align: left;
   }
 }
+@media print {
+  .sidebar {
+    display: none;
+  }
+}
 
 /* Sidebar links */
 .sidebar a {
@@ -97,6 +102,10 @@ a.sidebar-nav-item:focus {
 }
 .sidebar-nav-item.active {
   font-weight: bold;
+}
+.sidebar ul {
+  margin-bottom: 0;
+  font-size: 0.8rem;
 }
 
 /* Sticky sidebar
@@ -136,11 +145,18 @@ a.sidebar-nav-item:focus {
 
 @media (min-width: 64em) {
   .content {
+    max-width: 54rem;
     margin-left: 22rem;
     margin-right: 4rem;
   }
 }
 
+@media print {
+  .content {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
 
 /*
  * Reverse layout
