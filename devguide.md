@@ -21,7 +21,7 @@ alternative XOS installation.
 - [Adding Views](/devguide/addview/)
 - [Adding Services](/devguide/addservice/)
   - [Hello World in XOS](/devguide/helloworld/)
-  - [Hello World using Ansible](/devguide/hwansible/)
+  - [Hello World Using Ansible](/devguide/hwansible/)
 - [Data Modelling](/devguide/datamodel/)
 
 ##Participaing in XOS Development
