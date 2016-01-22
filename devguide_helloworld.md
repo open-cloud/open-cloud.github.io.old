@@ -109,8 +109,6 @@ $ lynx http://<ip address of VM>/hello.txt
 
 ## Components
 
-
-
 The HelloWorld service has three main components: a set of one or more *Models* that define the authoritative state for the service, a *Synchronizer* that keeps the back­end system that implements the service in sync with this state, and a *View* that provides an
 interface to the service.
 
@@ -149,20 +147,18 @@ the content that they are to serve.
 
 ### Synchronizer
 
-The Synchronizer makes the service operational. It does this by converting the
-configuration specified in the data models into directives for the back­end platform. This
-corresponds to bringing up VMs, configuring those VMs, and issuing commands to the
-OS.
+The Synchronizer makes the service operational. It does this by
+converting the configuration specified in the data models into
+directives for the back­end platform. This corresponds to
+bringing up VMs, configuring those VMs, and issuing commands
+to the OS.
 
 For each object (Django model), the synchronizer contains a synchronization step.
 There are two parts to each step: a Python wrapper that acts a as a translator between
 the service's abstract configuration and the concrete configuration of the back­end
 system, and an Ansible playbook that actually communicates the latter configuration to
 the back­end. More details on the anatomy of the synchronizer and its steps can be
-Developer Guide found in the
-
-
-. The following looks at the HelloWorld synchronizer in  more detail.
+Developer Guide. The following looks at the HelloWorld synchronizer in  more detail.
 
 The goal of the HelloWorld synchronizer is to instantiate a new VM with an Apache Web
 server installed, and drop in a web page containing text provided by the user. Since it
