@@ -1,5 +1,5 @@
 ---
-title: HelloWorld Service in XOS
+title: Simple HelloWorld Service
 layout: page
 permalink: /devguide/helloworld/
 ---

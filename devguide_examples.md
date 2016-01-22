@@ -4,5 +4,4 @@ title: Hello World Examples
 permalink: /devguide/examples/
 ---
 
-This section contains to example *Hello World* services. The first emphasis how the Synchronizer coordinates actions across models. The second is a more detailed
-step-by-step tutorial for creating a typical service.
+This section presents two example *Hello World* services. The first emphasizes the Synchronizer, and how it coordinates actions across models. The second is a more detailed step-by-step tutorial for creating a service.

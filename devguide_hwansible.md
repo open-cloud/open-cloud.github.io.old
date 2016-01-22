@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Hello World Using Ansible
+title: Step-by-Step Tutorial
 permalink: /devguide/hwansible/
 ---
 
@@ -15,16 +15,6 @@ This document details all of the steps to create a Hello World service that uses
 * You want to create a service with tenants using the existing service abstractions
 
 * You want to use Ansible to configure instances on cloudlab
-
-## Differences from Hello World in XOS
-
-There is [another tutorial for creating a Hello World](/devguide/helloworld/) model and view in XOS. This guide differs in that it uses XOS’s core Service model, it builds a View using Django’s admin template, and it uses Ansible to configure instances. You should use the other tutorial if:
-
-* You need to create a custom view for your service
-
-* Your instance configuration is simple and you don’t need Ansible
-
-* You don’t want to use the existing Service model
 
 ## Quick Reference
 
