@@ -20,9 +20,7 @@ alternative XOS installation.
 Users access OpenCloud by logging into the portal at
 [portal.opencloud.us](http://portal.opencloud.us). New users register
 through the same portal, with the request approved by the PI
-(Principle Investigator) at their home site. Sites join OpenCloud
-through an off-line process that starts by sending email to
-<support@opencloud.us>.
+(Principle Investigator) at their home site.
 
 Once the user has an account, the following steps are a quick guide
 to utilizing OpenCloud resources:
@@ -65,17 +63,12 @@ selecting the *Home* tab in the left-hand navigation bar brings the
 user back to his or her home dashboard.
 
 Users are also able to directly navigate the underlying data model
-using the left-hand navigation bar. The top set of tabs (Deployments,
-Sites, Slices, and Users) correspond to the core XOS objects, as
+using the left-hand navigation bar. Each tabs (Deployments,
+Sites, Slices, Users, and Services) correspond to the core XOS objects, as
 described in the [Data Model](/archguide/#data-model). The
-following sections of this guide describe how administrators use these
+following sections of this guide describe how to use these
 tabs to manage users, sites, and deployments, respectively. (The views
-described in this section are typically use to manage slices.) The
-bottom set of tabs (RequestRouter, HyperCache, and Syndicate)
-correspond to services that extend XOS. Most users will have no need
-to directly access these services, but will instead indirectly access
-the services through the tailored workflows supported by the various
-views.
+described in this section are typically use to manage slices.)
 
 There are also views designed to support operators, as described
 in the [Operator Guide](/opsguide/).
@@ -86,11 +79,6 @@ The Tenant view provides a simple means to acquire Instances, with
 minimal control over the low-level details of where those Instances are
 placed and what networks interconnect them. It is loosely patterned
 after the Amazon EC2 interface.
-
-The Tenant view is limited to the ViCCI Deployment, which includes
-clusters at five sites throughout the US and Europe. Users that want
-to acquire Instances on any other deployment must use the Developer
-view.
 
 The Tenant view allows users to specify the number of instances that are
 to be instantiated on the available sites, select an *Image* and
@@ -106,8 +94,7 @@ text file.  [Accessing an Instance](#access-instance) explains other
 ways to configure SSH access for a slice's instances.
 
 Note that slices intially created through the Tenant view may also be
-managed through the Developer view. The reverse is true as long as the
-slice is instantiated only on the ViCCI deployment.
+managed through the Developer view.
 
 ### Developer View
 
@@ -253,12 +240,12 @@ site details are as follows:
 ## Administering a Deployment
 
 Deployment Admins are responsible for managing the privileges, sites,
-images, flavors, and visibility for the deployment. Select the
-*Deployments* tab in the left-hand navigation bar and click on the
+images, flavors, and visibility for the deployment. Select the 
+*Deployments* tab in the left-hand navigation bar and click on the 
 desired deployment. The available deployment details are as follows:
 
-* **Images:** The *Images* selector is used to specify which images
-  are supported by the deployment. Root adminstrators specify the
+* **Images:** The *Images* selector is used to specify which images 
+  are supported by the deployment. Root adminstrators specify the 
   global set of available images.
 
 * **Flavors:** The *Flavors* selector is used to specify which flavors
@@ -302,7 +289,7 @@ Creating a Controller involves defining the following fields:
     backend types are limited to "OpenStack".
 
 * **Version:** The version of the backend. This is currently limited
-    to *Icehouse* and *Havana*.
+    to *Kilo*.
 
 * **Auth URL:** Controller-specific authentication URL. For OpenStack
     controllers, this is the URL of the Keystone endpoint.
@@ -321,7 +308,7 @@ link next to *Controller*. *[Workflow to be cleaned up.]*
 
 ## Administering Images
 
-To upload an image to XOS, place the image file in /opt/xos/images. Note that
+To upload an image to XOS, place the image file in `/opt/xos/images`. Note that
 adding a file to this directory must be done atomically, for example by uploading
 the file elsewhere and then using 'mv' to move the file into the directory. If
 a file is uploaded directly to /opt/xos/images, then it's possible the Synchronizer
@@ -335,218 +322,51 @@ Even though an image has been uploaded and synced, it is still not available
 for use until it has been enabled in a deployment. See the Administering a
 deployment section above. 
 
-## Services
+## Accessing an Administering Services
 
 XOS is designed to support a set of contributed services, but the set
-of services available on any particular cloud is as cloud-specific as
+of services available on any particular system is as cloud-specific as
 the underlying hardware infrastructure. In the case of OpenCloud,
-there are currently three contributed Services, each of which extends
+there are currently two contributed Services, each of which extends
 the XOS Data Model with its own abstract objects, and hence, is
-accessible via OpenCloud's REST API. This section briefly describes
-these three services (for illustrative purposes), and concludes by
-describing how to prototype a new service.
+accessible via OpenCloud's REST API.
 
-### Syndicate
+Select the *Services* tab in the left-hand navigation bar to see the
+available services. Then select a specific service to either (1) access
+or use that service, or (2) administer that service.
 
-Syndicate is a scalable storage service. It provides a private shared
-volume that both instances and users can locally mount as a read/write
-filesystem. Syndicate also offers public read-only volumes that
-contain popular scientific datasets. Slices can specify that they want
-to mount one of these datasets (public volumes).
+Users typically access a service (e.g., mount a Syndicate volume
+or publish content in the CDN) through a service-provided view,
+but it is also possible to access a service using the *Access* tab.
+The details of how the user interacts with the service is beyond
+the scope of this Guide. *[Per-service specifications to be added
+as an appendix.]*
 
-Support for enabling a private volume and selecting public datasets is
-built into the Tenant view, meaning users need not directly access
-Syndicate through the corresponding tab in the left-hand navigation
-bar. When accessed in this way, the user will see the slice's private
-volume mounted under */syndicate* when they log into each of their
-instances.
+Service adminstrators typically use the other tabs to manage the
+service. In addition to adding a new service, this includes:
 
-Selecting the *Syndicate* tab in the left-hand navigation bar and then
-clicking on the *Volumes* menu option allows users to control specific
-volume parameters. This is a necessary step when using the *Developer*
-view. From the resulting page, users can add and remove additional
-volumes to their slices, bind their volumes to other slices, and
-control volume capabilities for other users and slices.
+* **Details:** The *Details* tab is used to define various XOS-level
+parameters for the service, including whether the service is
+*Published* (i.e., visible to other users on the *Services* page).
 
-#### Mounting to an Existing Volume in a Slice
+* **Tenancy:** The *Tenancy* tab is used to define dependencies
+between this services and other registered services. A collection of
+services and service dependencies collectively define the service graph.
 
-A user can add another volume to a slice in the following manner (the
-user must start from the Volumes menu).
+* **Slices:** The *Slices* tab is used to define the set of Slices 
+that implement (host the instances of) this service.
 
-1. Click the desired volume.
+* **Privileges:** The *Privileges* tab is used give other users
+administrative privilege for this service.
 
-2. Select the *Slices* tab.
+* **Attributes:** The *Attributes* tab is used specify attributes
+  (key/value pairs) for this service. This provides an easy way to
+  prototype extensions to the service without modifying the
+  formal data model. (The expectation is that attributes are eventually
+  migrated to fields in the service's officially registered data model.)
 
-3. Click *Add another Volume Slice*.
+Information about how to implement a new service is given in
+Section [Adding Services](/devguide/addservice/) of the Developer
+Guide.
 
-4. Fill in the volume parameters, as follows:
-    - **Slice**: The slice to receive the volume.
-    - **Cap read data**: Check this box if an instance should be
-      permitted to read volume data.  If unsure, check this box.
-    - **Cap write data**: Check this box if a instance should be
-      permitted to write volume data.  If unsure, do not check
-      this box.
-    - **Cap host data**: Check this box if an instance should be 
-      permitted to host data for the volume. Only check this 
-      box if you can rely on the instances to work with Syndicate
-      to keep the volume data consistent and available.  If 
-      unsure, do not check this box.
-    - **UG port**: This is a port number, between 1024 and 65534,
-      on which each instance's Syndicate User Gateway will listen.
-      It does not matter what number the user chooses; it only 
-      matters that it is available on each instance in the slice.
-    - **RG port**: This is a port number, between 1024 and 65534,
-      on which each instance's Syndicate Replica Gateway will listen.
-      It does not matter which number the user chooses; it only 
-      matters that it is available on each instance in the slice.
-5. Click *Save*.
-
-Once these steps are carried out, Syndicate ensures that the new
-volume is automatically mounted under */syndicate/* in each instance.
-
-#### Creating and Updating Volumes
-
-Users can create or change the parameters of their volumes by
-selecting their volume from the volume list, and navigating to the
-*Volume Details* tab.  Most of the *Volume Details* fields are
-self-explanatory, but a few warrant additional comment:
-
-* **Blocksize**:  This is the number of bytes in a block. 
-In Syndicate, a block is the smallest unit of transfer, storage, 
-and data consistency.  Smaller values reduce the number of 
-bytes to invalidate on a write, but larger values improve 
-read performance by reducing the number of data transfers.
-A good value for read/write volumes is 102400 (100KB).  Read-only
-volumes should choose the medium file size as the block size,
-to maximize transfer efficiency.
-
-* **Archive**:  If set, this volume will need to be configured 
-such that a Syndicate Acquisition Gateway (AG) can populate it 
-with dataset metadata.  Do not check this box unless you know 
-what you are doing.
-
-* **Cap host data**:  If set, this means that by default, an instance can 
-help Syndicate replicate data and coordinate writes to it.  This 
-implies a larger degree of trust in the instance.  If your instances 
-will do most of the I/O in your volume, you should check this box.
-If you or other machines outside of OpenCloud will do most of the I/O,
-you should *not* check this box.
-
-#### Volume Access Control
-
-Users can authorize other users to access their volumes. This is not
-limited to within OpenCloud. If Alice permits Bob to access her
-volume, then Bob can do so from his OpenCloud instances or from his
-personal machines. (Likewise, Alice can share her OpenCloud volume
-with her own off-OpenCloud machines.)  OpenCloud access to a Users can
-control the capabilities other users will have: read access (*Cap read
-data*), write access (*Cap write data*), and host access (*Cap host
-data*).
-
-Read and write access is self-explanatory. Host-access should only be
-granted if the user is sufficiently trustworthy, since the *host data*
-capability will grant that user the ability to coordinate writes to
-the volume's files.  If unsure, the user should not check *Cap host
-data*.
-
-### HyperCache
-
-HyperCache (HPC) is a Content Distribution Nework (CDN). It uses a set
-of distributed caches to to accelerate the delivery of content on
-behalf of a content provider. Selecting the *HyperCache* tab in the
-left-hand navigation bar reveals a menu of options that govern how
-content is to be delivered via the CDN. From the resulting pages,
-users can add/remove origin servers that source content, register URLs
-that name content, and specify where content is (and is not) to be
-served.
-
-* **Service Provider:** A CDN administrator. Each service provider
-  manages (creates accounts for) a set of content providers.
-
-* **Content Provider:** The primary "tenant" of the CDN. All other
-  parameters are controlled by a given content provider. Each content
-  provider specifies a set of *Users* that are allowed to act on its
-  behalf, and registers one or more *CDN Prefixes* that will name its
-  content (see below).
-
-* **CDN Prefix:** The FQDN prefix of URLs that names content to be
-  delivered via the CDN. Each CDN Prefix has a default *Origin Server*
-  that HPC uses to acquire content (see below).
-
-* **Origin Server:** The URL of an origin server that sources content.
-  Each origin server is bound to one CDN Prefix, but one CDN Prefix
-  can name content sourced at multiple origin servers. Typically, a
-  particular origin server is directly or indirectly identified in the
-  URL, but there is an explicitly specified default origin server that
-  HPC uses when this is not the case. The content provider also
-  specifies the *Protocol* used to download content from an origin
-  server (typically, this is set to HTTP), and whether or not requests
-  that cannot be handled by the CDN should be redirected to the origin
-  server (typically, this setting is enabled).
-
-* **Site Map:** A file that specifies a policy for how requests are to
-    be redirected.
-
-* **Access Map:** A file that specifies a policy for where content is
-    and is not delivered.
-
-The format of the map files is defined elsewhere.
-
-### RequestRouter
-
-RequestRouter (RR) is a multi-tenant service that redirects user
-requests to the best instance of a given client service. For example,
-HyperCache uses RR to redirect HTTP GET requests to the best cache to
-serve content to a particular end-user. RR determines "best" according
-to a client-specified policy known as a service map.
-
-Selecting the *RequestRouter* tab in the left-hand navigation bar,
-clicking the *Service Map* menu item, and then selecting a particular
-map allows users to specify the policy that guides request redirection.
-From the resulting page, users can register a client service, register
-a URL that name the service, and configure various maps.
-
-* **Name:** Name of the service map.
-
-* **Owner:** Client service that owns the service map.
-
-* **Slice:** Slice in which the client service runs. Indirectly
-  identifies the candidate service instances to which RR redirects
-  requests.
-
-* **Prefix:** The FQDN prefix of a URI that is to be managed by
-    RequestRouter. This prefix effectively names the service in a
-    server-independent way.
-
-* **Site Map:** A file that specifies a policy for how requests are to
-    be redirected.
-
-* **Access Map:** A file that specifies a policy for where the service
-    is and is not available.
-
-The format of the two map files is defined elsewhere.
-
-### Prototyping a New Service
-
-Users are able to create their own services, and make them available
-to other users. There are two approaches to doing this, which we refer
-to as *prototype* and *production*. A prototype service, as its name
-suggests, is usually in development phase. XOS provides a set of
-light-weight mechanisms to help the developer manage a prototype
-service. Similarly, a production service is one that is officially
-offered as part of a deployment, for example, OpenCloud offers three
-production services: RequestRouter, HyperCache, and Syndicate. Section
-[Adding Services](/devguide/addservice/) of the
-Developer Guide describes how to add a production service to XOS. This
-section focuses on the available mechanisms for prototyping a service.
-
-## Mailing Lists
-
-All registered OpenCloud users are automatically subscribed to
-[users@opencloud.us](mailto:users@opencloud.us). Use this mailing list
-to announce topics of general interest to other users, and to ask
-questions about best practices using OpenCloud.
-
-To report problems or ask for specific assistance, send email to
-[support@opencloud.us](mailto:support@opencloud.us).
 

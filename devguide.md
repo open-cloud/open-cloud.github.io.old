@@ -19,10 +19,11 @@ alternative XOS installation.
 - [Configuration Management](/devguide/configmgmt/)
 - [Programmatic Interfaces](/devguide/interfaces/)
 - [Adding Views](/devguide/addview/)
-- [Adding Services](/devguide/addservice/)
-  - [Hello World in XOS](/devguide/helloworld/)
-  - [Hello World Using Ansible](/devguide/hwansible/)
+- [Adding Services](/devguide/addservice/) 
 - [Data Modelling](/devguide/datamodel/)
+- [Hello World Examples](/devguide/examples/) 
+  - [Hello World in XOS](/devguide/helloworld/) 
+  - [Hello World Using Ansible](/devguide/hwansible/) 
 
 ##Participaing in XOS Development
 
