@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Step-by-Step Tutorial
-permalink: /devguide/hwansible/
+permalink: http://guide.xosproject.org/devguide/hwansible/
 ---
 
 *Author: Jeremy Mowery, The University of Arizona*

@@ -1,7 +1,7 @@
 ---
 layout: page 
 title: Example "Hello World" Services
-permalink: /devguide/examples/
+permalink: http://guide.xosproject.org/devguide/examples/
 ---
 
 This section presents two example *Hello World* services. The first

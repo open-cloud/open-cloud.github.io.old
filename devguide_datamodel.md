@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Data Modeling Conventions
-permalink: /devguide/datamodel/
+permalink: http://guide.xosproject.org/devguide/datamodel/
 ---
 
 {% include toc.html %}

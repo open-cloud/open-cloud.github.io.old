@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Configuration Management
-permalink: /devguide/configmgmt/
+permalink: http://guide.xosproject.org/devguide/configmgmt/
 ---
 
 {% include toc.html %}

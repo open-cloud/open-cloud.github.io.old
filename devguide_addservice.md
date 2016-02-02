@@ -1,7 +1,7 @@
 ---
 layout: page 
 title: Adding Services 
-permalink: /devguide/addservice/
+permalink: http://guide.xosproject.org/devguide/addservice/
 ---
 
 {% include toc.html %}
