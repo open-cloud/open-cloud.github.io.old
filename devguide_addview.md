@@ -14,7 +14,7 @@ described in the [Adding Services](/devguide/addservice/) section.
 
 This collection of services, in turn, defines a range of functionality
 that can be combined in different ways to provide customized *views*
-(portals) targeted at different user communities and usage scenarios.
+targeted at different user communities and usage scenarios.
 A view might provide a graphical interface to just one  service, it
 might present a subset of a service customized for a particular user
 community, it might serve as a dashboard for one or more services, or
