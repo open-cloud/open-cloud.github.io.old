@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Programmatic Interfaces
-permalink: http://guide.xosproject.org/devguide/interfaces/
+permalink: /devguide/interfaces/
 ---
 
 {% include toc.html %}

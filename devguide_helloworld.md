@@ -1,7 +1,7 @@
 ---
 title: Simple HelloWorld Service
 layout: page
-permalink: http://guide.xosproject.org/devguide/helloworld/
+permalink: /devguide/helloworld/
 ---
 
 *Author: Sapan Bhatia, Open Networking Lab*

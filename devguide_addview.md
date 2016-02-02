@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Adding Views
-permalink: http://guide.xosproject.org/devguide/addview/
+permalink: /devguide/addview/
 ---
 {% include toc.html %}
 
