@@ -18,8 +18,8 @@ alternative XOS installation.
 
 - [Configuration Management](/devguide/configmgmt/)
 - [Programmatic Interfaces](/devguide/interfaces/)
-- [Adding Views](/devguide/addview/)
 - [Adding Services](/devguide/addservice/) 
+- [Adding Views](/devguide/addview/) 
 - [Data Modelling](/devguide/datamodel/)
 - [Example "Hello World" Services](/devguide/examples/) 
   - [Simple HelloWorld Service](/devguide/helloworld/) 
