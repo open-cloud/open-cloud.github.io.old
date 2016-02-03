@@ -17,28 +17,28 @@ For example, the *Devel Config* described below uses the latest stable release
 (Burwell), runs on [CloudLab](https://www.cloudlab.us/), and includes
 only the HelloWorld service.
 
-Configurations are organized in the directory *xos/configurations*
+Configurations are organized in the directory `xos/configurations/`
 within the XOS git repository. Each configuration is stored in a
 single subdirectory.  For example, the Devel configuration can be
-found in *xos/configurations/devel*.  At a minimum, each configuration
+found in `xos/configurations/devel/`.  At a minimum, each configuration
 consists of a Makefile and a Dockerfile. Optionally, there may also be
 TOSCA definitions that are used to internally configure XOS (e.g., to
-bring up services and slices). A second Makefile, *Makefile.inside*, is
+bring up services and slices). A second Makefile, `Makefile.inside`, is
 commonly used to execute actions that need to occur after the
 container has been started.
 
-Directory *xos/configurations/common* contains files that are useful
-to multiple configurations. *Dockerfile.common* contains a baseline
+Directory `xos/configurations/common/` contains files that are useful
+to multiple configurations. `Dockerfile.common` contains a baseline
 Dockerfile that should be suitable for most XOS installations. By
 convention, common Dockerfile actions are abstracted to
-*xos/configurations/common/Dockerfile.common*, and only Dockerfile
+`xos/configurations/common/Dockerfile.common`, and only Dockerfile
 actions unique to a particular configuration need be specified in the
 individual configuration's Dockerfile.
 
 To create a new configuration, first make a new subdirectory off of
-*xos/configurations*. Then create *Dockerfile.configname* and include
+`xos/configurations/`. Then create `Dockerfile.configname` and include
 any Docker actions unique to that configuration. Use one of the other
-Makefiles as a template (*xos/configurations/devel/Makefile* is
+Makefiles as a template (`xos/configurations/devel/Makefile` is
 generally a good starting point) and modify it as appropriate to
 create the configuration's Makefile.
 
@@ -50,9 +50,9 @@ elsewhere.
 
 By convention, XOS configurations are initialized with a single
 administrative user and login credentials of
-*username=padmin@vicci.org* with password *letmein*.
+`username=padmin@vicci.org` with password `letmein`.
 
-We suggest placing a *README* file with each configuration that
+We suggest placing a `README.md` file with each configuration that
 documents the purpose of the configurations and any assumptions or
 requirements, such as the whether the configuration must be run from
 within CloudLab.
@@ -81,7 +81,7 @@ $ make
 The Makefile will build the XOS Docker image, run it in a container,
 and configure XOS to talk to the OpenStack cluster on CloudLab.  You can
 reach the XOS GUI on port 9999 on the *ctl* node.  XOS login credentials are
-*padmin@vicci.org*/*letmein*.
+`padmin@vicci.org/letmein`.
 
 Assuming everything has worked, you should be able to create a slice and
 launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
@@ -116,7 +116,7 @@ synchronizer to instantiate the object using OpenStack.
 
 ## Bash Config
 
-The Bash configuration may be found in *xos/configurations/bash*. Its
+The Bash configuration may be found in `xos/configurations/bash/`. Its
 purpose is to serve as an interactive environment for development,
 with a shell-based interface. After the Makefile has finished
 executing, the user will be dropped into a bash shell inside of the
@@ -138,7 +138,7 @@ OpenStack deployment. While the UI is functional, this configuration
 necessarily imposes the limitation that Instances will not be
 instantiated.
 
-Additionally, as the Synchronizer is not running, *model_policies*
+Additionally, as the Synchronizer is not running, `model_policies`
 will not be executed.
 
 ## OpenCloud Config
@@ -155,9 +155,9 @@ nginx.
 
 A sample configuration file for nginx is located in the nginx
 subdirectory of the XOS git repository. This config fie is setup to
-look for static files in */var/www/xos/static*, and that subdirectory
+look for static files in `/var/www/xos/static`, and that subdirectory
 must be created. All static files located in the following
-subdirectories must be copied to */var/www/xos/static/:*
+subdirectories must be copied to `/var/www/xos/static/`:
 
 {% highlight sh %}
 /opt/xos/core/static
@@ -217,9 +217,9 @@ files in the Docker image are copied from the local file tree,
 so it is easy to create a customized version of XOS by making
 local changes to the XOS source before building the Docker image.
 
-A minimal *initial_data.json* fixture is provided. The login
-credentials are *username=padmin@vicci.org* with password
-*letmein*. This *initial_data.json* doesn't contain any nodes and is
+A minimal `initial_data.json` fixture is provided. The login
+credentials are `username=padmin@vicci.org` with password
+`letmein`. This `initial_data.json` doesn't contain any nodes and is
 suitable for fresh installations.
 
 To build and start the container type:
@@ -230,9 +230,9 @@ $ docker run -t -i -p 8000:8000 xos
 {% endhighlight %}
 
 XOS will start automatically and you will see its log output in the shell window.
-You can access the XOS login at *http://server:8000*, where *server*
+You can access the XOS login at `http://server:8000`, where *server*
 is the name of the server hosting the Docker container.  Login credentials are
-*padmin@vicci.org*/*letmein*.
+`padmin@vicci.org/letmein`.
 
 Note that the above steps result in a running XOS, but without any
 backend resources. This is sufficient for working on the data model
@@ -247,4 +247,3 @@ Site](/userguide/#administering-a-site) of the User's Guide. These two sections
 explain how to configure a Deployment to know about a set of OpenStack
 clusters and how to configure a Site to know about a set of Nodes,
 respectively.
-

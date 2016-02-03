@@ -37,7 +37,7 @@ should be named after the two models that it relates. For example, a model that
 relates the Controller and User models should be called ControllerUser.
 
 Field names use lower case with underscores separating names. Examples of
-valid field names are: name, disk_format, controller_format.
+valid field names are: name, `disk_format`, `controller_format`.
 
 ### Field Types
 

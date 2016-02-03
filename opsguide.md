@@ -168,7 +168,7 @@ operate an XOS deployment:
   *Users* pages gives operators access to the underlying *Controller*.
 
 * A hidden xoslib-based alternative to the *Developer* view is
-  available at *opencloud.us/admin/dashboard/xosAdminDashboard*.
+  available at `opencloud.us/admin/dashboard/xosAdminDashboard`.
 
 * A *Nagios* view provides access to a Nagios service running on the
   head node of each underlying OpenStack cluster.

@@ -27,7 +27,7 @@ to expand the example over time to illustrate additional features.
 ## Setting Up the Service
 
 The following assumes a working XOS installation. See the [Configuration
-Management](/devguide/confmgmt/) section of the Developer Guide for
+Management](/devguide/configmgmt/) section of the Developer Guide for
 instructions on installing XOS. The "Devel Config" is sufficient for setting up
 and running  the HelloWorld service.
 
@@ -136,8 +136,8 @@ so that dependent Hello objects are made operational ("synchronized") before
 World objects.
 
 The Hello object contains a link to an Instance object, which represents a
-provisioned virtual machine. The name of the field, "instance_backref",
-contains the suffix "_backref" to indicate a reversal of the polarity of the
+provisioned virtual machine. The name of the field, `instance_backref`,
+contains the suffix `_backref` to indicate a reversal of the polarity of the
 dependency. Instead of defining a link from Hello to Instance, it makes
 Instance objects depend on Hello objects. The outcome of this dependency is to
 guarantee that Hello objects are synchronized before their accompanying
