@@ -18,17 +18,18 @@ alternative XOS installation.
 
 - [Configuration Management](/devguide/configmgmt/)
 - [Programmatic Interfaces](/devguide/interfaces/)
-- [Adding Services](/devguide/addservice/) 
-- [Adding Views](/devguide/addview/) 
+- [Adding Services](/devguide/addservice/)
+- [Adding Views](/devguide/addview/)
 - [Data Modelling](/devguide/datamodel/)
-- [Example "Hello World" Services](/devguide/examples/) 
-  - [Simple HelloWorld Service](/devguide/helloworld/) 
-  - [Step-by-Step Tutorial](/devguide/hwansible/) 
+- [Example "Hello World" Services](/devguide/examples/)
+  - [Simple HelloWorld Service](/devguide/helloworld/)
+  - [Step-by-Step Tutorial](/devguide/hwansible/)
 
-##Participaing in XOS Development
+## Participating in XOS Development
 
 Bugs reports and feature requests can be filed using the
 [GitHub Issue Tracker](https://github.com/open-cloud/xos/issues).
 
 To participate in a discussion about XOS development, join the
 [devel@xosproject.org](https://groups.google.com/a/xosproject.org/forum/#!forum/devel) Google Group.
+
