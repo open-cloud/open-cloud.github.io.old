@@ -132,14 +132,13 @@ tutorial illustrates how to use xsh.
 
 ## Accessing an Instance
 
-Instances connect to the network via NAT; logging into the instance relies
-on SSH proxying to forward incoming SSH connections. In the Tenant View, 
-click on the *SSH Commands* button to see SSH
-commands that can be cut-and-pasted into the terminal for logging into
-your instances. In the Developer
-View, the instance Id and node name are displayed in the Instance frame.
-You can use this information to add lines to your ~/.ssh/config file 
-similar to the following:
+Instances connect to the network via NAT; logging into the instance relies on
+SSH proxying to forward incoming SSH connections. In the Tenant View, click on
+the *SSH Commands* button to see SSH commands that can be cut-and-pasted into
+the terminal for logging into your instances. In the Developer View, the
+instance Id and node name are displayed in the Instance frame.  You can use
+this information to add lines to your `~/.ssh/config` file similar to the
+following:
 
 ```
 Host foobar
@@ -148,22 +147,21 @@ Host foobar
   ProxyCommand ssh -q instance-0000006c@node5.cs.arizona.edu
 ```
 
-In the above, replace "foobar" with a label of your choice for this
-instance.  *User* is the default login user for the image.
-*IdentitiyFile* should point to the key that you've uploaded to
-OpenCloud.  *ProxyCommand* should point to the instance ID and node
-for the instance. Once an entry is present for the instance in
-~/.ssh/config, you can login using the label:
+In the above, replace "foobar" with a label of your choice for this instance.
+`User` is the default login user for the image.  `IdentityFile` should point to
+the key that you've uploaded to OpenCloud.  `ProxyCommand` should point to the
+instance ID and node for the instance. Once an entry is present for the
+instance in `~/.ssh/config`, you can login using the label:
 
-```
+{% highlight sh %}
 # ssh foobar
-```
+{% endhighlight %}
 
-Other utilities like scp also work as expected when referencing
+Other utilities like `scp` also work as expected when referencing
 the instance using the label.
 
 A current limitation is that only one user key is injected into the
-slice. Because SSH is indirect through the *ProxyCommand*, it is not
+slice. Because SSH is indirect through the `ProxyCommand`, it is not
 sufficient to manually add additional keys for other users to an 
 account inside the instance; for the time being, an administrator will 
 need to add the additional keys to the proxy environment as well.
@@ -175,8 +173,8 @@ This is done using the *Network Ports* field in the Tenant View. The
 service can then be accessed at this port on the hosting server (e.g.,
 *node5.cs.arizona.edu* in the above example). Second, all the instances
 at a given site are automatically connected by a private network. Run
-*ifconfig* from within an instance to learn the instance's private address
-(i.e., the *10.x.x.x* address associated with *eth0*). This private
+`ifconfig` from within an instance to learn the instance's private address
+(i.e., the `10.x.x.x` address associated with `eth0`). This private
 virtual network is per-site. Instances in different sites must use an
 Internet-accessible address to communicate (i.e., using a reserved
 port and hosting server name as described above).
