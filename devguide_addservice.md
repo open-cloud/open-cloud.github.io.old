@@ -13,7 +13,7 @@ by a service, not binding it to the underlying mechanisms of the Cloud
 substrate. This section describes the framework into which services are plugged
 into XOS.
 
-##  Design Overview
+## Design Overview
 
 The work of defining a new service is twofold: (1) designing abstractions and
 adding them to XOS through a standard interface (the data model, implemented in
@@ -78,7 +78,7 @@ instance.
  Our plan is to lift it out of this instance and into the core of
  XOS.]*
 
-##  Introduction to a Synchronizer
+## Introduction to a Synchronizer
 
 For simplicity, we sometimes say Synchronizer in lieu of Synchronizer
 Instance.
@@ -111,7 +111,7 @@ example, since the Instance model depends on the Slice model, the
 Synchronizer guarantees that an Instance is only added to the System if a
 corresponding Slice already exists.
 
-##  Developing a Synchronizer
+## Developing a Synchronizer
 
 We have developed the Synchronizer Framework in a way that relieves the
 developer of each Synchronizer Instance of having to re-implement certain
@@ -165,7 +165,7 @@ Let's start with the main source files:
 The remainder of the files contain peripheral support code, or base
 classes to be subclassed by your Synchronizer Instance.
 
-##  Synchronizer Steps
+## Synchronizer Steps
 
 Within the `synchronizer/` subdirectory of the XOS repository, you will
 find a `steps/` subdirectory. This directory contains the actual
@@ -305,7 +305,7 @@ Synchronizer Steps are Idempotent Operations. They may run multiple times,
 and it is your responsibility to ensure that a subsequent execution
 does not cause the system to go into an error state.
 
-##  Internal Steps
+## Internal Steps
 
 A Synchronizer has two kinds of steps: Internal Steps and External
 Steps. An Internal Step is one that responds to specific changes in
@@ -382,7 +382,7 @@ days, so that they do not block Internal steps. This is because the
 Synchronizer is single-threaded and Internal steps are expected to be
 responsive.
 
-##  Deletions
+## Deletions
 
 Synchronizers handle deletions in the same way as they handle
 synchronization. When an object is deleted in the data model, it is

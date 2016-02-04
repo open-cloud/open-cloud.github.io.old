@@ -57,7 +57,7 @@ packets to VMs by adding a rule to their forwarding tables.  Select ports are
 forwarded from the controller node's public IP address to VMs so that 
 OpenStack services can be contacted by a remote client.
 
-###Configuring Physical Servers and Network
+### Configuring Physical Servers and Network
 
 The controller and compute nodes should meet the following *minimum*
 hardware requirements:
@@ -74,7 +74,7 @@ behind a firewall.  If the controller node is behind a firewall, the
 following TCP ports should be opened for XOS: 22, 3128, 5000, 8080,
 8777, 9292, 9696, 35357.
 
-###Installing OpenStack on a Local Cluster
+### Installing OpenStack on a Local Cluster
 
 The controller node architecture shown in Figure 1 runs each OpenStack
 service in its own VM, with all VMs connected by a private management
@@ -86,10 +86,10 @@ https://github.com/open-cloud/openstack-cluster-setup
 Consult the README.md file for instructions on how to run this playbook
 and customize it for your own needs.
 
-####Service VMs
+#### Service VMs
 
 Once you have set up the head node of your local OpenCloud cluster using 
-the above scripts, you can use **virsh list** to see a list of the running 
+the above scripts, you can use `virsh list` to see a list of the running 
 VMs, each named after the service it hosts:
 
 {% highlight sh %}
@@ -109,7 +109,7 @@ Id    Name                    State
 16    xos                     running
 {% endhighlight %}
 
-All of the VMs are attached to bridge `virbr0` with private addresses on the 192.168.122.0/24 subnet, and so are not reachable externally.  The IP addresses of the VMs are in `/etc/hosts`, or can be obtained using **uvt-kvm ip <VM name>**:
+All of the VMs are attached to bridge `virbr0` with private addresses on the 192.168.122.0/24 subnet, and so are not reachable externally.  The IP addresses of the VMs are in `/etc/hosts`, or can be obtained using `uvt-kvm ip <VM name>`:
 
 {% highlight sh %}
 $ uvt-kvm ip xos
@@ -127,7 +127,7 @@ Welcome to Ubuntu 14.04.2 LTS (GNU/Linux 3.13.0-49-generic x86_64)
 ubuntu@xos:~$
 {% endhighlight %}
 
-###Configuring Remote OpenStack Clients 
+### Configuring Remote OpenStack Clients 
 
 Port forwarding on the controller node enables remote clients to
 connect to the OpenStack services on the cluster.  An OpenStack client

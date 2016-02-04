@@ -9,7 +9,7 @@ less detailed than information on the
 Also see bug reports and short-term feature requests filed at the   [GitHub Issue
 Tracker](https://github.com/open-cloud/xos/issues).
 
-##Cozad Release (December 2015)
+## Cozad Release (December 2015)
 
 1. Separate subsystems into their own containers. For example,
     XOS and Postgress should run in separate containers. Synchronizers
@@ -54,7 +54,7 @@ Tracker](https://github.com/open-cloud/xos/issues).
 11. Define a data model migration strategy. The current strategy
     too often depends on resetting the data model.
 
-##Deployment Configurations (Oct - Dec 2015)
+## Deployment Configurations (Oct - Dec 2015)
 
 XOS can be deployed on different hardware configurations and populated
 with different service portfolios. We expect the following deployment

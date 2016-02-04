@@ -26,7 +26,7 @@ as a representative example. It is most accurate to think of OpenCloud
 as one use case built using XOS. Another important XOS use case is CORD
 (Central Office Re-architected as a Datacenter).
 
-##XOS Links
+## XOS Links
 
 Web Site: [http://xosproject.org](http://xosproject.org).
 
@@ -40,7 +40,7 @@ RESTful API Specification: [guide.xosproject.org/restapi/](http://guide.xosproje
 
 Repository for this Guide: [https://github.com/open-cloud/open-cloud.github.io](https://github.com/open-cloud/open-cloud.github.io)
 
-##OpenCloud Links
+## OpenCloud Links
 
 Portal: [portal.opencloud.us](http://portal.opencloud.us) (registered
 users only).
