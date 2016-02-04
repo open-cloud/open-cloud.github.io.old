@@ -1,8 +1,5 @@
 # Dependencies
-#markdown:         redcarpet
 markdown:         kramdown
-#redcarpet:
-#  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 highlighter:      rouge
 
 # Permalinks
@@ -11,7 +8,7 @@ permalink:        pretty
 # Setup
 title:            XOS Guide
 tagline:          'XOS Guide'
-description:      'A guide to using, developing, and<br> operating XOS'
+description:      'A guide to using, developing, and<br/>operating XOS'
 url:              http://open-cloud.github.io
 baseurl:          /
 
