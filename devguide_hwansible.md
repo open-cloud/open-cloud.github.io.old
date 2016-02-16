@@ -331,10 +331,11 @@ Now that we have all of the necessary boilerplate we can define what should happ
 
 ### Add the SSH Key
 
-As we saw in sync_helloworldtenant.py above, we need to have an SSH key to use ansible. To add this we simply change the Dockerfile to copy over the appropriate key when starting up XOS. To do this open the file xos/xos/configurations/devel/Dockerfile.devel and add the line:
+As we saw in sync_helloworldtenant.py above, we need to have an SSH key to use ansible. To add this we simply change the Dockerfile to copy over the appropriate key when starting up XOS. To do this open the file [configurations/devel/Dockerfile.devel](https://github.com/open-cloud/xos/blob/master/containers/xos/Dockerfile.devel) and add these lines after `Install XOS`:
 
 ```
-ADD xos/configurations/common/id_rsa /opt/xos/synchronizers/helloworldservice_complete/helloworldservice_private_key
+# Added for hellowordservice_complete's synchronizer can run
+ADD xos/configurations/setup/id_rsa /opt/xos/synchronizers/helloworldservice_complete/helloworldservice_private_key
 ```
 
 Note that this is one line, not two. This key is used by ansible when using an SSH connection to avoid using passwords.
@@ -347,9 +348,9 @@ Now that we have the synchronizer made we can verify that it is working on Cloud
 
 * On the ctl node navigate to `xos/xos/configurations/devel`
 
-* Stop your previous instance of XOS (if it is still running) by running make stop
+* Stop your previous instance of XOS (if it is still running) by running `make stop`
 
-* Run make to start up XOS again with your changes (note: if you don’t see anything change or files are missing in the steps below edit the Makefile include the `--no-cache` option in the docker run command and try again)
+* Run `make` to start up XOS again with your changes (note: if you don’t see anything change or files are missing in the steps below run `make rebuild_xos` and `make rebuild_synchronizer` to recreate the Docker containers for each, then `make` again to run them)
 
 * Once XOS has finished starting up, enter the VM by running `make enter-synchronizer`
 
@@ -357,9 +358,31 @@ Now that we have the synchronizer made we can verify that it is working on Cloud
 
 * Run `./run.sh` (keep the window open with the output from this to observe the synchronizer in action)
 
-You should see some output constantly streaming from the synchronizer, it will look something like this:
+You should see some output constantly streaming from the synchronizer:
 
-{% include figure.html url="/figures/devguide_hwansible-fig10_runsh_output.png" caption="" %}
+```
+root@4c7c64485c10:/opt/xos/synchronizers/helloworldservice_complete# ./run.sh 
+Skipping model policies thread for service observer.
+INFO:xos.log:Deletion=False...
+INFO:xos.log:Deletion=False...
+INFO:xos.log:Starting to work on step SyncHelloWorldTenantComplete, deletion=False
+INFO:xos.log:Executing step SyncHelloWorldTenantComplete, deletion=False
+Executing step SyncHelloWorldTenantComplete
+INFO:xos.log:Step 'SyncHelloWorldTenantComplete' succeeded
+Step 'SyncHelloWorldTenantComplete' succeeded
+INFO:xos.log:Step <class 'sync_helloworldtenant.SyncHelloWorldTenantComplete'> is a leaf
+INFO:xos.log:Deletion=True...
+INFO:xos.log:Deletion=True...
+INFO:xos.log:Starting to work on step SyncHelloWorldTenantComplete, deletion=True
+INFO:xos.log:Executing step SyncHelloWorldTenantComplete, deletion=True
+Executing step SyncHelloWorldTenantComplete
+INFO:xos.log:Step 'SyncHelloWorldTenantComplete' succeeded
+Step 'SyncHelloWorldTenantComplete' succeeded
+INFO:xos.log:Step <class 'sync_helloworldtenant.SyncHelloWorldTenantComplete'> is a leaf
+INFO:xos.log:Waiting for event
+INFO:xos.log:Observer woke up
+INFO:xos.log:Deletion=False...
+```
 
 * Repeat steps [Create a HelloWorldService Instance](#create-a-helloworldservice-instance) and [Create a HelloWorldTenant Instance](#create-a-helloworldtenant-instance) until you complete creating one HelloWorldTenant instance.
 
@@ -377,11 +400,14 @@ Exception: Unreachable results in ansible recipe
 
 These are normal while the instance is starting because the VM is not yet initialized, eventually you will see output that includes the steps given in the `sync_helloworldtenant.yaml` file and a success message. This means that a web server is up and running with the message.
 
-* The last thing we need to do is view the page that we just created. To do this not the instance name in XOS for the instance you just created from the Hello world tenants page (you may need to refresh, if this is your first instance it will be called mysite_helloworldservice-1). Then click the Slices button on the left. Then click the slice you created, click instances, and note the IP addresses of the instance with the name from earlier. Record the 10.11.X.X address as we will need this.
+* The last thing we need to do is view the page that we just created. To do this not the instance name in XOS for the instance you just created from the Hello world tenants page (you may need to refresh, if this is your first instance it will be called `mysite_helloworldservice-1`). Then click the Slices button on the left. Then click the slice you created, click instances, and note the IP addresses of the instance with the name from earlier. Record the 10.11.X.X address as we will need this.
 
-* Finally, from the ctl node, install lynx (`sudo apt-get install lynx`) and then run `lynx <10.11.X.X address from before>` (for example `lynx 10.11.10.11`).
+* Finally, from the ctl node, run `curl <10.11.X.X address>`, and you should see the display message you entered when creating the Hello World Tenant.
 
-* You should now see a web page with the message you set in the Tenant.
+```
+user@ctl:~/xos/xos/configurations/devel$ curl 10.11.10.7
+Hello World!
+```
 
 ## Common Problems
 
