@@ -220,10 +220,10 @@ Now XOS will be running and will be available at the address of your ctrl node o
 
 Navigate to this address in your web browser and log in using the following credentials:
 
- - Username: `admin@vicci.org`
+ - Username: `padmin@vicci.org`
  - Password: `letmein`
 
-Navigate to your service at `http://<node name>:9999/admin/helloworldservice`, for example using the address above you would have: `http://clnode086.clemson.cloudlab.us:9999/admin/helloworldservice`. You will see a page like this:
+Navigate to your service at `http://<node name>:9999/admin/helloworldservice_complete`, for example using the address above you would have: `http://clnode086.clemson.cloudlab.us:9999/admin/helloworldservice_complete`. You will see a page like this:
 
 {% include figure.html url="/figures/devguide_hwansible-fig02_create_instance.png" caption="" %}
 
@@ -334,7 +334,7 @@ Now that we have all of the necessary boilerplate we can define what should happ
 As we saw in sync_helloworldtenant.py above, we need to have an SSH key to use ansible. To add this we simply change the Dockerfile to copy over the appropriate key when starting up XOS. To do this open the file xos/xos/configurations/devel/Dockerfile.devel and add the line:
 
 ```
-ADD xos/configurations/common/id_rsa /opt/xos/synchronizers/helloworldservice/helloworldservice_private_key
+ADD xos/configurations/common/id_rsa /opt/xos/synchronizers/helloworldservice_complete/helloworldservice_private_key
 ```
 
 Note that this is one line, not two. This key is used by ansible when using an SSH connection to avoid using passwords.
@@ -351,9 +351,9 @@ Now that we have the synchronizer made we can verify that it is working on Cloud
 
 * Run make to start up XOS again with your changes (note: if you don’t see anything change or files are missing in the steps below edit the Makefile include the `--no-cache` option in the docker run command and try again)
 
-* Once XOS has finished starting up, enter the VM by running make enter
+* Once XOS has finished starting up, enter the VM by running `make enter-synchronizer`
 
-* Navigate to `/opt/xos/synchronizers/helloworldservice`
+* Navigate to `/opt/xos/synchronizers/helloworldservice_complete`
 
 * Run `./run.sh` (keep the window open with the output from this to observe the synchronizer in action)
 
@@ -365,13 +365,17 @@ You should see some output constantly streaming from the synchronizer, it will l
 
 * Pay close attention to the window with the output from the synchronizer, initially since you just created a new HelloWorldTenant, the instance will be still be starting up so you will see an error like:
 
+```
 Exception: defer object helloworldservice-tenant-3 due to waiting on instance.instance_name
+```
 
-* You may also see an error like:
+or:
 
-	Exception: Unreachable results in ansible recipe
+```
+Exception: Unreachable results in ansible recipe
+```
 
-* These are normal while the instance is starting because the VM is not yet initialized, eventually you will see output that includes the steps given in the `sync_helloworldtenant.yaml` file and a success message. This means that a web server is up and running with the message.
+These are normal while the instance is starting because the VM is not yet initialized, eventually you will see output that includes the steps given in the `sync_helloworldtenant.yaml` file and a success message. This means that a web server is up and running with the message.
 
 * The last thing we need to do is view the page that we just created. To do this not the instance name in XOS for the instance you just created from the Hello world tenants page (you may need to refresh, if this is your first instance it will be called mysite_helloworldservice-1). Then click the Slices button on the left. Then click the slice you created, click instances, and note the IP addresses of the instance with the name from earlier. Record the 10.11.X.X address as we will need this.
 
