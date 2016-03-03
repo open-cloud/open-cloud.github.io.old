@@ -279,8 +279,8 @@ as it is suitable in most cases.  The command that is being run is specific to
 our exampleservice.
 
 For Ansible to communicate with the VM, it requires an SSH key that to access
-the Tenant Instance. This is added with the line under volumes: `  -
-../setup/id_rsa:/opt/xos/synchronizers/exampleservice/exampleservice_private_key:ro`
+the Tenant Instance. This is added read-only as a Docker volume: 
+`- ../setup/id_rsa:/opt/xos/synchronizers/exampleservice/exampleservice_private_key:ro`
 
 Remember to rebuild your docker containers (`make rm && make containers &&
 make`) after making these changes.  Then verify that your new container is
