@@ -55,7 +55,7 @@ Once you have that set up, do the following:
  - On the OpenStack host, in your working copy of XOS, go to
    [xos/configurations/devel](https://github.com/open-cloud/xos/tree/master/xos/configurations/devel)
    and run `make`.  This will create an XOS installation on that OpenStack host
-   by installing prerequistes and creating and starting the XOS Docker
+   by installing prerequisites and creating and starting the XOS Docker
    containers.
 
  - Navigate to `http://<ip_or_dns_name_of_host>:9999` and verify that you can
@@ -152,14 +152,13 @@ and `verbose_name` on the admin website.
 
 `proxy` is used as there isn't any new data in this model, thus it can use it's
 super's data model, per the [Django
-documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models).  You shouldn't use `proxy` if your Service's model contains
+documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models).  You shouldn't use `proxy` if your Service's model has additional attributes. 
 
 #### Extending TenantWithContainer
 
 We extend [XOS Core's
 TenantWithContainer](https://github.com/open-cloud/xos/blob/master/xos/core/models/service.py)
-class, which is a Tenant that creates a Container instance, in this case a
-virtual machine.
+class, which is a Tenant that creates a Container (virtual machine) instance.
 
 {% highlight python %}
 class ExampleServiceTenant(TenantWithContainer):
