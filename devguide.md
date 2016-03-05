@@ -21,9 +21,7 @@ alternative XOS installation.
 - [Adding Services](/devguide/addservice/)
 - [Adding Views](/devguide/addview/)
 - [Data Modelling](/devguide/datamodel/)
-- [Example "Hello World" Services](/devguide/examples/)
-  - [Simple HelloWorld Service](/devguide/helloworld/)
-  - [Step-by-Step Tutorial](/devguide/hwansible/)
+- [ExampleService Tutorial](/devguide/exampleservice/)
 
 ## Participating in XOS Development
 
