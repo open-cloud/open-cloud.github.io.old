@@ -646,8 +646,9 @@ It's a good idea to check this file with [ansible-lint](https://github.com/willt
 ### Create a Docker container to run the Synchronizer
 
 Synchronizers run in their own Docker containers, and these containers are
-defined on a per-configuration basis. For the devel configuration, the Docker
-containers are defined in
+defined in the [Docker Compose
+files](https://docs.docker.com/compose/compose-file/) in each configuration.
+For the devel configuration, we'll need to modify
 [xos/configurations/devel/docker-compose.yml](https://github.com/open-cloud/xos/blob/master/xos/configurations/devel/docker-compose.yml).
 
 Using the `xos_synchronizer_openstack` as an example, create a new section as
