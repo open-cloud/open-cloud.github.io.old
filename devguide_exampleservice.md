@@ -271,8 +271,6 @@ class ExampleServiceAdmin(ReadOnlyAwareAdmin):
 
 As in [Extending Service](#extending-service).
 
-
-
 {% highlight python %}
     list_display = ('backend_status_icon', 'name', 'enabled',)
     list_display_links = ('backend_status_icon', 'name', )
@@ -468,7 +466,7 @@ Fill in the slice name, then select "mysite" in the Site popdown, then click
 You should see a message similar to this saying that adding the service was
 successful. 
 
-Go back to the main ExampleService admin page at `/dmin/exampleservice` and
+Go back to the main ExampleService admin page at `/admin/exampleservice` and
 next to "ExampleTenants" click "Add".
 
 {% include figure.html url="/figures/devguide_exampleservice_fig06_createtenant.png" caption="" %}
@@ -512,7 +510,7 @@ mod = importlib.import_module("xos-synchronizer")
 mod.main()
 {% endhighlight %}
 
-This is boilerplate which loads and runs the [default xos-synchronizer module](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/xos-synchronizer.py).
+This is boilerplate which loads and runs the [default xos-synchronizer module](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/xos-synchronizer.py) in [it's own Docker container](#create-a-docker-container-to-run-the-synchronizer).
 
 To configure this module, create a file named `exampleservice_config`, which
 specifies various configuration and logging options: 
@@ -557,19 +555,39 @@ from synchronizers.base.SyncInstanceUsingAnsible import SyncInstanceUsingAnsible
 
 parentdir = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, parentdir)
+{% endhighlight %}
 
+Bring in some basic prerequities, [Q](https://docs.djangoproject.com/es/1.9/topics/db/queries/#complex-lookups-with-q-objects) to perform complex queries, and  [F](https://docs.djangoproject.com/es/1.9/ref/models/expressions/#f-expressions) to get the value of the model field. Also include the models created earlier, and [SyncInstanceUsingAnsible](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/SyncInstanceUsingAnsible.py) which will run the Ansible playbook in the Instance VM. 
+
+{% highlight python %}
 class SyncExampleTenant(SyncInstanceUsingAnsible):
 
     provides = [ExampleTenant]
+{% endhighlight %}
 
+Used by [XOSObserver : sync_steps](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/event_loop.py) to determine dependencies.
+
+{% highlight python %}
     observes = ExampleTenant
+{% endhighlight %}
 
+The Tenant that is synchronized.
+
+{% highlight python %}
     requested_interval = 0
 
     template_name = "exampletenant_playbook.yaml"
+{% endhighlight %}
 
+Name of the ansible playbook to run. 
+
+{% highlight python %}
     service_key_name = "/opt/xos/synchronizers/exampleservice/exampleservice_private_key"
+{% endhighlight %}
 
+Path to the SSH key used by Ansible.
+
+{% highlight python %}
     def __init__(self, *args, **kwargs):
         super(SyncExampleTenant, self).__init__(*args, **kwargs)
 
@@ -583,20 +601,20 @@ class SyncExampleTenant(SyncInstanceUsingAnsible):
             objs = ExampleTenant.get_deleted_tenant_objects()
 
         return objs
+{% endhighlight %}
 
+Determine if there are Tenants that need to be updated by running the Ansible playbook.
+
+{% highlight python %}
     # Gets the attributes that are used by the Ansible template but are not
     # part of the set of default attributes.
     def get_extra_attributes(self, o):
         return {"tenant_message": o.tenant_message}
 {% endhighlight %}
 
+Pass the `tenant_message` variable to the Ansible playbook. 
 
-
-[Q](https://docs.djangoproject.com/es/1.9/topics/db/queries/#complex-lookups-with-q-objects) perform complex queries.
-
-[F](https://docs.djangoproject.com/es/1.9/ref/models/expressions/#f-expressions) gets the value of the model field.
-
-Create an [Ansible playbook](http://docs.ansible.com/ansible/playbooks.html) named `exampletenant_playbook.yml`:
+Next, create an [Ansible playbook](http://docs.ansible.com/ansible/playbooks.html) named `exampletenant_playbook.yml`:
 
 {% highlight yaml %}
 ---
