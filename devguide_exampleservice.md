@@ -99,7 +99,7 @@ The process to do the above can be done with this command:
 git pull && make rm && make containers && make
 {% endhighlight %}
 
-Assuming you're pulling your changes from a development git repo. 
+Assuming you're pulling your changes from a development git repo.
 
 ## Create the Django components of a Service
 
@@ -276,7 +276,7 @@ As in [Extending Service](#extending-service).
     list_display_links = ('backend_status_icon', 'name', )
 {% endhighlight %}
 
-Columns to display for the list of ExampleService objects, in the Admin web UI at `/admin/exampleservice/exampleservice/`. 
+Columns to display for the list of ExampleService objects, in the Admin web UI at `/admin/exampleservice/exampleservice/`.
 
 {% highlight python %}
     fieldsets = [(None, {
@@ -295,7 +295,7 @@ Rows displayed when you're looking at an of ExampleService at `/admin/exampleser
 {% endhighlight %}
 
 Display the [Slice tab]((https://github.com/open-cloud/xos/tree/master/xos/core/admin.py).
-). 
+).
 
 {% highlight python %}
     extracontext_registered_admins = True
@@ -344,7 +344,7 @@ Specify that this Form will use the [model](#extending-tenantwithcontainer) we d
     creator = forms.ModelChoiceField(queryset=User.objects.all())
 {% endhighlight %}
 
-Create a field later used to assign a user to this Tenant. 
+Create a field later used to assign a user to this Tenant.
 
 {% highlight python %}
     def __init__(self, *args, **kwargs):
@@ -374,7 +374,7 @@ When creating the Form, set initial values for the fields.
         return super(ExampleTenantForm, self).save(commit=commit)
 {% endhighlight %}
 
-Save the [validated data](https://docs.djangoproject.com/en/1.9/topics/forms/#field-data), for who created this Tenant and the message. 
+Save the [validated data](https://docs.djangoproject.com/en/1.9/topics/forms/#field-data), for who created this Tenant and the message.
 
 {% highlight python %}
 class ExampleTenantAdmin(ReadOnlyAwareAdmin):
@@ -435,11 +435,11 @@ function makemigrations {
 Go through [the development loop](#the-development-loop) to include your
 service in XOS.  During the final `make` step, you may want to run `docker logs
 -f devel_xos_1` and look out for any errors which may occur when you first run
-the code.   If so, fix them and restart the loop. 
+the code.   If so, fix them and restart the loop.
 
 Once XOS is up, go to
 `http://<ip_or_dns_name_of_host>:9999/admin/exampleservice`, and you should see
-the admin interface: 
+the admin interface:
 
 {% include figure.html url="/figures/devguide_exampleservice_fig01_adminpage.png" caption="ExampleService Administration" %}
 
@@ -464,7 +464,7 @@ Fill in the slice name, then select "mysite" in the Site popdown, then click
 {% include figure.html url="/figures/devguide_exampleservice_fig05_servicesuccess.png" caption="" %}
 
 You should see a message similar to this saying that adding the service was
-successful. 
+successful.
 
 Go back to the main ExampleService admin page at `/admin/exampleservice` and
 next to "ExampleTenants" click "Add".
@@ -473,13 +473,13 @@ next to "ExampleTenants" click "Add".
 
 Fill in a "Tenant Message", then click Save.  You should then see a message
 that "Success! The Example Tenant "exampleservice-tenant-1" was added
-successfully.", and a list of Tenants with your message listed. 
+successfully.", and a list of Tenants with your message listed.
 
 ## Create a Synchronizer
 
 Synchronizers are scripts that run in a loop and check for changes to the
 Tenant model and apply them to the running Instances. In this case, we're using
-TenantWithContainer, which will create a Virtual Machine Instance. 
+TenantWithContainer, which will create a Virtual Machine Instance.
 
 XOS Synchronizers are located in the
 [xos/synchronizers](https://github.com/open-cloud/xos/tree/master/xos/synchronizers/)
@@ -488,7 +488,7 @@ directory with the same name as your service.  The example code given below is
 in the XOS repo at
 [xos/synchronizers/exampleservice](https://github.com/open-cloud/xos/tree/master/xos/synchronizers/exampleservice).
 
-Create a file named `model-deps` with the contents: `{}`. 
+Create a file named `model-deps` with the contents: `{}`.
 
 *NOTE: This is used to track model dependencies using `tools/dmdot`, but that tool currently isn't working.*
 
@@ -513,7 +513,7 @@ mod.main()
 This is boilerplate which loads and runs the [default xos-synchronizer module](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/xos-synchronizer.py) in [it's own Docker container](#create-a-docker-container-to-run-the-synchronizer).
 
 To configure this module, create a file named `exampleservice_config`, which
-specifies various configuration and logging options: 
+specifies various configuration and logging options:
 
 {% highlight ini %}
 # Required by XOS
@@ -543,7 +543,7 @@ proxy_ssh=False
 
 *NOTE: Historically, synchronizers were named "observers", so `s/observer/synchronizer/` when you come upon this term in the XOS code/docs.*
 
-Create a directory within your synchronizer directory named `steps`.  In `steps`, create a file named `sync_exampletenant.py`: 
+Create a directory within your synchronizer directory named `steps`.  In `steps`, create a file named `sync_exampletenant.py`:
 
 
 {% highlight python %}
@@ -557,7 +557,7 @@ parentdir = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, parentdir)
 {% endhighlight %}
 
-Bring in some basic prerequities, [Q](https://docs.djangoproject.com/es/1.9/topics/db/queries/#complex-lookups-with-q-objects) to perform complex queries, and  [F](https://docs.djangoproject.com/es/1.9/ref/models/expressions/#f-expressions) to get the value of the model field. Also include the models created earlier, and [SyncInstanceUsingAnsible](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/SyncInstanceUsingAnsible.py) which will run the Ansible playbook in the Instance VM. 
+Bring in some basic prerequities, [Q](https://docs.djangoproject.com/es/1.9/topics/db/queries/#complex-lookups-with-q-objects) to perform complex queries, and  [F](https://docs.djangoproject.com/es/1.9/ref/models/expressions/#f-expressions) to get the value of the model field. Also include the models created earlier, and [SyncInstanceUsingAnsible](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/SyncInstanceUsingAnsible.py) which will run the Ansible playbook in the Instance VM.
 
 {% highlight python %}
 class SyncExampleTenant(SyncInstanceUsingAnsible):
@@ -579,7 +579,7 @@ The Tenant that is synchronized.
     template_name = "exampletenant_playbook.yaml"
 {% endhighlight %}
 
-Name of the ansible playbook to run. 
+Name of the ansible playbook to run.
 
 {% highlight python %}
     service_key_name = "/opt/xos/synchronizers/exampleservice/exampleservice_private_key"
@@ -612,7 +612,7 @@ Determine if there are Tenants that need to be updated by running the Ansible pl
         return {"tenant_message": o.tenant_message}
 {% endhighlight %}
 
-Pass the `tenant_message` variable to the Ansible playbook. 
+Pass the `tenant_message` variable to the Ansible playbook.
 
 Next, create an [Ansible playbook](http://docs.ansible.com/ansible/playbooks.html) named `exampletenant_playbook.yml`:
 
@@ -641,7 +641,7 @@ This performs two steps:
  - Installs Apache using `apt`
  - Writes a message to the `index.html` file in Apache's document root
 
-It's a good idea to check this file with [ansible-lint](https://github.com/willthames/ansible-lint) if you have it available. 
+It's a good idea to check this file with [ansible-lint](https://github.com/willthames/ansible-lint) if you have it available.
 
 ### Create a Docker container to run the Synchronizer
 
@@ -677,7 +677,7 @@ as it is suitable in most cases.  The `command` is a path to the Synchronizer
 and it's config file.  The `org.xosproject.target` label should be updated as
 well.
 
-For Ansible to communicate with the VM, it requires an SSH key in order to communicate with the 
+For Ansible to communicate with the VM, it requires an SSH key in order to communicate with the
 the Instance VM. This is added read-only as a Docker volume:
 `- ../setup/id_rsa:/opt/xos/synchronizers/exampleservice/exampleservice_private_key:ro`
 
@@ -689,7 +689,7 @@ containers.
 In the Admin web UI, navigate to the Slice -> `<slicename>` -> Instances, and
 find an IP address starting with `10.11.X.X` in the Addresses column (this
 address is the "nat" network for the slice, the other address is for the
-"private" network). 
+"private" network).
 
 Run `curl <10.11.X.X address>`, and you should see the display message you
 entered when creating the ExampleTenant.
@@ -732,9 +732,15 @@ xos container, so run `make enter-xos` and then look at the end of that logfile.
 
 ### "Ansible playbook failed" messages
 
-The logs messages for when the Synchronizer runs Ansible are in
-`/opt/openstack/*` in your service's synchronizer Docker container.  You can
-access the docker container by running:
+The logs messages for when the Synchronizer runs Ansible are located in
+`/opt/xos/synchronizers/<servicename>/sys` in it's synchornizer container.
+There are multiple files for each Tenant instance, including the processed
+playbook and stdout/err files . You can run a shell in the docker container
+with this command to access those files:
 
-`sudo docker exec -it bash <synchronizer_container>`
+`sudo docker exec -it devel_xos_synchronizer_<servicename>_1 bash`
+
+Ansible log messages for the OpenStack Synchronizer are put in
+`/opt/openstack/*`, if you're seeing failures in the
+`devel_xos_synchronizer_openstack_1` container.
 
