@@ -24,18 +24,20 @@ Services are made up of two major code components:
  - A Synchronizer that is used to instantiate and configure the Instance from
    the Tenant blueprint, and is run in it's own Docker container.
 
-For this example, there is just one unique addition to the Service data model:
+For this example, there are two unique additions to the Service data model:
 
- - `tenant_message`, a string that contains the message to display on a
-   per-Tenant basis
+ - `service_message`, a string that contains a message to display on all
+   Tenants of this Service.
+
+ - `tenant_message`, a string that is displayed on a specific Tenant.
 
 When a user creates a new Slice and Tenant in the Admin website (constructed
 using Django), the data describing the service is stored in a database.
 
-The Synchronizer runs on a recurring basis, obtains the `tenant_message` (and
-additional needed information) from the database, and uses it to run an Ansible
-[playbook](http://docs.ansible.com/ansible/playbooks.html) that applies the
-configuration to the Instance.
+The Synchronizer runs on a recurring basis, obtains the `service_message`,
+`tenant_message`, and additional needed information from the database, and uses
+it to run an Ansible [playbook](http://docs.ansible.com/ansible/playbooks.html)
+that applies the configuration to the Instance.
 
 ## Prepare your development environment
 
@@ -155,20 +157,25 @@ class ExampleService(Service):
     class Meta:
         app_label = SERVICE_NAME
         verbose_name = SERVICE_NAME_VERBOSE
-        proxy = True
 {% endhighlight %}
 
-XOS uses `KIND` variable to uniquely identify each service.
+XOS uses `KIND` variable to uniquely identify each service (which is done internally using the `provider_service` variable)
 
 The [Meta options](https://docs.djangoproject.com/es/1.9/ref/models/options/)
 for `app_label` and `verbose_name` are used on the admin web UI.
 
-`proxy` is used as there isn't any new fields in this model, thus it can use it's
-super's data model, per [Django's
+In some cases, if you have no additional model fields you may want to add `proxy = True` to the class Meta, so it can use it's super's data model, per [Django's
 documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models).
 
-You wouldn't use `proxy` if your Service is going to add additional fields to
-the model.
+We're not using `proxy` because we're adding additional fields:
+
+{% highlight python %}
+    service_message = models.CharField(max_length=254, help_text="Service Message to Display")
+{% endhighlight %}
+
+Using [Django's
+Models](https://docs.djangoproject.com/en/1.9/topics/db/models/), create a
+`CharField` in the data model to store the message all Tenants of this Service will display.
 
 #### Extending TenantWithContainer
 
@@ -191,9 +198,7 @@ As in [Extending Service](#extending-service).
     tenant_message = models.CharField(max_length=254, help_text="Tenant Message to Display")
 {% endhighlight %}
 
-Using [Django's
-Models](https://docs.djangoproject.com/en/1.9/topics/db/models/), create a
-`CharField` in the data model to store the message this Tenant will display.
+This is the message that will be displayed on a per-Tenant basis.
 
 {% highlight python %}
     def __init__(self, *args, **kwargs):
@@ -261,6 +266,34 @@ Also import the model we created, and the *_NAME_* variables.
 
 #### Extend admin classes for the service and tenant classes
 
+
+{% highlight python %}
+class ExampleServiceForm(forms.ModelForm):
+
+    class Meta:
+        model = ExampleService
+{% endhighlight %}
+
+Specify that this Form will use the [Service model](#extending-service) we defined before.
+
+{% highlight python %}
+    def __init__(self, *args, **kwargs):
+        super(ExampleServiceForm, self).__init__(*args, **kwargs)
+
+        if self.instance:
+            self.fields['service_message'].initial = self.instance.service_message
+{% endhighlight %}
+
+When creating the Form, set initial values for the fields.
+
+{% highlight python %}
+    def save(self, commit=True):
+        self.instance.service_message = self.cleaned_data.get('service_message')
+        return super(ExampleServiceForm, self).save(commit=commit)
+{% endhighlight %}
+
+Save the [validated data](https://docs.djangoproject.com/en/1.9/topics/forms/#field-data), for who created this Tenant and the message.
+
 {% highlight python %}
 class ExampleServiceAdmin(ReadOnlyAwareAdmin):
 
@@ -272,15 +305,25 @@ class ExampleServiceAdmin(ReadOnlyAwareAdmin):
 As in [Extending Service](#extending-service).
 
 {% highlight python %}
-    list_display = ('backend_status_icon', 'name', 'enabled',)
-    list_display_links = ('backend_status_icon', 'name', )
+    form = ExampleServiceForm
+    inlines = [SliceInline]
+{% endhighlight %}
+
+Have this use the `ExampleServiceForm` defined above.
+
+Display the [Slice tab]((https://github.com/open-cloud/xos/tree/master/xos/core/admin.py).
+).
+
+{% highlight python %}
+    list_display = ('backend_status_icon', 'name', 'service_message', 'enabled')
+    list_display_links = ('backend_status_icon', 'name', 'service_message' )
 {% endhighlight %}
 
 Columns to display for the list of ExampleService objects, in the Admin web UI at `/admin/exampleservice/exampleservice/`.
 
 {% highlight python %}
     fieldsets = [(None, {
-        'fields': ['backend_status_text', 'name', 'enabled', 'versionNumber', 'description',],
+        'fields': ['backend_status_text', 'name', 'enabled', 'versionNumber', 'service_message', 'description',],
         'classes':['suit-tab suit-tab-general',],
         })]
 
@@ -289,13 +332,6 @@ Columns to display for the list of ExampleService objects, in the Admin web UI a
 {% endhighlight %}
 
 Rows displayed when you're looking at an of ExampleService at `/admin/exampleservice/exampleservice/<service id>/` with field privileges.
-
-{% highlight python %}
-    inlines = [SliceInline]
-{% endhighlight %}
-
-Display the [Slice tab]((https://github.com/open-cloud/xos/tree/master/xos/core/admin.py).
-).
 
 {% highlight python %}
     extracontext_registered_admins = True
@@ -338,7 +374,7 @@ class ExampleTenantForm(forms.ModelForm):
         model = ExampleTenant
 {% endhighlight %}
 
-Specify that this Form will use the [model](#extending-tenantwithcontainer) we defined before.
+Specify that this Form will use the [Tenant model](#extending-tenantwithcontainer) we defined before.
 
 {% highlight python %}
     creator = forms.ModelChoiceField(queryset=User.objects.all())
@@ -374,7 +410,7 @@ When creating the Form, set initial values for the fields.
         return super(ExampleTenantForm, self).save(commit=commit)
 {% endhighlight %}
 
-Save the [validated data](https://docs.djangoproject.com/en/1.9/topics/forms/#field-data), for who created this Tenant and the message.
+Same as above for `ExampleServiceForm`
 
 {% highlight python %}
 class ExampleTenantAdmin(ReadOnlyAwareAdmin):
@@ -453,7 +489,7 @@ service.
 
 {% include figure.html url="/figures/devguide_exampleservice_fig03_configservice.png" caption="" %}
 
-Fill in the "Name:" and "VersionNumber:" fields, then click the "Slices" tab at
+Fill in the "Name:", "VersionNumber:", and "Service Message", fields, then click the "Slices" tab at
 top, then "Add another slice".
 
 {% include figure.html url="/figures/devguide_exampleservice_fig04_configslice.png" caption="" %}
@@ -557,7 +593,14 @@ parentdir = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, parentdir)
 {% endhighlight %}
 
-Bring in some basic prerequities, [Q](https://docs.djangoproject.com/es/1.9/topics/db/queries/#complex-lookups-with-q-objects) to perform complex queries, and  [F](https://docs.djangoproject.com/es/1.9/ref/models/expressions/#f-expressions) to get the value of the model field. Also include the models created earlier, and [SyncInstanceUsingAnsible](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/SyncInstanceUsingAnsible.py) which will run the Ansible playbook in the Instance VM.
+Bring in some basic prerequities,
+[Q](https://docs.djangoproject.com/es/1.9/topics/db/queries/#complex-lookups-with-q-objects)
+to perform complex queries, and
+[F](https://docs.djangoproject.com/es/1.9/ref/models/expressions/#f-expressions)
+to get the value of the model field. Also include the models created earlier,
+and
+[SyncInstanceUsingAnsible](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/SyncInstanceUsingAnsible.py)
+which will run the Ansible playbook in the Instance VM.
 
 {% highlight python %}
 class SyncExampleTenant(SyncInstanceUsingAnsible):
@@ -603,18 +646,45 @@ Path to the SSH key used by Ansible.
         return objs
 {% endhighlight %}
 
-Determine if there are Tenants that need to be updated by running the Ansible playbook.
+Determine if there are Tenants that need to be updated by running the Ansible
+playbook.
+
+{% highlight python %}
+    def get_exampleservice(self, o):
+        if not o.provider_service:
+            return None
+
+        exampleservice = ExampleService.get_service_objects().filter(id=o.provider_service.id)
+
+        if not exampleservice:
+            return None
+
+        return exampleservice[0]
+{% endhighlight %}
+
+Find the ExampleService that this Tenant belongs to, by calling
+[get_service_objects](https://github.com/open-cloud/xos/blob/master/xos/core/models/service.py)
+with the object's `provider_service.id`.
 
 {% highlight python %}
     # Gets the attributes that are used by the Ansible template but are not
     # part of the set of default attributes.
     def get_extra_attributes(self, o):
-        return {"tenant_message": o.tenant_message}
+        fields = {}
+        fields['tenant_message'] = o.tenant_message
+        exampleservice = self.get_exampleservice(o)
+        fields['service_message'] = exampleservice.service_message
+        return fields
 {% endhighlight %}
 
-Pass the `tenant_message` variable to the Ansible playbook.
+Find the `tenant_message` and `service_message` variables, to pass to the Ansible playbook.
 
-Next, create an [Ansible playbook](http://docs.ansible.com/ansible/playbooks.html) named `exampletenant_playbook.yml`:
+### Create Ansible Playbooks
+
+In the same `steps` directory, create an [Ansible
+playbook](http://docs.ansible.com/ansible/playbooks.html) named
+`exampletenant_playbook.yml` which is the "master playbook" for this set of
+plays:
 
 {% highlight yaml %}
 ---
@@ -625,23 +695,81 @@ Next, create an [Ansible playbook](http://docs.ansible.com/ansible/playbooks.htm
   user: ubuntu
   sudo: yes
   gather_facts: no
-
-  tasks:
-  - name: install apache
-    apt:
-      name=apache2
-      update_cache=yes
-
-  - name: write message
-    shell: echo "{{ "{{ tenant_message " }}}}" > /var/www/html/index.html
+  vars:
+    - tenant_message: "{{ "{{ tenant_message " }}}}"
+    - service_message: "{{ "{{ service_message " }}}}"
 {% endhighlight %}
 
-This performs two steps:
+This sets some basic configuration, specifies the host this Instance will run
+on, and the two variables that we're passing to the playbook.
 
- - Installs Apache using `apt`
- - Writes a message to the `index.html` file in Apache's document root
+{% highlight yaml %}
+  roles:
+    - install_apache
+    - create_index
+{% endhighlight %}
 
-It's a good idea to check this file with [ansible-lint](https://github.com/willthames/ansible-lint) if you have it available.
+This example uses Ansible's [Playbook
+Roles](http://docs.ansible.com/ansible/playbooks_roles.html) to organize steps,
+provide default variables, organize files and templates, and allow for code
+reuse.  Roles are created by using a set [directory
+structure](http://docs.ansible.com/ansible/playbooks_roles.html#roles).
+
+In this case, there are two roles, one which installs Apache, and one which
+creates the `index.html` file from a [Jinja2
+template](http://jinja.pocoo.org/).
+
+Create a directory named
+[roles](https://github.com/open-cloud/xos/tree/master/xos/synchronizers/exampleservice/steps/roles)
+inside `steps`, then create two directories named for your roles,
+`install_apache` and `create_index`.
+
+Within `install_apache`, create a directory named `tasks`, then within that
+directory, a file named `main.yml`.  This will contain the set of plays for the
+`install_apache` role. To that file add the following:
+
+{% highlight yaml %}
+---
+- name: Install apache using apt
+  apt:
+    name=apache2
+    update_cache=yes
+{% endhighlight %}
+
+This will use the Ansible [apt
+module](http://docs.ansible.com/ansible/apt_module.html) to install Apache.
+
+Next, within `create_index`, create two directories, `tasks` and `templates`.
+In templates, create a file named `index.html.j2`, with the contents:
+
+{% highlight jinja2 %}
+ExampleService
+ Service Message: "{{ "{{ service_message " }}}}"
+ Tenant Message: "{{ "{{ tenant_message " }}}}"
+{% endhighlight %}
+
+These Jinja2 Expressions will be replaced with the values of the variables set
+in the master playbook.
+
+In the `tasks` directory, create a file named `main.yml`, with the contents:
+
+{% highlight yaml%}
+---
+- name: Write index.html file to apache document root
+  template:
+    src=index.html.j2
+    dest=/var/www/html/index.html
+{% endhighlight %}
+
+This uses the Ansible [template
+module](http://docs.ansible.com/ansible/template_module.html) to load and
+process the Jinja2 template then put it in the `dest` location. Note that there
+is no path given for the `src` parameter - Ansible knows to look in the
+`templates` directory for templates used within a role.
+
+As a final step, you can check your playbooks for best practices with
+[ansible-lint](https://github.com/willthames/ansible-lint) if you have it
+available.
 
 ### Create a Docker container to run the Synchronizer
 
@@ -696,12 +824,15 @@ entered when creating the ExampleTenant.
 
 {% highlight shell %}
 user@ctl:~/xos/xos/configurations/devel$ curl 10.11.10.7
-Example Tenant example text
+ExampleService
+ Service Message: "Example Service Message"
+ Tenant Message: "Example Tenant Message"
 {% endhighlight %}
 
-After verifing that the text is shown, change the message in the "Example
-Tenant" section of the Admin UI, wait a bit for the Synchronizer to run, and
-then the message that `curl` returns should be changed.
+After verifying that the text is shown, change the message in the "Example
+Tenant" and "Example Service" sections of the Admin UI, wait a bit for the
+Synchronizer to run, and then the message that `curl` returns should be
+changed.
 
 ## Debugging
 
@@ -733,7 +864,7 @@ xos container, so run `make enter-xos` and then look at the end of that logfile.
 ### "Ansible playbook failed" messages
 
 The logs messages for when the Synchronizer runs Ansible are located in
-`/opt/xos/synchronizers/<servicename>/sys` in it's synchornizer container.
+`/opt/xos/synchronizers/<servicename>/sys` in its synchronizer container.
 There are multiple files for each Tenant instance, including the processed
 playbook and stdout/err files . You can run a shell in the docker container
 with this command to access those files:
