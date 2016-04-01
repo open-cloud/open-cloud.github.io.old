@@ -8,28 +8,24 @@ permalink: /devguide/exampleservice/
 
 ## Summary
 
-This tutorial shows the steps to [Add a Service](/devguide/addservice/) that
-uses [Ansible](https://www.ansible.com/) to XOS.
+This tutorial shows the steps to [Add a Service](/devguide/addservice/), called ExampleService, to XOS. 
 
-The ExampleService can be used to create a Tenant, which is a blueprint used to
-deploy a virtual machine Instance, which runs the Apache web server. In this
-example, the web server is configured to serve a message that can be changed
-from the XOS administrative web interface.
+ExampleService is multi-tenant. It instantiates a VM instance on behalf of each tenant, and runs an Apache web server in that VM. This web server is then configured to serve a tenant-specified message (a string), where the tenant is able to set this message using the XOS administrative interface.
 
-Services are made up of two major code components:
+ExampleService has two major code components:
 
  - A [Django](https://www.djangoproject.com) data model and administrative
-   interface that runs in the XOS core Docker container.
+   interface. These elements run in the XOS core Docker container.
 
- - A Synchronizer that is used to instantiate and configure the Instance from
-   the Tenant blueprint, and is run in it's own Docker container.
+ - A Synchronizer that instantiates and configures the VM instance from
+   the Tenant blueprint. This Synchronizer runs in it's own Docker container.
 
-For this example, there are two unique additions to the Service data model:
+For this particular example, there are two unique additions to the base Service model:
 
- - `service_message`, a string that contains a message to display on all
-   Tenants of this Service.
+ - `service_message`, a string that contains a message to display for the
+   service as a whole (i.e., to all tenants of the service).
 
- - `tenant_message`, a string that is displayed on a specific Tenant.
+ - `tenant_message`, a string that is displayed for a specific Tenant.
 
 When a user creates a new Slice and Tenant in the Admin website (constructed
 using Django), the data describing the service is stored in a database.
@@ -39,7 +35,7 @@ The Synchronizer runs on a recurring basis, obtains the `service_message`,
 it to run an Ansible [playbook](http://docs.ansible.com/ansible/playbooks.html)
 that applies the configuration to the Instance.
 
-## Prepare your development environment
+## Prepare Your Development Environment
 
 In order to get started, you need a OpenStack host to deploy XOS on.
 
@@ -72,8 +68,7 @@ Once you have that set up, do the following:
    synchronizer](#create-a-docker-container-to-run-the-synchronizer) to enable
    it.
 
-
-### The development loop
+### Development Loop
 
 Once you've prepared your development environment as described above, the
 change/build/test development loop for service development on XOS is as follows:
@@ -103,7 +98,7 @@ git pull && make rm && make containers && make
 
 Assuming you're pulling your changes from a development git repo.
 
-## Create the Django components of a Service
+## Create the Django Components of a Service
 
 XOS services are located in the `xos/services` directory in the XOS source
 tree.  Create a new directory for your service.
@@ -128,9 +123,12 @@ from core.models import Service, TenantWithContainer
 from django.db import models, transaction
 {% endhighlight %}
 
-This brings in the two XOS Core classes that will be extended by our Service,
-define the model and lets us atomically update the database on instance
+brings in the two XOS Core classes that will be extended by our Service,
+defines the model, and lets us atomically update the database on instance
 creation/removal.
+
+The following uniquely identify and provide human readable names for the
+service in the admin web UI.  For your own service, change these.
 
 {% highlight python %}
 SERVICE_NAME = 'exampleservice'
@@ -140,14 +138,11 @@ TENANT_NAME_VERBOSE = 'Example Tenant'
 TENANT_NAME_VERBOSE_PLURAL = 'Example Tenants'
 {% endhighlight %}
 
-These are used to uniquely identify and provide human readable names for the
-service in the admin web UI.  For your own service, change these.
-
 #### Extending Service
 
 We extend [XOS Core's
 Service](https://github.com/open-cloud/xos/blob/master/xos/core/models/service.py)
-class.
+class as follows:
 
 {% highlight python %}
 class ExampleService(Service):
@@ -159,29 +154,29 @@ class ExampleService(Service):
         verbose_name = SERVICE_NAME_VERBOSE
 {% endhighlight %}
 
-XOS uses `KIND` variable to uniquely identify each service (which is done internally using the `provider_service` variable)
+XOS uses the `KIND` variable to uniquely identify each service (which is done internally using the `provider_service` variable).
 
 The [Meta options](https://docs.djangoproject.com/es/1.9/ref/models/options/)
 for `app_label` and `verbose_name` are used on the admin web UI.
 
 In some cases, if you have no additional model fields you may want to add `proxy = True` to the class Meta, so it can use it's super's data model, per [Django's
-documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models).
+documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models). 
 
-We're not using `proxy` because we're adding additional fields:
+We're not using `proxy` in this example because we're adding the following additional fields:
 
 {% highlight python %}
     service_message = models.CharField(max_length=254, help_text="Service Message to Display")
 {% endhighlight %}
 
-Using [Django's
-Models](https://docs.djangoproject.com/en/1.9/topics/db/models/), create a
-`CharField` in the data model to store the message all Tenants of this Service will display.
+This uses [Django's
+Models](https://docs.djangoproject.com/en/1.9/topics/db/models/) to create a
+`CharField` in the data model. This field stores the message all Tenants of this Service will see.
 
 #### Extending TenantWithContainer
 
 We extend [XOS Core's
 TenantWithContainer](https://github.com/open-cloud/xos/blob/master/xos/core/models/service.py)
-class, which is a Tenant that creates a Container (virtual machine) instance.
+class, which is a Tenant that creates a VM instance:
 
 {% highlight python %}
 class ExampleTenant(TenantWithContainer):
@@ -192,13 +187,16 @@ class ExampleTenant(TenantWithContainer):
         verbose_name = TENANT_NAME_VERBOSE
 {% endhighlight %}
 
-As in [Extending Service](#extending-service).
+as in [Extending Service](#extending-service).
+
+The following is the message that will be displayed on a per-Tenant basis:
 
 {% highlight python %}
     tenant_message = models.CharField(max_length=254, help_text="Tenant Message to Display")
 {% endhighlight %}
 
-This is the message that will be displayed on a per-Tenant basis.
+When creating the Tenant, provide a default value of the first service
+available in the UI.
 
 {% highlight python %}
     def __init__(self, *args, **kwargs):
@@ -208,8 +206,8 @@ This is the message that will be displayed on a per-Tenant basis.
         super(ExampleTenant, self).__init__(*args, **kwargs)
 {% endhighlight %}
 
-When creating the Tenant, provide a default value of the first service
-available in the UI.
+On save, you may need to create an Instance, which is done by calling the
+`model_policy` function (see below).
 
 {% highlight python %}
     def save(self, *args, **kwargs):
@@ -217,8 +215,8 @@ available in the UI.
         model_policy_exampletenant(self.pk)
 {% endhighlight %}
 
-On save, you may need to create an Instance, which is done by calling the
-`model_policy` function (see below).
+On delete, need to delete the instance created by this Tenant, which is done by
+`cleanup_container()`.
 
 {% highlight python %}
     def delete(self, *args, **kwargs):
@@ -226,8 +224,8 @@ On save, you may need to create an Instance, which is done by calling the
         super(ExampleTenant, self).delete(*args, **kwargs)
 {% endhighlight %}
 
-On delete, need to delete the instance created by this Tenant, which is done by
-`cleanup_container()`.
+Finally, if a TenantWithContainer is updated, call `manage_container()` to
+create or destroy the appropriate VMs.
 
 {% highlight python %}
 def model_policy_exampletenant(pk):
@@ -238,9 +236,6 @@ def model_policy_exampletenant(pk):
         tenant = tenant[0]
         tenant.manage_container()
 {% endhighlight %}
-
-If a TenantWithContainer is updated, call `manage_container()`, which
-creates/destroys the appropriate Instance VMs.
 
 ### Create a Django Admin
 
@@ -263,9 +258,9 @@ Import the classes to extend, as well as other needed functions.
 
 Also import the model we created, and the *_NAME_* variables.
 
+#### Extend Admin Classes for the Service and Tenant Classes
 
-#### Extend admin classes for the service and tenant classes
-
+Specify that this Form will use the [Service model](#extending-service) we defined before.
 
 {% highlight python %}
 class ExampleServiceForm(forms.ModelForm):
@@ -274,7 +269,7 @@ class ExampleServiceForm(forms.ModelForm):
         model = ExampleService
 {% endhighlight %}
 
-Specify that this Form will use the [Service model](#extending-service) we defined before.
+When creating the Form, set initial values for the fields as follows:
 
 {% highlight python %}
     def __init__(self, *args, **kwargs):
@@ -284,7 +279,7 @@ Specify that this Form will use the [Service model](#extending-service) we defin
             self.fields['service_message'].initial = self.instance.service_message
 {% endhighlight %}
 
-When creating the Form, set initial values for the fields.
+Save the [validated data](https://docs.djangoproject.com/en/1.9/topics/forms/#field-data), for who created this Tenant and the message.
 
 {% highlight python %}
     def save(self, commit=True):
@@ -292,7 +287,7 @@ When creating the Form, set initial values for the fields.
         return super(ExampleServiceForm, self).save(commit=commit)
 {% endhighlight %}
 
-Save the [validated data](https://docs.djangoproject.com/en/1.9/topics/forms/#field-data), for who created this Tenant and the message.
+Similar to [Extending Service](#extending-service):
 
 {% highlight python %}
 class ExampleServiceAdmin(ReadOnlyAwareAdmin):
@@ -302,14 +297,12 @@ class ExampleServiceAdmin(ReadOnlyAwareAdmin):
     verbose_name_plural = SERVICE_NAME_VERBOSE_PLURAL
 {% endhighlight %}
 
-As in [Extending Service](#extending-service).
+and have this use the `ExampleServiceForm` defined above.
 
 {% highlight python %}
     form = ExampleServiceForm
     inlines = [SliceInline]
 {% endhighlight %}
-
-Have this use the `ExampleServiceForm` defined above.
 
 Display the [Slice tab]((https://github.com/open-cloud/xos/tree/master/xos/core/admin.py).
 ).
@@ -331,13 +324,15 @@ Columns to display for the list of ExampleService objects, in the Admin web UI a
     user_readonly_fields = ['name', 'enabled', 'versionNumber', 'description',]
 {% endhighlight %}
 
-Rows displayed when you're looking at an of ExampleService at `/admin/exampleservice/exampleservice/<service id>/` with field privileges.
+and rows displayed when viewing an ExampleService at `/admin/exampleservice/exampleservice/<service id>/` with field privileges.
+
+Render [this page](https://github.com/open-cloud/xos/tree/master/xos/core/admin.py) for Service admin users:
 
 {% highlight python %}
     extracontext_registered_admins = True
 {% endhighlight %}
 
-[Render this page for Service admin users](https://github.com/open-cloud/xos/tree/master/xos/core/admin.py).
+Order of the tabs, and additional [Suit form includes](http://django-suit.readthedocs.org/en/develop/form_includes.html):
 
 {% highlight python %}
     suit_form_tabs = (
@@ -351,7 +346,7 @@ Rows displayed when you're looking at an of ExampleService at `/admin/exampleser
         )
 {% endhighlight %}
 
-Order of the tabs, and additional [Suit form includes](http://django-suit.readthedocs.org/en/develop/form_includes.html).
+List only a user's service objects in the [Suit form_tabs](http://django-suit.readthedocs.org/en/develop/form_tabs.html):
 
 {% highlight python %}
     suit_form_tabs = (
@@ -359,13 +354,13 @@ Order of the tabs, and additional [Suit form includes](http://django-suit.readth
         return ExampleService.get_service_objects_by_user(request.user)
 {% endhighlight %}
 
-List only a user's service objects in the [Suit form_tabs](http://django-suit.readthedocs.org/en/develop/form_tabs.html)
+[Register](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#modeladmin-objects) the `ExampleServiceAdmin` with Django:
 
 {% highlight python %}
 admin.site.register(ExampleService, ExampleServiceAdmin)
 {% endhighlight %}
 
-[Register](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#modeladmin-objects) the `ExampleServiceAdmin` with Django.
+Specify that this Form will use the [Tenant model](#extending-tenantwithcontainer) we defined before:
 
 {% highlight python %}
 class ExampleTenantForm(forms.ModelForm):
@@ -374,13 +369,13 @@ class ExampleTenantForm(forms.ModelForm):
         model = ExampleTenant
 {% endhighlight %}
 
-Specify that this Form will use the [Tenant model](#extending-tenantwithcontainer) we defined before.
+Create a field later used to assign a user to this Tenant:
 
 {% highlight python %}
     creator = forms.ModelChoiceField(queryset=User.objects.all())
 {% endhighlight %}
 
-Create a field later used to assign a user to this Tenant.
+When creating the Form, set initial values for the fields:
 
 {% highlight python %}
     def __init__(self, *args, **kwargs):
@@ -401,7 +396,7 @@ Create a field later used to assign a user to this Tenant.
                 self.fields['provider_service'].initial = ExampleService.get_service_objects().all()[0]
 {% endhighlight %}
 
-When creating the Form, set initial values for the fields.
+Same as for `ExampleServiceForm`, but now for `ExampleTenantForm`:
 
 {% highlight python %}
     def save(self, commit=True):
@@ -410,7 +405,7 @@ When creating the Form, set initial values for the fields.
         return super(ExampleTenantForm, self).save(commit=commit)
 {% endhighlight %}
 
-Same as above for `ExampleServiceForm`
+See notes above on `ExampleServiceAdmin` - this configures the fields for the Tenant admin UI.
 
 {% highlight python %}
 class ExampleTenantAdmin(ReadOnlyAwareAdmin):
@@ -438,8 +433,6 @@ class ExampleTenantAdmin(ReadOnlyAwareAdmin):
 admin.site.register(ExampleTenant, ExampleTenantAdmin)
 {% endhighlight %}
 
-See notes above on `ExampleServiceAdmin` - this configures the fields for the Tenant admin UI.
-
 ### Install the Service in Django
 
 In order for Django to load your Service, you need to add it to the list of
@@ -465,8 +458,7 @@ function makemigrations {
 }
 {% endhighlight %}
 
-
-### Test your Admin interface
+### Test Your Admin Interface
 
 Go through [the development loop](#the-development-loop) to include your
 service in XOS.  During the final `make` step, you may want to run `docker logs
