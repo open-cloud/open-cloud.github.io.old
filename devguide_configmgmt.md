@@ -88,14 +88,13 @@ launch a VM.  You can log into the VM from the *ctl* node as the *ubuntu* user,
 at the first IP address shown in the *Instances* view for the slice (typically on the
 10.11.0.0/16 subnet).
 
-## CORD Config
+## CORD POD Config
 
-The CORD configuration of XOS is a variant of the Devel configuration described above.
-The purpose of this configuration is to enable development of the vCPE service
-and related CORD services on CloudLab.  XOS is configured with the vCPE, vOLT,
-and vBNG services.  For the latest instructions on how to build this configuration,
-see the [README.md](https://github.com/open-cloud/xos/blob/master/xos/configurations/cord/README.md)
-file in the `xos/configurations/cord/` directory of the XOS GitHub repository.
+The CORD POD configuration is currently being used to set up [CORD](http://opencord.org/).
+For the latest instructions on how to build this configuration, see the 
+[README.md](https://github.com/open-cloud/xos/blob/master/xos/configurations/cord-pod/README.md)
+file in the `xos/configurations/cord-pod/` directory of the XOS GitHub repository.
+The README will take you through the process of bringing up a CORD POD from scratch.
 
 ## Test Config
 
