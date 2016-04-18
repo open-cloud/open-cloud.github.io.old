@@ -51,7 +51,7 @@ Django-based views.
 Directory `views/ngXosLib` contains a collection of tools for
 implementing an XOS View as an Angular Single Page Application
 (SPA). In the following description, we assume XOS is running on
-your development system and respondin at `localhost:9999`. The
+your development system and responding at `xos.dev:9999` and `nodeJs` is installed. The
 `xos/configurations/frontend` is normally sufficient for GUI
 development. 
 
@@ -59,9 +59,9 @@ development.
 
 Usage: `npm run apigen`
 
-This tool generates an angular resource file for each endpoint available in Swagger.
+This tool generates an angular resource file for each endpoint available in the APIS.
 
->You can generate api related documentation with: `npm run apidoc`. The output is locate in `api/docs`. You can also see a list of available methods through Swagger at `http://localhost:9999/docs/`
+>You can find api related documentation at: `http://docs.xos.apiary.io`. 
 
 ### Vendors
 
@@ -83,7 +83,7 @@ your minified vendor file. To add a library and generate a new file
 
 >_NOTE before adding libraries please discuss it on the devel list to avoid this file becoming too big_
 
-### Helpers
+### Helpers and UI components
 
 XOS comes with a helper library that is automatically loaded in the
 Django template.
@@ -100,11 +100,16 @@ Doing so will automatically add a `token` to all your requests.
 Eventually you can take advantage of some other services:
 
 - **NoHyperlinks Interceptor**: will add a `?no_hyperlinks=1` to your request, to tell Django to return ids instead of links.
-- **XosApi** wrapper for `/xos` endpoints.
-- **XoslibApi** wrapper for `/xoslib` endpoints.
-- **HpcApi** wrapper for `/hpcapi` endpoints.
+- **Api Resources** A set of automatically generated ng-resource
+- **Common UI Components** UI Components such as tables, alerts, paginations...
 
->_NOTE: for the API related service, check the documentation in Section [Apigen](#apigen)._
+### Generated the documentation
+
+Documentation for both **helpers** and **UI Components** is available in the source code. It can be extracted with `npm run doc`. This command will open a new tab in your browser and display a browsable documentation for each component:
+
+{% include figure.html url="/figures/ui-component.png" caption="UI Component Documentation" %}
+
+This documentation include also the **API** documentation.
 
 ### Scaffolding
 
