@@ -50,16 +50,16 @@ up a service:
 
 | Component        | Source Code for Service "X"                |
 |------------------|--------------------------------------------|
-|Django Data Model | `xos/service/X/model.py`                   |
-| Synchronizer     | `xos/synchronizers/X/steps/sync_X.py` \br
-                     `xos/synchronizers/X/steps/X_playbook.yml` |
-| Admin GUI        | `xos/service/X/admin.py`                   |
-| REST API         | `xos/api/service/X.py` \br
-                     `xos/api/tenant/Xtenant.py` \br
-                     `xos/tests/api/hooks.py` \br
-                     `xos/tests/api/source/service/X.md`        |
-| TOSCA Spec       | `xos/tosca/custom_definitions/X.yaml` \br
-                     `xos/tosca/resources/X.py`                 |
+|Django Data Model | `xos/services/X/model.py`                  |
+| Synchronizer     | `xos/synchronizers/X/steps/sync_X.py`      |
+|                  | `xos/synchronizers/X/steps/X_playbook.yml` |
+| Admin GUI        | `xos/services/X/admin.py`                  |
+| REST API         | `xos/api/service/X.py`                     |
+|                  | `xos/api/tenant/Xtenant.py`                |
+|                  | `xos/tests/api/hooks.py`                   |
+|                  | `xos/tests/api/source/service/X.md`        |
+| TOSCA Spec       | `xos/tosca/custom_definitions/X.yaml`      |
+|                  |  `xos/tosca/resources/X.py`                |
 
 ## Introduction to a Synchronizer
 
