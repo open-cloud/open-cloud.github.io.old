@@ -6,82 +6,88 @@ permalink: /devguide/addservice/
 
 {% include toc.html %}
 
-XOS provides a collection of abstractions, interfaces and mechanisms that
-enable Cloud services to interoperate reliably and efficiently.  By using XOS,
-the service developer focuses his or her attention on the core value provided
-by a service, not binding it to the underlying mechanisms of the Cloud
-substrate. This section describes the framework into which services are plugged
-into XOS.
+XOS provides a collection of abstractions, interfaces and mechanisms
+that enable cloud services to interoperate reliably and efficiently.
+By using XOS, the service developer focuses his or her attention on
+the core value provided by a service, not binding it to the underlying
+mechanisms of the cloud substrate. This section describes the
+framework into which services are plugged into XOS.
 
 ## Design Overview
 
-The work of defining a new service is twofold: (1) designing abstractions and
-adding them to XOS through a standard interface (the data model, implemented in
-Django), and (2) plumbing those abstractions through to the actual mechanism
-that implements the service (the service controller). For example, if the value
-provided is that of a storage service, then the first task is to capture the
-user-facing configuration of the storage service as a set of data values that
-represent it, and the second task is to link this representation to the actual
-implementation of the service.
+The work of defining a new service is threefold: (1) designing
+abstractions and adding them to XOS through a standard interface (the
+data model, implemented in Django), (2) plumbing those abstractions
+through to a Northbound Interface so users and applications can access
+them, and (3) plumbing those abstractions through to the actual
+mechanism that implements the service (e.g., the scalable instances
+running in the underlying cloud servers and switches).
 
 The first task is an exercise in writing Django models, which this guide
 discusses in Section [Data Modeling Conventions](/devguide/datamodel/).
 
-The second task involves extending the XOS Synchronizer, which is
-responsible for enacting the state recorded in the XOS data model
-(i.e., configuring and controlling the underlying service by invoking
-operations on its controller). All changes made to the data model --
-including the addition of new objects, updates to existing objects,
-and the deletion of objects -- are intercepted by the Synchronizer. The
-Synchronizer is an event-driven program written in Python. Every time the
-Data Model changes, the Synchronizer receives a notification, upon which
-it queries the Data Model to retrieve the set of updated objects.
+The second task is an exercise in writing REST API endpoints and TOSCA
+specifications, which this guide discusses in Section [Programmatic
+Interfaces](/devguide/interfaces/). We also recommend extending the
+Django Admin API (a Graphical Interface), as explained elsewhere in
+this Developer Guide.
 
-Although we have been describing the Synchronizer as a monolithic entity, it is
-actually a modular system, consisting of a Synchronizer Framework and a set of
-Synchronizer Instances. Each Synchronizer Instance is associated with some
-subset of the Data Model, and acts upon some subset of the imported service
-controllers. For example, there is a Synchronizer Instance that activates User,
-Slice, Instances, and Network objects by calling OpenStack controllers (Nova,
-Neutron, KeyStone); another that activates CDN-related objects by calling the
-HyperCache controller; yet another that activate file system volumes by calling
-the Syndicate controller; and so on. In general, any service-related objects in
-the data model that need to interact with a low level platform must include a
+The third task involves adding a Synchronizer, which is responsible
+for enacting the state recorded in the data model (i.e., configuring
+and controlling the underlying service instances).  All changes made
+to the data model -- including the addition of new objects, updates to
+existing objects, and the deletion of objects -- are intercepted by
+the Synchronizer. Every time the Data Model changes, the Synchronizer
+receives a notification, upon which it queries the Data Model to
+retrieve the set of updated objects. Later subsections of this Section
+describe the Synchronizer in more detail.
+
+Another good introduction to all of these elements is to work through 
+the [ExampleService Tutorial](/devguide/exampleservice/).
+
+The following summarizes all the specific elements (files) that make
+up a service:
+
+| Component        | Source Code for Service "X"                |
+|------------------|--------------------------------------------|
+|Django Data Model | `xos/service/X/model.py`                   |
+| Synchronizer     | `xos/synchronizers/X/steps/sync_X.py` \br
+                     `xos/synchronizers/X/steps/X_playbook.yml` |
+| Admin GUI        | `xos/service/X/admin.py`                   |
+| REST API         | `xos/api/service/X.py` \br
+                     `xos/api/tenant/Xtenant.py` \br
+                     `xos/tests/api/hooks.py` \br
+                     `xos/tests/api/source/service/X.md`        |
+| TOSCA Spec       | `xos/tosca/custom_definitions/X.yaml` \br
+                     `xos/tosca/resources/X.py`                 |
+
+## Introduction to a Synchronizer
+
+Although we have been describing the Synchronizer as a monolithic
+entity, it is actually a modular system, consisting of a Synchronizer
+Framework and a set of Synchronizer Instances. Each Synchronizer
+Instance is associated with some subset of the Data Model, and acts
+upon some subset of the imported service controllers. For example,
+there is a Synchronizer Instance that activates User, Slice,
+Instances, and Network objects by calling OpenStack controllers (Nova,
+Neutron, KeyStone); another that activates CDN-related objects by
+calling the HyperCache controller; and yet another that activates
+subscriber bundles in the by pushing Ansible playbooks to backend
+containers. In general, any service-related objects in the data model
+that need to interact with a low level platform must include a
 service-specific Synchronizer Instance.
 
-The XOS Data Model consists of the set of configuration values that
-need to be set for the system to be operational. This configuration is
-organized as a graph of interconnected Object-Oriented Classes (called
-Models). The graph of the core models is illustrated below.
-
-In this graph, arrows indicate relations between models. The Instance
-model is related to and depends on the Slice model. Concretely, it
-means that an Instance (VM on a node) is associated with a Slice (name
-for a global resource allocation), or even more specifically, that
-Instance objects have a field of type Slice.  The core data model should
-satisfy the needs of most services, but if not, then it can be
-extended.
-
-XOS currently has five Synchronizer Instances: (1) an OpenStack Synchronizer,
-(2) an Amazon EC2 Synchronizer, (3) a Syndicate Storage Synchronizer, (4) a
-High-Performance Cache (HPC) Synchronizer, and (5) a Request Router
-Synchronizer.  Each of these Synchronizer reads from the same data model, but
-administers a different set of backend resources. The OpenStack
-Synchronizer uses OpenStack to create, manage and tear down VMs. The EC2
-Synchronizer helps manage instances on Amazon EC2. Syndicate, HPC, and
-RequestRouter are service-specific Synchronizer.  In this document, we
-will use the Amazon EC2 Synchronizer to illustrate how to develop a new
-instance.
+This section uses the Amazon EC2 Synchronizer to illustrate how to
+develop a new synchronizer that interacts with an existing service
+controller (e.g., the E2 API). The ExampleService Synchronizer
+described in [ExampleService Tutorial](/devguide/exampleservice/)
+illustrates how to develop a new synchronizer that interacts directly
+with the instances (e.g., containers) that implement the service.
 
 *[Note: The Synchronizer Framework, which is common across all Synchronizer
  Instances, is currently embedded in the OpenStack Synchronizer Instance.
  Our plan is to lift it out of this instance and into the core of
  XOS.]*
-
-## Introduction to a Synchronizer
-
-For simplicity, we sometimes say Synchronizer in lieu of Synchronizer
-Instance.
 
 Much like a declarative programing language, Synchronizers are
 goal-oriented (as opposed to task-oriented.) They consider the
