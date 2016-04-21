@@ -42,9 +42,6 @@ receives a notification, upon which it queries the Data Model to
 retrieve the set of updated objects. Later subsections of this Section
 describe the Synchronizer in more detail.
 
-Another good introduction to all of these elements is to work through 
-the [ExampleService Tutorial](/devguide/exampleservice/).
-
 The following summarizes all the specific elements (files) that make
 up a service:
 
@@ -60,6 +57,9 @@ up a service:
 |                  | `xos/tests/api/source/service/X.md`        |
 | TOSCA Spec       | `xos/tosca/custom_definitions/X.yaml`      |
 |                  |  `xos/tosca/resources/X.py`                |
+
+Another good introduction to all of these elements is to work through 
+the [ExampleService Tutorial](/devguide/exampleservice/).
 
 ## Introduction to a Synchronizer
 
