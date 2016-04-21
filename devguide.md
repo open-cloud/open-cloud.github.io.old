@@ -20,7 +20,7 @@ alternative XOS installation.
 - [Programmatic Interfaces](/devguide/interfaces/)
 - [Adding Services](/devguide/addservice/)
 - [Adding Views](/devguide/addview/)
-- [Data Modelling](/devguide/datamodel/)
+- [Data Modeling Conventions](/devguide/datamodel/)
 - [ExampleService Tutorial](/devguide/exampleservice/)
 
 ## Participating in XOS Development
@@ -30,4 +30,7 @@ Bugs reports and feature requests can be filed using the
 
 To participate in a discussion about XOS development, join the
 [devel@xosproject.org](https://groups.google.com/a/xosproject.org/forum/#!forum/devel) Google Group.
+
+To participate in a discussion about XOS's role in CORD, join
+the [CORD Slack team](https://slackin.opencord.org).
 
