@@ -460,7 +460,7 @@ function makemigrations {
 
 ### Test Your Admin Interface
 
-Go through [the development loop](#the-development-loop) to include your
+Go through [the development loop](#development-loop) to include your
 service in XOS.  During the final `make` step, you may want to run `docker logs
 -f devel_xos_1` and look out for any errors which may occur when you first run
 the code.   If so, fix them and restart the loop.
