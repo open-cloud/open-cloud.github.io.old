@@ -8,7 +8,11 @@ permalink: /devguide/exampleservice/
 
 ## Summary
 
-This tutorial shows the steps to [Add a Service](/devguide/addservice/), called ExampleService, to XOS. 
+This tutorial shows the steps to [Add a Service](/devguide/addservice/), called ExampleService, to XOS. In addition to the material presented in this section, a video and slide deck based on ExampleService is available online at
+
+ - [Tutorial Video (Part 1)](https://youtu.be/lRky2vxnYTI)
+ - [Tutorial Video (Part 2)](https://youtu.be/-GaXnbdRx_w)
+ - [Tutorial Slide Deck](http://guide.xosproject.org/XOS-Tutorial.pdf)
 
 ExampleService is multi-tenant. It instantiates a VM instance on behalf of each tenant, and runs an Apache web server in that VM. This web server is then configured to serve a tenant-specified message (a string), where the tenant is able to set this message using the XOS administrative interface.
 
