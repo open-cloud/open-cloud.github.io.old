@@ -21,7 +21,7 @@ accompanying slide deck, which is available online at:
 Note that there are some differences between this section and the
 video. Most notably, this section uses the "devel" configuration,
 while the video uses the "cord-pod" configuration. Either will work,
-the main difference being taht the latter includes other CORD services
+the main difference being that the latter includes other CORD services
 in addition to ExampleService.
 
 ExampleService is multi-tenant. It instantiates a VM instance on behalf of each tenant, and runs an Apache web server in that VM. This web server is then configured to serve a tenant-specified message (a string), where the tenant is able to set this message using the XOS administrative interface.
