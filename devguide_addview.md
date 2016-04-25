@@ -46,6 +46,8 @@ Note that the source tree contains legacy views created as extensions
 to Django's standard template view, but XOS no longer supports these
 Django-based views.
 
+<a href="https://www.youtube.com/watch?v=iEp9F7JYPO8" target="_blank">A video tutorial is available here.</a>
+
 ## Preliminaries
 
 Directory `views/ngXosLib` contains a collection of tools for
