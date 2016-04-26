@@ -18,12 +18,12 @@ accompanying slide deck, which are available online at:
  - [Tutorial Video (Part 2)](https://youtu.be/-GaXnbdRx_w)
  - [Tutorial Slide Deck](http://guide.xosproject.org/XOS-Tutorial.pdf)
 
-Note that there are some differences between the video/slides and this
-section. Most notably, the video uses the "cord-pod" configuration,
-while this section uses the "devel" configuration. Either will work,
-the main difference being that the former includes only
-ExampleService, while latter includes other CORD services in addition
-to ExampleService.
+Note that there are some differences between this section and the
+video/slides, most notably, this section uses the "devel"
+configuration, while the video uses the "cord-pod" configuration.
+Either will work, the main difference being that the former includes
+only ExampleService, while latter includes other CORD services in
+addition to ExampleService.
 
 ExampleService is multi-tenant. It instantiates a VM instance on behalf of each tenant, and runs an Apache web server in that VM. This web server is then configured to serve a tenant-specified message (a string), where the tenant is able to set this message using the XOS administrative interface.
 
