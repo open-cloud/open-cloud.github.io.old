@@ -12,17 +12,18 @@ This section shows the steps to [Add a
 Service](/devguide/addservice/), called ExampleService, to XOS.
 
 We have also used ExampleService in a tutorial video and an
-accompanying slide deck, which is available online at:
+accompanying slide deck, which are available online at:
 
  - [Tutorial Video (Part 1)](https://youtu.be/lRky2vxnYTI)
  - [Tutorial Video (Part 2)](https://youtu.be/-GaXnbdRx_w)
  - [Tutorial Slide Deck](http://guide.xosproject.org/XOS-Tutorial.pdf)
 
-Note that there are some differences between this section and the
-video. Most notably, this section uses the "devel" configuration,
-while the video uses the "cord-pod" configuration. Either will work,
-the main difference being that the latter includes other CORD services
-in addition to ExampleService.
+Note that there are some differences between the video/slides and this
+section. Most notably, the video uses the "cord-pod" configuration,
+while this section uses the "devel" configuration. Either will work,
+the main difference being that the former includes only
+ExampleService, while latter includes other CORD services in addition
+to ExampleService.
 
 ExampleService is multi-tenant. It instantiates a VM instance on behalf of each tenant, and runs an Apache web server in that VM. This web server is then configured to serve a tenant-specified message (a string), where the tenant is able to set this message using the XOS administrative interface.
 
@@ -110,7 +111,7 @@ The process to do the above can be done with this command:
 git pull && make rm && make containers && make
 {% endhighlight %}
 
-Assuming you're pulling your changes from a development git repo.
+assuming you pull your changes from a development git repo.
 
 ## Create the Django Components of a Service
 
@@ -171,7 +172,7 @@ class ExampleService(Service):
 XOS uses the `KIND` variable to uniquely identify each service (which is done internally using the `provider_service` variable).
 
 The [Meta options](https://docs.djangoproject.com/es/1.9/ref/models/options/)
-for `app_label` and `verbose_name` are used on the admin web UI.
+for `app_label` and `verbose_name` are used on the admin GUI.
 
 In some cases, if you have no additional model fields you may want to add `proxy = True` to the class Meta, so it can use it's super's data model, per [Django's
 documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models). 
@@ -184,7 +185,7 @@ We're not using `proxy` in this example because we're adding the following addit
 
 This uses [Django's
 Models](https://docs.djangoproject.com/en/1.9/topics/db/models/) to create a
-`CharField` in the data model. This field stores the message all Tenants of this Service will see.
+`CharField` in the data model. This field stores the message all Tenants of this Service will see. Think of this as a service-wide configuration parameter.
 
 #### Extending TenantWithContainer
 
@@ -209,6 +210,8 @@ The following is the message that will be displayed on a per-Tenant basis:
     tenant_message = models.CharField(max_length=254, help_text="Tenant Message to Display")
 {% endhighlight %}
 
+Think of this as a tenant-specific (service intance specific) parameter.
+
 When creating the Tenant, provide a default value of the first service
 available in the UI.
 
@@ -229,7 +232,7 @@ On save, you may need to create an Instance, which is done by calling the
         model_policy_exampletenant(self.pk)
 {% endhighlight %}
 
-On delete, need to delete the instance created by this Tenant, which is done by
+On delete, you need to delete the instance created by this Tenant, which is done by
 `cleanup_container()`.
 
 {% highlight python %}
@@ -255,7 +258,7 @@ def model_policy_exampletenant(pk):
 
 Create a file named
 [admin.py](https://github.com/open-cloud/xos/tree/master/xos/services/exampleservice/admin.py)
-in your service directory. The start of this file:
+in your service directory. This file implements a graphical interface for your service. The start of this file:
 
 {% highlight python %}
 from core.admin import ReadOnlyAwareAdmin, SliceInline
@@ -326,7 +329,7 @@ Display the [Slice tab]((https://github.com/open-cloud/xos/tree/master/xos/core/
     list_display_links = ('backend_status_icon', 'name', 'service_message' )
 {% endhighlight %}
 
-Columns to display for the list of ExampleService objects, in the Admin web UI at `/admin/exampleservice/exampleservice/`.
+Columns to display for the list of ExampleService objects, in the Admin GUI at `/admin/exampleservice/exampleservice/`.
 
 {% highlight python %}
     fieldsets = [(None, {
@@ -346,7 +349,7 @@ Render [this page](https://github.com/open-cloud/xos/tree/master/xos/core/admin.
     extracontext_registered_admins = True
 {% endhighlight %}
 
-Order of the tabs, and additional [Suit form includes](http://django-suit.readthedocs.org/en/develop/form_includes.html):
+Order of the tabs, and additional [Suit form includes](http://django-suit.readthedocs.org/en/develop/form_includes.html) are specified as:
 
 {% highlight python %}
     suit_form_tabs = (
@@ -410,7 +413,7 @@ When creating the Form, set initial values for the fields:
                 self.fields['provider_service'].initial = ExampleService.get_service_objects().all()[0]
 {% endhighlight %}
 
-Same as for `ExampleServiceForm`, but now for `ExampleTenantForm`:
+Do the same as for `ExampleServiceForm`, but now for `ExampleTenantForm`:
 
 {% highlight python %}
     def save(self, commit=True):
@@ -419,7 +422,7 @@ Same as for `ExampleServiceForm`, but now for `ExampleTenantForm`:
         return super(ExampleTenantForm, self).save(commit=commit)
 {% endhighlight %}
 
-See notes above on `ExampleServiceAdmin` - this configures the fields for the Tenant admin UI.
+See notes above on `ExampleServiceAdmin` -- this configures the fields for the Tenant Admin GUI.
 
 {% highlight python %}
 class ExampleTenantAdmin(ReadOnlyAwareAdmin):
@@ -449,7 +452,7 @@ admin.site.register(ExampleTenant, ExampleTenantAdmin)
 
 ### Install the Service in Django
 
-In order for Django to load your Service, you need to add it to the list of
+So that Django loads your Service, you need to add it to the list of
 [INSTALLED_APPS](https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-INSTALLED_APPS).
 
 This is set in [xos/xos/settings.py](https://github.com/zdw/xos/blob/master/xos/xos/settings.py):
@@ -481,7 +484,7 @@ the code.   If so, fix them and restart the loop.
 
 Once XOS is up, go to
 `http://<ip_or_dns_name_of_host>:9999/admin/exampleservice`, and you should see
-the admin interface:
+the Admin interface:
 
 {% include figure.html url="/figures/devguide_exampleservice_fig01_adminpage.png" caption="ExampleService Administration" %}
 
@@ -519,9 +522,9 @@ successfully.", and a list of Tenants with your message listed.
 
 ## Create a Synchronizer
 
-Synchronizers are scripts that run in a loop and check for changes to the
-Tenant model and apply them to the running Instances. In this case, we're using
-TenantWithContainer, which will create a Virtual Machine Instance.
+Synchronizers are processes that run continuously, checking for changes to the
+Tenant model and applying them to the running Instances. In this case, we're 
+using TenantWithContainer, which creates a Virtual Machine Instance for us.
 
 XOS Synchronizers are located in the
 [xos/synchronizers](https://github.com/open-cloud/xos/tree/master/xos/synchronizers/)
@@ -552,7 +555,7 @@ mod = importlib.import_module("xos-synchronizer")
 mod.main()
 {% endhighlight %}
 
-This is boilerplate which loads and runs the [default xos-synchronizer module](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/xos-synchronizer.py) in [it's own Docker container](#create-a-docker-container-to-run-the-synchronizer).
+This is boilerplate. It loads and runs the [default xos-synchronizer module](https://github.com/open-cloud/xos/blob/master/xos/synchronizers/base/xos-synchronizer.py) in [it's own Docker container](#create-a-docker-container-to-run-the-synchronizer).
 
 To configure this module, create a file named `exampleservice_config`, which
 specifies various configuration and logging options:
