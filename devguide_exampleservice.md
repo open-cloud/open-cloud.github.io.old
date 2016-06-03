@@ -175,7 +175,7 @@ The [Meta options](https://docs.djangoproject.com/es/1.9/ref/models/options/)
 for `app_label` and `verbose_name` are used on the admin GUI.
 
 In some cases, if you have no additional model fields you may want to add `proxy = True` to the class Meta, so it can use it's super's data model, per [Django's
-documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models). 
+documentation](https://docs.djangoproject.com/en/1.9/topics/db/models/#proxy-models).
 
 We're not using `proxy` in this example because we're adding the following additional fields:
 
@@ -511,6 +511,12 @@ Fill in the slice name, then select "mysite" in the Site popdown, then click
 You should see a message similar to this saying that adding the service was
 successful.
 
+The slice configuration may not set a default OS image to be created for
+instances of this slice. To set this, go to `Slices` in the left side
+navigation, select the slice you created, and next to `Default Image` select
+`trusty-server-multi-nic`, which is an ubuntu VM created for use with XOS
+instances.
+
 Go back to the main ExampleService admin page at `/admin/exampleservice` and
 next to "ExampleTenants" click "Add".
 
@@ -523,7 +529,7 @@ successfully.", and a list of Tenants with your message listed.
 ## Create a Synchronizer
 
 Synchronizers are processes that run continuously, checking for changes to the
-Tenant model and applying them to the running Instances. In this case, we're 
+Tenant model and applying them to the running Instances. In this case, we're
 using TenantWithContainer, which creates a Virtual Machine Instance for us.
 
 XOS Synchronizers are located in the
