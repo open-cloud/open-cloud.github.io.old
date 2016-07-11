@@ -57,23 +57,20 @@ your development system and responding at `xos.dev:9999` and `nodeJs` is install
 `xos/configurations/frontend` is normally sufficient for GUI
 development. 
 
-### Apigen
-
-Usage: `npm run apigen`
-
-This tool generates an angular resource file for each endpoint available in the APIS.
-
->You can find api related documentation at: `http://docs.xos.apiary.io`. 
-
 ### Vendors
 
 XOS comes with a set of common libraries, as listed in `bower.json`
 
  * angular
- * angular-route
+ * angular-ui-router
  * angular-resource
  * angular-cookie
- * ng-lodash
+ * angular-mocks
+ * angular-chart.js
+ * bootstrap-css
+ * lodash
+ * jquery
+ * d3
 
 These libraries are served through Django, so they are not included in
 your minified vendor file. To add a library and generate a new file
