@@ -137,9 +137,7 @@ Once your view is done, from your view root folder, run: `npm run build`.
 This will build your application and copy files in the appropriate
 directories for use by Django.
 
-At this point you can enter
-`http://localhost:9999/admin/core/dashboardview/add/` and add your
-custom view.
+At this point you can enter a running XOS instance, and trough the `customize` page is possible to add your custom view.
 
 >_NOTE: url field should be `template:xosSampleView`_
 
@@ -174,6 +172,8 @@ padmin@vicci.org:
           node: {TabName}                                 
           relationship: tosca.relationships.UsesDashboard  
 ```
+
+The TOSCA recipe is printed on the console after you execute the `npm run build` command, or can be printed using `npm run tosca`.
 
 ### Install Dependencies
 
